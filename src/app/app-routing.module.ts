@@ -33,11 +33,6 @@ const routes: Routes = [
       import('./features/settings/settings.module').then(m => m.SettingsModule)
   },
   {
-    path: 'examples',
-    loadChildren: () =>
-      import('./features/examples/examples.module').then(m => m.ExamplesModule)
-  },
-  {
     path: '**',
     redirectTo: ''
   }

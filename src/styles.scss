@@ -23,12 +23,6 @@
 @import './app/shared/big-input/big-input/big-input.component.scss-theme';
 @import './app/features/about/about/about.component.scss-theme';
 @import './app/features/home/home/home.component.scss-theme';
-@import './app/features/examples/notifications/components/notifications.component.scss-theme';
-@import './app/features/examples/todos/components/todos-container.component.scss-theme';
-@import './app/features/examples/stock-market/components/stock-market-container.component.scss-theme';
-@import './app/features/examples/theming/parent/parent.component.scss-theme';
-@import './app/features/examples/theming/child/child.component.scss-theme';
-@import './app/features/examples/examples/examples.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
   @include roleame-webapp-styles-reset-theme($theme);
@@ -36,12 +30,6 @@
   @include roleame-webapp-about-component-theme($theme);
   @include roleame-webapp-home-component-theme($theme);
   @include roleame-webapp-big-input-component-theme($theme);
-  @include roleame-webapp-notifications-component-theme($theme);
-  @include roleame-webapp-todos-container-component-theme($theme);
-  @include roleame-webapp-stock-market-container-component-theme($theme);
-  @include roleame-webapp-parent-component-theme($theme);
-  @include roleame-webapp-child-component-theme($theme);
-  @include roleame-webapp-examples-component-theme($theme);
 }
 
 .default-theme {
