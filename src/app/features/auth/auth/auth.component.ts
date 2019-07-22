@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
   signupForm: FormGroup;
-
+  signupMatcher: CustomErrorMatcher;
   constructor(
     private fb: FormBuilder,
     private translate: TranslateService,

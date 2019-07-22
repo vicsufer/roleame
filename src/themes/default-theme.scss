@@ -1,9 +1,9 @@
-$roleame-webapp-nature-primary: mat-palette($mat-brown, 700, 300, 900);
-$roleame-webapp-nature-accent: mat-palette($mat-deep-purple, 300);
-$roleame-webapp-nature-warn: mat-palette($mat-red, 600);
+$roleame-webapp-light-primary: mat-palette($mat-grey, 200, 500, 300);
+$roleame-webapp-light-accent: mat-palette($mat-brown, 200);
+$roleame-webapp-light-warn: mat-palette($mat-deep-orange, 200);
 
 $roleame-webapp-theme: mat-light-theme(
-  $roleame-webapp-nature-primary,
-  $roleame-webapp-nature-accent,
-  $roleame-webapp-nature-warn
+  $roleame-webapp-light-primary,
+  $roleame-webapp-light-accent,
+  $roleame-webapp-light-warn
 );
