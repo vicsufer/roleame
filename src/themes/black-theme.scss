@@ -1,0 +1,9 @@
+$roleame-webapp-black-primary: mat-palette($mat-grey, 700, 300, 900);
+$roleame-webapp-black-accent: mat-palette($mat-blue-grey, 400);
+$roleame-webapp-black-warn: mat-palette($mat-red, 500);
+
+$roleame-webapp-black-theme: mat-dark-theme(
+  $roleame-webapp-black-primary,
+  $roleame-webapp-black-accent,
+  $roleame-webapp-black-warn
+);

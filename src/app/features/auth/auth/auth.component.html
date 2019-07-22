@@ -1,0 +1,143 @@
+
+<div>
+    <form action=""></form>
+</div>
+
+<div class='row justify-content-center'>
+    <div class='col'>
+            <form [formGroup]="signupForm" (ngSubmit)="signup()">
+        
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                    <mat-card>
+                        <span class="d-flex justify-content-between align-items-baseline">
+                            <h2>{{ 'roleame-webapp.auth.signup.header' | translate }}</h2>
+                        </span>
+        
+                        <div class="row d-flex">
+                            <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                                <input matInput placeholder="{{ 'roleame-webapp.label.email' | translate }}"
+                                formControlName="email">
+                                <mat-error *ngIf="signupForm.get('email').invalid">
+                                {{ 'roleame-webapp.auth.signup.errors.email_used' | translate }}
+                                </mat-error>
+                            </mat-form-field>                  
+                        </div>
+        
+                        <div class="row d-flex">
+                            <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.label.password' | translate }}"
+                                formControlName="password">
+                                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" matTooltip="{{ (hidePassword? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
+                                    <mat-icon>{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                </button>
+                                <mat-error *ngIf="signupForm.get('password').invalid">
+                                {{ 'roleame-webapp.auth.signup.errors.password_invalid' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+        
+                            <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                                <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.auth.password_confirm' | translate }}"
+                                formControlName="passwordConfirm" [errorStateMatcher]="signupMatcher">
+                                <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" matTooltip="{{ (hidePasswordConfirm? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
+                                    <mat-icon>{{hidePasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                </button>
+                                <mat-error *ngIf="signupForm.hasError('notSame')">
+                                {{ 'roleame-webapp.auth.signup.errors.password_not_match' | translate }}
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+        
+                        <div class='row d-flex'>
+                            <div class="form-input-wrap">
+                                <mat-checkbox class='col-12' formControlName="confirmTerms" [ngClass]="routeAnimationsElements">
+                                    {{ 'roleame-webapp.auth.accept_terms.prefix' | translate }} <a>{{ 'roleame-webapp.auth.accept_terms.terms' | translate }}</a>
+                                    {{ 'roleame-webapp.auth.accept_terms.and' | translate }}<a>{{ 'roleame-webapp.auth.accept_terms.policy' | translate }}</a>
+                                </mat-checkbox>
+        
+                                <mat-error class='col-12 checkbox-error'>
+                                        {{ 'roleame-webapp.auth.signup.errors.confirm_terms' | translate }}
+                                </mat-error>
+                            </div>
+                        </div>
+        
+                        <div class="row buttons d-flex justify-content-between pad">
+                            <button type='submit' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                                {{ 'roleame-webapp.auth.signup.header' | translate }}
+                            </button>
+                        </div>
+                    </mat-card>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    <div class='col'>
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                <mat-card>
+
+                    <span class="d-flex justify-content-between align-items-baseline">
+                        <h2>{{ 'roleame-webapp.auth.signup.header' | translate }}</h2>
+                    </span>
+
+                    <div class="row d-flex">
+                        <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                            <input matInput placeholder="{{ 'roleame-webapp.label.email' | translate }}"
+                            formControlName="email">
+                            <mat-error *ngIf="signupForm.get('email').invalid">
+                            {{ 'roleame-webapp.auth.signup.errors.email_used' | translate }}
+                            </mat-error>
+                        </mat-form-field>                  
+                    </div>
+
+                    <div class="row d-flex">
+                        <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.label.password' | translate }}"
+                            formControlName="password">
+                            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" matTooltip="{{ (hidePassword? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
+                                <mat-icon>{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="signupForm.get('password').invalid">
+                            {{ 'roleame-webapp.auth.signup.errors.password_invalid' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                            <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.auth.password_confirm' | translate }}"
+                            formControlName="passwordConfirm" [errorStateMatcher]="signupMatcher">
+                            <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" matTooltip="{{ (hidePasswordConfirm? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
+                                <mat-icon>{{hidePasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="signupForm.hasError('notSame')">
+                            {{ 'roleame-webapp.auth.signup.errors.password_not_match' | translate }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class='row d-flex'>
+                        <div class="form-input-wrap">
+                            <mat-checkbox class='col-12' formControlName="confirmTerms" [ngClass]="routeAnimationsElements">
+                                {{ 'roleame-webapp.auth.accept_terms.prefix' | translate }} <a>{{ 'roleame-webapp.auth.accept_terms.terms' | translate }}</a>
+                                {{ 'roleame-webapp.auth.accept_terms.and' | translate }}<a>{{ 'roleame-webapp.auth.accept_terms.policy' | translate }}</a>
+                            </mat-checkbox>
+
+                            <mat-error class='col-12 checkbox-error'>
+                                    {{ 'roleame-webapp.auth.signup.errors.confirm_terms' | translate }}
+                            </mat-error>
+                        </div>
+                    </div>
+
+                    <div class="row buttons d-flex justify-content-between pad">
+                        <button type='submit' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                            {{ 'roleame-webapp.auth.signup.header' | translate }}
+                        </button>
+                    </div>
+                </mat-card>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

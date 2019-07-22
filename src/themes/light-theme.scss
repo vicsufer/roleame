@@ -1,0 +1,9 @@
+$roleame-webapp-light-primary: mat-palette($mat-grey, 200, 500, 300);
+$roleame-webapp-light-accent: mat-palette($mat-brown, 200);
+$roleame-webapp-light-warn: mat-palette($mat-deep-orange, 200);
+
+$roleame-webapp-light-theme: mat-light-theme(
+  $roleame-webapp-light-primary,
+  $roleame-webapp-light-accent,
+  $roleame-webapp-light-warn
+);
