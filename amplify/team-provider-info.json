@@ -26,5 +26,25 @@
                 }
             }
         }
+    },
+    "stage": {
+        "awscloudformation": {
+            "AuthRoleName": "rolewebapp-stage-20190722152649-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-stage-20190722152649-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-stage-20190722152649-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "rolewebapp-stage-20190722152649-deployment",
+            "UnauthRoleName": "rolewebapp-stage-20190722152649-unauthRole",
+            "StackName": "rolewebapp-stage-20190722152649",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/rolewebapp-stage-20190722152649/5d0e0050-ac84-11e9-b07b-0219aca93f38"
+        },
+        "categories": {
+            "auth": {
+                "roleameauth": {
+                    "facebookAppId": "2335612086691955",
+                    "googleClientId": "420594180563-52lmqkpf21a0ft2hejufhqfhtn7as4q0.apps.googleusercontent.com"
+                }
+            }
+        }
     }
 }
