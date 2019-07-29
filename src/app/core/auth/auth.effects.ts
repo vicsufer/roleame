@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
-import { authLogin, authLogout } from './auth.actions';
+import { actionAuthLogin, actionAuthLogout } from './auth.actions';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -20,7 +20,7 @@ export class AuthEffects {
   login = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(authLogin),
+        ofType(actionAuthLogin),
         tap( () => 
         this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: true })
         )
@@ -31,7 +31,7 @@ export class AuthEffects {
   logout = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(authLogout),
+        ofType(actionAuthLogout),
         tap(() => {
           this.router.navigate(['']);
           this.localStorageService.setItem(AUTH_KEY, {

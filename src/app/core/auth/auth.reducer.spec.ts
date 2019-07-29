@@ -1,11 +1,11 @@
 import { authReducer, initialState } from './auth.reducer';
-import { authLogin, authLogout } from './auth.actions';
+import { actionAuthLogin, actionAuthLogout } from './auth.actions';
 import { AuthState } from './auth.models';
 
 describe('AuthReducer', () => {
   
   const TEST_INITIAL_STATE: AuthState = {
-    isLoggedIn: false,
+    isAuthenticated: false,
     username: null,
     id: null,
     email: null
@@ -19,16 +19,16 @@ describe('AuthReducer', () => {
   });
 
   it('should set authentication to true on login', () => {
-    const action = authLogin();
+    const action = actionAuthLogin({email:'John@doe.com', password: 'verysecure'});
     const state = authReducer(TEST_INITIAL_STATE, action);
 
-    expect(state.isLoggedIn).toBe(true);
+    expect(state.isAuthenticated).toBe(true);
   });
 
   it('should set authentication to false on logout', () => {
-    const action = authLogout();
+    const action = actionAuthLogout();
     const state = authReducer(TEST_INITIAL_STATE, action);
 
-    expect(state.isLoggedIn).toBe(false);
+    expect(state.isAuthenticated).toBe(false);
   });
 });

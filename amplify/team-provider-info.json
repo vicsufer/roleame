@@ -40,9 +40,12 @@
         },
         "categories": {
             "auth": {
-                "roleameauth": {
-                    "facebookAppId": "2335612086691955",
-                    "googleClientId": "420594180563-52lmqkpf21a0ft2hejufhqfhtn7as4q0.apps.googleusercontent.com"
+                "rolewebappf2da6e12": {
+                    "facebookAppIdUserPool": "2335612086691955",
+                    "facebookAppSecretUserPool": "199645468dfa8457308c952a293ad986",
+                    "googleAppIdUserPool": "410233596954-45g3r9aui9peavumh5h5dqkaiih6fhs3.apps.googleusercontent.com",
+                    "googleAppSecretUserPool": "QOiisUGOgj6e5D-2fz-h8urc",
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"410233596954-45g3r9aui9peavumh5h5dqkaiih6fhs3.apps.googleusercontent.com\",\"client_secret\":\"QOiisUGOgj6e5D-2fz-h8urc\"}]"
                 }
             }
         }

@@ -1,3 +1,4 @@
+import { actionAuthLogout } from './../core/auth/auth.actions';
 import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -9,8 +10,7 @@ import { AmplifyService } from 'aws-amplify-angular';
 import awsconfig from '../../aws-exports';
 
 import {
-  authLogin,
-  authLogout,
+
   routeAnimations,
   AppState,
   LocalStorageService,
@@ -75,15 +75,11 @@ export class AppComponent implements OnInit {
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
   }
 
-  onLoginClick() {
-    this.store.dispatch(authLogin());
-  }
-
-  onLogoutClick() {
-    this.store.dispatch(authLogout());
-  }
-
   onLanguageSelect({ value: language }) {
     this.store.dispatch(new ActionSettingsChangeLanguage({ language }));
+  }
+
+  onLogoutClick(){
+    this.store.dispatch( actionAuthLogout() )
   }
 }

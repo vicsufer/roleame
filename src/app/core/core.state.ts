@@ -9,11 +9,11 @@ import { environment } from '../../environments/environment';
 
 import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
 import { debug } from './meta-reducers/debug.reducer';
-import { AuthState } from './auth/auth.models';
 import { authReducer } from './auth/auth.reducer';
 import { RouterStateUrl } from './router/router.state';
 import { settingsReducer } from './settings/settings.reducer';
 import { SettingsState } from './settings/settings.model';
+import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
 export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,
@@ -31,14 +31,16 @@ if (!environment.production) {
   }
 }
 
-export const selectAuthState = createFeatureSelector<AppState, AuthState>(
-  'auth'
-);
+export const selectAuthState = createFeatureSelector<
+  AppState, 
+  AuthState
+>('auth');
 
 export const selectSettingsState = createFeatureSelector<
   AppState,
   SettingsState
 >('settings');
+
 
 export const selectRouterState = createFeatureSelector<
   AppState,

@@ -57,7 +57,9 @@ import {
   faMediumM,
   faTwitter,
   faInstagram,
-  faYoutube
+  faYoutube,
+  faGoogle,
+  faFacebook
 } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
@@ -72,6 +74,8 @@ library.add(
   faTwitter,
   faInstagram,
   faYoutube,
+  faGoogle,
+  faFacebook,
   faPlus,
   faEdit,
   faTrash,

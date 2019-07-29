@@ -61,6 +61,11 @@
   "roleame-webapp.auth.signup.errors.required_field": "Passwords do not match",
   "roleame-webapp.auth.signup.errors.confirm_terms": "Confirm terms",
 
+  "roleame-webapp.auth.login.header": "Iniciar sesión",
+  "roleame-webapp.auth.login.errors.email": "Introduzca su email",
+  "roleame-webapp.auth.login.errors.password": "Introuzca su contraseña",
+  "roleame-webapp.auth.login.errors.wrong_auth": "La combinación usuario/contraseña es incorrecto",
+
   "roleame-webapp.label.email": "Email",
   "roleame-webapp.label.name": "Name",
   "roleame-webapp.label.username": "Username",

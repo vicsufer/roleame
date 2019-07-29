@@ -25,7 +25,6 @@ import {
 } from './core.state';
 import { AuthEffects } from './auth/auth.effects';
 import { selectIsAuthenticated, selectAuth } from './auth/auth.selectors';
-import { authLogin, authLogout } from './auth/auth.actions';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { TitleService } from './title/title.service';
 import {
@@ -54,8 +53,6 @@ import {
 export {
   TitleService,
   selectAuth,
-  authLogin,
-  authLogout,
   routeAnimations,
   AppState,
   LocalStorageService,
@@ -71,7 +68,8 @@ export {
   ActionSettingsChangeAnimationsPageDisabled,
   selectEffectiveTheme,
   selectSettingsLanguage,
-  selectSettingsStickyHeader
+  selectSettingsStickyHeader,
+
 };
 
 export function HttpLoaderFactory(http: HttpClient) {

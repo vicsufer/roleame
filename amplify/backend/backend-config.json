@@ -1,7 +1,7 @@
 {
 	"function": {},
 	"auth": {
-		"roleameauth": {
+		"rolewebappf2da6e12": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

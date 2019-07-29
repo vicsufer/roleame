@@ -1,0 +1,57 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                
+            <mat-card>
+                <span class="d-flex justify-content-between align-items-baseline">
+                    <h2>{{ 'roleame-webapp.auth.login.header' | translate }}</h2>
+                </span>
+
+                <div class="row d-flex">
+                    <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                        <input matInput placeholder="{{ 'roleame-webapp.label.email' | translate }}"
+                        formControlName="email">
+                        <mat-error *ngIf="loginForm.get('email').invalid">
+                        {{ 'roleame-webapp.auth.login.errors.email' | translate }}
+                        </mat-error>
+                    </mat-form-field>                  
+                </div>
+
+                <div class="row d-flex">
+                    <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                        <input matInput [type]="hideLoginPassword ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.label.password' | translate }}"
+                        formControlName="password">
+                        <button mat-icon-button matSuffix (click)="hideLoginPassword = !hideLoginPassword" matTooltip="{{ (hideLoginPassword? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
+                            <mat-icon>{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+                        
+                        <mat-error *ngIf="loginForm.get('password').invalid">
+                            {{ 'roleame-webapp.auth.login.errors.password' | translate }}
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="row buttons justify-content-between pad">
+                    <button class='col' type='submit' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                        {{ 'roleame-webapp.auth.login.header' | translate }}
+                    </button>
+
+                    <div class="col pad">
+                        <button (click)='socialLogin("Google")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                            <fa-icon [icon]="['fab','google']"></fa-icon>
+                        </button>
+    
+                        <button (click)='socialLogin("Facebook")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                            <fa-icon [icon]="['fab','facebook']"></fa-icon>
+                        </button>
+                    </div> 
+
+                </div>
+
+            </mat-card>
+
+            </div>
+        </div>
+    </form>
