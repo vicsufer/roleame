@@ -33,8 +33,8 @@
                     <mat-form-field class="col" [ngClass]="routeAnimationsElements">
                         <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.auth.password_confirm' | translate }}"
                         formControlName="passwordConfirm" [errorStateMatcher]="signupMatcher">
-                        <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" matTooltip="{{ (hidePasswordConfirm? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
-                            <mat-icon>{{hidePasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <button mat-icon-button matSuffix (click)="hideSignupPasswordConfirm = !hideSignupPasswordConfirm" matTooltip="{{ (hidePasswordConfirm? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
+                            <mat-icon>{{hideSignupPasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
                         </button>
                         <mat-error *ngIf="signupForm.hasError('notSame')">
                         {{ 'roleame-webapp.auth.signup.errors.password_not_match' | translate }}
