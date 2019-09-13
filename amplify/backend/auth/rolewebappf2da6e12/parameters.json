@@ -61,7 +61,7 @@
     "additionalQuestions": [],
     "hostedUIDomainName": "roleamauth",
     "newCallbackURLs": [
-        "http://localhost:3000/"
+        "http://localhost:4200/"
     ],
     "newLogoutURLs": [
         "http://localhost:3000/"
@@ -71,6 +71,35 @@
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
-    "dependsOn": []
+    "dependsOn": [],
+    "AllowedOAuthFlows": [
+        "code"
+    ],
+    "AllowedOAuthScopes": [
+        "phone",
+        "email",
+        "openid",
+        "profile",
+        "aws.cognito.signin.user.admin"
+    ],
+    "CallbackURLs": [
+        "htpp://localhost:4200/",
+        "http://localhost:4200/"
+    ],
+    "LogoutURLs": [
+        "http://localhost:4200/"
+    ],
+    "facebookAuthorizeScopes": [
+        "email",
+        "public_profile"
+    ],
+    "googleAuthorizeScopes": [
+        "openid email profile"
+    ],
+    "updateFlow": "callbacks",
+    "EditURLS": [],
+    "addCallbackOnUpdate": false,
+    "addLogoutOnUpdate": false,
+    "editLogoutURLs": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"htpp://localhost:4200/\",\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\"]}"
 }

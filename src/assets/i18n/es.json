@@ -56,7 +56,7 @@
   "roleame-webapp.auth.accept_terms.policy": "política de privacidad",
   "roleame-webapp.auth.signup.errors.email_invalid":"El email introducido no es válido.",
   "roleame-webapp.auth.signup.errors.email_used":"El email introducido ya está en uso.",
-  "roleame-webapp.auth.signup.errors.password_invalid": "La contraseña debe tener un mínimo de 8 caracters utilizando numeros, caracteres especiales y letras mayúsculas y minúsculas.",
+  "roleame-webapp.auth.signup.errors.password_invalid": "La contraseña ha de tener mas de 8 caracteres y debe combinar letras mayusculas y minusculas, números y caracteres especiales.",
   "roleame-webapp.auth.signup.errors.password_not_match": "Las contraseñas no coinciden",
   "roleame-webapp.auth.signup.errors.confirm_terms": "Acepte los términos",
 

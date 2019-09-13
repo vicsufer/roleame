@@ -43,9 +43,9 @@
                 "rolewebappf2da6e12": {
                     "facebookAppIdUserPool": "2335612086691955",
                     "facebookAppSecretUserPool": "199645468dfa8457308c952a293ad986",
-                    "googleAppIdUserPool": "410233596954-45g3r9aui9peavumh5h5dqkaiih6fhs3.apps.googleusercontent.com",
-                    "googleAppSecretUserPool": "QOiisUGOgj6e5D-2fz-h8urc",
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"410233596954-45g3r9aui9peavumh5h5dqkaiih6fhs3.apps.googleusercontent.com\",\"client_secret\":\"QOiisUGOgj6e5D-2fz-h8urc\"}]"
+                    "googleAppIdUserPool": "410233596954-cqadmni7teb36eup7b2sah9g7gshv8mo.apps.googleusercontent.com",
+                    "googleAppSecretUserPool": "erGXwlAb6xb9Ev5JjNcePOwm",
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"410233596954-cqadmni7teb36eup7b2sah9g7gshv8mo.apps.googleusercontent.com\",\"client_secret\":\"erGXwlAb6xb9Ev5JjNcePOwm\"}]"
                 }
             }
         }

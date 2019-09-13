@@ -33,20 +33,20 @@
                     </mat-form-field>
                 </div>
 
-                <div class="row buttons justify-content-between pad">
+                <div class="row buttons justify-content-between pad mt-4">
                     <button class='col' type='submit' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
                         {{ 'roleame-webapp.auth.login.header' | translate }}
                     </button>
+                </div>
 
-                    <div class="col pad">
-                        <button (click)='socialLogin("Google")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
-                            <fa-icon [icon]="['fab','google']"></fa-icon>
-                        </button>
-    
-                        <button (click)='socialLogin("Facebook")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
-                            <fa-icon [icon]="['fab','facebook']"></fa-icon>
-                        </button>
-                    </div> 
+                <div class="row buttons justify-content-between pad">
+                    <button class='col' (click)='socialLogin("Google")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                        <fa-icon [icon]="['fab','google']"></fa-icon>oogle
+                    </button>
+
+                    <button class='col' (click)='socialLogin("Facebook")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                        <fa-icon [icon]="['fab','facebook']"></fa-icon>acebook
+                    </button>
 
                 </div>
 
