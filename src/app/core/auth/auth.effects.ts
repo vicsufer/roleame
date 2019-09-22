@@ -23,10 +23,9 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(actionAuthLogin),
-        tap(() => {
-          console.log(actionAuthLogin);
+        tap(user => {
           this.localStorageService.setItem(AUTH_KEY, {
-            user: actionAuthLogin,
+            user,
             isAuthenticated: true
           });
         })
@@ -39,12 +38,12 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(actionAuthLogout),
         tap(async () => {
-          this.router.navigate(['']);
-          await this.amplifyService.auth().signOut();
           this.localStorageService.setItem(AUTH_KEY, {
             user: null,
             isAuthenticated: false
           });
+          this.router.navigate(['']);
+          await this.amplifyService.auth().signOut();
         })
       ),
     { dispatch: false }
