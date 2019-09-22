@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
 import { actionAuthLogin, actionAuthLogout } from './auth.actions';
+import { AmplifyService } from 'aws-amplify-angular';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -14,16 +15,21 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private amplifyService: AmplifyService
   ) {}
 
   login = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionAuthLogin),
-        tap( () => 
-        this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: true })
-        )
+        tap(() => {
+          console.log(actionAuthLogin);
+          this.localStorageService.setItem(AUTH_KEY, {
+            user: actionAuthLogin,
+            isAuthenticated: true
+          });
+        })
       ),
     { dispatch: false }
   );
@@ -32,9 +38,11 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(actionAuthLogout),
-        tap(() => {
+        tap(async () => {
           this.router.navigate(['']);
+          await this.amplifyService.auth().signOut();
           this.localStorageService.setItem(AUTH_KEY, {
+            user: null,
             isAuthenticated: false
           });
         })

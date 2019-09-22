@@ -3,7 +3,8 @@ import { createSelector } from '@ngrx/store';
 import { selectAuthState } from '../core.state';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
-import { AuthStateTypes} from './auth.models';
+import { AuthStateTypes } from './auth.models';
+import { Auth } from 'aws-amplify';
 
 export const selectAuth = createSelector(
   selectAuthState,

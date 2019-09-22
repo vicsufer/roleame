@@ -1,4 +1,4 @@
-import { actionAuthLogout } from './../core/auth/auth.actions';
+import { actionAuthLogout, actionAuthLogin } from './../core/auth/auth.actions';
 import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -10,7 +10,6 @@ import { AmplifyService } from 'aws-amplify-angular';
 import awsconfig from '../../aws-exports';
 
 import {
-
   routeAnimations,
   AppState,
   LocalStorageService,
@@ -38,7 +37,7 @@ export class AppComponent implements OnInit {
   navigation = [
     { link: 'games', label: 'roleame-webapp.menu.games' },
     { link: 'characters', label: 'roleame-webapp.menu.characters' },
-    { link: 'about', label: 'roleame-webapp.menu.about' },
+    { link: 'about', label: 'roleame-webapp.menu.about' }
   ];
   navigationSideMenu = [
     ...this.navigation,
@@ -52,7 +51,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private amplifyService: AmplifyService
   ) {}
 
   private static isIEorEdgeOrSafari() {
@@ -69,6 +69,10 @@ export class AppComponent implements OnInit {
       );
     }
 
+    var user = this.amplifyService.auth().user;
+    if (user) {
+      user = this.store.dispatch(actionAuthLogin({ user }));
+    }
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.stickyHeader$ = this.store.pipe(select(selectSettingsStickyHeader));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
@@ -79,7 +83,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new ActionSettingsChangeLanguage({ language }));
   }
 
-  onLogoutClick(){
-    this.store.dispatch( actionAuthLogout() )
+  onLogoutClick() {
+    this.store.dispatch(actionAuthLogout());
   }
 }

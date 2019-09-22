@@ -49,6 +49,7 @@ import {
   ActionSettingsChangeLanguage,
   ActionSettingsChangeAnimationsPageDisabled
 } from './settings/settings.actions';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
 export {
   TitleService,
@@ -68,8 +69,7 @@ export {
   ActionSettingsChangeAnimationsPageDisabled,
   selectEffectiveTheme,
   selectSettingsLanguage,
-  selectSettingsStickyHeader,
-
+  selectSettingsStickyHeader
 };
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -82,6 +82,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   imports: [
+    //Amplify
+    AmplifyAngularModule,
+
     // angular
     CommonModule,
     HttpClientModule,
@@ -89,10 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // ngrx
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([
-      AuthEffects,
-      SettingsEffects,
-    ]),
+    EffectsModule.forRoot([AuthEffects, SettingsEffects]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
@@ -110,6 +110,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   declarations: [],
   providers: [
+    { provide: AmplifyService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouterStateSerializer, useClass: CustomSerializer }

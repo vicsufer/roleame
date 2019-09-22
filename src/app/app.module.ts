@@ -3,11 +3,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
+import { CoreModule, AuthGuardService } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
-
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
 @NgModule({
   imports: [
@@ -15,6 +15,8 @@ import { AppComponent } from './app/app.component';
     BrowserAnimationsModule,
     BrowserModule,
 
+    //Amplify
+    AmplifyAngularModule,
 
     // core & shared
     CoreModule,
@@ -23,6 +25,7 @@ import { AppComponent } from './app/app.component';
     // app
     AppRoutingModule
   ],
+  providers: [AmplifyService],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
