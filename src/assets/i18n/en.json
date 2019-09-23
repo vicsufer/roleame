@@ -60,6 +60,8 @@
   "roleame-webapp.auth.signup.errors.password_not_match": "Passwords do not match",
   "roleame-webapp.auth.signup.errors.required_field": "Passwords do not match",
   "roleame-webapp.auth.signup.errors.confirm_terms": "Confirm terms",
+  "roleame-webapp.auth.signup.verify": "Verify email",
+  "roleame-webapp.auth.signup.confirm_code": "Input the verification code sent to your email",
 
   "roleame-webapp.auth.login.header": "Login",
   "roleame-webapp.auth.login.errors.email": "Input your email",
@@ -74,6 +76,7 @@
   "roleame-webapp.label.phone": "Phone number",
   "roleame-webapp.label.password_hide": "Hide password",
   "roleame-webapp.label.password_show": "Show password",
+  "roleame-webapp.label.close": "Close",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",

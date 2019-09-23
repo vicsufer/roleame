@@ -21,7 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSliderModule } from '@angular/material/';
+import { MatSliderModule, MatDialogModule } from '@angular/material/';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 
@@ -158,6 +158,7 @@ import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
 
     FontAwesomeModule,
 

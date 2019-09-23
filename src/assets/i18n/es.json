@@ -54,11 +54,13 @@
   "roleame-webapp.auth.accept_terms.terms": "términos de servicio",
   "roleame-webapp.auth.accept_terms.and": "y la ",
   "roleame-webapp.auth.accept_terms.policy": "política de privacidad",
-  "roleame-webapp.auth.signup.errors.email_invalid":"El email introducido no es válido.",
-  "roleame-webapp.auth.signup.errors.email_used":"El email introducido ya está en uso.",
+  "roleame-webapp.auth.signup.errors.email_invalid": "El email introducido no es válido.",
+  "roleame-webapp.auth.signup.errors.email_used": "El email introducido ya está en uso.",
   "roleame-webapp.auth.signup.errors.password_invalid": "La contraseña ha de tener mas de 8 caracteres y debe combinar letras mayusculas y minusculas, números y caracteres especiales.",
   "roleame-webapp.auth.signup.errors.password_not_match": "Las contraseñas no coinciden",
   "roleame-webapp.auth.signup.errors.confirm_terms": "Acepte los términos",
+  "roleame-webapp.auth.signup.verify": "Confirmar email",
+  "roleame-webapp.auth.signup.confirm_code": "Introduzca el código de verificación enviado al email",
 
   "roleame-webapp.auth.login.header": "Iniciar sesión",
   "roleame-webapp.auth.login.errors.email": "Introduzca su email",
@@ -73,6 +75,7 @@
   "roleame-webapp.label.phone": "Teléfono",
   "roleame-webapp.label.password_hide": "Ocultar contraseña",
   "roleame-webapp.label.password_show": "Mostrar contraseña",
+  "roleame-webapp.label.close": "Cerrar",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",
