@@ -23,21 +23,18 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(actionAuthLogin),
-        tap( (action) => {
+        tap(action => {
+          //TODO:
+          //USAR AmplifyService.auth() get currentCredentials para poner el email en el estado independientemente del proveedor.
+          this.router.navigate(['/']);
           this.amplifyService.setAuthState({
             user: action.user,
             state: AuthStateTypes.SIGNED_IN
-          })
-          // this.localStorageService.setItem(AUTH_KEY, {
-          //   user: action.user,
-          //   isAuthenticated: true
-          // });
+          });
         })
       ),
     { dispatch: false }
   );
-
-
 
   logout = createEffect(
     () =>

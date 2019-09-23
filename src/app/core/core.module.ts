@@ -50,6 +50,7 @@ import {
   ActionSettingsChangeAnimationsPageDisabled
 } from './settings/settings.actions';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { Md5Pipe } from './pipes/md5.pipe';
 
 export {
   TitleService,
@@ -108,14 +109,14 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  declarations: [],
+  declarations: [Md5Pipe],
   providers: [
     { provide: AmplifyService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouterStateSerializer, useClass: CustomSerializer }
   ],
-  exports: [TranslateModule]
+  exports: [TranslateModule, Md5Pipe]
 })
 export class CoreModule {
   constructor(

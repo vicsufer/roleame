@@ -43,7 +43,7 @@
           <button *ngIf="(isAuthenticated$ | async)"
                   mat-icon-button
                   [matMenuTriggerFor]="toolbarUserMenu">
-            <fa-icon icon="user-circle"></fa-icon>
+            <img class='profile-icon' src="https://www.gravatar.com/avatar/{{ currentUserEmail$ | async | md5 }}s=22" alt="User pic">
           </button>
           
           <mat-menu #toolbarUserMenu="matMenu">

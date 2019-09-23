@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     private amplifyService: AmplifyService,
     private notificationService: NotificationService,
     private translateService: TranslateService,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -52,18 +52,20 @@ export class LoginComponent implements OnInit {
       this.amplifyService
         .auth()
         .signIn(email, password)
-        .then( user => {
-          //this.store.dispatch(actionAuthLogin({ user: email }));
+        .then(user => {
+          this.store.dispatch(actionAuthLogin({ user }));
         })
         .catch(err => {
-          this.translateService
-            .get('roleame-webapp.auth.login.errors.wrong_auth')
-            .subscribe(value => {
-              this.notificationService.error(value);
-            });
+          switch (err.code) {
+            case 'UserNotConfirmedException':
+              this.translateService
+                .get('roleame-webapp.auth.login.errors.no-verified')
+                .subscribe(value => {
+                  this.notificationService.error(value);
+                });
+              break;
+          }
         });
-
-      
     }
   }
 }

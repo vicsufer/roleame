@@ -31,7 +31,7 @@
                     </mat-form-field>
 
                     <mat-form-field class="col" [ngClass]="routeAnimationsElements">
-                        <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.auth.password_confirm' | translate }}"
+                        <input matInput [type]="hideSignupPasswordConfirm ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.auth.password_confirm' | translate }}"
                         formControlName="passwordConfirm" [errorStateMatcher]="signupMatcher">
                         <button mat-icon-button matSuffix (click)="hideSignupPasswordConfirm = !hideSignupPasswordConfirm" matTooltip="{{ (hidePasswordConfirm? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
                             <mat-icon>{{hideSignupPasswordConfirm ? 'visibility' : 'visibility_off'}}</mat-icon>
