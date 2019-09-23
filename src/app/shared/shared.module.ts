@@ -98,7 +98,6 @@ library.add(
 import { BigInputComponent } from './big-input/big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action/big-input-action.component';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
-import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   imports: [
@@ -130,8 +129,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   declarations: [
     BigInputComponent,
     BigInputActionComponent,
-    RtlSupportDirective,
-    NavbarComponent
+    RtlSupportDirective
   ],
   exports: [
     CommonModule,

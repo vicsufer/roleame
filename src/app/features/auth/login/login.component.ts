@@ -6,7 +6,8 @@ import { State } from './../../../core/auth/auth.models';
 import {
   ROUTE_ANIMATIONS_ELEMENTS,
   NotificationService,
-  AuthGuardService
+  AuthGuardService,
+  AppState
 } from 'app/core/core.module';
 import { actionAuthLogin } from 'app/core/auth/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,10 +27,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<State>,
     private amplifyService: AmplifyService,
     private notificationService: NotificationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private store: Store<AppState>,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -51,7 +52,9 @@ export class LoginComponent implements OnInit {
       this.amplifyService
         .auth()
         .signIn(email, password)
-        .then(user => console.log(user))
+        .then( user => {
+          //this.store.dispatch(actionAuthLogin({ user: email }));
+        })
         .catch(err => {
           this.translateService
             .get('roleame-webapp.auth.login.errors.wrong_auth')
@@ -60,7 +63,7 @@ export class LoginComponent implements OnInit {
             });
         });
 
-      this.store.dispatch(actionAuthLogin({ user: email }));
+      
     }
   }
 }

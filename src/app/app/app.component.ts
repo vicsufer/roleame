@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment';
 
 import { AmplifyService } from 'aws-amplify-angular';
+import { Hub } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 
 import {
@@ -59,6 +60,8 @@ export class AppComponent implements OnInit {
     return ['ie', 'edge', 'safari'].includes(browser().name);
   }
 
+  
+
   ngOnInit(): void {
     this.storageService.testLocalStorage();
     if (AppComponent.isIEorEdgeOrSafari()) {
@@ -69,14 +72,23 @@ export class AppComponent implements OnInit {
       );
     }
 
-    var user = this.amplifyService.auth().user;
-    if (user) {
-      user = this.store.dispatch(actionAuthLogin({ user }));
-    }
+    Hub.listen('auth', (data) => {
+      const { payload } = data
+       if (payload.event === 'signIn') {
+         this.store.dispatch(actionAuthLogin({ user:payload.data }));
+       }
+    })
+
+
+    this.amplifyService.auth().currentAuthenticatedUser()
+    .then( user => this.store.dispatch(actionAuthLogin({ user })))
+    .catch( error=> console.log(error) )
+
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.stickyHeader$ = this.store.pipe(select(selectSettingsStickyHeader));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
+    
   }
 
   onLanguageSelect({ value: language }) {

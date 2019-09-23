@@ -4,7 +4,6 @@ import { selectAuthState } from '../core.state';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
 import { AuthStateTypes } from './auth.models';
-import { Auth } from 'aws-amplify';
 
 export const selectAuth = createSelector(
   selectAuthState,
@@ -13,5 +12,5 @@ export const selectAuth = createSelector(
 
 export const selectIsAuthenticated = createSelector(
   selectAuthState,
-  (state: AuthState) => state.state == AuthStateTypes.SIGNED_IN
+  (state: AuthState) => state.state === AuthStateTypes.SIGNED_IN
 );

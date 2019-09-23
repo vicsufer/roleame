@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ofType, createEffect, Actions } from '@ngrx/effects';
+import { ofType, createEffect, Actions, Effect } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
@@ -24,24 +24,26 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(actionAuthLogin),
         tap( (action) => {
-          this.localStorageService.setItem(AUTH_KEY, {
+          this.amplifyService.setAuthState({
             user: action.user,
-            isAuthenticated: true
-          });
+            state: "signedIn"
+          })
+          // this.localStorageService.setItem(AUTH_KEY, {
+          //   user: action.user,
+          //   isAuthenticated: true
+          // });
         })
       ),
     { dispatch: false }
   );
+
+
 
   logout = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionAuthLogout),
         tap(async () => {
-          this.localStorageService.setItem(AUTH_KEY, {
-            user: null,
-            isAuthenticated: false
-          });
           this.router.navigate(['']);
           await this.amplifyService.auth().signOut();
         })
