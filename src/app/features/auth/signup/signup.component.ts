@@ -6,7 +6,7 @@ import { State } from 'app/core/auth/auth.models';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material';
-import { AuthState } from 'aws-amplify-angular/dist/src/providers';
+import { AuthState, AmplifyService } from 'aws-amplify-angular/dist/src/providers';
 
 @Component({
   selector: 'rolewebapp-signup',
@@ -28,7 +28,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<State>
+    private store: Store<State>,
+    private amplifyService: AmplifyService
   ) {
 
     this.authState$ = this.store.pipe( select( selectAuth ) )
@@ -52,17 +53,12 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-    /*
     if (this.signupForm.valid) {
-      this.notificationService.info(
-        (this.signupForm.value.confirmTerms
-          ? this.translate.instant('roleame-webapp.examples.form.text4')
-          : this.translate.instant('roleame-webapp.examples.form.text5')) +
-          ' : ' +
-          this.translate.instant('roleame-webapp.examples.form.text6')
-      );
+      var email = this.signupForm.controls.email.value;
+      var password = this.signupForm.controls.password.value;
+      console.log(email + " " + password)
+      this.amplifyService.auth().signUp(email, password).then( (res)=>console.log(res) ).catch( (err)=>console.log(err));
     }
-    */
   }
 
   checkPasswords(group: FormGroup) {
