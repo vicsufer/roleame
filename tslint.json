@@ -1,7 +1,10 @@
 {
-  "extends": "../../tslint.json",
+  "linterOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "directive-selector": [true, "attribute", "roleame-webapp", "camelCase"],
-    "component-selector": [true, "element", "roleame-webapp", "kebab-case"]
+    "component-selector": [true, "element", "roleame-webapp", "kebab-case"],
+    "quotemark": [true, "single", "avoid-escape"]
   }
 }

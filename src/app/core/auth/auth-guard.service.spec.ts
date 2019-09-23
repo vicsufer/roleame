@@ -5,7 +5,8 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { AppState } from '../core.state';
 
 import { AuthGuardService } from './auth-guard.service';
-import { AuthState } from './auth.models';
+import { AuthState } from 'aws-amplify-angular/dist/src/providers';
+import { AuthStateTypes } from './auth.models';
 
 describe('AuthGuardService', () => {
   let authGuardService: AuthGuardService;
@@ -13,10 +14,8 @@ describe('AuthGuardService', () => {
 
 
   const authState: AuthState = {
-    isAuthenticated: true,
-    username: null,
-    id: null,
-    email: null
+    state: AuthStateTypes.SIGNED_IN,
+    user: 'John Doe'
   };
 
   

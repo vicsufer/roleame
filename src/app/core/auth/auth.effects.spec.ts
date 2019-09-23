@@ -5,8 +5,10 @@ import { EMPTY } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { authLogin, authLogout } from './auth.actions';
+import { actionAuthLogin, actionAuthLogout } from './auth.actions';
 import { AuthEffects, AUTH_KEY } from './auth.effects';
+import { AmplifyService } from 'aws-amplify-angular';
+import { AuthStateTypes } from './auth.models';
 
 const scheduler = new TestScheduler((actual, expected) =>
   assert.deepStrictEqual(actual, expected)
@@ -15,6 +17,7 @@ const scheduler = new TestScheduler((actual, expected) =>
 describe('AuthEffects', () => {
   let localStorageService: jasmine.SpyObj<LocalStorageService>;
   let router: jasmine.SpyObj<Router>;
+  let amplifyService: jasmine.SpyObj<AmplifyService>
 
   beforeEach(() => {
     localStorageService = jasmine.createSpyObj('LocalStorageService', [
@@ -24,26 +27,24 @@ describe('AuthEffects', () => {
   });
 
   describe('login', () => {
+
     it('should not dispatch any action', () => {
       const actions = new Actions(EMPTY);
-      const effect = new AuthEffects(actions, localStorageService, router);
+      const effect = new AuthEffects(actions, router, amplifyService);
       const metadata = getEffectsMetadata(effect);
-
       expect(metadata.login.dispatch).toEqual(false);
     });
 
-    it('should call setItem on LocalStorageService', () => {
+    it('should call setAuthState on AmplifyService', () => {
       scheduler.run(helpers => {
         const { cold } = helpers;
-        const loginAction = authLogin();
+        const loginAction = actionAuthLogin({user:'john doe'});
         const source = cold('a', { a: loginAction });
         const actions = new Actions(source);
-        const effect = new AuthEffects(actions, localStorageService, router);
+        const effect = new AuthEffects(actions, router, amplifyService);
 
         effect.login.subscribe(() => {
-          expect(localStorageService.setItem).toHaveBeenCalledWith(AUTH_KEY, {
-            isAuthenticated: true
-          });
+          expect(amplifyService.setAuthState).toHaveBeenCalledWith({user:'john doe'});
         });
       });
     });
@@ -52,25 +53,23 @@ describe('AuthEffects', () => {
   describe('logout', () => {
     it('should not dispatch any action', () => {
       const actions = new Actions(EMPTY);
-      const effect = new AuthEffects(actions, localStorageService, router);
+      const effect = new AuthEffects(actions, router, amplifyService);
       const metadata = getEffectsMetadata(effect);
 
       expect(metadata.logout.dispatch).toEqual(false);
     });
 
-    it('should call setItem on LocalStorageService and navigate to about', () => {
+    it('should call signOut on AmplifyService.auth() and navigate to /', () => {
       scheduler.run(helpers => {
         const { cold } = helpers;
-        const logoutAction = authLogout();
+        const logoutAction = actionAuthLogout();
         const source = cold('a', { a: logoutAction });
         const actions = new Actions(source);
-        const effect = new AuthEffects(actions, localStorageService, router);
+        const effect = new AuthEffects(actions, router, amplifyService);
 
         effect.login.subscribe(() => {
-          expect(localStorageService.setItem).toHaveBeenCalledWith(AUTH_KEY, {
-            isAuthenticated: false
-          });
-          expect(router.navigate).toHaveBeenCalledWith(['']);
+          expect(amplifyService.auth().signOut).toHaveBeenCalled();
+          expect(router.navigate).toHaveBeenCalledWith(['/']);
         });
       });
     });

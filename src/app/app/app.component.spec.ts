@@ -7,29 +7,37 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { SharedModule } from '../shared/shared.module';
 
 import { AppComponent } from './app.component';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+
 
 describe('AppComponent', () => {
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
+        AmplifyAngularModule,
         RouterTestingModule,
         NoopAnimationsModule,
         TranslateModule.forRoot()
       ],
       providers: [
-        provideMockStore({
+          AmplifyService,
+          provideMockStore({
           initialState: {
             settings: {},
             auth: {}
           }
         })
       ],
-      declarations: [AppComponent]
+      declarations: [AppComponent],
+      
     }).compileComponents();
+
+
   }));
 
-  it('should create the app', async(() => {
+  it('should create the app', async( () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();

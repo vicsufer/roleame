@@ -10,6 +10,6 @@ export const initialState: AuthState = {
 
 export const authReducer = createReducer(
   initialState,
-  on(actionAuthLogin, (state, action) => ( { ...state, state: AuthStateTypes.SIGNED_IN }) ),
+  on(actionAuthLogin, (state, action) => ( { ...state, user: action.user ,state: AuthStateTypes.SIGNED_IN }) ),
   on(actionAuthLogout, (state, action) => ( { ...initialState, state: AuthStateTypes.SIGNED_OUT  } ))
 );

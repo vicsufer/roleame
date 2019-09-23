@@ -7,6 +7,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 
 import { actionAuthLogin, actionAuthLogout } from './auth.actions';
 import { AmplifyService } from 'aws-amplify-angular';
+import { AuthStateTypes } from './auth.models';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -14,7 +15,6 @@ export const AUTH_KEY = 'AUTH';
 export class AuthEffects {
   constructor(
     private actions$: Actions,
-    private localStorageService: LocalStorageService,
     private router: Router,
     private amplifyService: AmplifyService
   ) {}
@@ -26,7 +26,7 @@ export class AuthEffects {
         tap( (action) => {
           this.amplifyService.setAuthState({
             user: action.user,
-            state: "signedIn"
+            state: AuthStateTypes.SIGNED_IN
           })
           // this.localStorageService.setItem(AUTH_KEY, {
           //   user: action.user,
@@ -44,7 +44,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(actionAuthLogout),
         tap(async () => {
-          this.router.navigate(['']);
+          this.router.navigate(['/']);
           await this.amplifyService.auth().signOut();
         })
       ),

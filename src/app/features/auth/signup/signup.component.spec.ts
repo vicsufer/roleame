@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupComponent } from './signup.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -8,7 +14,23 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignupComponent ]
+      declarations: [ SignupComponent ],
+      imports: [
+        SharedModule,
+        AmplifyAngularModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
+        TranslateModule.forRoot()
+      ],
+      providers: [
+          AmplifyService,
+          provideMockStore({
+          initialState: {
+            settings: {},
+            auth: {}
+          }
+        })
+      ],
     })
     .compileComponents();
   }));

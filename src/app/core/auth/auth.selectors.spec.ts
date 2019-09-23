@@ -1,4 +1,5 @@
 import { selectAuth, selectIsAuthenticated } from './auth.selectors';
+import { AuthStateTypes } from './auth.models';
 
 describe('Auth Selectors', () => {
   it('selectAuth', () => {
@@ -15,7 +16,8 @@ describe('Auth Selectors', () => {
 function createAuthState() {
   return {
     auth: {
-      isAuthenticated: false
+      state: AuthStateTypes.SIGNED_OUT,
+      user: null
     },
     settings: {} as any,
     router: {} as any

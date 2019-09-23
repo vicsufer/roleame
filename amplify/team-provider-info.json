@@ -1,55 +1,48 @@
 {
-  "rolewebapp": {
-    "awscloudformation": {
-      "AuthRoleName": "rolewebapp-rolewebapp-20190712192104-authRole",
-      "UnauthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-rolewebapp-20190712192104-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-rolewebapp-20190712192104-authRole",
-      "Region": "eu-west-1",
-      "DeploymentBucketName": "rolewebapp-rolewebapp-20190712192104-deployment",
-      "UnauthRoleName": "rolewebapp-rolewebapp-20190712192104-unauthRole",
-      "StackName": "rolewebapp-rolewebapp-20190712192104",
-      "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/rolewebapp-rolewebapp-20190712192104/6dfe60c0-a4c9-11e9-bf2a-02c681d3a380"
-    },
-    "categories": {
-      "function": {
-        "rolewebappCustomMessage": {
-          "REDIRECTURL": "",
-          "EMAILSUBJECT": "",
-          "EMAILMESSAGE": ""
+    "rolewebapp": {
+        "awscloudformation": {
+            "AuthRoleName": "rolewebapp-rolewebapp-20190712192104-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-rolewebapp-20190712192104-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-rolewebapp-20190712192104-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "rolewebapp-rolewebapp-20190712192104-deployment",
+            "UnauthRoleName": "rolewebapp-rolewebapp-20190712192104-unauthRole",
+            "StackName": "rolewebapp-rolewebapp-20190712192104",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/rolewebapp-rolewebapp-20190712192104/6dfe60c0-a4c9-11e9-bf2a-02c681d3a380"
         },
-        "rolewebappPreSignup": {}
-      },
-      "auth": {
-        "rolewebapp8f12afc6": {
-          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"1038424636064-1jms3o06s09rg7ca46it1vulsv7p6q1f.apps.googleusercontent.com\",\"client_secret\":\"bEw4dr4jp3KZzkjJNfVkG_eu\"}]"
+        "categories": {
+            "function": {
+                "rolewebappCustomMessage": {
+                    "REDIRECTURL": "",
+                    "EMAILSUBJECT": "",
+                    "EMAILMESSAGE": ""
+                },
+                "rolewebappPreSignup": {}
+            },
+            "auth": {
+                "rolewebapp8f12afc6": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"1038424636064-1jms3o06s09rg7ca46it1vulsv7p6q1f.apps.googleusercontent.com\",\"client_secret\":\"bEw4dr4jp3KZzkjJNfVkG_eu\"}]"
+                }
+            }
         }
-      }
-    }
-  },
-  "stage": {
-    "awscloudformation": {
-      "AuthRoleName": "rolewebapp-stage-20190722152649-authRole",
-      "UnauthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-stage-20190722152649-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-stage-20190722152649-authRole",
-      "Region": "eu-west-1",
-      "DeploymentBucketName": "rolewebapp-stage-20190722152649-deployment",
-      "UnauthRoleName": "rolewebapp-stage-20190722152649-unauthRole",
-      "StackName": "rolewebapp-stage-20190722152649",
-      "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/rolewebapp-stage-20190722152649/5d0e0050-ac84-11e9-b07b-0219aca93f38"
     },
-    "categories": {
-      "auth": {
-        "rolewebappf2da6e12": {
-          "facebookAppIdUserPool": "2335612086691955",
-          "facebookAppSecretUserPool": "199645468dfa8457308c952a293ad986",
-          "googleAppIdUserPool": "410233596954-cqadmni7teb36eup7b2sah9g7gshv8mo.apps.googleusercontent.com",
-          "googleAppSecretUserPool": "TRo0fp0F1a8lnVVVSApHGA-i",
-          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"410233596954-cqadmni7teb36eup7b2sah9g7gshv8mo.apps.googleusercontent.com\",\"client_secret\":\"erGXwlAb6xb9Ev5JjNcePOwm\"}]"
+    "stage": {
+        "awscloudformation": {
+            "AuthRoleName": "rolewebapp-stage-20190722152649-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-stage-20190722152649-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/rolewebapp-stage-20190722152649-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "rolewebapp-stage-20190722152649-deployment",
+            "UnauthRoleName": "rolewebapp-stage-20190722152649-unauthRole",
+            "StackName": "rolewebapp-stage-20190722152649",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/rolewebapp-stage-20190722152649/5d0e0050-ac84-11e9-b07b-0219aca93f38"
         },
-        "rolewebapp8f12afc6": {
-          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"1038424636064-1jms3o06s09rg7ca46it1vulsv7p6q1f.apps.googleusercontent.com\",\"client_secret\":\"bEw4dr4jp3KZzkjJNfVkG_eu\"}]"
+        "categories": {
+            "auth": {
+                "rolewebapp8f12afc6": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"1038424636064-1jms3o06s09rg7ca46it1vulsv7p6q1f.apps.googleusercontent.com\",\"client_secret\":\"bEw4dr4jp3KZzkjJNfVkG_eu\"}]"
+                }
+            }
         }
-      }
     }
-  }
 }
