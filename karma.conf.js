@@ -33,6 +33,12 @@ module.exports = function (config) {
       ChromeTravisCi: {
         base: 'Chrome',
         flags: ['--no-sandbox']
+      },
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--no-sandbox',
+          '--headless']
       }
     },
     browserNoActivityTimeout: 50000,
