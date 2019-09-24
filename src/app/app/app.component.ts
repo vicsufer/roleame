@@ -1,4 +1,3 @@
-import { actionAuthLogout, actionAuthLogin } from './../core/auth/auth.actions';
 import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -21,6 +20,7 @@ import {
   ActionSettingsChangeLanguage
 } from '../core/core.module';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
+import { ActionAuthLogout } from 'app/core/auth/auth.actions';
 
 @Component({
   selector: 'roleame-webapp-root',
@@ -74,15 +74,17 @@ export class AppComponent implements OnInit {
     Hub.listen('auth', data => {
       const { payload } = data;
       if (payload.event === 'signIn') {
-        this.store.dispatch(actionAuthLogin({ user: payload.data }));
+        console.log(payload.data)
+        this.amplifyService.auth().currentCredentials( (creds)=>console.log(creds) );
+        //this.store.dispatch(actionAuthLogin({ user: creds  }));
       }
     });
 
-    this.amplifyService
-      .auth()
-      .currentAuthenticatedUser()
-      .then(user => this.store.dispatch(actionAuthLogin({ user })))
-      .catch(error => console.log(error));
+    // this.amplifyService
+    //   .auth()
+    //   .currentAuthenticatedUser()
+    //   .then(user => this.store.dispatch(actionAuthLogin({ user })))
+    //   .catch(error => console.log(error));
 
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));
@@ -97,6 +99,6 @@ export class AppComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.store.dispatch(actionAuthLogout());
+    this.store.dispatch(new ActionAuthLogout() );
   }
 }

@@ -1,11 +1,24 @@
-import { createAction, props } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
-export const actionAuthLogin = createAction(
-  '[Auth] Login',
-  props<{ user: any}>()
-);
 
-export const actionAuthLogout = createAction(
-  '[Auth] Logout'
-);
+export enum AuthActionTypes {
+  AUTH_LOGIN = '[Auth] Login',
+  AUTH_LOGOUT = '[Auth] Logout',
+}
 
+export class ActionAuthLogin implements Action {
+  readonly type = AuthActionTypes.AUTH_LOGIN;
+
+  constructor(readonly payload: { user: any }) {}
+}
+
+export class ActionAuthLogout implements Action {
+  readonly type = AuthActionTypes.AUTH_LOGOUT;
+
+  constructor() {}
+}
+
+
+export type AuthActions =
+  | ActionAuthLogin
+  | ActionAuthLogout

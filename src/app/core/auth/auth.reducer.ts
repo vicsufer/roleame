@@ -1,15 +1,25 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { actionAuthLogout, actionAuthLogin } from './auth.actions';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 import { AuthStateTypes } from './auth.models';
+import { AuthActions, AuthActionTypes } from './auth.actions';
 
 export const initialState: AuthState = {
   user: null,
   state: AuthStateTypes.SIGNED_OUT
 };
 
-export const authReducer = createReducer(
-  initialState,
-  on(actionAuthLogin, (state, action) => ( { ...state, user: action.user ,state: AuthStateTypes.SIGNED_IN }) ),
-  on(actionAuthLogout, (state, action) => ( { ...initialState, state: AuthStateTypes.SIGNED_OUT  } ))
-);
+export function authReducer(
+  state: AuthState = initialState,
+  action: AuthActions
+): AuthState {
+  switch (action.type) {
+    case AuthActionTypes.AUTH_LOGIN:
+      return { ...state, user: action.payload.user ,state: AuthStateTypes.SIGNED_IN };
+    case AuthActionTypes.AUTH_LOGOUT:
+      return { ...initialState, state: AuthStateTypes.SIGNED_OUT  }
+
+
+    default:
+      return state;
+  }
+}

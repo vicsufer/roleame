@@ -4,10 +4,9 @@ import { ofType, createEffect, Actions, Effect } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
-
-import { actionAuthLogin, actionAuthLogout } from './auth.actions';
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthStateTypes } from './auth.models';
+import { AuthActionTypes } from './auth.actions';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -22,15 +21,9 @@ export class AuthEffects {
   login = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionAuthLogin),
-        tap(action => {
-          //TODO:
-          //USAR AmplifyService.auth() get currentCredentials para poner el email en el estado independientemente del proveedor.
+        ofType(AuthActionTypes.AUTH_LOGIN),
+        tap( (action) => {
           this.router.navigate(['/']);
-          this.amplifyService.setAuthState({
-            user: action.user,
-            state: AuthStateTypes.SIGNED_IN
-          });
         })
       ),
     { dispatch: false }
@@ -39,7 +32,7 @@ export class AuthEffects {
   logout = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionAuthLogout),
+        ofType(AuthActionTypes.AUTH_LOGOUT),
         tap(async () => {
           this.router.navigate(['/']);
           await this.amplifyService.auth().signOut();

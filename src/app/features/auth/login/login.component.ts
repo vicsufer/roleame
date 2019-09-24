@@ -9,9 +9,9 @@ import {
   AuthGuardService,
   AppState
 } from 'app/core/core.module';
-import { actionAuthLogin } from 'app/core/auth/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { Auth } from 'aws-amplify';
+import { ActionAuthLogin } from 'app/core/auth/auth.actions';
 
 @Component({
   selector: 'rolewebapp-login',
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         .auth()
         .signIn(email, password)
         .then(user => {
-          this.store.dispatch(actionAuthLogin({ user }));
+          this.store.dispatch(new ActionAuthLogin({ user }));
         })
         .catch(err => {
           switch (err.code) {

@@ -27,18 +27,15 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     restartOnFileChange: true,
-    customLaunchers: {
-      ChromeTravisCi: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      },
+    customLaunchers: { 
       ChromeHeadless: {
         base: 'Chrome',
         flags: [
           '--no-sandbox',
-          '--headless']
+          '--headless',
+          ]
       }
     },
     browserNoActivityTimeout: 50000,
