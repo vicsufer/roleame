@@ -24,7 +24,11 @@ import {
   selectRouterState
 } from './core.state';
 import { AuthEffects } from './auth/auth.effects';
-import { selectIsAuthenticated, selectAuth } from './auth/auth.selectors';
+import {
+  selectIsAuthenticated,
+  selectAuth,
+  selectCurrentUser
+} from './auth/auth.selectors';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { TitleService } from './title/title.service';
 import {
@@ -59,6 +63,7 @@ export {
   AppState,
   LocalStorageService,
   selectIsAuthenticated,
+  selectCurrentUser,
   ROUTE_ANIMATIONS_ELEMENTS,
   AnimationsService,
   AuthGuardService,

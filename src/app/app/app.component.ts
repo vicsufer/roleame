@@ -13,14 +13,17 @@ import {
   AppState,
   LocalStorageService,
   selectIsAuthenticated,
+  selectCurrentUser,
   ActionSettingsChangeAnimationsPageDisabled,
   selectSettingsStickyHeader,
   selectSettingsLanguage,
   selectEffectiveTheme,
   ActionSettingsChangeLanguage
 } from '../core/core.module';
+import { ActionAuthLogout, ActionAuthLogin } from 'app/core/auth/auth.actions';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
-import { ActionAuthLogout } from 'app/core/auth/auth.actions';
 
 @Component({
   selector: 'roleame-webapp-root',
@@ -46,7 +49,7 @@ export class AppComponent implements OnInit {
   ];
 
   isAuthenticated$: Observable<boolean>;
-  currentUserEmail$: Observable<string>;
+  currentUserEmail$: Observable<String>;
   stickyHeader$: Observable<boolean>;
   language$: Observable<string>;
   theme$: Observable<string>;
@@ -54,7 +57,8 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private storageService: LocalStorageService,
-    private amplifyService: AmplifyService
+    private amplifyService: AmplifyService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   private static isIEorEdgeOrSafari() {
@@ -71,27 +75,23 @@ export class AppComponent implements OnInit {
       );
     }
 
-    Hub.listen('auth', data => {
-      const { payload } = data;
-      if (payload.event === 'signIn') {
-        console.log(payload.data)
-        this.amplifyService.auth().currentCredentials( (creds)=>console.log(creds) );
-        //this.store.dispatch(actionAuthLogin({ user: creds  }));
-      }
-    });
-
-    // this.amplifyService
-    //   .auth()
-    //   .currentAuthenticatedUser()
-    //   .then(user => this.store.dispatch(actionAuthLogin({ user })))
-    //   .catch(error => console.log(error));
-
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));
-    this.currentUserEmail$.subscribe(user => console.log(user));
     this.stickyHeader$ = this.store.pipe(select(selectSettingsStickyHeader));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
+  }
+
+  ngAfterViewInit(): void {
+    Hub.listen('auth', ({ payload: { event, data } }) => {
+      switch (event) {
+        case 'signIn':
+          this.store.dispatch(new ActionAuthLogin(data));
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   onLanguageSelect({ value: language }) {
@@ -99,6 +99,6 @@ export class AppComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.store.dispatch(new ActionAuthLogout() );
+    this.store.dispatch(new ActionAuthLogout());
   }
 }

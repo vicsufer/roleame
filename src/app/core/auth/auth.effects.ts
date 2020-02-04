@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ofType, createEffect, Actions, Effect } from '@ngrx/effects';
+import {
+  ofType,
+  createEffect,
+  Actions,
+  Effect,
+  ROOT_EFFECTS_INIT
+} from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
-import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AmplifyService } from 'aws-amplify-angular';
-import { AuthStateTypes } from './auth.models';
 import { AuthActionTypes } from './auth.actions';
+import { defer, Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { State, AuthStateTypes } from './auth.models';
+import { AUTO_STYLE } from '@angular/animations';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -15,14 +23,15 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private amplifyService: AmplifyService
+    private amplifyService: AmplifyService,
+    private store: Store<State>
   ) {}
 
   login = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_LOGIN),
-        tap( (action) => {
+        tap(() => {
           this.router.navigate(['/']);
         })
       ),

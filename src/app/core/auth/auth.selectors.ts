@@ -19,3 +19,8 @@ export const selectCurrentUserEmail = createSelector(
   selectAuthState,
   (state: AuthState) => (state.user ? state.user.attributes.email : null)
 );
+
+export const selectCurrentUser = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user
+);

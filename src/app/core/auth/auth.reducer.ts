@@ -1,5 +1,8 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { AuthState } from 'aws-amplify-angular/dist/src/providers';
+import {
+  AuthState,
+  AmplifyService
+} from 'aws-amplify-angular/dist/src/providers';
 import { AuthStateTypes } from './auth.models';
 import { AuthActions, AuthActionTypes } from './auth.actions';
 
@@ -14,11 +17,13 @@ export function authReducer(
 ): AuthState {
   switch (action.type) {
     case AuthActionTypes.AUTH_LOGIN:
-      return { ...state, user: action.payload.user ,state: AuthStateTypes.SIGNED_IN };
+      return {
+        ...state,
+        user: action.payload,
+        state: AuthStateTypes.SIGNED_IN
+      };
     case AuthActionTypes.AUTH_LOGOUT:
-      return { ...initialState, state: AuthStateTypes.SIGNED_OUT  }
-
-
+      return { ...initialState, state: AuthStateTypes.SIGNED_OUT };
     default:
       return state;
   }

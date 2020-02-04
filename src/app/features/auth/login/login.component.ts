@@ -10,7 +10,6 @@ import {
   AppState
 } from 'app/core/core.module';
 import { TranslateService } from '@ngx-translate/core';
-import { Auth } from 'aws-amplify';
 import { ActionAuthLogin } from 'app/core/auth/auth.actions';
 
 @Component({
@@ -41,7 +40,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   socialLogin(provider) {
-    this.amplifyService.auth().federatedSignIn({ provider });
+    this.amplifyService
+      .auth()
+      .federatedSignIn({ provider })
+      .then(user => {
+        this.store.dispatch(new ActionAuthLogin(user));
+      })
+      .catch(err => {
+        this.loginError(err);
+      });
   }
 
   login() {
@@ -53,19 +60,23 @@ export class LoginComponent implements OnInit {
         .auth()
         .signIn(email, password)
         .then(user => {
-          this.store.dispatch(new ActionAuthLogin({ user }));
+          this.store.dispatch(new ActionAuthLogin(user));
         })
         .catch(err => {
-          switch (err.code) {
-            case 'UserNotConfirmedException':
-              this.translateService
-                .get('roleame-webapp.auth.login.errors.no-verified')
-                .subscribe(value => {
-                  this.notificationService.error(value);
-                });
-              break;
-          }
+          this.loginError(err);
         });
+    }
+  }
+
+  loginError(err) {
+    switch (err.code) {
+      case 'UserNotConfirmedException':
+        this.translateService
+          .get('roleame-webapp.auth.login.errors.no-verified')
+          .subscribe(value => {
+            this.notificationService.error(value);
+          });
+        break;
     }
   }
 }

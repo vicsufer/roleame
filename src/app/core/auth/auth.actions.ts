@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
-
+import { State, AuthStateTypes } from './auth.models';
 
 export enum AuthActionTypes {
   AUTH_LOGIN = '[Auth] Login',
-  AUTH_LOGOUT = '[Auth] Logout',
+  AUTH_LOGOUT = '[Auth] Logout'
 }
 
 export class ActionAuthLogin implements Action {
@@ -11,14 +11,9 @@ export class ActionAuthLogin implements Action {
 
   constructor(readonly payload: { user: any }) {}
 }
-
 export class ActionAuthLogout implements Action {
   readonly type = AuthActionTypes.AUTH_LOGOUT;
-
   constructor() {}
 }
 
-
-export type AuthActions =
-  | ActionAuthLogin
-  | ActionAuthLogout
+export type AuthActions = ActionAuthLogin | ActionAuthLogout;
