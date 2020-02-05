@@ -17,13 +17,11 @@ export function authReducer(
 ): AuthState {
   switch (action.type) {
     case AuthActionTypes.AUTH_LOGIN:
-      return {
-        ...state,
-        user: action.payload,
-        state: AuthStateTypes.SIGNED_IN
-      };
+      return { ...state, state: AuthStateTypes.SIGNED_IN };
     case AuthActionTypes.AUTH_LOGOUT:
       return { ...initialState, state: AuthStateTypes.SIGNED_OUT };
+    case AuthActionTypes.AUTH_SETUSER:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

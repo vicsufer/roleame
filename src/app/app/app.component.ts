@@ -83,10 +83,13 @@ export class AppComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    // TODO
+    // Use localstorage to verify if already signed in, if so, dispatch ActionAuthLogin
+
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-          this.store.dispatch(new ActionAuthLogin(data));
+          this.store.dispatch(new ActionAuthLogin());
           break;
         default:
           break;

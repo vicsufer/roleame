@@ -7,10 +7,10 @@ import {
   Effect,
   ROOT_EFFECTS_INIT
 } from '@ngrx/effects';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap, map, catchError } from 'rxjs/operators';
 
 import { AmplifyService } from 'aws-amplify-angular';
-import { AuthActionTypes } from './auth.actions';
+import { AuthActionTypes, ActionAuthSetUser } from './auth.actions';
 import { defer, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State, AuthStateTypes } from './auth.models';
@@ -31,9 +31,16 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_LOGIN),
-        tap(() => {
-          this.router.navigate(['/']);
-        })
+        switchMap(() =>
+          this.amplifyService
+            .auth()
+            .currentUserInfo()
+            .then(userInfo =>
+              this.store.dispatch(new ActionAuthSetUser(userInfo))
+            )
+            .catch(error => console.log(error))
+            .finally(() => this.router.navigate(['/']))
+        )
       ),
     { dispatch: false }
   );

@@ -12,7 +12,7 @@ export const selectAuth = createSelector(
 
 export const selectIsAuthenticated = createSelector(
   selectAuthState,
-  (state: AuthState) => state.state === AuthStateTypes.SIGNED_IN
+  (state: AuthState) => state.state === AuthStateTypes.SIGNED_IN && state.user
 );
 
 export const selectCurrentUserEmail = createSelector(

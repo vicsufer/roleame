@@ -43,9 +43,7 @@ export class LoginComponent implements OnInit {
     this.amplifyService
       .auth()
       .federatedSignIn({ provider })
-      .then(user => {
-        this.store.dispatch(new ActionAuthLogin(user));
-      })
+      .then(user => {})
       .catch(err => {
         this.loginError(err);
       });
@@ -59,9 +57,7 @@ export class LoginComponent implements OnInit {
       this.amplifyService
         .auth()
         .signIn(email, password)
-        .then(user => {
-          this.store.dispatch(new ActionAuthLogin(user));
-        })
+        .then(user => {})
         .catch(err => {
           this.loginError(err);
         });
