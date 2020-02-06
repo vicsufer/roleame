@@ -62,7 +62,6 @@ export class SettingsEffects {
       SettingsActionTypes.CHANGE_ANIMATIONS_ELEMENTS,
       SettingsActionTypes.CHANGE_ANIMATIONS_PAGE,
       SettingsActionTypes.CHANGE_ANIMATIONS_PAGE_DISABLED,
-      SettingsActionTypes.CHANGE_AUTO_NIGHT_AUTO_MODE,
       SettingsActionTypes.CHANGE_LANGUAGE,
       SettingsActionTypes.CHANGE_THEME
     ),

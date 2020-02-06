@@ -81,8 +81,6 @@ describe('SettingsEffects', () => {
         pageAnimations: true,
         elementsAnimations: true,
         theme: 'default',
-        nightTheme: 'default',
-        autoNightMode: false,
         pageAnimationsDisabled: true,
         hour: 12
       };
