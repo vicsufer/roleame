@@ -80,11 +80,6 @@ export class AppComponent implements OnInit {
     this.stickyHeader$ = this.store.pipe(select(selectSettingsStickyHeader));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
-  }
-
-  ngAfterViewInit(): void {
-    // TODO
-    // Use localstorage to verify if already signed in, if so, dispatch ActionAuthLogin
 
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
