@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-
   {
     path: '',
     loadChildren: () =>
@@ -26,11 +25,6 @@ const routes: Routes = [
       import('./features/feature-list/feature-list.module').then(
         m => m.FeatureListModule
       )
-  },
-  {
-    path: 'settings',
-    loadChildren: () =>
-      import('./features/settings/settings.module').then(m => m.SettingsModule)
   },
   {
     path: '**',

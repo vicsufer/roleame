@@ -44,8 +44,7 @@ import { NotificationService } from './notifications/notification.service';
 import { SettingsEffects } from './settings/settings.effects';
 import {
   selectSettingsLanguage,
-  selectEffectiveTheme,
-  selectSettingsStickyHeader
+  selectEffectiveTheme
 } from './settings/settings.selectors';
 import {
   SettingsActions,
@@ -74,8 +73,7 @@ export {
   ActionSettingsChangeLanguage,
   ActionSettingsChangeAnimationsPageDisabled,
   selectEffectiveTheme,
-  selectSettingsLanguage,
-  selectSettingsStickyHeader
+  selectSettingsLanguage
 };
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -102,7 +100,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-          name: 'Angular NgRx Material Starter'
+          name: 'Roleame'
         }),
 
     // 3rd party

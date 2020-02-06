@@ -64,7 +64,6 @@ export class SettingsEffects {
       SettingsActionTypes.CHANGE_ANIMATIONS_PAGE_DISABLED,
       SettingsActionTypes.CHANGE_AUTO_NIGHT_AUTO_MODE,
       SettingsActionTypes.CHANGE_LANGUAGE,
-      SettingsActionTypes.CHANGE_STICKY_HEADER,
       SettingsActionTypes.CHANGE_THEME
     ),
     withLatestFrom(this.store.pipe(select(selectSettingsState))),

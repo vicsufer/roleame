@@ -13,9 +13,7 @@ import {
   AppState,
   LocalStorageService,
   selectIsAuthenticated,
-  selectCurrentUser,
   ActionSettingsChangeAnimationsPageDisabled,
-  selectSettingsStickyHeader,
   selectSettingsLanguage,
   selectEffectiveTheme,
   ActionSettingsChangeLanguage
@@ -50,15 +48,12 @@ export class AppComponent implements OnInit {
 
   isAuthenticated$: Observable<boolean>;
   currentUserEmail$: Observable<String>;
-  stickyHeader$: Observable<boolean>;
   language$: Observable<string>;
   theme$: Observable<string>;
 
   constructor(
     private store: Store<AppState>,
-    private storageService: LocalStorageService,
-    private amplifyService: AmplifyService,
-    private activatedRoute: ActivatedRoute
+    private storageService: LocalStorageService
   ) {}
 
   private static isIEorEdgeOrSafari() {
@@ -77,7 +72,6 @@ export class AppComponent implements OnInit {
 
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));
-    this.stickyHeader$ = this.store.pipe(select(selectSettingsStickyHeader));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
 

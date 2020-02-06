@@ -6,7 +6,6 @@ export const initialState: SettingsState = {
   theme: 'DEFAULT-THEME',
   autoNightMode: false,
   nightTheme: NIGHT_MODE_THEME,
-  stickyHeader: true,
   pageAnimations: true,
   pageAnimationsDisabled: false,
   elementsAnimations: true,
@@ -21,7 +20,6 @@ export function settingsReducer(
     case SettingsActionTypes.CHANGE_LANGUAGE:
     case SettingsActionTypes.CHANGE_THEME:
     case SettingsActionTypes.CHANGE_AUTO_NIGHT_AUTO_MODE:
-    case SettingsActionTypes.CHANGE_STICKY_HEADER:
     case SettingsActionTypes.CHANGE_ANIMATIONS_PAGE:
     case SettingsActionTypes.CHANGE_ANIMATIONS_ELEMENTS:
     case SettingsActionTypes.CHANGE_HOUR:
