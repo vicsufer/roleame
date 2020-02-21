@@ -28,12 +28,7 @@ export const selectElementsAnimations = createSelector(
   settings => settings.elementsAnimations
 );
 
-export const selectHour = createSelector(
-  selectSettings,
-  settings => settings.hour
-);
-
 export const selectEffectiveTheme = createSelector(
   selectTheme,
-  (theme) => theme.toLowerCase()
+  theme => theme.toLowerCase()
 );

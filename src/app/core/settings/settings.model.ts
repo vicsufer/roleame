@@ -6,9 +6,7 @@ export interface SettingsState {
   language: string;
   theme: string;
   pageAnimations: boolean;
-  pageAnimationsDisabled: boolean;
   elementsAnimations: boolean;
-  hour: number;
 }
 
 export interface State extends AppState {

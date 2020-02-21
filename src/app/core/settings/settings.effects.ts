@@ -19,11 +19,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AnimationsService } from '../animations/animations.service';
 import { TitleService } from '../title/title.service';
 
-import {
-  SettingsActionTypes,
-  SettingsActions,
-  ActionSettingsChangeHour
-} from './settings.actions';
+import { SettingsActionTypes, SettingsActions } from './settings.actions';
 import {
   selectEffectiveTheme,
   selectSettingsLanguage,
@@ -49,13 +45,6 @@ export class SettingsEffects {
     private translateService: TranslateService
   ) {}
 
-  @Effect()
-  changeHour = interval(60_000).pipe(
-    mapTo(new Date().getHours()),
-    distinctUntilChanged(),
-    map(hour => new ActionSettingsChangeHour({ hour }))
-  );
-
   @Effect({ dispatch: false })
   persistSettings = this.actions$.pipe(
     ofType(
@@ -68,31 +57,6 @@ export class SettingsEffects {
     withLatestFrom(this.store.pipe(select(selectSettingsState))),
     tap(([action, settings]) =>
       this.localStorageService.setItem(SETTINGS_KEY, settings)
-    )
-  );
-
-  @Effect({ dispatch: false })
-  updateRouteAnimationType = merge(
-    INIT,
-    this.actions$.pipe(
-      ofType(
-        SettingsActionTypes.CHANGE_ANIMATIONS_ELEMENTS,
-        SettingsActionTypes.CHANGE_ANIMATIONS_PAGE
-      )
-    )
-  ).pipe(
-    withLatestFrom(
-      combineLatest([
-        this.store.pipe(select(selectPageAnimations)),
-        this.store.pipe(select(selectElementsAnimations))
-      ])
-    ),
-    tap(([action, [pageAnimations, elementsAnimations]]) =>
-      this.animationsService.updateRouteAnimationType(
-        pageAnimations,
-
-        elementsAnimations
-      )
     )
   );
 

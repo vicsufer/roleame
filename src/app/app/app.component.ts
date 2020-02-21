@@ -62,13 +62,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.storageService.testLocalStorage();
-    if (AppComponent.isIEorEdgeOrSafari()) {
-      this.store.dispatch(
-        new ActionSettingsChangeAnimationsPageDisabled({
-          pageAnimationsDisabled: true
-        })
-      );
-    }
 
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));
