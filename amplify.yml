@@ -1,9 +1,9 @@
 version: 0.1
 backend:
   phases:
-     build:
+    build:
       commands:
-        - ./amplifypush.sh
+        - amplifyPush --simple
 frontend:
   phases:
     preBuild:
