@@ -4,7 +4,7 @@ backend:
      build:
       commands:
         - chmod u+x ./amplifypush.sh
-        - ./amplfypush.sh
+        - ./amplifypush.sh
 frontend:
   phases:
     preBuild:
