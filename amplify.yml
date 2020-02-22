@@ -3,7 +3,7 @@ backend:
   phases:
      build:
       commands:
-        - chmod u+x ./vertrun-amplifypush.sh
+        - chmod u+x ./amplifypush.sh
         - ./amplfypush.sh
 frontend:
   phases:
