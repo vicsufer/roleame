@@ -1,14 +1,10 @@
 version: 0.1
 backend:
   phases:
-     preBuild:
-       commands:
-         - export STACKINFO="$(envCache --get stackInfo)"
      build:
       commands:
-        - echo "printing env"
-        - env
-        - amplifyPush --environment $AWS_BRANCH
+        - chmod u+x ./vertrun-amplifypush.sh
+        - ./amplfypush.sh
 frontend:
   phases:
     preBuild:
