@@ -63,9 +63,9 @@ done
 set -- "${POSITIONAL[@]}"
 
 # if no provided environment name, use default env variable, then user override
-if [[ ${ENV} = "" ]];
+if [[ ${AWS_BRANCH} = "master" ]];
 then
-    ENV=${AWS_BRANCH}
+    ENV="production"
 fi
 if [[ ${USER_BRANCH} != "" ]];
 then
