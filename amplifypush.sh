@@ -63,6 +63,10 @@ done
 set -- "${POSITIONAL[@]}"
 
 # if no provided environment name, use default env variable, then user override
+if [[ ${ENV} = "" ]];
+then
+    ENV=${AWS_BRANCH}
+fi
 if [[ ${USER_BRANCH} != "" ]];
 then
     ENV=${USER_BRANCH}
