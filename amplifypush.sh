@@ -95,7 +95,7 @@ CODEGEN="{\
 }"
 
 AUTHCONFIG="{\
-\"facebookAppId\":\"${FACEBOOK_CLIENT_ID}\",\
+\"facebookAppIdUserPool\":\"${FACEBOOK_CLIENT_ID}\",\
 \"facebookAppSecretUserPool\":\"${FACEBOOK_CLIENT_SECRET}\",\
 \"googleAppIdUserPool\":\"${GOOGLE_CLIENT_ID}\",\
 \"googleAppSecretUserPool\":\"${GOOGLE_CLIENT_SECRET}\"\
