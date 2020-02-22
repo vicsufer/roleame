@@ -4,8 +4,6 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { environment as env } from '../../environments/environment';
-
-import { AmplifyService } from 'aws-amplify-angular';
 import { Hub } from 'aws-amplify';
 
 import {
@@ -13,14 +11,11 @@ import {
   AppState,
   LocalStorageService,
   selectIsAuthenticated,
-  ActionSettingsChangeAnimationsPageDisabled,
   selectSettingsLanguage,
   selectEffectiveTheme,
   ActionSettingsChangeLanguage
 } from '../core/core.module';
 import { ActionAuthLogout, ActionAuthLogin } from 'app/core/auth/auth.actions';
-import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
 
 @Component({
