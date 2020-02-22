@@ -3,8 +3,6 @@ backend:
   phases:
      build:
       commands:
-        - amplify pull --appId d8n919clrg0dl --envName $ENV
-        - amplify status
         - ./amplifypush.sh
 frontend:
   phases:
