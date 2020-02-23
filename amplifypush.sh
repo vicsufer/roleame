@@ -66,6 +66,8 @@ set -- "${POSITIONAL[@]}"
 if [[ ${AWS_BRANCH} = "master" ]];
 then
     ENV="production"
+else
+    ENV="stage"
 fi
 if [[ ${USER_BRANCH} != "" ]];
 then
