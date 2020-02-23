@@ -46,9 +46,9 @@
             },
             "function": {
                 "roleamefbd7e0b6CustomMessage": {
+                    "EMAILMESSAGE": "",
                     "REDIRECTURL": "http://localhost:4200",
-                    "EMAILSUBJECT": "Dev-roleame",
-                    "EMAILMESSAGE": ""
+                    "EMAILSUBJECT": "Dev-roleame"
                 }
             }
         }
