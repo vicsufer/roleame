@@ -1,0 +1,29 @@
+{
+    "production": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-roleame-production-152126-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-152126-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-152126-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-roleame-production-152126-deployment",
+            "UnauthRoleName": "amplify-roleame-production-152126-unauthRole",
+            "StackName": "amplify-roleame-production-152126",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-production-152126/4a243ab0-557e-11ea-924a-02dbc193ed28",
+            "AmplifyAppId": "d8n919clrg0dl"
+        },
+        "categories": {
+            "function": {
+                "roleamefbd7e0b6CustomMessage": {
+                    "REDIRECTURL": "https://rolea.me/",
+                    "EMAILSUBJECT": "Roleame - Account verification",
+                    "EMAILMESSAGE": "It's great to have you here, click the following link to confirm your signup."
+                }
+            },
+            "auth": {
+                "roleamefbd7e0b6": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"2335612086691955\",\"client_secret\":\"199645468dfa8457308c952a293ad986\"},{\"ProviderName\":\"Google\",\"client_id\":\"410233596954-cqadmni7teb36eup7b2sah9g7gshv8mo.apps.googleusercontent.com\",\"client_secret\":\"TRo0fp0F1a8lnVVVSApHGA-i\"}]"
+                }
+            }
+        }
+    }
+}

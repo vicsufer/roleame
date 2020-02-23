@@ -23,7 +23,7 @@
                         <input matInput [type]="hideLoginPassword ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.label.password' | translate }}"
                         formControlName="password">
                         <button mat-icon-button matSuffix (click)="hideLoginPassword = !hideLoginPassword" matTooltip="{{ (hideLoginPassword? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
-                            <mat-icon>{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            <mat-icon>{{hideLoginPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
                         </button>
                         
                         <mat-error *ngIf="loginForm.get('password').invalid">
