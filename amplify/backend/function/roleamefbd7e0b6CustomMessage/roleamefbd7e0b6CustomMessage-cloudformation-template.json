@@ -118,7 +118,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-roleame-production-152126-deployment",
+					"S3Bucket": "amplify-roleame-dev-140404-deployment",
 					"S3Key": "amplify-builds/roleamefbd7e0b6CustomMessage-79416a73304a33336a57-build.zip"
 				}
 			}
