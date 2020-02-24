@@ -1,0 +1,27 @@
+{
+    "production": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-roleame-production-32417-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-32417-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-32417-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-roleame-production-32417-deployment",
+            "UnauthRoleName": "amplify-roleame-production-32417-unauthRole",
+            "StackName": "amplify-roleame-production-32417",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-production-32417/6d17a050-56ac-11ea-b686-0aa24a1523d0",
+            "AmplifyAppId": "d3de0f5h7hk76g"
+        },
+        "categories": {
+            "function": {
+                "roleame5da67b5fCustomMessage": {
+                    "REDIRECTURL": "https://rolea.me",
+                    "EMAILSUBJECT": "Roleame: Account confirmation",
+                    "EMAILMESSAGE": "Thank you for signing in, click the following link to setup your account."
+                }
+            },
+            "auth": {
+                "roleame5da67b5f": {}
+            }
+        }
+    }
+}

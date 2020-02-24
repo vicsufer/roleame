@@ -3,7 +3,7 @@ backend:
   phases:
     build:
       commands:
-        - ./amplifypush.sh --environemnt $ENV
+        - amplifyPush --simple
 frontend:
   phases:
     preBuild:
