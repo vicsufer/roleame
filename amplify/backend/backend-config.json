@@ -1,19 +1,19 @@
 {
 	"function": {
-		"roleame5da67b5fCustomMessage": {
+		"roleamea3ac29ecCustomMessage": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		}
 	},
 	"auth": {
-		"roleame5da67b5f": {
+		"roleamea3ac29ec": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "roleame5da67b5fCustomMessage",
+					"resourceName": "roleamea3ac29ecCustomMessage",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -21,12 +21,6 @@
 					]
 				}
 			]
-		}
-	},
-	"hosting": {
-		"S3AndCloudFront": {
-			"service": "S3AndCloudFront",
-			"providerPlugin": "awscloudformation"
 		}
 	}
 }

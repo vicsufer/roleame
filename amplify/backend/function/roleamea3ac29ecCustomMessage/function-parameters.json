@@ -3,12 +3,12 @@
     "modules": [
         "verification-link"
     ],
-    "parentResource": "roleame5da67b5f",
-    "functionName": "roleame5da67b5fCustomMessage",
+    "parentResource": "roleamea3ac29ec",
+    "functionName": "roleamea3ac29ecCustomMessage",
     "parentStack": "auth",
     "triggerEnvs": "[{\"key\":\"RESOURCENAME\",\"value\":\"resourceName\"}]",
     "triggerTemplate": "CustomMessage.json.ejs",
-    "roleName": "roleame5da67b5fCustomMessage",
+    "roleName": "roleamea3ac29ecCustomMessage",
     "skipEdit": true,
-    "resourceName": "roleame5da67b5fCustomMessage"
+    "resourceName": "roleamea3ac29ecCustomMessage"
 }

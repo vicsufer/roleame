@@ -8,19 +8,19 @@
             "DeploymentBucketName": "amplify-roleame-production-32417-deployment",
             "UnauthRoleName": "amplify-roleame-production-32417-unauthRole",
             "StackName": "amplify-roleame-production-32417",
-            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-production-32417/6d17a050-56ac-11ea-b686-0aa24a1523d0",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-production-32417/c4b18280-56ad-11ea-b714-0641c159a77a",
             "AmplifyAppId": "d3de0f5h7hk76g"
         },
         "categories": {
             "function": {
-                "roleame5da67b5fCustomMessage": {
-                    "REDIRECTURL": "https://rolea.me",
-                    "EMAILSUBJECT": "Roleame: Account confirmation",
-                    "EMAILMESSAGE": "Thank you for signing in, click the following link to setup your account."
+                "roleamea3ac29ecCustomMessage": {
+                    "REDIRECTURL": "https://rolea.me/",
+                    "EMAILSUBJECT": "Roleame: Account verification",
+                    "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
                 }
             },
             "auth": {
-                "roleame5da67b5f": {}
+                "roleamea3ac29ec": {}
             }
         }
     }

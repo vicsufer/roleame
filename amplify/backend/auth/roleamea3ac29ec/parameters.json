@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "roleame5da67b5f_identitypool_5da67b5f",
+    "identityPoolName": "roleamea3ac29ec_identitypool_a3ac29ec",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "roleam5da67b5f",
-    "userPoolName": "roleame5da67b5f_userpool_5da67b5f",
+    "resourceNameTruncated": "roleama3ac29ec",
+    "userPoolName": "roleamea3ac29ec_userpool_a3ac29ec",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "roleam5da67b5f_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "roleama3ac29ec_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "roleame5da67b5f",
+    "resourceName": "roleamea3ac29ec",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -50,7 +50,7 @@
     ],
     "triggers": "{\"CustomMessage\":[\"verification-link\"]}",
     "userPoolGroupList": [],
-    "verificationBucketName": "roleame5da67b5fverificationbucket",
+    "verificationBucketName": "roleamea3ac29ecverificationbucket",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
@@ -58,7 +58,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "roleame5da67b5fCustomMessage",
+            "resourceName": "roleamea3ac29ecCustomMessage",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
