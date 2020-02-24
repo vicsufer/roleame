@@ -67,7 +67,7 @@ if [[ ${AWS_BRANCH} = "master" ]];
 then
     ENV="production"
 else
-    ENV="stage"
+    ENV="dev"
 fi
 if [[ ${USER_BRANCH} != "" ]];
 then

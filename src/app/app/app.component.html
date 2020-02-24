@@ -52,15 +52,6 @@
               <span>{{ 'roleame-webapp.menu.logout' | translate }}</span>
             </button>
           </mat-menu>
-          
-          <a [matTooltip]="'roleame-webapp.header.github' | translate"
-             matTooltipPosition="before"
-             mat-icon-button
-             class="link d-none d-sm-inline"
-             href="https://github.com/vicsufer/roleame"
-             target="_blank">
-            <fa-icon [icon]="['fab','github']"></fa-icon>
-          </a>
 
           <span *ngIf="language$ | async as language">
             <mat-select [ngModel]="language" (selectionChange)="onLanguageSelect($event)">

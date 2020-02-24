@@ -15,7 +15,6 @@
 
 @import './themes/default-theme';
 @import './themes/light-theme';
-@import './themes/black-theme';
 
 
 @import 'styles-reset.scss-theme';
@@ -40,9 +39,4 @@
 .light-theme {
   @include angular-material-theme($roleame-webapp-light-theme);
   @include custom-components-theme($roleame-webapp-light-theme);
-}
-
-.black-theme {
-  @include angular-material-theme($roleame-webapp-black-theme);
-  @include custom-components-theme($roleame-webapp-black-theme);
 }

@@ -7,8 +7,10 @@
     "functionName": "roleamefbd7e0b6CustomMessage",
     "parentStack": "auth",
     "triggerEnvs": "[{\"key\":\"RESOURCENAME\",\"value\":\"resourceName\"}]",
-    "triggerTemplate": "CustomMessage.json.ejs",
+    "triggerDir": "/Users/victorsuarez/.nvm/versions/node/v12.16.1/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/CustomMessage",
     "roleName": "roleamefbd7e0b6CustomMessage",
+    "triggerTemplate": "CustomMessage.json.ejs",
+    "triggerEventPath": "CustomMessage.event.json",
     "skipEdit": true,
     "resourceName": "roleamefbd7e0b6CustomMessage"
 }
