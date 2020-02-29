@@ -23,5 +23,30 @@
                 "roleamea3ac29ec": {}
             }
         }
+    },
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-roleame-dev-153732-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-153732-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-153732-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-roleame-dev-153732-deployment",
+            "UnauthRoleName": "amplify-roleame-dev-153732-unauthRole",
+            "StackName": "amplify-roleame-dev-153732",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-dev-153732/a90fe420-5b00-11ea-ac31-0226385840dc",
+            "AmplifyAppId": "d3de0f5h7hk76g"
+        },
+        "categories": {
+            "auth": {
+                "roleamea3ac29ec": {}
+            },
+            "function": {
+                "roleamea3ac29ecCustomMessage": {
+                    "REDIRECTURL": "http://localhost:4200",
+                    "EMAILSUBJECT": "Roleame-dev: Account verification",
+                    "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
+                }
+            }
+        }
     }
 }
