@@ -1,10 +1,8 @@
 # Enlaces
 
-Entorno | enlace
-staging | [staging.rolea.me](staging.rolea.me)
-production | [rolea.me](rolea.me)
+El entorno de desarrollo solo se usa para integrar localhost con los servicios cloud
 
-| Entorno| Enlace | Basic auth
+| Entorno| Dominio | Basic auth
 | :------------- |:------------- |:-------------
-| production| [rolea.me](rolea.me)|
-| dev | [staging.rolea.me](staging.rolea.me) | tfg : ya$sfa9*-
+| production| [rolea.me](rolea.me)| tfg : ya&as5312df*
+| dev | - | - 
