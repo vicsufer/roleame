@@ -69,12 +69,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"roleamea3ac29ecCustomMessage",
+						"roleame700467fcCustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"roleamea3ac29ecCustomMessage",
+									"roleame700467fcCustomMessage",
 									"-",
 									{
 										"Ref": "env"
@@ -118,8 +118,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-roleame-dev-153732-deployment",
-					"S3Key": "amplify-builds/roleamea3ac29ecCustomMessage-636163352f6b304f7530-build.zip"
+					"S3Bucket": "amplify-roleame-dev-30924-deployment",
+					"S3Key": "amplify-builds/roleame700467fcCustomMessage-33344e54385876766f30-build.zip"
 				}
 			}
 		},
@@ -129,12 +129,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"roleamea3ac29ecCustomMessage",
+						"roleame700467fcCustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"roleamea3ac29ecCustomMessage",
+									"roleame700467fcCustomMessage",
 									"-",
 									{
 										"Ref": "env"

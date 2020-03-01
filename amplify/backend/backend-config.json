@@ -1,19 +1,19 @@
 {
 	"function": {
-		"roleamea3ac29ecCustomMessage": {
+		"roleame700467fcCustomMessage": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		}
 	},
 	"auth": {
-		"roleamea3ac29ec": {
+		"roleame700467fc": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "roleamea3ac29ecCustomMessage",
+					"resourceName": "roleame700467fcCustomMessage",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",

@@ -11,13 +11,13 @@ Parameters:
   
   
   
-  functionroleamea3ac29ecCustomMessageArn: 
+  functionroleame700467fcCustomMessageArn: 
     Type: String
-    Default: functionroleamea3ac29ecCustomMessageArn
+    Default: functionroleame700467fcCustomMessageArn
   
-  functionroleamea3ac29ecCustomMessageName: 
+  functionroleame700467fcCustomMessageName: 
     Type: String
-    Default: functionroleamea3ac29ecCustomMessageName
+    Default: functionroleame700467fcCustomMessageName
   
   
   
@@ -148,7 +148,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'roleama3ac29ec_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'roleam700467fc_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -160,10 +160,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: roleama3ac29ec_role_external_id
+                sts:ExternalId: roleam700467fc_role_external_id
       Policies: 
         - 
-          PolicyName: roleama3ac29ec-sns-policy
+          PolicyName: roleam700467fc-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -193,7 +193,7 @@ Resources:
       LambdaConfig:
         
         
-          CustomMessage: !Ref functionroleamea3ac29ecCustomMessageArn
+          CustomMessage: !Ref functionroleame700467fcCustomMessageArn
         
         
         
@@ -224,7 +224,7 @@ Resources:
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: roleama3ac29ec_role_external_id
+        ExternalId: roleam700467fc_role_external_id
     
   
     
@@ -235,7 +235,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionroleamea3ac29ecCustomMessageName
+      FunctionName: !Ref functionroleame700467fcCustomMessageName
       SourceArn: !GetAtt UserPool.Arn
     
   
@@ -253,7 +253,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: roleama3ac29ec_app_clientWeb
+      ClientName: roleam700467fc_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -263,7 +263,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: roleama3ac29ec_app_client
+      ClientName: roleam700467fc_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -328,7 +328,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: roleama3ac29ec_userpoolclient_lambda_iam_policy
+      PolicyName: roleam700467fc_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -345,7 +345,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: roleama3ac29ec_userpoolclient_lambda_log_policy
+      PolicyName: roleam700467fc_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -385,7 +385,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'roleamea3ac29ec_identitypool_a3ac29ec', !Join ['',['roleamea3ac29ec_identitypool_a3ac29ec', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'roleame700467fc_identitypool_700467fc', !Join ['',['roleame700467fc_identitypool_700467fc', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

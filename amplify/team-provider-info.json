@@ -1,48 +1,48 @@
 {
-    "production": {
+    "master": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-roleame-production-32417-authRole",
-            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-32417-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-32417-authRole",
+            "AuthRoleName": "amplify-roleame-master-25811-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-master-25811-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-master-25811-authRole",
             "Region": "eu-west-1",
-            "DeploymentBucketName": "amplify-roleame-production-32417-deployment",
-            "UnauthRoleName": "amplify-roleame-production-32417-unauthRole",
-            "StackName": "amplify-roleame-production-32417",
-            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-production-32417/c4b18280-56ad-11ea-b714-0641c159a77a",
+            "DeploymentBucketName": "amplify-roleame-master-25811-deployment",
+            "UnauthRoleName": "amplify-roleame-master-25811-unauthRole",
+            "StackName": "amplify-roleame-master-25811",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-master-25811/bf8003c0-5b5f-11ea-95fd-02fa7ab4594c",
             "AmplifyAppId": "d3de0f5h7hk76g"
         },
         "categories": {
             "function": {
-                "roleamea3ac29ecCustomMessage": {
+                "roleame700467fcCustomMessage": {
                     "REDIRECTURL": "https://rolea.me/",
                     "EMAILSUBJECT": "Roleame: Account verification",
                     "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
                 }
             },
             "auth": {
-                "roleamea3ac29ec": {}
+                "roleame700467fc": {}
             }
         }
     },
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-roleame-dev-153732-authRole",
-            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-153732-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-153732-authRole",
+            "AuthRoleName": "amplify-roleame-dev-30924-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-30924-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-30924-authRole",
             "Region": "eu-west-1",
-            "DeploymentBucketName": "amplify-roleame-dev-153732-deployment",
-            "UnauthRoleName": "amplify-roleame-dev-153732-unauthRole",
-            "StackName": "amplify-roleame-dev-153732",
-            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-dev-153732/a90fe420-5b00-11ea-ac31-0226385840dc",
+            "DeploymentBucketName": "amplify-roleame-dev-30924-deployment",
+            "UnauthRoleName": "amplify-roleame-dev-30924-unauthRole",
+            "StackName": "amplify-roleame-dev-30924",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-dev-30924/50455da0-5b61-11ea-b222-0abd335268a4",
             "AmplifyAppId": "d3de0f5h7hk76g"
         },
         "categories": {
             "auth": {
-                "roleamea3ac29ec": {}
+                "roleame700467fc": {}
             },
             "function": {
-                "roleamea3ac29ecCustomMessage": {
-                    "REDIRECTURL": "http://localhost:4200",
+                "roleame700467fcCustomMessage": {
+                    "REDIRECTURL": "https://localhost:4200/",
                     "EMAILSUBJECT": "Roleame-dev: Account verification",
                     "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
                 }
