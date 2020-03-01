@@ -73,6 +73,20 @@ export class LoginComponent implements OnInit {
             this.notificationService.error(value);
           });
         break;
+       case'NotAuthorizedException':
+          this.translateService
+          .get('roleame-webapp.auth.login.errors.wrong_auth')
+          .subscribe(value => {
+            this.notificationService.error(value);
+          });
+          break;
+      case 'UserNotFoundException':
+        this.translateService
+          .get('roleame-webapp.auth.login.errors.wrong_auth')
+          .subscribe(value => {
+            this.notificationService.error(value);
+          });
+          break;
     }
   }
 }
