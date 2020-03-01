@@ -14,7 +14,7 @@
         "categories": {
             "function": {
                 "roleame700467fcCustomMessage": {
-                    "REDIRECTURL": "https://rolea.me/",
+                    "REDIRECTURL": "https://rolea.me",
                     "EMAILSUBJECT": "Roleame: Account verification",
                     "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
                 }
@@ -42,7 +42,7 @@
             },
             "function": {
                 "roleame700467fcCustomMessage": {
-                    "REDIRECTURL": "https://localhost:4200/",
+                    "REDIRECTURL": "https://localhost:4200",
                     "EMAILSUBJECT": "Roleame-dev: Account verification",
                     "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
                 }
