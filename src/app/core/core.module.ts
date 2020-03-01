@@ -54,6 +54,7 @@ import {
 } from './settings/settings.actions';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { Md5Pipe } from './pipes/md5.pipe';
+import { APIService } from './services/API.service';
 
 export {
   TitleService,
@@ -117,7 +118,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: AmplifyService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    { provide: APIService }
   ],
   exports: [TranslateModule, Md5Pipe]
 })

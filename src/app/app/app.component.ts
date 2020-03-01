@@ -32,10 +32,12 @@ export class AppComponent implements OnInit {
   logo = require('../../assets/logo.png');
   languages = ['en', 'es'];
   navigation = [
-    { link: 'games', label: 'roleame-webapp.menu.games' },
-    { link: 'characters', label: 'roleame-webapp.menu.characters' },
     { link: 'about', label: 'roleame-webapp.menu.about' }
   ];
+  privateNavigation = [
+    { link: 'games', label: 'roleame-webapp.menu.games' },
+    { link: 'characters', label: 'roleame-webapp.menu.characters' }
+  ]
   navigationSideMenu = [
     ...this.navigation,
     { link: 'settings', label: 'roleame-webapp.menu.settings' }

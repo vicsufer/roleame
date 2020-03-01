@@ -1,0 +1,24 @@
+# this is an auto generated file. This will be overwritten
+query GetCharacter($id: ID!) {
+  getCharacter(id: $id) {
+    id
+    name
+    background
+    owner
+  }
+}
+query ListCharacters(
+  $filter: ModelcharacterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      background
+      owner
+    }
+    nextToken
+  }
+}
