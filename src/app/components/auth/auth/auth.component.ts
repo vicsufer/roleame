@@ -1,4 +1,4 @@
-import { State } from './../../../core/auth/auth.models';
+import { State } from '../../../core/auth/auth.models';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';

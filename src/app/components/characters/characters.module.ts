@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '../../shared/shared.module';
+import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 
 import { charactersComponent } from './characters/characters.component';
 import { charactersRoutingModule } from './characters-routing.module';
 
 @NgModule({
   declarations: [charactersComponent],
-  imports: [CommonModule, SharedModule, charactersRoutingModule]
+  imports: [CommonModule, SharedComponentsModule, charactersRoutingModule]
 })
 export class charactersModule {}

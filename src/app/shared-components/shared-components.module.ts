@@ -168,4 +168,4 @@ import { Md5Pipe } from 'app/core/pipes/md5.pipe';
     RtlSupportDirective
   ]
 })
-export class SharedModule {}
+export class SharedComponentsModule {}

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
-import { SharedModule } from 'app/shared/shared.module';
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +16,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [
-        SharedModule,
+        SharedComponentsModule,
         AmplifyAngularModule,
         RouterTestingModule,
         NoopAnimationsModule,

@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SharedModule } from '../../shared.module';
+import { SharedComponentsModule } from '../../shared-components.module';
 
 @Component({
   selector: 'roleame-webapp-host-for-test',
@@ -31,7 +31,7 @@ describe('BigInputComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HostComponent],
-      imports: [SharedModule, NoopAnimationsModule]
+      imports: [SharedComponentsModule, NoopAnimationsModule]
     });
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;

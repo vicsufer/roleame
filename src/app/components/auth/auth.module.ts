@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '../../shared/shared.module';
+import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth/auth.component';
@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material';
   ],
   imports: [
     CommonModule,
-    SharedModule,
+    SharedComponentsModule,
     AuthRoutingModule,
     AmplifyAngularModule
   ],

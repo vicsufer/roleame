@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+import { APIService } from 'app/core/services/API.service';
 
 @Component({
   selector: 'roleame-webapp-characters',
@@ -12,9 +13,22 @@ export class charactersComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
-  logo = require('assets/logo.png');
 
-  constructor() {}
+  constructor(private apiService: APIService) {
 
-  ngOnInit() {}
+    console.log(this.apiService)
+    
+  }
+
+  ngOnInit() {
+
+    this.apiService.ListCharacters().then( (characters ) => {
+      characters.items.forEach( (character) => {
+        console.log(character)
+      })
+    }).catch( (err) => {
+      console.log(err)
+    })
+
+  }
 }

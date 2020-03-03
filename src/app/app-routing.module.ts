@@ -6,19 +6,19 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/home/home.module').then(m => m.HomeModule)
+      import('./components/home/home.module').then(m => m.HomeModule)
   },
 
   {
     path: 'auth',
     loadChildren: () =>
-      import('./pages/auth/auth.module').then(m => m.AuthModule)
+      import('./components/auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'characters',
     canActivate: [AuthGuardService],
     loadChildren: () =>
-      import('./pages/characters/characters.module').then(
+      import('./components/characters/characters.module').then(
         m => m.charactersModule
       )
   },

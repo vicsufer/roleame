@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedComponentsModule } from '../../../shared-components/shared-components.module';
 
 import { HomeComponent } from './home.component';
 
@@ -12,7 +12,7 @@ describe('Homeomponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedModule, NoopAnimationsModule, TranslateModule.forRoot()],
+      imports: [SharedComponentsModule, NoopAnimationsModule, TranslateModule.forRoot()],
       declarations: [HomeComponent]
     }).compileComponents();
   }));

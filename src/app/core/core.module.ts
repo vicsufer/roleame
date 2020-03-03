@@ -61,6 +61,7 @@ export {
   selectAuth,
   routeAnimations,
   AppState,
+  APIService,
   LocalStorageService,
   selectIsAuthenticated,
   selectCurrentUser,

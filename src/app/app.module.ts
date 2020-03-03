@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from './shared/shared.module';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,7 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
     // core & shared
     CoreModule,
-    SharedModule,
+    SharedComponentsModule,
 
     // app
     AppRoutingModule
