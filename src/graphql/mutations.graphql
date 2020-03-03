@@ -1,0 +1,34 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateCharacter(
+  $input: CreateCharacterInput!
+  $condition: ModelcharacterConditionInput
+) {
+  createCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    owner
+  }
+}
+mutation UpdateCharacter(
+  $input: UpdateCharacterInput!
+  $condition: ModelcharacterConditionInput
+) {
+  updateCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    owner
+  }
+}
+mutation DeleteCharacter(
+  $input: DeleteCharacterInput!
+  $condition: ModelcharacterConditionInput
+) {
+  deleteCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    owner
+  }
+}

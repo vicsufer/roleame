@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 import { AppComponent } from './app.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
@@ -15,7 +15,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
+        SharedComponentsModule,
         AmplifyAngularModule,
         RouterTestingModule,
         NoopAnimationsModule,
