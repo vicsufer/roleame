@@ -1,25 +1,148 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateCharacter($owner: String!) {
-  onCreateCharacter(owner: $owner) {
+subscription OnCreateGame($owner: String!) {
+  onCreateGame(owner: $owner) {
     id
     name
-    background
+    description
+    members
+    playerCharacters {
+      nextToken
+    }
+    gameCharacters {
+      nextToken
+    }
     owner
   }
 }
-subscription OnUpdateCharacter($owner: String!) {
-  onUpdateCharacter(owner: $owner) {
+subscription OnUpdateGame($owner: String!) {
+  onUpdateGame(owner: $owner) {
     id
     name
-    background
+    description
+    members
+    playerCharacters {
+      nextToken
+    }
+    gameCharacters {
+      nextToken
+    }
     owner
   }
 }
-subscription OnDeleteCharacter($owner: String!) {
-  onDeleteCharacter(owner: $owner) {
+subscription OnDeleteGame($owner: String!) {
+  onDeleteGame(owner: $owner) {
+    id
+    name
+    description
+    members
+    playerCharacters {
+      nextToken
+    }
+    gameCharacters {
+      nextToken
+    }
+    owner
+  }
+}
+subscription OnCreateGameCharacter($owner: String!) {
+  onCreateGameCharacter(owner: $owner) {
     id
     name
     background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+subscription OnUpdateGameCharacter($owner: String!) {
+  onUpdateGameCharacter(owner: $owner) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+subscription OnDeleteGameCharacter($owner: String!) {
+  onDeleteGameCharacter(owner: $owner) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+subscription OnCreatePlayerCharacter($owner: String!) {
+  onCreatePlayerCharacter(owner: $owner) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+subscription OnUpdatePlayerCharacter($owner: String!) {
+  onUpdatePlayerCharacter(owner: $owner) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+subscription OnDeletePlayerCharacter($owner: String!) {
+  onDeletePlayerCharacter(owner: $owner) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
     owner
   }
 }

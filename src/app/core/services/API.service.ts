@@ -6,18 +6,19 @@ import API, { graphqlOperation } from "@aws-amplify/api";
 import { GraphQLResult } from "@aws-amplify/api/lib/types";
 import * as Observable from "zen-observable";
 
-export type CreateCharacterInput = {
+export type CreateGameInput = {
   id?: string | null;
   name: string;
-  background?: string | null;
+  description: string;
+  members?: Array<string | null> | null;
 };
 
-export type ModelcharacterConditionInput = {
+export type ModelGameConditionInput = {
   name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  and?: Array<ModelcharacterConditionInput | null> | null;
-  or?: Array<ModelcharacterConditionInput | null> | null;
-  not?: ModelcharacterConditionInput | null;
+  description?: ModelStringInput | null;
+  and?: Array<ModelGameConditionInput | null> | null;
+  or?: Array<ModelGameConditionInput | null> | null;
+  not?: ModelGameConditionInput | null;
 };
 
 export type ModelStringInput = {
@@ -59,23 +60,92 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
-export type UpdateCharacterInput = {
+export type UpdateGameInput = {
   id: string;
   name?: string | null;
-  background?: string | null;
+  description?: string | null;
+  members?: Array<string | null> | null;
 };
 
-export type DeleteCharacterInput = {
+export type DeleteGameInput = {
   id?: string | null;
 };
 
-export type ModelcharacterFilterInput = {
-  id?: ModelIDInput | null;
+export type CreateGameCharacterInput = {
+  id?: string | null;
+  name: string;
+  background?: string | null;
+  attributes?: Array<AttributeInput | null> | null;
+  abilities?: Array<AbilityInput | null> | null;
+};
+
+export type AttributeInput = {
+  name?: string | null;
+  value?: string | null;
+  description?: string | null;
+};
+
+export type AbilityInput = {
+  name?: string | null;
+  description?: string | null;
+};
+
+export type ModelGameCharacterConditionInput = {
   name?: ModelStringInput | null;
   background?: ModelStringInput | null;
-  and?: Array<ModelcharacterFilterInput | null> | null;
-  or?: Array<ModelcharacterFilterInput | null> | null;
-  not?: ModelcharacterFilterInput | null;
+  and?: Array<ModelGameCharacterConditionInput | null> | null;
+  or?: Array<ModelGameCharacterConditionInput | null> | null;
+  not?: ModelGameCharacterConditionInput | null;
+};
+
+export type UpdateGameCharacterInput = {
+  id: string;
+  name?: string | null;
+  background?: string | null;
+  attributes?: Array<AttributeInput | null> | null;
+  abilities?: Array<AbilityInput | null> | null;
+};
+
+export type DeleteGameCharacterInput = {
+  id?: string | null;
+};
+
+export type CreatePlayerCharacterInput = {
+  id?: string | null;
+  name: string;
+  background?: string | null;
+  attributes?: Array<AttributeInput | null> | null;
+  abilities?: Array<AbilityInput | null> | null;
+};
+
+export type ModelPlayerCharacterConditionInput = {
+  name?: ModelStringInput | null;
+  background?: ModelStringInput | null;
+  and?: Array<ModelPlayerCharacterConditionInput | null> | null;
+  or?: Array<ModelPlayerCharacterConditionInput | null> | null;
+  not?: ModelPlayerCharacterConditionInput | null;
+};
+
+export type UpdatePlayerCharacterInput = {
+  id: string;
+  name?: string | null;
+  background?: string | null;
+  attributes?: Array<AttributeInput | null> | null;
+  abilities?: Array<AbilityInput | null> | null;
+};
+
+export type DeletePlayerCharacterInput = {
+  id?: string | null;
+};
+
+export type ModelGameFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  description?: ModelStringInput | null;
+  members?: ModelStringInput | null;
+  and?: Array<ModelGameFilterInput | null> | null;
+  or?: Array<ModelGameFilterInput | null> | null;
+  not?: ModelGameFilterInput | null;
 };
 
 export type ModelIDInput = {
@@ -94,42 +164,242 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type CreateCharacterMutation = {
-  __typename: "character";
+export type ModelGameCharacterFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  background?: ModelStringInput | null;
+  and?: Array<ModelGameCharacterFilterInput | null> | null;
+  or?: Array<ModelGameCharacterFilterInput | null> | null;
+  not?: ModelGameCharacterFilterInput | null;
+};
+
+export type ModelPlayerCharacterFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  background?: ModelStringInput | null;
+  and?: Array<ModelPlayerCharacterFilterInput | null> | null;
+  or?: Array<ModelPlayerCharacterFilterInput | null> | null;
+  not?: ModelPlayerCharacterFilterInput | null;
+};
+
+export type CreateGameMutation = {
+  __typename: "Game";
   id: string;
   name: string;
-  background: string | null;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
   owner: string | null;
 };
 
-export type UpdateCharacterMutation = {
-  __typename: "character";
+export type UpdateGameMutation = {
+  __typename: "Game";
   id: string;
   name: string;
-  background: string | null;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
   owner: string | null;
 };
 
-export type DeleteCharacterMutation = {
-  __typename: "character";
+export type DeleteGameMutation = {
+  __typename: "Game";
   id: string;
   name: string;
-  background: string | null;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
   owner: string | null;
 };
 
-export type GetCharacterQuery = {
-  __typename: "character";
+export type CreateGameCharacterMutation = {
+  __typename: "GameCharacter";
   id: string;
   name: string;
   background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
   owner: string | null;
 };
 
-export type ListCharactersQuery = {
-  __typename: "ModelcharacterConnection";
+export type UpdateGameCharacterMutation = {
+  __typename: "GameCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type DeleteGameCharacterMutation = {
+  __typename: "GameCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type CreatePlayerCharacterMutation = {
+  __typename: "PlayerCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type UpdatePlayerCharacterMutation = {
+  __typename: "PlayerCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type DeletePlayerCharacterMutation = {
+  __typename: "PlayerCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type GetGameQuery = {
+  __typename: "Game";
+  id: string;
+  name: string;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  owner: string | null;
+};
+
+export type ListGamesQuery = {
+  __typename: "ModelGameConnection";
   items: Array<{
-    __typename: "character";
+    __typename: "Game";
+    id: string;
+    name: string;
+    description: string;
+    members: Array<string | null> | null;
+    owner: string | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetGameCharacterQuery = {
+  __typename: "GameCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type ListGameCharactersQuery = {
+  __typename: "ModelGameCharacterConnection";
+  items: Array<{
+    __typename: "GameCharacter";
     id: string;
     name: string;
     background: string | null;
@@ -138,27 +408,199 @@ export type ListCharactersQuery = {
   nextToken: string | null;
 };
 
-export type OnCreateCharacterSubscription = {
-  __typename: "character";
+export type GetPlayerCharacterQuery = {
+  __typename: "PlayerCharacter";
   id: string;
   name: string;
   background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
   owner: string | null;
 };
 
-export type OnUpdateCharacterSubscription = {
-  __typename: "character";
+export type ListPlayerCharactersQuery = {
+  __typename: "ModelPlayerCharacterConnection";
+  items: Array<{
+    __typename: "PlayerCharacter";
+    id: string;
+    name: string;
+    background: string | null;
+    owner: string | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type OnCreateGameSubscription = {
+  __typename: "Game";
   id: string;
   name: string;
-  background: string | null;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
   owner: string | null;
 };
 
-export type OnDeleteCharacterSubscription = {
-  __typename: "character";
+export type OnUpdateGameSubscription = {
+  __typename: "Game";
+  id: string;
+  name: string;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  owner: string | null;
+};
+
+export type OnDeleteGameSubscription = {
+  __typename: "Game";
+  id: string;
+  name: string;
+  description: string;
+  members: Array<string | null> | null;
+  playerCharacters: {
+    __typename: "ModelPlayerCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  gameCharacters: {
+    __typename: "ModelGameCharacterConnection";
+    nextToken: string | null;
+  } | null;
+  owner: string | null;
+};
+
+export type OnCreateGameCharacterSubscription = {
+  __typename: "GameCharacter";
   id: string;
   name: string;
   background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type OnUpdateGameCharacterSubscription = {
+  __typename: "GameCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type OnDeleteGameCharacterSubscription = {
+  __typename: "GameCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type OnCreatePlayerCharacterSubscription = {
+  __typename: "PlayerCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type OnUpdatePlayerCharacterSubscription = {
+  __typename: "PlayerCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
+  owner: string | null;
+};
+
+export type OnDeletePlayerCharacterSubscription = {
+  __typename: "PlayerCharacter";
+  id: string;
+  name: string;
+  background: string | null;
+  attributes: Array<{
+    __typename: "Attribute";
+    name: string | null;
+    value: string | null;
+    description: string | null;
+  } | null> | null;
+  abilities: Array<{
+    __typename: "Ability";
+    name: string | null;
+    description: string | null;
+  } | null> | null;
   owner: string | null;
 };
 
@@ -166,16 +608,25 @@ export type OnDeleteCharacterSubscription = {
   providedIn: "root"
 })
 export class APIService {
-  async CreateCharacter(
-    input: CreateCharacterInput,
-    condition?: ModelcharacterConditionInput
-  ): Promise<CreateCharacterMutation> {
-    const statement = `mutation CreateCharacter($input: CreateCharacterInput!, $condition: ModelcharacterConditionInput) {
-        createCharacter(input: $input, condition: $condition) {
+  async CreateGame(
+    input: CreateGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<CreateGameMutation> {
+    const statement = `mutation CreateGame($input: CreateGameInput!, $condition: ModelGameConditionInput) {
+        createGame(input: $input, condition: $condition) {
           __typename
           id
           name
-          background
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`;
@@ -188,18 +639,27 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <CreateCharacterMutation>response.data.createCharacter;
+    return <CreateGameMutation>response.data.createGame;
   }
-  async UpdateCharacter(
-    input: UpdateCharacterInput,
-    condition?: ModelcharacterConditionInput
-  ): Promise<UpdateCharacterMutation> {
-    const statement = `mutation UpdateCharacter($input: UpdateCharacterInput!, $condition: ModelcharacterConditionInput) {
-        updateCharacter(input: $input, condition: $condition) {
+  async UpdateGame(
+    input: UpdateGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<UpdateGameMutation> {
+    const statement = `mutation UpdateGame($input: UpdateGameInput!, $condition: ModelGameConditionInput) {
+        updateGame(input: $input, condition: $condition) {
           __typename
           id
           name
-          background
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`;
@@ -212,18 +672,27 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <UpdateCharacterMutation>response.data.updateCharacter;
+    return <UpdateGameMutation>response.data.updateGame;
   }
-  async DeleteCharacter(
-    input: DeleteCharacterInput,
-    condition?: ModelcharacterConditionInput
-  ): Promise<DeleteCharacterMutation> {
-    const statement = `mutation DeleteCharacter($input: DeleteCharacterInput!, $condition: ModelcharacterConditionInput) {
-        deleteCharacter(input: $input, condition: $condition) {
+  async DeleteGame(
+    input: DeleteGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<DeleteGameMutation> {
+    const statement = `mutation DeleteGame($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
+        deleteGame(input: $input, condition: $condition) {
           __typename
           id
           name
-          background
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`;
@@ -236,15 +705,234 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <DeleteCharacterMutation>response.data.deleteCharacter;
+    return <DeleteGameMutation>response.data.deleteGame;
   }
-  async GetCharacter(id: string): Promise<GetCharacterQuery> {
-    const statement = `query GetCharacter($id: ID!) {
-        getCharacter(id: $id) {
+  async CreateGameCharacter(
+    input: CreateGameCharacterInput,
+    condition?: ModelGameCharacterConditionInput
+  ): Promise<CreateGameCharacterMutation> {
+    const statement = `mutation CreateGameCharacter($input: CreateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
+        createGameCharacter(input: $input, condition: $condition) {
           __typename
           id
           name
           background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateGameCharacterMutation>response.data.createGameCharacter;
+  }
+  async UpdateGameCharacter(
+    input: UpdateGameCharacterInput,
+    condition?: ModelGameCharacterConditionInput
+  ): Promise<UpdateGameCharacterMutation> {
+    const statement = `mutation UpdateGameCharacter($input: UpdateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
+        updateGameCharacter(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateGameCharacterMutation>response.data.updateGameCharacter;
+  }
+  async DeleteGameCharacter(
+    input: DeleteGameCharacterInput,
+    condition?: ModelGameCharacterConditionInput
+  ): Promise<DeleteGameCharacterMutation> {
+    const statement = `mutation DeleteGameCharacter($input: DeleteGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
+        deleteGameCharacter(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteGameCharacterMutation>response.data.deleteGameCharacter;
+  }
+  async CreatePlayerCharacter(
+    input: CreatePlayerCharacterInput,
+    condition?: ModelPlayerCharacterConditionInput
+  ): Promise<CreatePlayerCharacterMutation> {
+    const statement = `mutation CreatePlayerCharacter($input: CreatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
+        createPlayerCharacter(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreatePlayerCharacterMutation>response.data.createPlayerCharacter;
+  }
+  async UpdatePlayerCharacter(
+    input: UpdatePlayerCharacterInput,
+    condition?: ModelPlayerCharacterConditionInput
+  ): Promise<UpdatePlayerCharacterMutation> {
+    const statement = `mutation UpdatePlayerCharacter($input: UpdatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
+        updatePlayerCharacter(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdatePlayerCharacterMutation>response.data.updatePlayerCharacter;
+  }
+  async DeletePlayerCharacter(
+    input: DeletePlayerCharacterInput,
+    condition?: ModelPlayerCharacterConditionInput
+  ): Promise<DeletePlayerCharacterMutation> {
+    const statement = `mutation DeletePlayerCharacter($input: DeletePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
+        deletePlayerCharacter(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeletePlayerCharacterMutation>response.data.deletePlayerCharacter;
+  }
+  async GetGame(id: string): Promise<GetGameQuery> {
+    const statement = `query GetGame($id: ID!) {
+        getGame(id: $id) {
+          __typename
+          id
+          name
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`;
@@ -254,15 +942,78 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <GetCharacterQuery>response.data.getCharacter;
+    return <GetGameQuery>response.data.getGame;
   }
-  async ListCharacters(
-    filter?: ModelcharacterFilterInput,
+  async ListGames(
+    filter?: ModelGameFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<ListCharactersQuery> {
-    const statement = `query ListCharacters($filter: ModelcharacterFilterInput, $limit: Int, $nextToken: String) {
-        listCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  ): Promise<ListGamesQuery> {
+    const statement = `query ListGames($filter: ModelGameFilterInput, $limit: Int, $nextToken: String) {
+        listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            description
+            members
+            owner
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListGamesQuery>response.data.listGames;
+  }
+  async GetGameCharacter(id: string): Promise<GetGameCharacterQuery> {
+    const statement = `query GetGameCharacter($id: ID!) {
+        getGameCharacter(id: $id) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetGameCharacterQuery>response.data.getGameCharacter;
+  }
+  async ListGameCharacters(
+    filter?: ModelGameCharacterFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListGameCharactersQuery> {
+    const statement = `query ListGameCharacters($filter: ModelGameCharacterFilterInput, $limit: Int, $nextToken: String) {
+        listGameCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -287,53 +1038,298 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <ListCharactersQuery>response.data.listCharacters;
+    return <ListGameCharactersQuery>response.data.listGameCharacters;
   }
-  OnCreateCharacterListener: Observable<
-    OnCreateCharacterSubscription
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateCharacter($owner: String!) {
-        onCreateCharacter(owner: $owner) {
+  async GetPlayerCharacter(id: string): Promise<GetPlayerCharacterQuery> {
+    const statement = `query GetPlayerCharacter($id: ID!) {
+        getPlayerCharacter(id: $id) {
           __typename
           id
           name
           background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPlayerCharacterQuery>response.data.getPlayerCharacter;
+  }
+  async ListPlayerCharacters(
+    filter?: ModelPlayerCharacterFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListPlayerCharactersQuery> {
+    const statement = `query ListPlayerCharacters($filter: ModelPlayerCharacterFilterInput, $limit: Int, $nextToken: String) {
+        listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            background
+            owner
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPlayerCharactersQuery>response.data.listPlayerCharacters;
+  }
+  OnCreateGameListener: Observable<OnCreateGameSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateGame($owner: String!) {
+        onCreateGame(owner: $owner) {
+          __typename
+          id
+          name
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`
     )
-  ) as Observable<OnCreateCharacterSubscription>;
+  ) as Observable<OnCreateGameSubscription>;
 
-  OnUpdateCharacterListener: Observable<
-    OnUpdateCharacterSubscription
-  > = API.graphql(
+  OnUpdateGameListener: Observable<OnUpdateGameSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateCharacter($owner: String!) {
-        onUpdateCharacter(owner: $owner) {
+      `subscription OnUpdateGame($owner: String!) {
+        onUpdateGame(owner: $owner) {
           __typename
           id
           name
-          background
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`
     )
-  ) as Observable<OnUpdateCharacterSubscription>;
+  ) as Observable<OnUpdateGameSubscription>;
 
-  OnDeleteCharacterListener: Observable<
-    OnDeleteCharacterSubscription
-  > = API.graphql(
+  OnDeleteGameListener: Observable<OnDeleteGameSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteCharacter($owner: String!) {
-        onDeleteCharacter(owner: $owner) {
+      `subscription OnDeleteGame($owner: String!) {
+        onDeleteGame(owner: $owner) {
           __typename
           id
           name
-          background
+          description
+          members
+          playerCharacters {
+            __typename
+            nextToken
+          }
+          gameCharacters {
+            __typename
+            nextToken
+          }
           owner
         }
       }`
     )
-  ) as Observable<OnDeleteCharacterSubscription>;
+  ) as Observable<OnDeleteGameSubscription>;
+
+  OnCreateGameCharacterListener: Observable<
+    OnCreateGameCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateGameCharacter($owner: String!) {
+        onCreateGameCharacter(owner: $owner) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`
+    )
+  ) as Observable<OnCreateGameCharacterSubscription>;
+
+  OnUpdateGameCharacterListener: Observable<
+    OnUpdateGameCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateGameCharacter($owner: String!) {
+        onUpdateGameCharacter(owner: $owner) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`
+    )
+  ) as Observable<OnUpdateGameCharacterSubscription>;
+
+  OnDeleteGameCharacterListener: Observable<
+    OnDeleteGameCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteGameCharacter($owner: String!) {
+        onDeleteGameCharacter(owner: $owner) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`
+    )
+  ) as Observable<OnDeleteGameCharacterSubscription>;
+
+  OnCreatePlayerCharacterListener: Observable<
+    OnCreatePlayerCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePlayerCharacter($owner: String!) {
+        onCreatePlayerCharacter(owner: $owner) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`
+    )
+  ) as Observable<OnCreatePlayerCharacterSubscription>;
+
+  OnUpdatePlayerCharacterListener: Observable<
+    OnUpdatePlayerCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePlayerCharacter($owner: String!) {
+        onUpdatePlayerCharacter(owner: $owner) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`
+    )
+  ) as Observable<OnUpdatePlayerCharacterSubscription>;
+
+  OnDeletePlayerCharacterListener: Observable<
+    OnDeletePlayerCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePlayerCharacter($owner: String!) {
+        onDeletePlayerCharacter(owner: $owner) {
+          __typename
+          id
+          name
+          background
+          attributes {
+            __typename
+            name
+            value
+            description
+          }
+          abilities {
+            __typename
+            name
+            description
+          }
+          owner
+        }
+      }`
+    )
+  ) as Observable<OnDeletePlayerCharacterSubscription>;
 }

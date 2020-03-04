@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { SharedComponentsModule } from './shared-components/shared-components.module';
-import { CoreModule } from './core/core.module';
+import { CoreModule, APIService } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
@@ -25,7 +25,7 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
     // app
     AppRoutingModule
   ],
-  providers: [AmplifyService],
+  providers: [AmplifyService, APIService],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

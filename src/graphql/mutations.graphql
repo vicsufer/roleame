@@ -1,34 +1,175 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateCharacter(
-  $input: CreateCharacterInput!
-  $condition: ModelcharacterConditionInput
+mutation CreateGame(
+  $input: CreateGameInput!
+  $condition: ModelGameConditionInput
 ) {
-  createCharacter(input: $input, condition: $condition) {
+  createGame(input: $input, condition: $condition) {
     id
     name
-    background
+    description
+    members
+    playerCharacters {
+      nextToken
+    }
+    gameCharacters {
+      nextToken
+    }
     owner
   }
 }
-mutation UpdateCharacter(
-  $input: UpdateCharacterInput!
-  $condition: ModelcharacterConditionInput
+mutation UpdateGame(
+  $input: UpdateGameInput!
+  $condition: ModelGameConditionInput
 ) {
-  updateCharacter(input: $input, condition: $condition) {
+  updateGame(input: $input, condition: $condition) {
     id
     name
-    background
+    description
+    members
+    playerCharacters {
+      nextToken
+    }
+    gameCharacters {
+      nextToken
+    }
     owner
   }
 }
-mutation DeleteCharacter(
-  $input: DeleteCharacterInput!
-  $condition: ModelcharacterConditionInput
+mutation DeleteGame(
+  $input: DeleteGameInput!
+  $condition: ModelGameConditionInput
 ) {
-  deleteCharacter(input: $input, condition: $condition) {
+  deleteGame(input: $input, condition: $condition) {
+    id
+    name
+    description
+    members
+    playerCharacters {
+      nextToken
+    }
+    gameCharacters {
+      nextToken
+    }
+    owner
+  }
+}
+mutation CreateGameCharacter(
+  $input: CreateGameCharacterInput!
+  $condition: ModelGameCharacterConditionInput
+) {
+  createGameCharacter(input: $input, condition: $condition) {
     id
     name
     background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+mutation UpdateGameCharacter(
+  $input: UpdateGameCharacterInput!
+  $condition: ModelGameCharacterConditionInput
+) {
+  updateGameCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+mutation DeleteGameCharacter(
+  $input: DeleteGameCharacterInput!
+  $condition: ModelGameCharacterConditionInput
+) {
+  deleteGameCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+mutation CreatePlayerCharacter(
+  $input: CreatePlayerCharacterInput!
+  $condition: ModelPlayerCharacterConditionInput
+) {
+  createPlayerCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+mutation UpdatePlayerCharacter(
+  $input: UpdatePlayerCharacterInput!
+  $condition: ModelPlayerCharacterConditionInput
+) {
+  updatePlayerCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
+    owner
+  }
+}
+mutation DeletePlayerCharacter(
+  $input: DeletePlayerCharacterInput!
+  $condition: ModelPlayerCharacterConditionInput
+) {
+  deletePlayerCharacter(input: $input, condition: $condition) {
+    id
+    name
+    background
+    attributes {
+      name
+      value
+      description
+    }
+    abilities {
+      name
+      description
+    }
     owner
   }
 }

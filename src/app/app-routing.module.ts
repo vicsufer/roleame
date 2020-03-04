@@ -19,7 +19,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./components/characters/characters.module').then(
-        m => m.charactersModule
+        m => m.CharactersModule
       )
   },
   {

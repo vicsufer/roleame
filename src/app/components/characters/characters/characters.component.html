@@ -1,3 +1,13 @@
-<h1>CHARACTERS PAGE</h1>
 
-<p>This page is working</p>
+<div class="container">
+
+    <h1>CHARACTERS PAGE</h1>
+
+        <mat-card *ngFor="let character of characters">
+            <mat-card-content>
+                <span>Name: {{character.name}}</span>
+                <span>Background {{character.background}}</span>
+            </mat-card-content>
+        </mat-card>
+
+</div>

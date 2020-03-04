@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 
-import { charactersComponent } from './characters/characters.component';
-import { charactersRoutingModule } from './characters-routing.module';
+import { CharactersComponent } from './characters/characters.component';
+import { CharactersRoutingModule as CharactersRoutingModule } from './characters-routing.module';
 
 @NgModule({
-  declarations: [charactersComponent],
-  imports: [CommonModule, SharedComponentsModule, charactersRoutingModule]
+  declarations: [CharactersComponent],
+  imports: [CommonModule, SharedComponentsModule, CharactersRoutingModule]
 })
-export class charactersModule {}
+export class CharactersModule {}
