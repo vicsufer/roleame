@@ -1,12 +1,57 @@
-type character 
-	@model 
-	@auth( 
-		rules: [{
-			allow: owner
-		}]
-	)
-{
+type Game @model
+@auth(
+	rules: [
+		{ allow: owner }
+		{ allow: owner, ownerField: "members", operations: [read] }
+	]
+){
+	id: ID!
+	name: String!
+	description: String!
+	members:[String]
+	playerCharacters:[PlayerCharacter] @connection(fields: ["id"])
+	gameCharacters: [GameCharacter] @connection(fields: ["id"])
+}
+
+type GameCharacter @model 
+@auth( 
+	rules: [
+		{ allow: owner }
+		{ allow: owner, operations: [read] }
+	]
+){
 	id: ID!
 	name: String!
 	background: String
+
+	attributes: [Attribute]
+	abilities: [Ability]
+
+}
+
+
+type PlayerCharacter @model
+@auth( 
+	rules: [
+		{ allow: owner }
+	]
+){
+	id: ID!
+	name: String!
+	background: String
+
+	attributes: [Attribute]
+	abilities: [Ability]
+
+}
+
+type Attribute{
+	name: String
+	value: String
+	description: String
+}
+
+type Ability {
+	name: String
+	description: String
 }
