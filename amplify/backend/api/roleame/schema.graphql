@@ -13,7 +13,7 @@ type Game @model
 	playerCharacters:[PlayerCharacter] @connection(fields: ["id"])
 	gameCharacters: [GameCharacter] @connection(fields: ["id"])
 
-	messages: [String]
+	messages: [String] @auth(rules: [ { allow: owner, ownerField: "members", operations: [update] }])
 }
 
 type GameCharacter @model 
