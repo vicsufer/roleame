@@ -9,8 +9,11 @@ type Game @model
 	name: String!
 	description: String!
 	members:[String]
+
 	playerCharacters:[PlayerCharacter] @connection(fields: ["id"])
 	gameCharacters: [GameCharacter] @connection(fields: ["id"])
+
+	messages: [String]
 }
 
 type GameCharacter @model 
