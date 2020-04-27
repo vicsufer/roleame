@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -73,6 +74,7 @@ export class AppComponent implements OnInit {
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
+
 
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {

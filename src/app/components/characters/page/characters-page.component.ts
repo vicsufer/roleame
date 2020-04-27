@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 import { APIService } from 'app/core/services/API.service';
-import { PlayerCharacter } from 'app/types/PlayerCharacter';
 import { faCopy, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { from } from 'rxjs';

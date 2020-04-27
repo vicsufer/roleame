@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 import { APIService } from 'app/core/services/API.service';
-import { PlayerCharacter } from 'app/types/PlayerCharacter';
+import { PlayerCharacter } from 'app/types/playerCharacter';
 import { faCopy, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Character } from 'app/types/character';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -24,7 +24,10 @@ export class EditCharacterComponent implements OnInit {
   @Input()
   set character(character: Character){
     this._character = character
-    this.editCharacterForm.patchValue(character)
+    if(character){
+      this.editCharacterForm.patchValue(character)
+    }
+    
   }
 
   get character(){
