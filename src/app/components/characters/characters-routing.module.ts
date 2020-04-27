@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CharactersComponent } from './characters/characters.component';
+import { CharactersPageComponent } from './page/characters-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CharactersComponent,
+    component: CharactersPageComponent,
     data: { title: 'roleame-webapp.menu.characters' }
   }
 ];

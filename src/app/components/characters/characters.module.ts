@@ -5,9 +5,12 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
 
 import { CharactersComponent } from './characters/characters.component';
 import { CharactersRoutingModule as CharactersRoutingModule } from './characters-routing.module';
+import { NewCharacterComponent } from './new-character/new-character.component';
+import { CharactersPageComponent } from './page/characters-page.component';
+import { EditCharacterComponent } from './edit-character/edit-character.component';
 
 @NgModule({
-  declarations: [CharactersComponent],
+  declarations: [CharactersComponent, NewCharacterComponent, CharactersPageComponent, EditCharacterComponent],
   imports: [CommonModule, SharedComponentsModule, CharactersRoutingModule]
 })
 export class CharactersModule {}

@@ -14,6 +14,7 @@ export function settingsReducer(
 ): SettingsState {
   switch (action.type) {
     case SettingsActionTypes.CHANGE_LANGUAGE:
+      return {...state, language: action.payload.language}
     case SettingsActionTypes.CHANGE_THEME:
     case SettingsActionTypes.CHANGE_ANIMATIONS_PAGE:
     case SettingsActionTypes.CHANGE_ANIMATIONS_ELEMENTS:

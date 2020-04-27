@@ -80,9 +80,7 @@ describe('SettingsEffects', () => {
         language: 'en',
         pageAnimations: true,
         elementsAnimations: true,
-        theme: 'default',
-        pageAnimationsDisabled: true,
-        hour: 12
+        theme: 'default'
       };
       store.pipe.and.returnValue(of(settings));
       const persistAction = new ActionSettingsChangeTheme({ theme: 'DEFAULT' });

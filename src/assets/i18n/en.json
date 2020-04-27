@@ -78,6 +78,33 @@
   "roleame-webapp.label.password_hide": "Hide password",
   "roleame-webapp.label.password_show": "Show password",
   "roleame-webapp.label.close": "Close",
+  "roleame-webapp.label.edit": "Edit",
+  "roleame-webapp.label.clone": "Clone",
+  "roleame-webapp.label.class": "Class",
+  "roleame-webapp.label.background": "Background",
+  "roleame-webapp.label.attributes": "Attributes",
+  "roleame-webapp.label.agility": "Agility",
+  "roleame-webapp.label.hitpoints": "Hit points",
+  "roleame-webapp.label.strength": "Strength",
+  "roleame-webapp.label.fellowship": "Fellowship",
+  "roleame-webapp.label.wisdom": "Wisdom",
+  "roleame-webapp.label.abilities": "Abilities",
+  "roleame-webapp.label.image": "Image",
+  "roleame-webapp.label.description": "Description",
+
+  "roleame-webapp.characters.my_characters":"My characters",
+  "roleame-webapp.characters.new_character":"New character",
+  "roleame-webapp.characters.edit_character":"Edit character",
+
+  "roleame-webapp.characters.new.basic_info":"Basic information",
+  "roleame-webapp.characters.new.attributes":"Attributes",
+  "roleame-webapp.characters.new.addAbility":"Add ability",
+  "roleame-webapp.characters.new.get_image_from":"Use image from:",
+  "roleame-webapp.characters.new.upload_image":"Upload image",
+  "roleame-webapp.characters.new.randomAttributes": "Random attributes",
+  "roleame-webapp.characters.new.noimage":"No image",
+  "roleame-webapp.characters.new.finish":"Finish creating",
+  "roleame-webapp.characters.new.create_character":"Create character",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",
@@ -101,4 +128,6 @@
   "roleame-webapp.settings.title": "Settings",
   "roleame-webapp.title.long": "Roll me",
   "roleame-webapp.title.short": "Roll me"
+
+  
 }

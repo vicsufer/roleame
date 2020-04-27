@@ -21,9 +21,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSliderModule, MatDialogModule } from '@angular/material/';
+import { MatSliderModule, MatDialogModule, MatStepperModule, MatRadioModule } from '@angular/material/';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -99,6 +100,7 @@ import { BigInputComponent } from './big-input/big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action/big-input-action.component';
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
 import { Md5Pipe } from 'app/core/pipes/md5.pipe';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   imports: [
@@ -106,7 +108,7 @@ import { Md5Pipe } from 'app/core/pipes/md5.pipe';
     FormsModule,
 
     TranslateModule,
-
+    MaterialFileInputModule,
     MatButtonModule,
     MatToolbarModule,
     MatSelectModule,
@@ -124,6 +126,9 @@ import { Md5Pipe } from 'app/core/pipes/md5.pipe';
     MatSnackBarModule,
     MatSlideToggleModule,
     MatDividerModule,
+    MatStepperModule,
+    FlexLayoutModule,
+    MatRadioModule,
 
     FontAwesomeModule
   ],
@@ -155,13 +160,16 @@ import { Md5Pipe } from 'app/core/pipes/md5.pipe';
     MatTooltipModule,
     MatSnackBarModule,
     MatSlideToggleModule,
+    MatStepperModule,
     MatDividerModule,
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-
     FontAwesomeModule,
+    FlexLayoutModule,
+    MaterialFileInputModule,
+    MatRadioModule,
 
     BigInputComponent,
     BigInputActionComponent,

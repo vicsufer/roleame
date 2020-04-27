@@ -50,17 +50,6 @@ describe('Settings Actions', () => {
     expect(action.payload.pageAnimationsDisabled).toEqual(true);
   });
 
-  it('should create ActionSettingsChangeAutoNightMode action', () => {
-    const action = new ActionSettingsChangeAutoNightMode({
-      autoNightMode: true
-    });
-
-    expect(action.type).toEqual(
-      SettingsActionTypes.CHANGE_AUTO_NIGHT_AUTO_MODE
-    );
-    expect(action.payload.autoNightMode).toEqual(true);
-  });
-
   it('should create ActionSettingsChangeLanguage action', () => {
     const action = new ActionSettingsChangeLanguage({
       language: 'en'

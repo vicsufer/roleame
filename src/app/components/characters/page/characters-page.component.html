@@ -1,0 +1,20 @@
+
+
+
+<div class="container" >
+
+    <mat-tab-group mat-stretch-tabs [(selectedIndex)]="selectedTabIndex">
+        <mat-tab label="{{'roleame-webapp.characters.my_characters' | translate }}">
+            <roleame-webapp-characters (edit)="setEditableCharacter($event)" (delete)="deleteCharacter($event)"></roleame-webapp-characters>  
+        </mat-tab>
+
+        <mat-tab label="{{'roleame-webapp.characters.new_character' | translate }}"> 
+            <roleame-webapp-new-character></roleame-webapp-new-character> 
+        </mat-tab>
+
+        <mat-tab label="{{'roleame-webapp.characters.edit_character' | translate }}">
+            <roleame-webapp-edit-character [character]=selectedEditableCharacter></roleame-webapp-edit-character>
+        </mat-tab>
+    </mat-tab-group>
+
+</div>

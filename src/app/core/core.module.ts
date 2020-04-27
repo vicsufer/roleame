@@ -49,8 +49,7 @@ import {
 import {
   SettingsActions,
   SettingsActionTypes,
-  ActionSettingsChangeLanguage,
-  ActionSettingsChangeAnimationsPageDisabled
+  ActionSettingsChangeLanguage
 } from './settings/settings.actions';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { Md5Pipe } from './pipes/md5.pipe';
@@ -73,7 +72,6 @@ export {
   SettingsActions,
   SettingsActionTypes,
   ActionSettingsChangeLanguage,
-  ActionSettingsChangeAnimationsPageDisabled,
   selectEffectiveTheme,
   selectSettingsLanguage
 };

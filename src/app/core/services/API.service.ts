@@ -11,11 +11,13 @@ export type CreateGameInput = {
   name: string;
   description: string;
   members?: Array<string | null> | null;
+  messages?: Array<string | null> | null;
 };
 
 export type ModelGameConditionInput = {
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
+  messages?: ModelStringInput | null;
   and?: Array<ModelGameConditionInput | null> | null;
   or?: Array<ModelGameConditionInput | null> | null;
   not?: ModelGameConditionInput | null;
@@ -65,6 +67,7 @@ export type UpdateGameInput = {
   name?: string | null;
   description?: string | null;
   members?: Array<string | null> | null;
+  messages?: Array<string | null> | null;
 };
 
 export type DeleteGameInput = {
@@ -75,14 +78,14 @@ export type CreateGameCharacterInput = {
   id?: string | null;
   name: string;
   background?: string | null;
-  attributes?: Array<AttributeInput | null> | null;
+  portrait?: string | null;
+  class?: string | null;
+  agility?: number | null;
+  hitPoints?: number | null;
+  fellowship?: number | null;
+  strength?: number | null;
+  wisdom?: number | null;
   abilities?: Array<AbilityInput | null> | null;
-};
-
-export type AttributeInput = {
-  name?: string | null;
-  value?: string | null;
-  description?: string | null;
 };
 
 export type AbilityInput = {
@@ -93,16 +96,41 @@ export type AbilityInput = {
 export type ModelGameCharacterConditionInput = {
   name?: ModelStringInput | null;
   background?: ModelStringInput | null;
+  portrait?: ModelStringInput | null;
+  class?: ModelStringInput | null;
+  agility?: ModelIntInput | null;
+  hitPoints?: ModelIntInput | null;
+  fellowship?: ModelIntInput | null;
+  strength?: ModelIntInput | null;
+  wisdom?: ModelIntInput | null;
   and?: Array<ModelGameCharacterConditionInput | null> | null;
   or?: Array<ModelGameCharacterConditionInput | null> | null;
   not?: ModelGameCharacterConditionInput | null;
+};
+
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
 };
 
 export type UpdateGameCharacterInput = {
   id: string;
   name?: string | null;
   background?: string | null;
-  attributes?: Array<AttributeInput | null> | null;
+  portrait?: string | null;
+  class?: string | null;
+  agility?: number | null;
+  hitPoints?: number | null;
+  fellowship?: number | null;
+  strength?: number | null;
+  wisdom?: number | null;
   abilities?: Array<AbilityInput | null> | null;
 };
 
@@ -114,13 +142,26 @@ export type CreatePlayerCharacterInput = {
   id?: string | null;
   name: string;
   background?: string | null;
-  attributes?: Array<AttributeInput | null> | null;
+  portrait?: string | null;
+  class?: string | null;
+  agility?: number | null;
+  hitPoints?: number | null;
+  fellowship?: number | null;
+  strength?: number | null;
+  wisdom?: number | null;
   abilities?: Array<AbilityInput | null> | null;
 };
 
 export type ModelPlayerCharacterConditionInput = {
   name?: ModelStringInput | null;
   background?: ModelStringInput | null;
+  portrait?: ModelStringInput | null;
+  class?: ModelStringInput | null;
+  agility?: ModelIntInput | null;
+  hitPoints?: ModelIntInput | null;
+  fellowship?: ModelIntInput | null;
+  strength?: ModelIntInput | null;
+  wisdom?: ModelIntInput | null;
   and?: Array<ModelPlayerCharacterConditionInput | null> | null;
   or?: Array<ModelPlayerCharacterConditionInput | null> | null;
   not?: ModelPlayerCharacterConditionInput | null;
@@ -130,7 +171,13 @@ export type UpdatePlayerCharacterInput = {
   id: string;
   name?: string | null;
   background?: string | null;
-  attributes?: Array<AttributeInput | null> | null;
+  portrait?: string | null;
+  class?: string | null;
+  agility?: number | null;
+  hitPoints?: number | null;
+  fellowship?: number | null;
+  strength?: number | null;
+  wisdom?: number | null;
   abilities?: Array<AbilityInput | null> | null;
 };
 
@@ -143,6 +190,7 @@ export type ModelGameFilterInput = {
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   members?: ModelStringInput | null;
+  messages?: ModelStringInput | null;
   and?: Array<ModelGameFilterInput | null> | null;
   or?: Array<ModelGameFilterInput | null> | null;
   not?: ModelGameFilterInput | null;
@@ -168,6 +216,13 @@ export type ModelGameCharacterFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   background?: ModelStringInput | null;
+  portrait?: ModelStringInput | null;
+  class?: ModelStringInput | null;
+  agility?: ModelIntInput | null;
+  hitPoints?: ModelIntInput | null;
+  fellowship?: ModelIntInput | null;
+  strength?: ModelIntInput | null;
+  wisdom?: ModelIntInput | null;
   and?: Array<ModelGameCharacterFilterInput | null> | null;
   or?: Array<ModelGameCharacterFilterInput | null> | null;
   not?: ModelGameCharacterFilterInput | null;
@@ -177,6 +232,13 @@ export type ModelPlayerCharacterFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   background?: ModelStringInput | null;
+  portrait?: ModelStringInput | null;
+  class?: ModelStringInput | null;
+  agility?: ModelIntInput | null;
+  hitPoints?: ModelIntInput | null;
+  fellowship?: ModelIntInput | null;
+  strength?: ModelIntInput | null;
+  wisdom?: ModelIntInput | null;
   and?: Array<ModelPlayerCharacterFilterInput | null> | null;
   or?: Array<ModelPlayerCharacterFilterInput | null> | null;
   not?: ModelPlayerCharacterFilterInput | null;
@@ -190,12 +252,51 @@ export type CreateGameMutation = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -207,12 +308,51 @@ export type UpdateGameMutation = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -224,12 +364,51 @@ export type DeleteGameMutation = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -238,12 +417,13 @@ export type CreateGameCharacterMutation = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -257,12 +437,13 @@ export type UpdateGameCharacterMutation = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -276,12 +457,13 @@ export type DeleteGameCharacterMutation = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -295,12 +477,13 @@ export type CreatePlayerCharacterMutation = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -314,12 +497,13 @@ export type UpdatePlayerCharacterMutation = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -333,12 +517,13 @@ export type DeletePlayerCharacterMutation = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -355,12 +540,51 @@ export type GetGameQuery = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -372,6 +596,43 @@ export type ListGamesQuery = {
     name: string;
     description: string;
     members: Array<string | null> | null;
+    playerCharacters: {
+      __typename: "ModelPlayerCharacterConnection";
+      items: Array<{
+        __typename: "PlayerCharacter";
+        id: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+        owner: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    gameCharacters: {
+      __typename: "ModelGameCharacterConnection";
+      items: Array<{
+        __typename: "GameCharacter";
+        id: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+        owner: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    messages: Array<string | null> | null;
     owner: string | null;
   } | null> | null;
   nextToken: string | null;
@@ -382,12 +643,13 @@ export type GetGameCharacterQuery = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -403,6 +665,18 @@ export type ListGameCharactersQuery = {
     id: string;
     name: string;
     background: string | null;
+    portrait: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      __typename: "Ability";
+      name: string | null;
+      description: string | null;
+    } | null> | null;
     owner: string | null;
   } | null> | null;
   nextToken: string | null;
@@ -413,12 +687,13 @@ export type GetPlayerCharacterQuery = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -434,6 +709,18 @@ export type ListPlayerCharactersQuery = {
     id: string;
     name: string;
     background: string | null;
+    portrait: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      __typename: "Ability";
+      name: string | null;
+      description: string | null;
+    } | null> | null;
     owner: string | null;
   } | null> | null;
   nextToken: string | null;
@@ -447,12 +734,51 @@ export type OnCreateGameSubscription = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -464,12 +790,51 @@ export type OnUpdateGameSubscription = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -481,12 +846,51 @@ export type OnDeleteGameSubscription = {
   members: Array<string | null> | null;
   playerCharacters: {
     __typename: "ModelPlayerCharacterConnection";
+    items: Array<{
+      __typename: "PlayerCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
   gameCharacters: {
     __typename: "ModelGameCharacterConnection";
+    items: Array<{
+      __typename: "GameCharacter";
+      id: string;
+      name: string;
+      background: string | null;
+      portrait: string | null;
+      class: string | null;
+      agility: number | null;
+      hitPoints: number | null;
+      fellowship: number | null;
+      strength: number | null;
+      wisdom: number | null;
+      abilities: Array<{
+        __typename: "Ability";
+        name: string | null;
+        description: string | null;
+      } | null> | null;
+      owner: string | null;
+    } | null> | null;
     nextToken: string | null;
   } | null;
+  messages: Array<string | null> | null;
   owner: string | null;
 };
 
@@ -495,12 +899,13 @@ export type OnCreateGameCharacterSubscription = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -514,12 +919,13 @@ export type OnUpdateGameCharacterSubscription = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -533,12 +939,13 @@ export type OnDeleteGameCharacterSubscription = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -552,12 +959,13 @@ export type OnCreatePlayerCharacterSubscription = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -571,12 +979,13 @@ export type OnUpdatePlayerCharacterSubscription = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -590,12 +999,13 @@ export type OnDeletePlayerCharacterSubscription = {
   id: string;
   name: string;
   background: string | null;
-  attributes: Array<{
-    __typename: "Attribute";
-    name: string | null;
-    value: string | null;
-    description: string | null;
-  } | null> | null;
+  portrait: string | null;
+  class: string | null;
+  agility: number | null;
+  hitPoints: number | null;
+  fellowship: number | null;
+  strength: number | null;
+  wisdom: number | null;
   abilities: Array<{
     __typename: "Ability";
     name: string | null;
@@ -621,12 +1031,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`;
@@ -654,12 +1103,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`;
@@ -687,12 +1175,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`;
@@ -717,12 +1244,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -752,12 +1280,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -787,12 +1316,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -822,12 +1352,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -857,12 +1388,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -892,12 +1424,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -927,12 +1460,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`;
@@ -958,6 +1530,43 @@ export class APIService {
             name
             description
             members
+            playerCharacters {
+              __typename
+              items {
+                __typename
+                id
+                name
+                background
+                portrait
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+                owner
+              }
+              nextToken
+            }
+            gameCharacters {
+              __typename
+              items {
+                __typename
+                id
+                name
+                background
+                portrait
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+                owner
+              }
+              nextToken
+            }
+            messages
             owner
           }
           nextToken
@@ -985,12 +1594,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1020,6 +1630,18 @@ export class APIService {
             id
             name
             background
+            portrait
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              __typename
+              name
+              description
+            }
             owner
           }
           nextToken
@@ -1047,12 +1669,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1082,6 +1705,18 @@ export class APIService {
             id
             name
             background
+            portrait
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              __typename
+              name
+              description
+            }
             owner
           }
           nextToken
@@ -1113,12 +1748,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`
@@ -1136,12 +1810,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`
@@ -1159,12 +1872,51 @@ export class APIService {
           members
           playerCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
           gameCharacters {
             __typename
+            items {
+              __typename
+              id
+              name
+              background
+              portrait
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                __typename
+                name
+                description
+              }
+              owner
+            }
             nextToken
           }
+          messages
           owner
         }
       }`
@@ -1181,12 +1933,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1208,12 +1961,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1235,12 +1989,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1262,12 +2017,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1289,12 +2045,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name
@@ -1316,12 +2073,13 @@ export class APIService {
           id
           name
           background
-          attributes {
-            __typename
-            name
-            value
-            description
-          }
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
           abilities {
             __typename
             name

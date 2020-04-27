@@ -9,11 +9,46 @@ mutation CreateGame(
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -27,11 +62,46 @@ mutation UpdateGame(
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -45,11 +115,46 @@ mutation DeleteGame(
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -61,11 +166,13 @@ mutation CreateGameCharacter(
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -81,11 +188,13 @@ mutation UpdateGameCharacter(
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -101,11 +210,13 @@ mutation DeleteGameCharacter(
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -121,11 +232,13 @@ mutation CreatePlayerCharacter(
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -141,11 +254,13 @@ mutation UpdatePlayerCharacter(
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -161,11 +276,13 @@ mutation DeletePlayerCharacter(
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description

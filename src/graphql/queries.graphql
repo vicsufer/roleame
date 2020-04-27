@@ -6,11 +6,46 @@ query GetGame($id: ID!) {
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -25,6 +60,39 @@ query ListGames(
       name
       description
       members
+      playerCharacters {
+        items {
+          id
+          name
+          background
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+          owner
+        }
+        nextToken
+      }
+      gameCharacters {
+        items {
+          id
+          name
+          background
+          portrait
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+          owner
+        }
+        nextToken
+      }
+      messages
       owner
     }
     nextToken
@@ -35,11 +103,13 @@ query GetGameCharacter($id: ID!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -57,6 +127,17 @@ query ListGameCharacters(
       id
       name
       background
+      portrait
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
       owner
     }
     nextToken
@@ -67,11 +148,13 @@ query GetPlayerCharacter($id: ID!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -89,6 +172,17 @@ query ListPlayerCharacters(
       id
       name
       background
+      portrait
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
       owner
     }
     nextToken

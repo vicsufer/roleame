@@ -1,6 +1,6 @@
 import { AppState } from '../core.module';
 
-export type Language = 'en' | 'sk' | 'de' | 'fr' | 'es' | 'pt-br' | 'he';
+export type Language = 'en' | 'es' ;
 
 export interface SettingsState {
   language: string;

@@ -1,7 +1,17 @@
+import { Ability } from './ability'
 
-export class Character{
+export abstract class Character {
     id?: string;
     name: string;
+    class?: string;
     background?: string;
-    owner?: string;
+    portrait?: string;
+
+    agility: number;
+	hitPoints: number;
+	fellowship: number;
+	strength: number;
+	wisdom: number;
+
+    abilities: Ability[]
 }

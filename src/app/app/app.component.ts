@@ -17,6 +17,7 @@ import {
 } from '../core/core.module';
 import { ActionAuthLogout, ActionAuthLogin } from 'app/core/auth/auth.actions';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
+import { ActionSettingsChangeAnimationsPage } from 'app/core/settings/settings.actions';
 
 @Component({
   selector: 'roleame-webapp-root',
@@ -25,6 +26,8 @@ import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
   animations: [routeAnimations]
 })
 export class AppComponent implements OnInit {
+
+  
   isProd = env.production;
   envName = env.envName;
   version = env.versions.app;
@@ -59,6 +62,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.storageService.testLocalStorage();
+
+    if (AppComponent.isIEorEdgeOrSafari()) {
+      this.store.dispatch(
+        new ActionSettingsChangeAnimationsPage({pageAnimations: false})
+      );
+    }
 
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));

@@ -4,21 +4,21 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedComponentsModule } from '../../../shared-components/shared-components.module';
 
-import { CharactersComponent } from './characters.component';
+import { EditCharacterComponent } from './edit-character.component';
 
 describe('charactersomponent', () => {
-  let component: CharactersComponent;
-  let fixture: ComponentFixture<CharactersComponent>;
+  let component: EditCharacterComponent;
+  let fixture: ComponentFixture<EditCharacterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedComponentsModule, NoopAnimationsModule, TranslateModule.forRoot()],
-      declarations: [CharactersComponent]
+      declarations: [EditCharacterComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CharactersComponent);
+    fixture = TestBed.createComponent(EditCharacterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,11 +6,46 @@ subscription OnCreateGame($owner: String!) {
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -21,11 +56,46 @@ subscription OnUpdateGame($owner: String!) {
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -36,11 +106,46 @@ subscription OnDeleteGame($owner: String!) {
     description
     members
     playerCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
     gameCharacters {
+      items {
+        id
+        name
+        background
+        portrait
+        class
+        agility
+        hitPoints
+        fellowship
+        strength
+        wisdom
+        abilities {
+          name
+          description
+        }
+        owner
+      }
       nextToken
     }
+    messages
     owner
   }
 }
@@ -49,11 +154,13 @@ subscription OnCreateGameCharacter($owner: String!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -66,11 +173,13 @@ subscription OnUpdateGameCharacter($owner: String!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -83,11 +192,13 @@ subscription OnDeleteGameCharacter($owner: String!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -100,11 +211,13 @@ subscription OnCreatePlayerCharacter($owner: String!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -117,11 +230,13 @@ subscription OnUpdatePlayerCharacter($owner: String!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
@@ -134,11 +249,13 @@ subscription OnDeletePlayerCharacter($owner: String!) {
     id
     name
     background
-    attributes {
-      name
-      value
-      description
-    }
+    portrait
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
     abilities {
       name
       description
