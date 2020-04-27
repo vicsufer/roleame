@@ -26,8 +26,15 @@ type GameCharacter @model
 	id: ID!
 	name: String!
 	background: String
+	portrait: String
+	class: String
 
-	attributes: [Attribute]
+	agility: Int
+	hitPoints: Int
+	fellowship: Int
+	strength: Int
+	wisdom: Int
+
 	abilities: [Ability]
 
 }
@@ -42,19 +49,19 @@ type PlayerCharacter @model
 	id: ID!
 	name: String!
 	background: String
+	portrait: String
+	class: String
 
-	attributes: [Attribute]
+	agility: Int
+	hitPoints: Int
+	fellowship: Int
+	strength: Int
+	wisdom: Int
+
 	abilities: [Ability]
-
 }
 
-type Attribute{
-	name: String
-	value: String
-	description: String
-}
-
-type Ability {
+type Ability{
 	name: String
 	description: String
 }

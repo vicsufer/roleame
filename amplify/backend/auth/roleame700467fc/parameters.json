@@ -1,6 +1,6 @@
 {
     "identityPoolName": "roleame700467fc_identitypool_700467fc",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "roleam700467fc",
     "userPoolName": "roleame700467fc_userpool_700467fc",
     "autoVerifiedAttributes": [
