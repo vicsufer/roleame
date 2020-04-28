@@ -98,7 +98,7 @@
                 </mat-card-header>
 
                 <mat-card-content fxLayout="column" class="mb-4">
-                    <div formArrayName="abilities" *ngFor="let ability of editCharacterForm.get('abilities').controls; let i = index; let lastItem = last" [ngClass]="routeAnimationsElements">
+                    <div formArrayName="abilities" *ngFor="let ability of editCharacterForm.get('abilities').controls; let i = index; let lastItem = last" @routeAnimations [ngClass]="routeAnimationsElements">
                         <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start">
             
                             <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(20% - 40px)"> 

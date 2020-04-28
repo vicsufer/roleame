@@ -68,7 +68,7 @@
 
         <mat-step [stepControl]="abilitiesForm" label="{{'roleame-webapp.label.abilities' | translate}}">
             <form [formGroup]="abilitiesForm">
-                <div formArrayName="abilities" *ngFor="let ability of abilitiesForm.get('abilities').controls; let i = index; let lastItem = last" [ngClass]="routeAnimationsElements">
+                <div formArrayName="abilities" *ngFor="let ability of abilitiesForm.get('abilities').controls; let i = index; let lastItem = last" @routeAnimations [ngClass]="routeAnimationsElements">
                     <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start">
 
                         <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(20% - 40px)"> 
