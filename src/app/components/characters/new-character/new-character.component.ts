@@ -76,7 +76,7 @@ export class NewCharacterComponent implements OnInit {
   }
 
   removeAbility(i : number): void {
-    this.abilities.removeAt(0)
+    this.abilities.removeAt(i)
   }
 
   createAbility(): FormGroup {

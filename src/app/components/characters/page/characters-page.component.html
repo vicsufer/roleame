@@ -12,7 +12,7 @@
             <roleame-webapp-new-character></roleame-webapp-new-character> 
         </mat-tab>
 
-        <mat-tab label="{{'roleame-webapp.characters.edit_character' | translate }}">
+        <mat-tab [disabled]="!selectedEditableCharacter" label="{{'roleame-webapp.characters.edit_character' | translate }}">
             <roleame-webapp-edit-character [character]=selectedEditableCharacter (applyChanges)="applyChanges($event)"></roleame-webapp-edit-character>
         </mat-tab>
     </mat-tab-group>

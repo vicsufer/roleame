@@ -245,15 +245,15 @@ export type ModelPlayerCharacterFilterInput = {
 };
 
 export type CreateGameMutation = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -265,7 +265,7 @@ export type CreateGameMutation = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -274,9 +274,9 @@ export type CreateGameMutation = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -288,7 +288,7 @@ export type CreateGameMutation = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -301,15 +301,15 @@ export type CreateGameMutation = {
 };
 
 export type UpdateGameMutation = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -321,7 +321,7 @@ export type UpdateGameMutation = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -330,9 +330,9 @@ export type UpdateGameMutation = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -344,7 +344,7 @@ export type UpdateGameMutation = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -357,15 +357,15 @@ export type UpdateGameMutation = {
 };
 
 export type DeleteGameMutation = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -377,7 +377,7 @@ export type DeleteGameMutation = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -386,9 +386,9 @@ export type DeleteGameMutation = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -400,7 +400,7 @@ export type DeleteGameMutation = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -413,7 +413,7 @@ export type DeleteGameMutation = {
 };
 
 export type CreateGameCharacterMutation = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -425,7 +425,7 @@ export type CreateGameCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -433,7 +433,7 @@ export type CreateGameCharacterMutation = {
 };
 
 export type UpdateGameCharacterMutation = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -445,7 +445,7 @@ export type UpdateGameCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -453,7 +453,7 @@ export type UpdateGameCharacterMutation = {
 };
 
 export type DeleteGameCharacterMutation = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -465,7 +465,7 @@ export type DeleteGameCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -473,7 +473,7 @@ export type DeleteGameCharacterMutation = {
 };
 
 export type CreatePlayerCharacterMutation = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -485,7 +485,7 @@ export type CreatePlayerCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -493,7 +493,7 @@ export type CreatePlayerCharacterMutation = {
 };
 
 export type UpdatePlayerCharacterMutation = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -505,7 +505,7 @@ export type UpdatePlayerCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -513,7 +513,7 @@ export type UpdatePlayerCharacterMutation = {
 };
 
 export type DeletePlayerCharacterMutation = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -525,7 +525,7 @@ export type DeletePlayerCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -533,15 +533,15 @@ export type DeletePlayerCharacterMutation = {
 };
 
 export type GetGameQuery = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -553,7 +553,7 @@ export type GetGameQuery = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -562,9 +562,9 @@ export type GetGameQuery = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -576,7 +576,7 @@ export type GetGameQuery = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -589,17 +589,17 @@ export type GetGameQuery = {
 };
 
 export type ListGamesQuery = {
-  __typename: "ModelGameConnection";
+  
   items: Array<{
-    __typename: "Game";
+    
     id: string;
     name: string;
     description: string;
     members: Array<string | null> | null;
     playerCharacters: {
-      __typename: "ModelPlayerCharacterConnection";
+      
       items: Array<{
-        __typename: "PlayerCharacter";
+        
         id: string;
         name: string;
         background: string | null;
@@ -615,9 +615,9 @@ export type ListGamesQuery = {
       nextToken: string | null;
     } | null;
     gameCharacters: {
-      __typename: "ModelGameCharacterConnection";
+      
       items: Array<{
-        __typename: "GameCharacter";
+        
         id: string;
         name: string;
         background: string | null;
@@ -639,7 +639,7 @@ export type ListGamesQuery = {
 };
 
 export type GetGameCharacterQuery = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -651,7 +651,7 @@ export type GetGameCharacterQuery = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -659,9 +659,9 @@ export type GetGameCharacterQuery = {
 };
 
 export type ListGameCharactersQuery = {
-  __typename: "ModelGameCharacterConnection";
+  
   items: Array<{
-    __typename: "GameCharacter";
+    
     id: string;
     name: string;
     background: string | null;
@@ -673,7 +673,7 @@ export type ListGameCharactersQuery = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      __typename: "Ability";
+      
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -683,7 +683,7 @@ export type ListGameCharactersQuery = {
 };
 
 export type GetPlayerCharacterQuery = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -695,7 +695,7 @@ export type GetPlayerCharacterQuery = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -703,9 +703,9 @@ export type GetPlayerCharacterQuery = {
 };
 
 export type ListPlayerCharactersQuery = {
-  __typename: "ModelPlayerCharacterConnection";
+  
   items: Array<{
-    __typename: "PlayerCharacter";
+    
     id: string;
     name: string;
     background: string | null;
@@ -717,7 +717,7 @@ export type ListPlayerCharactersQuery = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      __typename: "Ability";
+      
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -727,15 +727,15 @@ export type ListPlayerCharactersQuery = {
 };
 
 export type OnCreateGameSubscription = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -747,7 +747,7 @@ export type OnCreateGameSubscription = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -756,9 +756,9 @@ export type OnCreateGameSubscription = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -770,7 +770,7 @@ export type OnCreateGameSubscription = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -783,15 +783,15 @@ export type OnCreateGameSubscription = {
 };
 
 export type OnUpdateGameSubscription = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -803,7 +803,7 @@ export type OnUpdateGameSubscription = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -812,9 +812,9 @@ export type OnUpdateGameSubscription = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -826,7 +826,7 @@ export type OnUpdateGameSubscription = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -839,15 +839,15 @@ export type OnUpdateGameSubscription = {
 };
 
 export type OnDeleteGameSubscription = {
-  __typename: "Game";
+  
   id: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
   playerCharacters: {
-    __typename: "ModelPlayerCharacterConnection";
+    
     items: Array<{
-      __typename: "PlayerCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -859,7 +859,7 @@ export type OnDeleteGameSubscription = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -868,9 +868,9 @@ export type OnDeleteGameSubscription = {
     nextToken: string | null;
   } | null;
   gameCharacters: {
-    __typename: "ModelGameCharacterConnection";
+    
     items: Array<{
-      __typename: "GameCharacter";
+      
       id: string;
       name: string;
       background: string | null;
@@ -882,7 +882,7 @@ export type OnDeleteGameSubscription = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        __typename: "Ability";
+        
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -895,7 +895,7 @@ export type OnDeleteGameSubscription = {
 };
 
 export type OnCreateGameCharacterSubscription = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -907,7 +907,7 @@ export type OnCreateGameCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -915,7 +915,7 @@ export type OnCreateGameCharacterSubscription = {
 };
 
 export type OnUpdateGameCharacterSubscription = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -927,7 +927,7 @@ export type OnUpdateGameCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -935,7 +935,7 @@ export type OnUpdateGameCharacterSubscription = {
 };
 
 export type OnDeleteGameCharacterSubscription = {
-  __typename: "GameCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -947,7 +947,7 @@ export type OnDeleteGameCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -955,7 +955,7 @@ export type OnDeleteGameCharacterSubscription = {
 };
 
 export type OnCreatePlayerCharacterSubscription = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -967,7 +967,7 @@ export type OnCreatePlayerCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -975,7 +975,7 @@ export type OnCreatePlayerCharacterSubscription = {
 };
 
 export type OnUpdatePlayerCharacterSubscription = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -987,7 +987,7 @@ export type OnUpdatePlayerCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -995,7 +995,7 @@ export type OnUpdatePlayerCharacterSubscription = {
 };
 
 export type OnDeletePlayerCharacterSubscription = {
-  __typename: "PlayerCharacter";
+  
   id: string;
   name: string;
   background: string | null;
@@ -1007,7 +1007,7 @@ export type OnDeletePlayerCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    __typename: "Ability";
+    
     name: string | null;
     description: string | null;
   } | null> | null;
@@ -1024,15 +1024,15 @@ export class APIService {
   ): Promise<CreateGameMutation> {
     const statement = `mutation CreateGame($input: CreateGameInput!, $condition: ModelGameConditionInput) {
         createGame(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1044,7 +1044,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1053,9 +1053,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1067,7 +1067,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1096,15 +1096,15 @@ export class APIService {
   ): Promise<UpdateGameMutation> {
     const statement = `mutation UpdateGame($input: UpdateGameInput!, $condition: ModelGameConditionInput) {
         updateGame(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1116,7 +1116,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1125,9 +1125,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1139,7 +1139,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1168,15 +1168,15 @@ export class APIService {
   ): Promise<DeleteGameMutation> {
     const statement = `mutation DeleteGame($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
         deleteGame(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1188,7 +1188,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1197,9 +1197,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1211,7 +1211,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1240,7 +1240,7 @@ export class APIService {
   ): Promise<CreateGameCharacterMutation> {
     const statement = `mutation CreateGameCharacter($input: CreateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
         createGameCharacter(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           background
@@ -1252,7 +1252,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1276,7 +1276,7 @@ export class APIService {
   ): Promise<UpdateGameCharacterMutation> {
     const statement = `mutation UpdateGameCharacter($input: UpdateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
         updateGameCharacter(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           background
@@ -1288,7 +1288,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1312,7 +1312,7 @@ export class APIService {
   ): Promise<DeleteGameCharacterMutation> {
     const statement = `mutation DeleteGameCharacter($input: DeleteGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
         deleteGameCharacter(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           background
@@ -1324,7 +1324,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1348,7 +1348,7 @@ export class APIService {
   ): Promise<CreatePlayerCharacterMutation> {
     const statement = `mutation CreatePlayerCharacter($input: CreatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
         createPlayerCharacter(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           background
@@ -1360,7 +1360,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1384,7 +1384,7 @@ export class APIService {
   ): Promise<UpdatePlayerCharacterMutation> {
     const statement = `mutation UpdatePlayerCharacter($input: UpdatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
         updatePlayerCharacter(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           background
@@ -1396,7 +1396,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1420,7 +1420,7 @@ export class APIService {
   ): Promise<DeletePlayerCharacterMutation> {
     const statement = `mutation DeletePlayerCharacter($input: DeletePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
         deletePlayerCharacter(input: $input, condition: $condition) {
-          __typename
+          
           id
           name
           background
@@ -1432,7 +1432,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1453,15 +1453,15 @@ export class APIService {
   async GetGame(id: string): Promise<GetGameQuery> {
     const statement = `query GetGame($id: ID!) {
         getGame(id: $id) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1473,7 +1473,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1482,9 +1482,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1496,7 +1496,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1523,17 +1523,17 @@ export class APIService {
   ): Promise<ListGamesQuery> {
     const statement = `query ListGames($filter: ModelGameFilterInput, $limit: Int, $nextToken: String) {
         listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
+          
           items {
-            __typename
+            
             id
             name
             description
             members
             playerCharacters {
-              __typename
+              
               items {
-                __typename
+                
                 id
                 name
                 background
@@ -1549,9 +1549,9 @@ export class APIService {
               nextToken
             }
             gameCharacters {
-              __typename
+              
               items {
-                __typename
+                
                 id
                 name
                 background
@@ -1590,7 +1590,7 @@ export class APIService {
   async GetGameCharacter(id: string): Promise<GetGameCharacterQuery> {
     const statement = `query GetGameCharacter($id: ID!) {
         getGameCharacter(id: $id) {
-          __typename
+          
           id
           name
           background
@@ -1602,7 +1602,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1624,9 +1624,9 @@ export class APIService {
   ): Promise<ListGameCharactersQuery> {
     const statement = `query ListGameCharacters($filter: ModelGameCharacterFilterInput, $limit: Int, $nextToken: String) {
         listGameCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
+          
           items {
-            __typename
+            
             id
             name
             background
@@ -1638,7 +1638,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              __typename
+              
               name
               description
             }
@@ -1665,7 +1665,7 @@ export class APIService {
   async GetPlayerCharacter(id: string): Promise<GetPlayerCharacterQuery> {
     const statement = `query GetPlayerCharacter($id: ID!) {
         getPlayerCharacter(id: $id) {
-          __typename
+          
           id
           name
           background
@@ -1677,7 +1677,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1699,9 +1699,9 @@ export class APIService {
   ): Promise<ListPlayerCharactersQuery> {
     const statement = `query ListPlayerCharacters($filter: ModelPlayerCharacterFilterInput, $limit: Int, $nextToken: String) {
         listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          __typename
+          
           items {
-            __typename
+            
             id
             name
             background
@@ -1713,7 +1713,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              __typename
+              
               name
               description
             }
@@ -1741,15 +1741,15 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreateGame($owner: String!) {
         onCreateGame(owner: $owner) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1761,7 +1761,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1770,9 +1770,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1784,7 +1784,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1803,15 +1803,15 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateGame($owner: String!) {
         onUpdateGame(owner: $owner) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1823,7 +1823,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1832,9 +1832,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1846,7 +1846,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1865,15 +1865,15 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteGame($owner: String!) {
         onDeleteGame(owner: $owner) {
-          __typename
+          
           id
           name
           description
           members
           playerCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1885,7 +1885,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1894,9 +1894,9 @@ export class APIService {
             nextToken
           }
           gameCharacters {
-            __typename
+            
             items {
-              __typename
+              
               id
               name
               background
@@ -1908,7 +1908,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                __typename
+                
                 name
                 description
               }
@@ -1929,7 +1929,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreateGameCharacter($owner: String!) {
         onCreateGameCharacter(owner: $owner) {
-          __typename
+          
           id
           name
           background
@@ -1941,7 +1941,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1957,7 +1957,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateGameCharacter($owner: String!) {
         onUpdateGameCharacter(owner: $owner) {
-          __typename
+          
           id
           name
           background
@@ -1969,7 +1969,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -1985,7 +1985,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteGameCharacter($owner: String!) {
         onDeleteGameCharacter(owner: $owner) {
-          __typename
+          
           id
           name
           background
@@ -1997,7 +1997,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -2013,7 +2013,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreatePlayerCharacter($owner: String!) {
         onCreatePlayerCharacter(owner: $owner) {
-          __typename
+          
           id
           name
           background
@@ -2025,7 +2025,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -2041,7 +2041,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdatePlayerCharacter($owner: String!) {
         onUpdatePlayerCharacter(owner: $owner) {
-          __typename
+          
           id
           name
           background
@@ -2053,7 +2053,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }
@@ -2069,7 +2069,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeletePlayerCharacter($owner: String!) {
         onDeletePlayerCharacter(owner: $owner) {
-          __typename
+          
           id
           name
           background
@@ -2081,7 +2081,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            __typename
+            
             name
             description
           }

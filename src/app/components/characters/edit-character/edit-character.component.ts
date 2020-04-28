@@ -25,8 +25,15 @@ export class EditCharacterComponent implements OnInit {
   @Input()
   set character(character: Character){
     this._character = character
+    console.log(character)
     if(character){
       this.editCharacterForm.patchValue(character)
+
+      this.character.abilities.forEach( (ability) => {
+        var abilityForm = this.createAbility()
+        abilityForm.setValue(ability)
+        this.characterAbilities.push(abilityForm);
+      })
     }
     
   }
@@ -56,8 +63,7 @@ export class EditCharacterComponent implements OnInit {
       strength: ['', [Validators.required, Validators.min(0), Validators.max(this.maxAttrValue)]],
       wisdom: ['', [Validators.required, Validators.min(0), Validators.max(this.maxAttrValue)]],
       abilities: this.formBuilder.array([]),
-      iamgeType: ['', Validators.required],
-      imageValue: [''],
+      portrait: [''],
     })
     this.characterAbilities = this.editCharacterForm.get('abilities') as FormArray;
     
@@ -68,7 +74,7 @@ export class EditCharacterComponent implements OnInit {
   }
 
   removeAbility(i : number): void {
-    this.characterAbilities.removeAt(0)
+    this.characterAbilities.removeAt(i)
   }
 
   createAbility(): FormGroup {

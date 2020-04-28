@@ -106,6 +106,8 @@
   "roleame-webapp.characters.new.create_character":"Crear personaje",
 
   "roleame-webapp.characters.edit.apply": "Aplicar cambios",
+  "roleame-webapp.characters.edit.success": "Personaje actualizado",
+  "roleame-webapp.characters.edit.error": "Error actualizando personaje",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",
