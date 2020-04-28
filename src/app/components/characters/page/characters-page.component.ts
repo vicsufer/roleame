@@ -5,7 +5,7 @@ import { APIService } from 'app/core/services/API.service';
 import { faCopy, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { from } from 'rxjs';
-import { Character } from 'app/types/character';
+import { Character, CharacterUpdatable } from 'app/types/character';
 
 @Component({
   selector: 'roleame-webapp-characters-page',
@@ -36,6 +36,13 @@ export class CharactersPageComponent implements OnInit {
 
   deleteCharacter(character: Character){
 
+  }
+
+  applyChanges(character: Character){
+    console.log(character);
+    this.apiService.UpdatePlayerCharacter(character).then( (res) => {
+      console.log(res)
+    }).catch( e => console.log(e))
   }
 
 }

@@ -1,7 +1,7 @@
 import { Ability } from './ability'
 
 export abstract class Character {
-    id?: string;
+    id: string;
     name: string;
     class?: string;
     background?: string;
@@ -14,4 +14,8 @@ export abstract class Character {
 	wisdom: number;
 
     abilities: Ability[]
+}
+
+export abstract class CharacterUpdatable extends Character{
+    id: string;
 }

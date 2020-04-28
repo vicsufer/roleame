@@ -21,6 +21,7 @@ export class EditCharacterComponent implements OnInit {
 
   _character: Character
 
+  @Output() applyChanges: EventEmitter<Character> = new EventEmitter<Character>();
   @Input()
   set character(character: Character){
     this._character = character
@@ -34,8 +35,8 @@ export class EditCharacterComponent implements OnInit {
     return this._character
   }
 
-  editCharacterForm: FormGroup
   maxAttrValue = 20
+  editCharacterForm: FormGroup
   characterAbilities: FormArray
 
   constructor(private apiService: APIService, private formBuilder: FormBuilder) {
@@ -77,4 +78,8 @@ export class EditCharacterComponent implements OnInit {
     });
   }
 
+  editCharacter() {
+    Object.assign(this.character , this.editCharacterForm.value )
+    this.applyChanges.emit(this.character)
+  }
 }

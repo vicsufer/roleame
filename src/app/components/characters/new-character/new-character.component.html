@@ -4,7 +4,7 @@
         <mat-step [stepControl]="basicInfoForm" label="{{'roleame-webapp.characters.new.basic_info' | translate}}">
             <form [formGroup]="basicInfoForm" fxFlex fxFlexAlign="start">
                 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start">
-                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 40)" fxFlex.gt-md="calc(30% - 40px)">
+                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 40)" fxFlex.gt-sm="calc(30% - 40px)">
                         <mat-form-field>
                             <mat-label>{{'roleame-webapp.label.name' | translate}}</mat-label>
                             <input matInput formControlName="name" required>
@@ -15,7 +15,7 @@
                             <input matInput formControlName="class">
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-md="calc(70% - 40px)">
+                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(70% - 40px)">
                         <mat-form-field >
                             <mat-label>{{'roleame-webapp.label.background' | translate}}</mat-label>
                             <textarea matInput #background maxlength='500' formControlName="background" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
@@ -29,32 +29,37 @@
         <mat-step [stepControl]="attributesForm" label="{{'roleame-webapp.characters.new.attributes' | translate}}">
             <form fxFlex fxFlexAlign="start" [formGroup]="attributesForm">
                 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start">
-                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-md="calc(20% - 10px)">
+                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(20% - 10px)">
                         <mat-form-field>
                             <mat-label>{{'roleame-webapp.label.agility' | translate}}</mat-label>
                             <input matInput type="number" min="0" [max]="maxAttrValue" formControlName="agility" required>
+                            <span matSuffix>/{{maxAttrValue}}</span>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{'roleame-webapp.label.hitpoints' | translate}}</mat-label>
                             <input matInput type="number"  min="0" [max]="maxAttrValue" formControlName="hitPoints" required>
+                            <span matSuffix>/{{maxAttrValue}}</span>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{'roleame-webapp.label.fellowship' | translate}}</mat-label>
                             <input matInput type="number"  min="0" [max]="maxAttrValue" formControlName="fellowship" required>
+                            <span matSuffix>/{{maxAttrValue}}</span>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-md="calc(20% - 10px)">
+                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(20% - 10px)">
                         <mat-form-field>
                             <mat-label>{{'roleame-webapp.label.strength' | translate}}</mat-label>
                             <input matInput type="number"  min="0" [max]="maxAttrValue" formControlName="strength" required>
+                            <span matSuffix>/{{maxAttrValue}}</span>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>{{'roleame-webapp.label.wisdom' | translate}}</mat-label>
                             <input matInput type="number"  min="0" [max]="maxAttrValue" formControlName="wisdom" required>
+                            <span matSuffix>/{{maxAttrValue}}</span>
                         </mat-form-field>
                         <button mat-raised-button (click)="generateRandomAttributes()" text-align="left"  mat-button>{{'roleame-webapp.characters.new.randomAttributes' | translate }}</button>
                     </div>
-                    <div fxLayout="column" fxLayoutAlign="start" fxFlex.gt-md="calc(70% - 10px)">
+                    <div fxLayout="column" fxLayoutAlign="start" fxFlex.gt-sm="calc(70% - 10px)">
                        
                     </div>
                 </div>
@@ -66,17 +71,17 @@
                 <div formArrayName="abilities" *ngFor="let ability of abilitiesForm.get('abilities').controls; let i = index; let lastItem = last" [ngClass]="routeAnimationsElements">
                     <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start">
 
-                        <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-md="calc(20% - 40px)"> 
+                        <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(20% - 40px)"> 
                             <mat-label>{{'roleame-webapp.label.name' | translate}}</mat-label>
                             <input matInput formControlName="name" required>
                         </mat-form-field>
 
-                        <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-md="calc(70% - 40px)">
-                            <mat-label>{{'roleame-webapp.label.background' | translate}}</mat-label>
-                            <textarea matInput #background maxlength='500' formControlName="background" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
-                            <mat-hint align="end">{{background.value.length}} / 500</mat-hint>
+                        <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(70% - 40px)">
+                            <mat-label>{{'roleame-webapp.label.description' | translate}}</mat-label>
+                            <textarea matInput #description maxlength='500' formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                            <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
                         </mat-form-field>
-                        <button mat-icon-button (click)="removeAbility(i)"  fxLayout="column" xFlex.gt-xs="calc(5% - 40px)" fxFlex.gt-md="calc(10% - 40px)"> <mat-icon>delete</mat-icon></button>
+                        <button mat-icon-button (click)="removeAbility(i)"  fxLayout="column" xFlex.gt-xs="calc(5% - 40px)" fxFlex.gt-sm="calc(10% - 40px)"> <mat-icon>delete</mat-icon></button>
                     </div>
                     <mat-divider *ngIf="!lastItem"></mat-divider>
                 </div>
@@ -88,9 +93,9 @@
             <form [formGroup]="imageForm" fxLayout="column" >
                 <label id="rbUploadLabel">{{'roleame-webapp.characters.new.get_image_from' | translate}}</label>
                 <mat-radio-group formControlName="type" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start">
-                    <mat-radio-button #rbImageURL value="url" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-md="calc(33% - 10px)">URL</mat-radio-button>
-                    <mat-radio-button #rbImageUpload value="upload" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-md="calc(33% - 10px)">{{'roleame-webapp.characters.new.upload_image' | translate}}</mat-radio-button>
-                    <mat-radio-button #rbImageNone value="none" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-md="calc(33% - 10px)">{{'roleame-webapp.characters.new.noimage' | translate}}</mat-radio-button>
+                    <mat-radio-button #rbImageURL value="url" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(33% - 10px)">URL</mat-radio-button>
+                    <mat-radio-button #rbImageUpload value="upload" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(33% - 10px)">{{'roleame-webapp.characters.new.upload_image' | translate}}</mat-radio-button>
+                    <mat-radio-button #rbImageNone value="none" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(33% - 10px)">{{'roleame-webapp.characters.new.noimage' | translate}}</mat-radio-button>
                 </mat-radio-group>
 
                 <mat-form-field *ngIf="rbImageURL.checked">
@@ -110,7 +115,7 @@
         </mat-step>
 
         <mat-step label="{{'roleame-webapp.characters.new.finish' | translate}}">
-            <button (click)="createCharacter()">{{'roleame-webapp.characters.new.create_character' | translate}}</button>
+            <button type="submit" (click)="createCharacter()">{{'roleame-webapp.characters.new.create_character' | translate}}</button>
         </mat-step>
 
     </mat-vertical-stepper>

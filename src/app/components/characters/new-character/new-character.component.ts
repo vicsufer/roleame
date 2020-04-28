@@ -91,6 +91,7 @@ export class NewCharacterComponent implements OnInit {
     var character: Character
     
     character = {
+      id: undefined,
       name: this.basicInfoForm.get("name").value,
       class: this.basicInfoForm.get("class").value,
       background: this.basicInfoForm.get("background").value,

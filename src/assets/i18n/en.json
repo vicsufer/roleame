@@ -106,6 +106,8 @@
   "roleame-webapp.characters.new.finish":"Finish creating",
   "roleame-webapp.characters.new.create_character":"Create character",
 
+  "roleame-webapp.characters.edit.apply": "Aplicar cambios",
+
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",
   "roleame-webapp.settings.animations.title": "Animations",
