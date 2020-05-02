@@ -1,6 +1,6 @@
 projects:
   roleame:
-    schemaPath: amplify/backend/api/roleame/build/schema.graphql
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.graphql
     excludes:

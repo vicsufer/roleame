@@ -18,40 +18,31 @@
 			"Type": "String"
 		},
 		"s3PublicPolicy": {
-			"Type": "String",
-			"Default" : "NONE"
+			"Type": "String"
 		},
 		"s3PrivatePolicy": {
-			"Type": "String",
-			"Default" : "NONE"
+			"Type": "String"
 		},
 		"s3ProtectedPolicy": {
-			"Type": "String",
-			"Default" : "NONE"
+			"Type": "String"
 		},
 		"s3UploadsPolicy": {
-			"Type": "String",
-			"Default" : "NONE"
+			"Type": "String"
 		},
 		"s3ReadPolicy": {
-			"Type": "String",
-			"Default" : "NONE"
+			"Type": "String"
 		},
 		"s3PermissionsAuthenticatedPublic": {
-			"Type": "String",
-			"Default" : "DISALLOW"
+			"Type": "String"
 		},
 		"s3PermissionsAuthenticatedProtected": {
-			"Type": "String",
-			"Default" : "DISALLOW"
+			"Type": "String"
 		},
 		"s3PermissionsAuthenticatedPrivate": {
-			"Type": "String",
-			"Default" : "DISALLOW"
+			"Type": "String"
 		},
 		"s3PermissionsAuthenticatedUploads": {
-			"Type": "String",
-			"Default" : "DISALLOW"
+			"Type": "String"
 		},
 		"s3PermissionsGuestPublic": {
 			"Type": "String",
@@ -61,20 +52,17 @@
 			"Type": "String",
 			"Default" : "DISALLOW"		},
 		"AuthenticatedAllowList": {
-			"Type": "String",
-			"Default" : "DISALLOW"
+			"Type": "String"
 		},
 		"GuestAllowList": {
 			"Type": "String",
 			"Default" : "DISALLOW"
 		},
 		"selectedGuestPermissions": {
-			"Type": "CommaDelimitedList",
-			"Default" : "NONE"
+			"Type": "CommaDelimitedList"
 		},
 		"selectedAuthenticatedPermissions": {
-			"Type": "CommaDelimitedList",
-			"Default" : "NONE"
+			"Type": "CommaDelimitedList"
 		},
 		"env": {
 			"Type": "String"
@@ -178,19 +166,6 @@
                                     {
                                         "Ref": "bucketName"
                                     },
-                                    {
-                                      "Fn::Select": [
-                                          3,
-                                          {
-                                              "Fn::Split": [
-                                                  "-",
-                                                  {
-                                                      "Ref": "AWS::StackName"
-                                                  }
-                                              ]
-                                          }
-                                      ]
-                                    },
                                     "-",
                                     {
                                         "Ref": "env"
@@ -230,7 +205,6 @@
 				}
 			}
 		},
-      
 	    
 		"S3AuthPublicPolicy": {
 			"DependsOn": [

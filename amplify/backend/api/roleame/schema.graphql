@@ -6,12 +6,13 @@ type Game @model
 	]
 ){
 	id: ID!
+	uuid: String!
 	name: String!
 	description: String!
 	members:[String]
 
-	playerCharacters:[PlayerCharacter] @connection(fields: ["id"])
-	gameCharacters: [GameCharacter] @connection(fields: ["id"])
+	playerCharacters:[PlayerCharacter] @connection(keyField:"id")
+	gameCharacters: [GameCharacter] @connection(keyField:"id")
 
 	messages: [String] @auth(rules: [ { allow: owner, ownerField: "members", operations: [update] }])
 }
@@ -24,9 +25,11 @@ type GameCharacter @model
 	]
 ){
 	id: ID!
+	uuid: String!
 	name: String!
 	background: String
 	portrait: String
+	portraitURL: String
 	class: String
 
 	agility: Int
@@ -47,9 +50,11 @@ type PlayerCharacter @model
 	]
 ){
 	id: ID!
+	uuid: String!
 	name: String!
 	background: String
 	portrait: String
+	portraitURL: String
 	class: String
 
 	agility: Int

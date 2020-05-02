@@ -18,3 +18,8 @@ mat-card img{
 mat-card {
   margin-top: 20px
 }
+
+mat-card-content {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

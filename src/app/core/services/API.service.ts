@@ -1,5 +1,4 @@
 /* tslint:disable */
-/* eslint-disable */
 //  This file was automatically generated and should not be edited.
 import { Injectable } from "@angular/core";
 import API, { graphqlOperation } from "@aws-amplify/api";
@@ -8,62 +7,16 @@ import * as Observable from "zen-observable";
 
 export type CreateGameInput = {
   id?: string | null;
+  uuid: string;
   name: string;
   description: string;
   members?: Array<string | null> | null;
   messages?: Array<string | null> | null;
 };
 
-export type ModelGameConditionInput = {
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  messages?: ModelStringInput | null;
-  and?: Array<ModelGameConditionInput | null> | null;
-  or?: Array<ModelGameConditionInput | null> | null;
-  not?: ModelGameConditionInput | null;
-};
-
-export type ModelStringInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
-};
-
-export enum ModelAttributeTypes {
-  binary = "binary",
-  binarySet = "binarySet",
-  bool = "bool",
-  list = "list",
-  map = "map",
-  number = "number",
-  numberSet = "numberSet",
-  string = "string",
-  stringSet = "stringSet",
-  _null = "_null"
-}
-
-export type ModelSizeInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-};
-
 export type UpdateGameInput = {
   id: string;
+  uuid?: string | null;
   name?: string | null;
   description?: string | null;
   members?: Array<string | null> | null;
@@ -76,9 +29,11 @@ export type DeleteGameInput = {
 
 export type CreateGameCharacterInput = {
   id?: string | null;
+  uuid: string;
   name: string;
   background?: string | null;
   portrait?: string | null;
+  portraitURL?: string | null;
   class?: string | null;
   agility?: number | null;
   hitPoints?: number | null;
@@ -93,38 +48,13 @@ export type AbilityInput = {
   description?: string | null;
 };
 
-export type ModelGameCharacterConditionInput = {
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
-  and?: Array<ModelGameCharacterConditionInput | null> | null;
-  or?: Array<ModelGameCharacterConditionInput | null> | null;
-  not?: ModelGameCharacterConditionInput | null;
-};
-
-export type ModelIntInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
 export type UpdateGameCharacterInput = {
   id: string;
+  uuid?: string | null;
   name?: string | null;
   background?: string | null;
   portrait?: string | null;
+  portraitURL?: string | null;
   class?: string | null;
   agility?: number | null;
   hitPoints?: number | null;
@@ -140,9 +70,11 @@ export type DeleteGameCharacterInput = {
 
 export type CreatePlayerCharacterInput = {
   id?: string | null;
+  uuid: string;
   name: string;
   background?: string | null;
   portrait?: string | null;
+  portraitURL?: string | null;
   class?: string | null;
   agility?: number | null;
   hitPoints?: number | null;
@@ -152,26 +84,13 @@ export type CreatePlayerCharacterInput = {
   abilities?: Array<AbilityInput | null> | null;
 };
 
-export type ModelPlayerCharacterConditionInput = {
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
-  and?: Array<ModelPlayerCharacterConditionInput | null> | null;
-  or?: Array<ModelPlayerCharacterConditionInput | null> | null;
-  not?: ModelPlayerCharacterConditionInput | null;
-};
-
 export type UpdatePlayerCharacterInput = {
   id: string;
+  uuid?: string | null;
   name?: string | null;
   background?: string | null;
   portrait?: string | null;
+  portraitURL?: string | null;
   class?: string | null;
   agility?: number | null;
   hitPoints?: number | null;
@@ -186,17 +105,18 @@ export type DeletePlayerCharacterInput = {
 };
 
 export type ModelGameFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  members?: ModelStringInput | null;
-  messages?: ModelStringInput | null;
+  id?: ModelIDFilterInput | null;
+  uuid?: ModelStringFilterInput | null;
+  name?: ModelStringFilterInput | null;
+  description?: ModelStringFilterInput | null;
+  members?: ModelStringFilterInput | null;
+  messages?: ModelStringFilterInput | null;
   and?: Array<ModelGameFilterInput | null> | null;
   or?: Array<ModelGameFilterInput | null> | null;
   not?: ModelGameFilterInput | null;
 };
 
-export type ModelIDInput = {
+export type ModelIDFilterInput = {
   ne?: string | null;
   eq?: string | null;
   le?: string | null;
@@ -207,38 +127,64 @@ export type ModelIDInput = {
   notContains?: string | null;
   between?: Array<string | null> | null;
   beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
+};
+
+export type ModelStringFilterInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
 };
 
 export type ModelGameCharacterFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
+  id?: ModelIDFilterInput | null;
+  uuid?: ModelStringFilterInput | null;
+  name?: ModelStringFilterInput | null;
+  background?: ModelStringFilterInput | null;
+  portrait?: ModelStringFilterInput | null;
+  portraitURL?: ModelStringFilterInput | null;
+  class?: ModelStringFilterInput | null;
+  agility?: ModelIntFilterInput | null;
+  hitPoints?: ModelIntFilterInput | null;
+  fellowship?: ModelIntFilterInput | null;
+  strength?: ModelIntFilterInput | null;
+  wisdom?: ModelIntFilterInput | null;
   and?: Array<ModelGameCharacterFilterInput | null> | null;
   or?: Array<ModelGameCharacterFilterInput | null> | null;
   not?: ModelGameCharacterFilterInput | null;
 };
 
+export type ModelIntFilterInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  contains?: number | null;
+  notContains?: number | null;
+  between?: Array<number | null> | null;
+};
+
 export type ModelPlayerCharacterFilterInput = {
-  id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
+  id?: ModelIDFilterInput | null;
+  uuid?: ModelStringFilterInput | null;
+  name?: ModelStringFilterInput | null;
+  background?: ModelStringFilterInput | null;
+  portrait?: ModelStringFilterInput | null;
+  portraitURL?: ModelStringFilterInput | null;
+  class?: ModelStringFilterInput | null;
+  agility?: ModelIntFilterInput | null;
+  hitPoints?: ModelIntFilterInput | null;
+  fellowship?: ModelIntFilterInput | null;
+  strength?: ModelIntFilterInput | null;
+  wisdom?: ModelIntFilterInput | null;
   and?: Array<ModelPlayerCharacterFilterInput | null> | null;
   or?: Array<ModelPlayerCharacterFilterInput | null> | null;
   not?: ModelPlayerCharacterFilterInput | null;
@@ -247,6 +193,7 @@ export type ModelPlayerCharacterFilterInput = {
 export type CreateGameMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -255,9 +202,11 @@ export type CreateGameMutation = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -269,7 +218,6 @@ export type CreateGameMutation = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -278,9 +226,11 @@ export type CreateGameMutation = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -292,17 +242,16 @@ export type CreateGameMutation = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type UpdateGameMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -311,9 +260,11 @@ export type UpdateGameMutation = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -325,7 +276,6 @@ export type UpdateGameMutation = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -334,9 +284,11 @@ export type UpdateGameMutation = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -348,17 +300,16 @@ export type UpdateGameMutation = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type DeleteGameMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -367,9 +318,11 @@ export type DeleteGameMutation = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -381,7 +334,6 @@ export type DeleteGameMutation = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -390,9 +342,11 @@ export type DeleteGameMutation = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -404,20 +358,20 @@ export type DeleteGameMutation = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type CreateGameCharacterMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -429,15 +383,16 @@ export type CreateGameCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type UpdateGameCharacterMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -449,15 +404,16 @@ export type UpdateGameCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type DeleteGameCharacterMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -469,15 +425,16 @@ export type DeleteGameCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type CreatePlayerCharacterMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -489,15 +446,16 @@ export type CreatePlayerCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type UpdatePlayerCharacterMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -509,15 +467,16 @@ export type UpdatePlayerCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type DeletePlayerCharacterMutation = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -529,12 +488,12 @@ export type DeletePlayerCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type GetGameQuery = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -543,9 +502,11 @@ export type GetGameQuery = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -557,7 +518,6 @@ export type GetGameQuery = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -566,9 +526,11 @@ export type GetGameQuery = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -580,12 +542,10 @@ export type GetGameQuery = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type ListGamesQuery = {
@@ -593,6 +553,7 @@ export type ListGamesQuery = {
   items: Array<{
     
     id: string;
+    uuid: string;
     name: string;
     description: string;
     members: Array<string | null> | null;
@@ -601,16 +562,17 @@ export type ListGamesQuery = {
       items: Array<{
         
         id: string;
+        uuid: string;
         name: string;
         background: string | null;
         portrait: string | null;
+        portraitURL: string | null;
         class: string | null;
         agility: number | null;
         hitPoints: number | null;
         fellowship: number | null;
         strength: number | null;
         wisdom: number | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
@@ -619,21 +581,21 @@ export type ListGamesQuery = {
       items: Array<{
         
         id: string;
+        uuid: string;
         name: string;
         background: string | null;
         portrait: string | null;
+        portraitURL: string | null;
         class: string | null;
         agility: number | null;
         hitPoints: number | null;
         fellowship: number | null;
         strength: number | null;
         wisdom: number | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
     messages: Array<string | null> | null;
-    owner: string | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -641,9 +603,11 @@ export type ListGamesQuery = {
 export type GetGameCharacterQuery = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -655,7 +619,6 @@ export type GetGameCharacterQuery = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type ListGameCharactersQuery = {
@@ -663,9 +626,11 @@ export type ListGameCharactersQuery = {
   items: Array<{
     
     id: string;
+    uuid: string;
     name: string;
     background: string | null;
     portrait: string | null;
+    portraitURL: string | null;
     class: string | null;
     agility: number | null;
     hitPoints: number | null;
@@ -677,7 +642,6 @@ export type ListGameCharactersQuery = {
       name: string | null;
       description: string | null;
     } | null> | null;
-    owner: string | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -685,9 +649,11 @@ export type ListGameCharactersQuery = {
 export type GetPlayerCharacterQuery = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -699,7 +665,6 @@ export type GetPlayerCharacterQuery = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type ListPlayerCharactersQuery = {
@@ -707,9 +672,11 @@ export type ListPlayerCharactersQuery = {
   items: Array<{
     
     id: string;
+    uuid: string;
     name: string;
     background: string | null;
     portrait: string | null;
+    portraitURL: string | null;
     class: string | null;
     agility: number | null;
     hitPoints: number | null;
@@ -721,7 +688,6 @@ export type ListPlayerCharactersQuery = {
       name: string | null;
       description: string | null;
     } | null> | null;
-    owner: string | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -729,6 +695,7 @@ export type ListPlayerCharactersQuery = {
 export type OnCreateGameSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -737,9 +704,11 @@ export type OnCreateGameSubscription = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -751,7 +720,6 @@ export type OnCreateGameSubscription = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -760,9 +728,11 @@ export type OnCreateGameSubscription = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -774,17 +744,16 @@ export type OnCreateGameSubscription = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type OnUpdateGameSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -793,9 +762,11 @@ export type OnUpdateGameSubscription = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -807,7 +778,6 @@ export type OnUpdateGameSubscription = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -816,9 +786,11 @@ export type OnUpdateGameSubscription = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -830,17 +802,16 @@ export type OnUpdateGameSubscription = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type OnDeleteGameSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   description: string;
   members: Array<string | null> | null;
@@ -849,9 +820,11 @@ export type OnDeleteGameSubscription = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -863,7 +836,6 @@ export type OnDeleteGameSubscription = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -872,9 +844,11 @@ export type OnDeleteGameSubscription = {
     items: Array<{
       
       id: string;
+      uuid: string;
       name: string;
       background: string | null;
       portrait: string | null;
+      portraitURL: string | null;
       class: string | null;
       agility: number | null;
       hitPoints: number | null;
@@ -886,20 +860,20 @@ export type OnDeleteGameSubscription = {
         name: string | null;
         description: string | null;
       } | null> | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
   messages: Array<string | null> | null;
-  owner: string | null;
 };
 
 export type OnCreateGameCharacterSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -911,15 +885,16 @@ export type OnCreateGameCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnUpdateGameCharacterSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -931,15 +906,16 @@ export type OnUpdateGameCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnDeleteGameCharacterSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -951,15 +927,16 @@ export type OnDeleteGameCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnCreatePlayerCharacterSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -971,15 +948,16 @@ export type OnCreatePlayerCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnUpdatePlayerCharacterSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -991,15 +969,16 @@ export type OnUpdatePlayerCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnDeletePlayerCharacterSubscription = {
   
   id: string;
+  uuid: string;
   name: string;
   background: string | null;
   portrait: string | null;
+  portraitURL: string | null;
   class: string | null;
   agility: number | null;
   hitPoints: number | null;
@@ -1011,21 +990,18 @@ export type OnDeletePlayerCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 @Injectable({
   providedIn: "root"
 })
 export class APIService {
-  async CreateGame(
-    input: CreateGameInput,
-    condition?: ModelGameConditionInput
-  ): Promise<CreateGameMutation> {
-    const statement = `mutation CreateGame($input: CreateGameInput!, $condition: ModelGameConditionInput) {
-        createGame(input: $input, condition: $condition) {
+  async CreateGame(input: CreateGameInput): Promise<CreateGameMutation> {
+    const statement = `mutation CreateGame($input: CreateGameInput!) {
+        createGame(input: $input) {
           
           id
+          uuid
           name
           description
           members
@@ -1034,9 +1010,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1048,7 +1026,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1057,9 +1034,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1071,33 +1050,26 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <CreateGameMutation>response.data.createGame;
   }
-  async UpdateGame(
-    input: UpdateGameInput,
-    condition?: ModelGameConditionInput
-  ): Promise<UpdateGameMutation> {
-    const statement = `mutation UpdateGame($input: UpdateGameInput!, $condition: ModelGameConditionInput) {
-        updateGame(input: $input, condition: $condition) {
+  async UpdateGame(input: UpdateGameInput): Promise<UpdateGameMutation> {
+    const statement = `mutation UpdateGame($input: UpdateGameInput!) {
+        updateGame(input: $input) {
           
           id
+          uuid
           name
           description
           members
@@ -1106,9 +1078,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1120,7 +1094,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1129,9 +1102,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1143,33 +1118,26 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <UpdateGameMutation>response.data.updateGame;
   }
-  async DeleteGame(
-    input: DeleteGameInput,
-    condition?: ModelGameConditionInput
-  ): Promise<DeleteGameMutation> {
-    const statement = `mutation DeleteGame($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
-        deleteGame(input: $input, condition: $condition) {
+  async DeleteGame(input: DeleteGameInput): Promise<DeleteGameMutation> {
+    const statement = `mutation DeleteGame($input: DeleteGameInput!) {
+        deleteGame(input: $input) {
           
           id
+          uuid
           name
           description
           members
@@ -1178,9 +1146,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1192,7 +1162,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1201,9 +1170,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1215,36 +1186,32 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteGameMutation>response.data.deleteGame;
   }
   async CreateGameCharacter(
-    input: CreateGameCharacterInput,
-    condition?: ModelGameCharacterConditionInput
+    input: CreateGameCharacterInput
   ): Promise<CreateGameCharacterMutation> {
-    const statement = `mutation CreateGameCharacter($input: CreateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
-        createGameCharacter(input: $input, condition: $condition) {
+    const statement = `mutation CreateGameCharacter($input: CreateGameCharacterInput!) {
+        createGameCharacter(input: $input) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1256,31 +1223,28 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <CreateGameCharacterMutation>response.data.createGameCharacter;
   }
   async UpdateGameCharacter(
-    input: UpdateGameCharacterInput,
-    condition?: ModelGameCharacterConditionInput
+    input: UpdateGameCharacterInput
   ): Promise<UpdateGameCharacterMutation> {
-    const statement = `mutation UpdateGameCharacter($input: UpdateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
-        updateGameCharacter(input: $input, condition: $condition) {
+    const statement = `mutation UpdateGameCharacter($input: UpdateGameCharacterInput!) {
+        updateGameCharacter(input: $input) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1292,31 +1256,28 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <UpdateGameCharacterMutation>response.data.updateGameCharacter;
   }
   async DeleteGameCharacter(
-    input: DeleteGameCharacterInput,
-    condition?: ModelGameCharacterConditionInput
+    input: DeleteGameCharacterInput
   ): Promise<DeleteGameCharacterMutation> {
-    const statement = `mutation DeleteGameCharacter($input: DeleteGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
-        deleteGameCharacter(input: $input, condition: $condition) {
+    const statement = `mutation DeleteGameCharacter($input: DeleteGameCharacterInput!) {
+        deleteGameCharacter(input: $input) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1328,31 +1289,28 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteGameCharacterMutation>response.data.deleteGameCharacter;
   }
   async CreatePlayerCharacter(
-    input: CreatePlayerCharacterInput,
-    condition?: ModelPlayerCharacterConditionInput
+    input: CreatePlayerCharacterInput
   ): Promise<CreatePlayerCharacterMutation> {
-    const statement = `mutation CreatePlayerCharacter($input: CreatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
-        createPlayerCharacter(input: $input, condition: $condition) {
+    const statement = `mutation CreatePlayerCharacter($input: CreatePlayerCharacterInput!) {
+        createPlayerCharacter(input: $input) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1364,31 +1322,28 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <CreatePlayerCharacterMutation>response.data.createPlayerCharacter;
   }
   async UpdatePlayerCharacter(
-    input: UpdatePlayerCharacterInput,
-    condition?: ModelPlayerCharacterConditionInput
+    input: UpdatePlayerCharacterInput
   ): Promise<UpdatePlayerCharacterMutation> {
-    const statement = `mutation UpdatePlayerCharacter($input: UpdatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
-        updatePlayerCharacter(input: $input, condition: $condition) {
+    const statement = `mutation UpdatePlayerCharacter($input: UpdatePlayerCharacterInput!) {
+        updatePlayerCharacter(input: $input) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1400,31 +1355,28 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <UpdatePlayerCharacterMutation>response.data.updatePlayerCharacter;
   }
   async DeletePlayerCharacter(
-    input: DeletePlayerCharacterInput,
-    condition?: ModelPlayerCharacterConditionInput
+    input: DeletePlayerCharacterInput
   ): Promise<DeletePlayerCharacterMutation> {
-    const statement = `mutation DeletePlayerCharacter($input: DeletePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
-        deletePlayerCharacter(input: $input, condition: $condition) {
+    const statement = `mutation DeletePlayerCharacter($input: DeletePlayerCharacterInput!) {
+        deletePlayerCharacter(input: $input) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1436,15 +1388,11 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
       input
     };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
@@ -1455,6 +1403,7 @@ export class APIService {
         getGame(id: $id) {
           
           id
+          uuid
           name
           description
           members
@@ -1463,9 +1412,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1477,7 +1428,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1486,9 +1436,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1500,12 +1452,10 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1527,6 +1477,7 @@ export class APIService {
           items {
             
             id
+            uuid
             name
             description
             members
@@ -1535,16 +1486,17 @@ export class APIService {
               items {
                 
                 id
+                uuid
                 name
                 background
                 portrait
+                portraitURL
                 class
                 agility
                 hitPoints
                 fellowship
                 strength
                 wisdom
-                owner
               }
               nextToken
             }
@@ -1553,21 +1505,21 @@ export class APIService {
               items {
                 
                 id
+                uuid
                 name
                 background
                 portrait
+                portraitURL
                 class
                 agility
                 hitPoints
                 fellowship
                 strength
                 wisdom
-                owner
               }
               nextToken
             }
             messages
-            owner
           }
           nextToken
         }
@@ -1592,9 +1544,11 @@ export class APIService {
         getGameCharacter(id: $id) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1606,7 +1560,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1628,9 +1581,11 @@ export class APIService {
           items {
             
             id
+            uuid
             name
             background
             portrait
+            portraitURL
             class
             agility
             hitPoints
@@ -1642,7 +1597,6 @@ export class APIService {
               name
               description
             }
-            owner
           }
           nextToken
         }
@@ -1667,9 +1621,11 @@ export class APIService {
         getPlayerCharacter(id: $id) {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1681,7 +1637,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1703,9 +1658,11 @@ export class APIService {
           items {
             
             id
+            uuid
             name
             background
             portrait
+            portraitURL
             class
             agility
             hitPoints
@@ -1717,7 +1674,6 @@ export class APIService {
               name
               description
             }
-            owner
           }
           nextToken
         }
@@ -1739,10 +1695,11 @@ export class APIService {
   }
   OnCreateGameListener: Observable<OnCreateGameSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnCreateGame($owner: String!) {
-        onCreateGame(owner: $owner) {
+      `subscription OnCreateGame {
+        onCreateGame {
           
           id
+          uuid
           name
           description
           members
@@ -1751,9 +1708,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1765,7 +1724,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1774,9 +1732,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1788,12 +1748,10 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`
     )
@@ -1801,10 +1759,11 @@ export class APIService {
 
   OnUpdateGameListener: Observable<OnUpdateGameSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateGame($owner: String!) {
-        onUpdateGame(owner: $owner) {
+      `subscription OnUpdateGame {
+        onUpdateGame {
           
           id
+          uuid
           name
           description
           members
@@ -1813,9 +1772,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1827,7 +1788,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1836,9 +1796,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1850,12 +1812,10 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`
     )
@@ -1863,10 +1823,11 @@ export class APIService {
 
   OnDeleteGameListener: Observable<OnDeleteGameSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteGame($owner: String!) {
-        onDeleteGame(owner: $owner) {
+      `subscription OnDeleteGame {
+        onDeleteGame {
           
           id
+          uuid
           name
           description
           members
@@ -1875,9 +1836,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1889,7 +1852,6 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
@@ -1898,9 +1860,11 @@ export class APIService {
             items {
               
               id
+              uuid
               name
               background
               portrait
+              portraitURL
               class
               agility
               hitPoints
@@ -1912,12 +1876,10 @@ export class APIService {
                 name
                 description
               }
-              owner
             }
             nextToken
           }
           messages
-          owner
         }
       }`
     )
@@ -1927,13 +1889,15 @@ export class APIService {
     OnCreateGameCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreateGameCharacter($owner: String!) {
-        onCreateGameCharacter(owner: $owner) {
+      `subscription OnCreateGameCharacter {
+        onCreateGameCharacter {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1945,7 +1909,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -1955,13 +1918,15 @@ export class APIService {
     OnUpdateGameCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateGameCharacter($owner: String!) {
-        onUpdateGameCharacter(owner: $owner) {
+      `subscription OnUpdateGameCharacter {
+        onUpdateGameCharacter {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -1973,7 +1938,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -1983,13 +1947,15 @@ export class APIService {
     OnDeleteGameCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteGameCharacter($owner: String!) {
-        onDeleteGameCharacter(owner: $owner) {
+      `subscription OnDeleteGameCharacter {
+        onDeleteGameCharacter {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -2001,7 +1967,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -2011,13 +1976,15 @@ export class APIService {
     OnCreatePlayerCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreatePlayerCharacter($owner: String!) {
-        onCreatePlayerCharacter(owner: $owner) {
+      `subscription OnCreatePlayerCharacter {
+        onCreatePlayerCharacter {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -2029,7 +1996,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -2039,13 +2005,15 @@ export class APIService {
     OnUpdatePlayerCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnUpdatePlayerCharacter($owner: String!) {
-        onUpdatePlayerCharacter(owner: $owner) {
+      `subscription OnUpdatePlayerCharacter {
+        onUpdatePlayerCharacter {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -2057,7 +2025,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -2067,13 +2034,15 @@ export class APIService {
     OnDeletePlayerCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnDeletePlayerCharacter($owner: String!) {
-        onDeletePlayerCharacter(owner: $owner) {
+      `subscription OnDeletePlayerCharacter {
+        onDeletePlayerCharacter {
           
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
@@ -2085,7 +2054,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )

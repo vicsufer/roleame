@@ -30,7 +30,14 @@
                 </mat-card-content>
             </mat-card>
 
-            <img src="{{character.portrait}}" alt="Portrait of {{character.name}}" class="mat-elevation-z4 mt-4 portrait" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(10% - 40px)">
+            <div class="edit-img mat-elevation-z4 mt-4">
+                <img src="{{character.portraitURL}}" alt="Portrait of {{character.name}}" class="portrait" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(10% - 40px)">
+                <div class="overlay">
+                    <a href="#" class="icon" title="User Profile">
+                        <button mat-icon-button (click)="changePortrait()"><mat-icon>edit</mat-icon></button>
+                    </a>
+                </div>
+            </div>
 
         </div>
 

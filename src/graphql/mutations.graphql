@@ -1,19 +1,19 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateGame(
-  $input: CreateGameInput!
-  $condition: ModelGameConditionInput
-) {
-  createGame(input: $input, condition: $condition) {
+mutation CreateGame($input: CreateGameInput!) {
+  createGame(input: $input) {
     id
+    uuid
     name
     description
     members
     playerCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -24,16 +24,17 @@ mutation CreateGame(
           name
           description
         }
-        owner
       }
       nextToken
     }
     gameCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -44,29 +45,27 @@ mutation CreateGame(
           name
           description
         }
-        owner
       }
       nextToken
     }
     messages
-    owner
   }
 }
-mutation UpdateGame(
-  $input: UpdateGameInput!
-  $condition: ModelGameConditionInput
-) {
-  updateGame(input: $input, condition: $condition) {
+mutation UpdateGame($input: UpdateGameInput!) {
+  updateGame(input: $input) {
     id
+    uuid
     name
     description
     members
     playerCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -77,16 +76,17 @@ mutation UpdateGame(
           name
           description
         }
-        owner
       }
       nextToken
     }
     gameCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -97,29 +97,27 @@ mutation UpdateGame(
           name
           description
         }
-        owner
       }
       nextToken
     }
     messages
-    owner
   }
 }
-mutation DeleteGame(
-  $input: DeleteGameInput!
-  $condition: ModelGameConditionInput
-) {
-  deleteGame(input: $input, condition: $condition) {
+mutation DeleteGame($input: DeleteGameInput!) {
+  deleteGame(input: $input) {
     id
+    uuid
     name
     description
     members
     playerCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -130,16 +128,17 @@ mutation DeleteGame(
           name
           description
         }
-        owner
       }
       nextToken
     }
     gameCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -150,23 +149,20 @@ mutation DeleteGame(
           name
           description
         }
-        owner
       }
       nextToken
     }
     messages
-    owner
   }
 }
-mutation CreateGameCharacter(
-  $input: CreateGameCharacterInput!
-  $condition: ModelGameCharacterConditionInput
-) {
-  createGameCharacter(input: $input, condition: $condition) {
+mutation CreateGameCharacter($input: CreateGameCharacterInput!) {
+  createGameCharacter(input: $input) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -177,18 +173,16 @@ mutation CreateGameCharacter(
       name
       description
     }
-    owner
   }
 }
-mutation UpdateGameCharacter(
-  $input: UpdateGameCharacterInput!
-  $condition: ModelGameCharacterConditionInput
-) {
-  updateGameCharacter(input: $input, condition: $condition) {
+mutation UpdateGameCharacter($input: UpdateGameCharacterInput!) {
+  updateGameCharacter(input: $input) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -199,18 +193,16 @@ mutation UpdateGameCharacter(
       name
       description
     }
-    owner
   }
 }
-mutation DeleteGameCharacter(
-  $input: DeleteGameCharacterInput!
-  $condition: ModelGameCharacterConditionInput
-) {
-  deleteGameCharacter(input: $input, condition: $condition) {
+mutation DeleteGameCharacter($input: DeleteGameCharacterInput!) {
+  deleteGameCharacter(input: $input) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -221,18 +213,16 @@ mutation DeleteGameCharacter(
       name
       description
     }
-    owner
   }
 }
-mutation CreatePlayerCharacter(
-  $input: CreatePlayerCharacterInput!
-  $condition: ModelPlayerCharacterConditionInput
-) {
-  createPlayerCharacter(input: $input, condition: $condition) {
+mutation CreatePlayerCharacter($input: CreatePlayerCharacterInput!) {
+  createPlayerCharacter(input: $input) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -243,18 +233,16 @@ mutation CreatePlayerCharacter(
       name
       description
     }
-    owner
   }
 }
-mutation UpdatePlayerCharacter(
-  $input: UpdatePlayerCharacterInput!
-  $condition: ModelPlayerCharacterConditionInput
-) {
-  updatePlayerCharacter(input: $input, condition: $condition) {
+mutation UpdatePlayerCharacter($input: UpdatePlayerCharacterInput!) {
+  updatePlayerCharacter(input: $input) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -265,18 +253,16 @@ mutation UpdatePlayerCharacter(
       name
       description
     }
-    owner
   }
 }
-mutation DeletePlayerCharacter(
-  $input: DeletePlayerCharacterInput!
-  $condition: ModelPlayerCharacterConditionInput
-) {
-  deletePlayerCharacter(input: $input, condition: $condition) {
+mutation DeletePlayerCharacter($input: DeletePlayerCharacterInput!) {
+  deletePlayerCharacter(input: $input) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -287,6 +273,5 @@ mutation DeletePlayerCharacter(
       name
       description
     }
-    owner
   }
 }

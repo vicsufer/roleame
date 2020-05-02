@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>{{'roleame-webapp.characters.edit.portrait' | translate }}</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="imageForm" fxLayout="column" >
+    <label id="rbUploadLabel">{{'roleame-webapp.characters.new.get_image_from' | translate}}</label>
+    <mat-radio-group formControlName="type" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start">
+        <mat-radio-button #rbImageURL value="url" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(33% - 10px)">URL</mat-radio-button>
+        <mat-radio-button #rbImageUpload value="upload" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(33% - 10px)">{{'roleame-webapp.characters.new.upload_image' | translate}}</mat-radio-button>
+        <mat-radio-button #rbImageNone value="none" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(33% - 10px)">{{'roleame-webapp.characters.new.noimage' | translate}}</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field *ngIf="rbImageURL.checked">
+        <mat-label>URL</mat-label>
+        <input matInput formControlName="imageValueURL" required>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="rbImageUpload.checked">
+        <mat-label>{{'roleame-webapp.label.image' | translate}}</mat-label>
+        <ngx-mat-file-input #imageInput formControlName="imageValue" (change)="uploadImage($event)" placeholder=".jpeg, .png, .svg" [accept]="'.jpeg,.jpg,.png,.svg'"></ngx-mat-file-input>
+        <button mat-icon-button matSuffix *ngIf="!imageInput.empty" (click)="imageInput.clear($event)">
+            <mat-icon>clear</mat-icon>
+        </button>
+        <mat-icon matSuffix>folder</mat-icon>
+    </mat-form-field>
+
+    <div>
+      <button mat-button (click)="save()">{{'roleame-webapp.label.save' | translate}}</button>
+      <button mat-button (click)="close()"> {{'roleame-webapp.label.cancel' | translate}}</button>
+    </div>
+    
+  </form>
+
+
+</div>

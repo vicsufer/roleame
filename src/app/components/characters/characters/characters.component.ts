@@ -17,10 +17,8 @@ export class CharactersComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
+  @Input()
   characters: Character[] = []
-
-  faCopy = faCopy
-  faUserEdit = faUserEdit
 
   @Output()
   edit = new EventEmitter<Character>();
@@ -33,11 +31,7 @@ export class CharactersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.ListPlayerCharacters().then( (characters ) => {
-      characters.items.forEach( character => this.characters.push(character) )
-    }).catch( (err) => {
-      console.log(err)
-    })
+    
   }
 
   editCharacter(character: Character){
@@ -47,23 +41,5 @@ export class CharactersComponent implements OnInit {
   deleteCharacter(character: Character){
     this.delete.emit(character)
   }
-
- async  newCharacter() {
-   var a = new PlayerCharacter()
-   a.name = "Vanya"
-   a.class = "Advisor"
-   a.background = "Advisor of the emperor grew"
-   a.portrait = "https://vignette.wikia.nocookie.net/xesteria/images/d/d9/BorusCordona.jpg/revision/latest?cb=20180618214000"
-   a.abilities = [ {
-     name: "Schemer",
-     description: "This character enjoys plotting, receive a bonus in fellowship when scheming."
-   }]
-   this.apiService.CreatePlayerCharacter(a).then( () => {
-      console.log("characterCreaded")
-   }).catch(err => {
-     console.log(err)
-   })
-
- }
 
 }

@@ -91,6 +91,8 @@
   "roleame-webapp.label.abilities": "Abilities",
   "roleame-webapp.label.image": "Image",
   "roleame-webapp.label.description": "Description",
+  "roleame-webapp.label.save": "Save",
+  "roleame-webapp.label.cancel": "Cancel",
 
   "roleame-webapp.characters.my_characters":"My characters",
   "roleame-webapp.characters.new_character":"New character",
@@ -105,6 +107,13 @@
   "roleame-webapp.characters.new.noimage":"No image",
   "roleame-webapp.characters.new.finish":"Finish creating",
   "roleame-webapp.characters.new.create_character":"Create character",
+  "roleame-webapp.characters.new.success": "Character created",
+  "roleame-webapp.characters.new.error": "Character could not be created",
+
+  "roleame-webapp.characters.delete.ask": "Are you sure you want to delete this character?",
+  "roleame-webapp.characters.delete.success": "Character deleted",
+  "roleame-webapp.characters.delete.error": "Character could not be created",
+  "roleame-webapp.characters.edit.portrait": "Edit image",
 
   "roleame-webapp.characters.edit.apply": "Apply changes",
   "roleame-webapp.characters.edit.success": "Character updated",

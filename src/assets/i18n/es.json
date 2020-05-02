@@ -90,6 +90,8 @@
   "roleame-webapp.label.abilities": "Habilidades",
   "roleame-webapp.label.image": "Imagen",
   "roleame-webapp.label.description": "Descripción",
+  "roleame-webapp.label.save": "Guardar",
+  "roleame-webapp.label.cancel": "Cancelar",
 
   "roleame-webapp.characters.my_characters":"Mis personajes",
   "roleame-webapp.characters.new_character":"Nuevo personaje",
@@ -104,10 +106,17 @@
   "roleame-webapp.characters.new.noimage":"Sin imagen",
   "roleame-webapp.characters.new.finish":"Finalizar creación",
   "roleame-webapp.characters.new.create_character":"Crear personaje",
+  "roleame-webapp.characters.new.success": "Personaje creado",
+  "roleame-webapp.characters.new.error": "No se ha podido crear el personaje",
+
+  "roleame-webapp.characters.delete.ask": "¿Estás seguro de borrar este personaje?",
+  "roleame-webapp.characters.delete.success": "Personaje eliminado",
+  "roleame-webapp.characters.delete.error": "El personaje no se ha podido eliminar",
 
   "roleame-webapp.characters.edit.apply": "Aplicar cambios",
   "roleame-webapp.characters.edit.success": "Personaje actualizado",
   "roleame-webapp.characters.edit.error": "Error actualizando personaje",
+  "roleame-webapp.characters.edit.portrait": "Editar imagen",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",

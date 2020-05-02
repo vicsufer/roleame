@@ -8,6 +8,7 @@ import { CoreModule, APIService } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+Storage
 
 @NgModule({
   imports: [

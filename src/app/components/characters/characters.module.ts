@@ -7,10 +7,11 @@ import { CharactersComponent } from './characters/characters.component';
 import { CharactersRoutingModule as CharactersRoutingModule } from './characters-routing.module';
 import { NewCharacterComponent } from './new-character/new-character.component';
 import { CharactersPageComponent } from './page/characters-page.component';
-import { EditCharacterComponent } from './edit-character/edit-character.component';
+import { EditCharacterComponent, ChangePortraitDialog } from './edit-character/edit-character.component';
 
 @NgModule({
-  declarations: [CharactersComponent, NewCharacterComponent, CharactersPageComponent, EditCharacterComponent],
-  imports: [CommonModule, SharedComponentsModule, CharactersRoutingModule]
+  declarations: [CharactersComponent, NewCharacterComponent, CharactersPageComponent, EditCharacterComponent, ChangePortraitDialog],
+  imports: [CommonModule, SharedComponentsModule, CharactersRoutingModule],
+  entryComponents: [ChangePortraitDialog]
 })
 export class CharactersModule {}

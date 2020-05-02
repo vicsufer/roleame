@@ -2,15 +2,18 @@
 query GetGame($id: ID!) {
   getGame(id: $id) {
     id
+    uuid
     name
     description
     members
     playerCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -21,16 +24,17 @@ query GetGame($id: ID!) {
           name
           description
         }
-        owner
       }
       nextToken
     }
     gameCharacters {
       items {
         id
+        uuid
         name
         background
         portrait
+        portraitURL
         class
         agility
         hitPoints
@@ -41,12 +45,10 @@ query GetGame($id: ID!) {
           name
           description
         }
-        owner
       }
       nextToken
     }
     messages
-    owner
   }
 }
 query ListGames(
@@ -57,43 +59,45 @@ query ListGames(
   listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      uuid
       name
       description
       members
       playerCharacters {
         items {
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
           fellowship
           strength
           wisdom
-          owner
         }
         nextToken
       }
       gameCharacters {
         items {
           id
+          uuid
           name
           background
           portrait
+          portraitURL
           class
           agility
           hitPoints
           fellowship
           strength
           wisdom
-          owner
         }
         nextToken
       }
       messages
-      owner
     }
     nextToken
   }
@@ -101,9 +105,11 @@ query ListGames(
 query GetGameCharacter($id: ID!) {
   getGameCharacter(id: $id) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -114,7 +120,6 @@ query GetGameCharacter($id: ID!) {
       name
       description
     }
-    owner
   }
 }
 query ListGameCharacters(
@@ -125,9 +130,11 @@ query ListGameCharacters(
   listGameCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      uuid
       name
       background
       portrait
+      portraitURL
       class
       agility
       hitPoints
@@ -138,7 +145,6 @@ query ListGameCharacters(
         name
         description
       }
-      owner
     }
     nextToken
   }
@@ -146,9 +152,11 @@ query ListGameCharacters(
 query GetPlayerCharacter($id: ID!) {
   getPlayerCharacter(id: $id) {
     id
+    uuid
     name
     background
     portrait
+    portraitURL
     class
     agility
     hitPoints
@@ -159,7 +167,6 @@ query GetPlayerCharacter($id: ID!) {
       name
       description
     }
-    owner
   }
 }
 query ListPlayerCharacters(
@@ -170,9 +177,11 @@ query ListPlayerCharacters(
   listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      uuid
       name
       background
       portrait
+      portraitURL
       class
       agility
       hitPoints
@@ -183,7 +192,6 @@ query ListPlayerCharacters(
         name
         description
       }
-      owner
     }
     nextToken
   }
