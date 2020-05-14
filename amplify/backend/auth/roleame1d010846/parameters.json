@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "roleame700467fc_identitypool_700467fc",
+    "identityPoolName": "roleame1d010846_identitypool_1d010846",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "roleam700467fc",
-    "userPoolName": "roleame700467fc_userpool_700467fc",
+    "resourceNameTruncated": "roleam1d010846",
+    "userPoolName": "roleame1d010846_userpool_1d010846",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "roleam700467fc_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "roleam1d010846_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "roleame700467fc",
+    "resourceName": "roleame1d010846",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,12 +45,9 @@
         ]
     },
     "useDefault": "default",
-    "usernameAttributes": [
-        "email"
-    ],
     "triggers": "{\"CustomMessage\":[\"verification-link\"]}",
     "userPoolGroupList": [],
-    "verificationBucketName": "roleame700467fcverificationbucket",
+    "verificationBucketName": "roleame1d010846verificationbucket",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
@@ -58,7 +55,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "roleame700467fcCustomMessage",
+            "resourceName": "roleame1d010846CustomMessage",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",

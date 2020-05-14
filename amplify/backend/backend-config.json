@@ -1,19 +1,19 @@
 {
 	"function": {
-		"roleame700467fcCustomMessage": {
-			"service": "Lambda",
+		"roleame1d010846CustomMessage": {
+			"build": true,
 			"providerPlugin": "awscloudformation",
-			"build": true
+			"service": "Lambda"
 		}
 	},
 	"auth": {
-		"roleame700467fc": {
+		"roleame1d010846": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "roleame700467fcCustomMessage",
+					"resourceName": "roleame1d010846CustomMessage",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -23,14 +23,14 @@
 			]
 		}
 	},
-	"hosting": {
-		"S3AndCloudFront": {
-			"service": "S3AndCloudFront",
+	"storage": {
+		"roleamestatics": {
+			"service": "S3",
 			"providerPlugin": "awscloudformation"
 		}
 	},
 	"api": {
-		"roleame": {
+		"roleameapi": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
@@ -39,17 +39,11 @@
 					"defaultAuthentication": {
 						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
 						"userPoolConfig": {
-							"userPoolId": "authroleame700467fc"
+							"userPoolId": "authroleame1d010846"
 						}
 					}
 				}
 			}
-		}
-	},
-	"storage": {
-		"statics": {
-			"service": "S3",
-			"providerPlugin": "awscloudformation"
 		}
 	}
 }

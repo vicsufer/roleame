@@ -1,10 +1,10 @@
 {
-    "AppSyncApiName": "roleame",
+    "AppSyncApiName": "roleameapi",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": "false",
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
-            "authroleame700467fc",
+            "authroleame1d010846",
             "Outputs.UserPoolId"
         ]
     }

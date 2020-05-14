@@ -1,0 +1,109 @@
+type Game @model
+@auth(
+	rules: [
+		{ allow: owner },
+		{ allow: owner, ownerField: "members", operations: [read] }
+	]
+){
+	id: ID!
+	owner: String
+	uuid: String!
+	name: String!
+	description: String
+
+	#members: [GameMember]  @auth(rules: [ { allow: owner, ownerField: "members", operations: [read] }])
+	members:[String] 
+	players: [Player] @connection(keyName: "byGame", fields: ["id"]) #@auth(rules: [ { allow: owner, ownerField: "members", operations: [read] }])
+	
+	gameCharacters: [GameCharacter] @connection(keyName: "byGame", fields: ["id"])
+	messages: [String] @auth(rules: [ 
+		{ allow: owner, operations: [read, create] }
+		{ allow: owner, ownerField: "members", operations: [read, create] }
+		])
+}
+
+type Player @model(subscriptions: null)
+@auth(rules: [
+	{ allow: private, operations: [read] }
+	{ allow: owner, ownerField: "playerID", operations: [update, delete] }
+	{ allow: owner, ownerField: "gameOwnerID", operations: [update, delete] }
+])
+@key(name: "byGame", fields: ["gameID", "playerID"])
+@key(name: "byPlayer", fields: ["playerID", "gameID"])
+ {
+	id: ID!
+
+	gameID: ID!
+	gameOwnerID: String!
+  	playerID: String!
+	pendingInvite: Boolean
+
+	game: Game! @connection(fields: ["gameID"])
+  	player: User! @connection(fields: ["playerID"]) 
+}
+
+type GameCharacter @model
+@auth(rules: [
+	{ allow: private, operations: [read] }
+])
+@key(name: "byGame", fields: ["gameID"])
+{
+	id: ID!
+	gameID: ID!
+	uuid: String!
+	name: String!
+	background: String
+	portrait: String
+	portraitURL: String
+	class: String
+
+	agility: Int
+	hitPoints: Int
+	fellowship: Int
+	strength: Int
+	wisdom: Int
+
+	abilities: [Ability]
+}
+
+type PlayerCharacter @model
+@auth( 
+	rules: [
+		{ allow: owner }
+	]
+){
+	id: ID!
+	uuid: String!
+	name: String!
+	background: String
+	portrait: String
+	portraitURL: String
+	class: String
+
+	agility: Int
+	hitPoints: Int
+	fellowship: Int
+	strength: Int
+	wisdom: Int
+
+	abilities: [Ability]
+}
+
+type Ability{
+	name: String
+	description: String
+}
+
+type User @model
+@auth( 
+	rules: [
+		{ allow: owner }
+		{ allow: private, operations: [read] }
+		]
+) 
+@key(fields: ["username"])
+{
+	username: String!
+	email: String!
+	gamesAsPlayer: [Player] @connection(keyName: "byPlayer", fields: ["username"])
+}
