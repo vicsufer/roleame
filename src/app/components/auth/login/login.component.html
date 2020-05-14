@@ -10,10 +10,10 @@
 
                 <div class="row d-flex">
                     <mat-form-field class="col" [ngClass]="routeAnimationsElements">
-                        <input matInput placeholder="{{ 'roleame-webapp.label.email' | translate }}"
-                        formControlName="email">
-                        <mat-error *ngIf="loginForm.get('email').invalid">
-                        {{ 'roleame-webapp.auth.login.errors.email' | translate }}
+                        <input matInput placeholder="{{ 'roleame-webapp.label.username' | translate }}"
+                        formControlName="username">
+                        <mat-error *ngIf="loginForm.get('username').invalid">
+                        {{ 'roleame-webapp.auth.login.errors.username' | translate }}
                         </mat-error>
                     </mat-form-field>                  
                 </div>
@@ -34,20 +34,9 @@
                 </div>
 
                 <div class="row buttons justify-content-between pad mt-4">
-                    <button class='col' type='submit' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                    <button class='col' type='submit' mat-raised-button [ngClass]="routeAnimationsElements">
                         {{ 'roleame-webapp.auth.login.header' | translate }}
                     </button>
-                </div>
-
-                <div class="row buttons justify-content-between pad">
-                    <button class='col' (click)='socialLogin("Google")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
-                        <fa-icon [icon]="['fab','google']"></fa-icon>oogle
-                    </button>
-
-                    <button class='col' (click)='socialLogin("Facebook")' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
-                        <fa-icon [icon]="['fab','facebook']"></fa-icon>acebook
-                    </button>
-
                 </div>
 
             </mat-card>

@@ -33,13 +33,12 @@
     }
 
     .footer {
-      color: mat-color($primary, lighter);
-      background-color: mat-color($primary, darker);
+      color: mat-color($primary, darker);
+      background-color: mat-color($primary, lighter);
 
-      .links,
-      .signature {
+      .links, .signature {
         a {
-          color: mat-color($primary, lighter);
+          color: mat-color($primary, darker);
           &:hover {
             color: mat-color($accent);
           }

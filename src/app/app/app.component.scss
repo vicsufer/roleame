@@ -5,6 +5,12 @@
   width: 100%;
 }
 
+::ng-deep .default-theme .mat-step-header .mat-step-icon {
+  background-color: white; 
+  color: black;
+}
+
+
 mat-sidenav-container {
   height: 100%;
   width: 100%;

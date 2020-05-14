@@ -1,8 +1,9 @@
+import { APIService } from 'app/core/services/API.service';
 import { FileValidator } from 'ngx-material-file-input';
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Character } from 'app/types/character';
 import { PlayerCharacter } from 'app/types/playerCharacter';
 import { MatStepper } from '@angular/material';
@@ -120,9 +121,7 @@ export class NewCharacterComponent implements OnInit {
         portrait = `portraits/${char_uuid}`
         break;
       case 'none':
-        portrait = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
-        //portrait = `portraits/none`
-        //TODO USE CUSTOM USER FROM S3
+        portrait = `assets/img/noprofile.png`
         break;
 
       default:
@@ -146,9 +145,10 @@ export class NewCharacterComponent implements OnInit {
 
       abilities: this.abilitiesForm.get('abilities').value
     }
-    console.log(imageToUpload)
+    console.log(character)
     this.stepper.reset()
     this.create.emit({character, imageToUpload})
   }
+
 
 }

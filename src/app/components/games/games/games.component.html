@@ -1,0 +1,24 @@
+<div clas="mt-4 mb-4" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="10px" fxLayoutAlign="flex-start">
+    <ng-container *ngFor="let game of games;">
+        <mat-card  *ngIf="game.owner === currentUser || invitationAccepted(game)" fxLayout="column" class="mat-elevation-z4 ml-2 mr-2 mb-2" [ngClass]="routeAnimationsElements" @routeAnimations>
+            <mat-card-header>
+                <mat-card-title>{{game.name}}</mat-card-title>
+                <mat-card-subtitle *ngIf="game.owner !== currentUser">{{ 'roleame-webapp.games.user_role.player' | translate }}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="game.owner === currentUser">{{ 'roleame-webapp.games.user_role.master' | translate }}</mat-card-subtitle>
+            </mat-card-header>
+        
+            <mat-card-content fxLayout="row" fxLayout.xs="column">
+                <p>{{ game.description }}</p>
+                <p>{{ game.owner }}</p>
+            </mat-card-content>
+        
+            <mat-card-actions class="mt-4">
+                <mat-divider></mat-divider>
+                <button mat-icon-button (click)="startGame(game)"><mat-icon color="primary">play_arrow</mat-icon></button>
+                <button *ngIf="game.owner !== currentUser" mat-icon-button (click)="leaveGame(game)"><mat-icon color="warn">exit_to_app</mat-icon></button>
+                <button *ngIf="game.owner === currentUser" mat-icon-button (click)="editGame(game)"><mat-icon color="primary">edit</mat-icon></button>
+                <button *ngIf="game.owner === currentUser" mat-icon-button (click)="deleteGame(game)"><mat-icon color="warn">delete</mat-icon></button>
+            </mat-card-actions>
+        </mat-card>
+    </ng-container>
+</div>

@@ -94,7 +94,7 @@ export class CharactersPageComponent implements OnInit {
             console.log(err);
           });
       } else {
-        createdCharacter.portraitURL
+        createdCharacter.portraitURL = createdCharacter.portrait
       }
       this.translateService
           .get('roleame-webapp.characters.new.success')

@@ -1,0 +1,90 @@
+query ListGamesData(
+  $filter: ModelGameFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      owner
+      uuid
+      name
+      description
+      members
+      players{
+        items{
+          id
+          gameID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+
+
+
+query GetUserData($username: String!) {
+  getUser(username: $username) {
+    username
+    email
+  }
+}
+
+query GetUserGamesData($username: String!) {
+  getUser(username: $username) {
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        playerID
+        pendingInvite
+        game {
+          id
+          uuid
+          name
+          description
+          messages
+          owner
+          members
+          players {
+            items{
+              id
+              gameID
+              gameOwnerID
+              playerID
+              pendingInvite
+            }
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+  }
+}
+
+query GetUserMemberships($username: String!) {
+  getUser(username: $username) {
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        playerID
+        pendingInvite
+        game {
+            id
+            uuid
+            name
+            description
+            owner
+        }
+      }
+      nextToken
+    }
+    owner
+  }
+}

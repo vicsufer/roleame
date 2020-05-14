@@ -23,6 +23,14 @@ const routes: Routes = [
       )
   },
   {
+    path: 'games',
+    canActivate: [AuthGuardService],
+    loadChildren: () =>
+      import('./components/games/games.module').then(
+        m => m.GamesModule
+      )
+  },
+  {
     path: '**',
     redirectTo: ''
   }

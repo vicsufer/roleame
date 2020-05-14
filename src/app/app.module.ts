@@ -1,3 +1,4 @@
+import { Md5Pipe } from 'app/core/pipes/md5.pipe';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -8,8 +9,6 @@ import { CoreModule, APIService } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
-Storage
-
 @NgModule({
   imports: [
     // angular

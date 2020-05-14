@@ -29,7 +29,6 @@ export class EditCharacterComponent implements OnInit {
     this._character = character
     if(character){
       this.editCharacterForm.patchValue(character)
-
       this.character.abilities.forEach( (ability) => {
         var abilityForm = this.createAbility()
         abilityForm.setValue(ability)

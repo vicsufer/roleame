@@ -68,7 +68,7 @@
 
         <mat-step [stepControl]="abilitiesForm" label="{{'roleame-webapp.label.abilities' | translate}}">
             <form [formGroup]="abilitiesForm">
-                <div formArrayName="abilities" *ngFor="let ability of abilitiesForm.get('abilities').controls; let i = index; let lastItem = last" @routeAnimations [ngClass]="routeAnimationsElements">
+                <div formArrayName="abilities" *ngFor="let ability of abilities.controls; let i = index; let lastItem = last" @routeAnimations [ngClass]="routeAnimationsElements">
                     <div [formGroupName]="i" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start">
 
                         <mat-form-field fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(20% - 40px)"> 
@@ -81,7 +81,7 @@
                             <textarea matInput #description maxlength='500' formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
                             <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
                         </mat-form-field>
-                        <button mat-icon-button (click)="removeAbility(i)"  fxLayout="column" xFlex.gt-xs="calc(5% - 40px)" fxFlex.gt-sm="calc(10% - 40px)"> <mat-icon>delete</mat-icon></button>
+                        <button mat-icon-button (click)="removeAbility(i)"> <mat-icon color="warn">cancel</mat-icon></button>
                     </div>
                 </div>
             </form>

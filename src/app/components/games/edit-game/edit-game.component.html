@@ -1,0 +1,81 @@
+<div *ngIf="_game"  fxLayout="column" fxFlex.lt-md="100%" class="mb-4">
+
+
+    <form [formGroup]="editGameForm">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px" >
+
+            <mat-card class="mat-elevation-z4 mt-4" fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(60% - 40px)">
+
+                <mat-card-header>
+                    {{'roleame-webapp.games.new.basic_info' | translate}}
+                </mat-card-header>
+
+                <mat-card-content fxLayout="column" class="mb-4">
+                    <mat-form-field> 
+                        <mat-label>{{'roleame-webapp.label.name' | translate}}</mat-label>
+                        <input matInput formControlName="name" required>
+                    </mat-form-field>
+    
+                    <mat-form-field >
+                        <mat-label>{{'roleame-webapp.label.description' | translate}}</mat-label>
+                        <textarea matInput #description maxlength='500' formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+                        <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="edit-img mat-elevation-z4 mt-4" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(40% - 40px)">
+                <mat-card-header>
+                    {{'roleame-webapp.label.players' | translate}}
+                </mat-card-header>
+
+                <mat-card-content>
+                    <div *ngFor="let player of players" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start"  @routeAnimations [ngClass]="routeAnimationsElements">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="40px" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(20% - 40px)"> 
+                            <span>{{player.playerID}}</span>
+                            <mat-chip-list *ngIf="player.pendingInvite"><mat-chip>{{ 'roleame-webapp.games.pending_invite' | translate }}</mat-chip></mat-chip-list>
+                            <button mat-icon-button (click)="removePlayer(i)" fxLayout="column" fxLayoutAlign="center center"> <mat-icon color="warn">cancel</mat-icon></button>
+                        </div> 
+                    </div>
+                </mat-card-content> 
+            </mat-card>
+
+        </div>
+
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px">
+
+            <mat-card class="mat-elevation-z4 mt-4" fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(45% - 40px)">
+
+                <mat-card-header>
+                    {{'roleame-webapp.games.new.attributes' | translate}}
+                </mat-card-header>
+
+                <mat-card-content class="attributes-panel" fxLayout="row" fxLayoutGap="40px" class="mb-4">
+                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(20% - 10px)">
+
+                    </div>
+                    <div fxLayout="column" xFlex.gt-xs="calc(100% - 10px)" fxFlex.gt-sm="calc(20% - 10px)">
+
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="mat-elevation-z4 mt-4" fxLayout="column" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(55% - 40px)">
+
+                <mat-card-header>
+                    {{'roleame-webapp.label.abilities' | translate}}
+                </mat-card-header>
+
+                <mat-card-content fxLayout="column" class="mb-4">
+                    
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="mt-4" fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px">
+            <button type="submit" xFlex="100%" mat-raised-button (click)="editGame()" mat-button>{{'roleame-webapp.games.edit.apply' | translate }}</button>
+        </div>
+    </form>
+</div>

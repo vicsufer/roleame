@@ -20,6 +20,13 @@
 
                 <div class="row d-flex">
                     <mat-form-field class="col" [ngClass]="routeAnimationsElements">
+                        <input matInput placeholder="{{ 'roleame-webapp.label.username' | translate }}"
+                        formControlName="username">
+                    </mat-form-field>                  
+                </div>
+
+                <div class="row d-flex">
+                    <mat-form-field class="col" [ngClass]="routeAnimationsElements">
                         <input matInput [type]="hideSignupPassword ? 'password' : 'text'" placeholder="{{ 'roleame-webapp.label.password' | translate }}"
                         formControlName="password">
                         <button mat-icon-button matSuffix (click)="hideSignupPassword = !hideSignupPassword" matTooltip="{{ (hideSignupPassword? 'roleame-webapp.label.password_show' :'roleame-webapp.label.password_hide') | translate }}">
@@ -56,7 +63,8 @@
                 </div>
 
                 <div class="row buttons d-flex justify-content-between pad">
-                    <button type='submit' mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
+                    
+                    <button type='submit' mat-raised-button [ngClass]="routeAnimationsElements">
                         {{ 'roleame-webapp.auth.signup.header' | translate }}
                     </button>
                 </div>

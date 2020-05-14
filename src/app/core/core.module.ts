@@ -40,7 +40,6 @@ import { AppErrorHandler } from './error-handler/app-error-handler.service';
 import { CustomSerializer } from './router/custom-serializer';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { HttpErrorInterceptor } from './http-interceptors/http-error.interceptor';
-import { AddAccessTokenToHttpHeader } from './http-interceptors/add-access-token-header';
 import { NotificationService } from './notifications/notification.service';
 import { SettingsEffects } from './settings/settings.effects';
 import {
@@ -117,7 +116,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: AmplifyService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AddAccessTokenToHttpHeader, multi: true }, 
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     { provide: APIService }

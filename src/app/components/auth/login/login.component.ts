@@ -29,10 +29,9 @@ export class LoginComponent implements OnInit {
     private amplifyService: AmplifyService,
     private notificationService: NotificationService,
     private translateService: TranslateService,
-    private store: Store<AppState>
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
@@ -51,13 +50,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      var email = this.loginForm.value.email;
+      var username = this.loginForm.value.username;
       var password = this.loginForm.value.password;
 
       this.amplifyService
         .auth()
-        .signIn(email, password)
-        .then(user => {})
+        .signIn(username, password)
+        .then( user => {
+
+        })
         .catch(err => {
           this.loginError(err);
         });

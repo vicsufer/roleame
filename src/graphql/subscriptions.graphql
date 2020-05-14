@@ -1,28 +1,32 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateGame {
-  onCreateGame {
+subscription OnCreateGame($owner: String!) {
+  onCreateGame(owner: $owner) {
     id
+    owner
     uuid
     name
     description
     members
-    playerCharacters {
+    players {
       items {
         id
-        uuid
-        name
-        background
-        portrait
-        portraitURL
-        class
-        agility
-        hitPoints
-        fellowship
-        strength
-        wisdom
-        abilities {
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
           name
           description
+          members
+          messages
+        }
+        player {
+          username
+          email
+          owner
         }
       }
       nextToken
@@ -30,6 +34,7 @@ subscription OnCreateGame {
     gameCharacters {
       items {
         id
+        gameID
         uuid
         name
         background
@@ -51,30 +56,34 @@ subscription OnCreateGame {
     messages
   }
 }
-subscription OnUpdateGame {
-  onUpdateGame {
+subscription OnUpdateGame($owner: String!) {
+  onUpdateGame(owner: $owner) {
     id
+    owner
     uuid
     name
     description
     members
-    playerCharacters {
+    players {
       items {
         id
-        uuid
-        name
-        background
-        portrait
-        portraitURL
-        class
-        agility
-        hitPoints
-        fellowship
-        strength
-        wisdom
-        abilities {
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
           name
           description
+          members
+          messages
+        }
+        player {
+          username
+          email
+          owner
         }
       }
       nextToken
@@ -82,6 +91,7 @@ subscription OnUpdateGame {
     gameCharacters {
       items {
         id
+        gameID
         uuid
         name
         background
@@ -103,30 +113,34 @@ subscription OnUpdateGame {
     messages
   }
 }
-subscription OnDeleteGame {
-  onDeleteGame {
+subscription OnDeleteGame($owner: String!) {
+  onDeleteGame(owner: $owner) {
     id
+    owner
     uuid
     name
     description
     members
-    playerCharacters {
+    players {
       items {
         id
-        uuid
-        name
-        background
-        portrait
-        portraitURL
-        class
-        agility
-        hitPoints
-        fellowship
-        strength
-        wisdom
-        abilities {
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
           name
           description
+          members
+          messages
+        }
+        player {
+          username
+          email
+          owner
         }
       }
       nextToken
@@ -134,6 +148,7 @@ subscription OnDeleteGame {
     gameCharacters {
       items {
         id
+        gameID
         uuid
         name
         background
@@ -158,6 +173,7 @@ subscription OnDeleteGame {
 subscription OnCreateGameCharacter {
   onCreateGameCharacter {
     id
+    gameID
     uuid
     name
     background
@@ -178,6 +194,7 @@ subscription OnCreateGameCharacter {
 subscription OnUpdateGameCharacter {
   onUpdateGameCharacter {
     id
+    gameID
     uuid
     name
     background
@@ -198,6 +215,7 @@ subscription OnUpdateGameCharacter {
 subscription OnDeleteGameCharacter {
   onDeleteGameCharacter {
     id
+    gameID
     uuid
     name
     background
@@ -215,8 +233,8 @@ subscription OnDeleteGameCharacter {
     }
   }
 }
-subscription OnCreatePlayerCharacter {
-  onCreatePlayerCharacter {
+subscription OnCreatePlayerCharacter($owner: String!) {
+  onCreatePlayerCharacter(owner: $owner) {
     id
     uuid
     name
@@ -233,10 +251,11 @@ subscription OnCreatePlayerCharacter {
       name
       description
     }
+    owner
   }
 }
-subscription OnUpdatePlayerCharacter {
-  onUpdatePlayerCharacter {
+subscription OnUpdatePlayerCharacter($owner: String!) {
+  onUpdatePlayerCharacter(owner: $owner) {
     id
     uuid
     name
@@ -253,10 +272,11 @@ subscription OnUpdatePlayerCharacter {
       name
       description
     }
+    owner
   }
 }
-subscription OnDeletePlayerCharacter {
-  onDeletePlayerCharacter {
+subscription OnDeletePlayerCharacter($owner: String!) {
+  onDeletePlayerCharacter(owner: $owner) {
     id
     uuid
     name
@@ -273,5 +293,99 @@ subscription OnDeletePlayerCharacter {
       name
       description
     }
+    owner
+  }
+}
+subscription OnCreateUser($owner: String!) {
+  onCreateUser(owner: $owner) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+          messages
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+    owner
+  }
+}
+subscription OnUpdateUser($owner: String!) {
+  onUpdateUser(owner: $owner) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+          messages
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+    owner
+  }
+}
+subscription OnDeleteUser($owner: String!) {
+  onDeleteUser(owner: $owner) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+          messages
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+    owner
   }
 }

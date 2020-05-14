@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedComponentsModule } from '../../../shared-components/shared-components.module';
 
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './profile.component';
 
 describe('Homeomponent', () => {
   let component: HomeComponent;

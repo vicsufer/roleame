@@ -21,10 +21,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSliderModule, MatDialogModule, MatStepperModule, MatRadioModule } from '@angular/material/';
+import { MatSliderModule, MatDialogModule, MatStepperModule, MatRadioModule, MatBadgeModule } from '@angular/material/';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatExpansionModule} from '@angular/material/expansion';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -115,7 +116,6 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatTabsModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatChipsModule,
     MatCardModule,
     MatSidenavModule,
     MatCheckboxModule,
@@ -129,8 +129,10 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatStepperModule,
     FlexLayoutModule,
     MatRadioModule,
-
-    FontAwesomeModule
+    MatExpansionModule,
+    FontAwesomeModule,
+    MatChipsModule,
+    MatBadgeModule
   ],
   declarations: [
     BigInputComponent,
@@ -143,7 +145,6 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     ReactiveFormsModule,
 
     TranslateModule,
-
     MatButtonModule,
     MatMenuModule,
     MatTabsModule,
@@ -170,6 +171,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     FlexLayoutModule,
     MaterialFileInputModule,
     MatRadioModule,
+    MatExpansionModule,
+    MatBadgeModule,
 
     BigInputComponent,
     BigInputActionComponent,

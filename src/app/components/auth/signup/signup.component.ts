@@ -1,3 +1,4 @@
+import { APIService } from 'app/core/services/API.service';
 import { selectAuth } from './../../../core/auth/auth.selectors';
 import {
   FormGroup,
@@ -31,6 +32,7 @@ import {
   AmplifyService
 } from 'aws-amplify-angular/dist/src/providers';
 import { TranslateService } from '@ngx-translate/core';
+import { User } from 'app/types/user';
 
 @Component({
   selector: 'rolewebapp-signup',
@@ -55,7 +57,8 @@ export class SignupComponent implements OnInit {
     private amplifyService: AmplifyService,
     public confirmDialog: MatDialog,
     private notificationService: NotificationService,
-    private translationService: TranslateService
+    private translationService: TranslateService,
+    private apiService: APIService
   ) {
     this.authState$ = this.store.pipe(select(selectAuth));
 
@@ -64,6 +67,7 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
+        username: ['', [Validators.required]],
         password: [
           '',
           [
@@ -84,13 +88,23 @@ export class SignupComponent implements OnInit {
 
   signup() {
     if (this.signupForm.valid) {
-      var email = this.signupForm.controls.email.value;
+      var user: User = {
+        username: this.signupForm.controls.username.value,
+        email:  this.signupForm.controls.email.value
+      }
       var password = this.signupForm.controls.password.value;
       this.amplifyService
         .auth()
-        .signUp(email, password)
+        .signUp({
+          username: user.username, 
+          password,
+          email: user.email,
+          attributes: {
+            email: user.email
+          }
+        })
         .then(res => {
-          this.showModalVerifyEmail(email);
+          this.showModalVerifyEmail(user.email);
         })
         .catch(err => {
           console.log(err);

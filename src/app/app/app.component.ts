@@ -1,3 +1,4 @@
+import { APIService } from 'app/core/services/API.service';
 import { take } from 'rxjs/operators';
 import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
@@ -54,7 +55,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private apiService: APIService,
   ) {}
 
   private static isIEorEdgeOrSafari() {
@@ -79,7 +81,16 @@ export class AppComponent implements OnInit {
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-          this.store.dispatch(new ActionAuthLogin());
+          //Check if it is first login
+          this.apiService.GetUserData(data.username).then( user => {
+            if(!user){
+              this.apiService.CreateUser( {username: data.username, email: data.attributes.email} ).then( () =>
+                this.store.dispatch(new ActionAuthLogin())
+               ).catch( e => console.log(e))
+            } else {
+              this.store.dispatch(new ActionAuthLogin())
+            }
+          }).catch( e => console.log(e))
           break;
         default:
           break;
