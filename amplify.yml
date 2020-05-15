@@ -12,9 +12,8 @@ frontend:
         - yum install ./google-chrome-stable_current_*.rpm -y
         - export CHROME_BIN=/usr/bin/google-chrome
         - npm ci
-    build:
+    test:
       commands:
-        - test
         - npm run-script ci
     build:
       commands:
