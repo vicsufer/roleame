@@ -6,17 +6,15 @@ import {
   ofType,
   createEffect,
   Actions,
-  Effect,
-  ROOT_EFFECTS_INIT
 } from '@ngrx/effects';
-import { tap, switchMap, withLatestFrom, map, catchError } from 'rxjs/operators';
+import { tap, switchMap, withLatestFrom, map } from 'rxjs/operators';
 
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthActionTypes, ActionAuthSetUser } from './auth.actions';
-import { defer, Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { State, AuthStateTypes } from './auth.models';
-import { AUTO_STYLE } from '@angular/animations';
+import { State } from './auth.models';
+import { of } from 'rxjs';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -31,8 +29,8 @@ export class AuthEffects {
   ) {}
 
   login = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_LOGIN),
         withLatestFrom(this.store.pipe(select(selectAuthState))),
         tap(([action, settings])=>{
@@ -46,7 +44,8 @@ export class AuthEffects {
             .catch(error => console.log(error))
             .finally(() => this.router.navigate(['/']))
         })
-      ),
+      )
+    },
     { dispatch: false }
   );
 
@@ -54,10 +53,11 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_LOGOUT),
-        tap(async () => {
+        tap( () => {
           this.router.navigate(['/']);
           this.localStorageService.removeItem(AUTH_KEY)
-          await this.amplifyService.auth().signOut();
+          this.amplifyService.auth().signOut();
+          console.log("BYE!")
         })
       ),
     { dispatch: false }
@@ -68,7 +68,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_SETUSER),
         withLatestFrom(this.store.pipe(select(selectAuthState))),
-        tap(([action, settings])=>{
+        map(([action,settings])=>{
           this.localStorageService.setItem(AUTH_KEY, settings)
         })
       ),

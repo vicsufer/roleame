@@ -1,3 +1,4 @@
+import { AnimationsService } from './../animations/animations.service';
 import { ActivationEnd, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';

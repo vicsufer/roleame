@@ -131,17 +131,17 @@ export class NewCharacterComponent implements OnInit {
     character = {
       id: undefined,
       uuid: char_uuid,
-      name: this.basicInfoForm.get("name").value,
-      class: this.basicInfoForm.get("class").value,
-      background: this.basicInfoForm.get("background").value,
+      name: this.basicInfoForm.get('name').value,
+      class: this.basicInfoForm.get('class').value,
+      background: this.basicInfoForm.get('background').value,
 
       portrait: portrait,
 
-      agility: this.attributesForm.get("agility").value,
-      hitPoints: this.attributesForm.get("hitPoints").value,
-      fellowship: this.attributesForm.get("fellowship").value,
-      strength: this.attributesForm.get("strength").value,
-      wisdom: this.attributesForm.get("wisdom").value,
+      agility: this.attributesForm.get('agility').value,
+      hitPoints: this.attributesForm.get('hitPoints').value,
+      fellowship: this.attributesForm.get('fellowship').value,
+      strength: this.attributesForm.get('strength').value,
+      wisdom: this.attributesForm.get('wisdom').value,
 
       abilities: this.abilitiesForm.get('abilities').value
     }

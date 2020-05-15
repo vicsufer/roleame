@@ -5,8 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedComponentsModule } from '../../../shared-components/shared-components.module';
 
 import { InvitationsComponent } from './invitations.component';
+import { GamesModule } from '../games.module';
 
-describe('gamesomponent', () => {
+describe('invitationsComponent', () => {
   let component: InvitationsComponent;
   let fixture: ComponentFixture<InvitationsComponent>;
 

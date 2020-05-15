@@ -71,8 +71,8 @@ export class NewGameComponent implements OnInit {
     game = {
       id: undefined,
       uuid: uuid.v4(),
-      name: this.basicInfoForm.get("name").value,
-      description: this.basicInfoForm.get("description").value,
+      name: this.basicInfoForm.get('name').value,
+      description: this.basicInfoForm.get('description').value,
       members: members,
       messages: []
     }

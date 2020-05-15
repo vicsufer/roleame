@@ -29,15 +29,15 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['ChromeHeadless'],
     restartOnFileChange: true,
-    customLaunchers: { 
-      ChromeHeadless: {
-        base: 'Chrome',
-        flags: [
-          '--no-sandbox',
-          '--headless',
-          ]
-      }
-    },
+    // customLaunchers: { 
+    //   ChromeHeadless: {
+    //     base: 'Chrome',
+    //     flags: [
+    //       '--no-sandbox',
+    //       '--headless',
+    //       ]
+    //   }
+    // },
     browserNoActivityTimeout: 50000,
     singleRun: !isWatch
   });

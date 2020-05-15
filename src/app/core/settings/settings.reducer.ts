@@ -2,7 +2,7 @@ import { SettingsState } from './settings.model';
 import { SettingsActions, SettingsActionTypes } from './settings.actions';
 
 export const initialState: SettingsState = {
-  language: 'en',
+  language: 'es',
   theme: 'DEFAULT-THEME',
   pageAnimations: true,
   elementsAnimations: true

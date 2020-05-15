@@ -1,3 +1,4 @@
+import { AmplifyService } from 'aws-amplify-angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -102,6 +103,7 @@ import { BigInputActionComponent } from './big-input/big-input-action/big-input-
 import { RtlSupportDirective } from './rtl-support/rtl-support.directive';
 import { Md5Pipe } from 'app/core/pipes/md5.pipe';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { APIService } from 'app/core/core.module';
 
 @NgModule({
   imports: [
@@ -177,6 +179,10 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     BigInputComponent,
     BigInputActionComponent,
     RtlSupportDirective
+  ],
+  providers: [
+    AmplifyService,
+    APIService
   ]
 })
 export class SharedComponentsModule {}

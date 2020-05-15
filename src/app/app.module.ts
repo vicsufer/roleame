@@ -25,7 +25,6 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
     // app
     AppRoutingModule
   ],
-  providers: [AmplifyService, APIService],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

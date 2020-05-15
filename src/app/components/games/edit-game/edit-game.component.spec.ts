@@ -6,7 +6,7 @@ import { SharedComponentsModule } from '../../../shared-components/shared-compon
 
 import { EditGameComponent } from './edit-game.component';
 
-describe('gamesomponent', () => {
+describe('editGamesComponent', () => {
   let component: EditGameComponent;
   let fixture: ComponentFixture<EditGameComponent>;
 

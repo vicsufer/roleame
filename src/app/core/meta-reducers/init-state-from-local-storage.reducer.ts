@@ -9,8 +9,6 @@ export function initStateFromLocalStorage(
   return function(state, action) {
     const newState = reducer(state, action);
     if ([INIT.toString(), UPDATE.toString()].includes(action.type)) {
-      console.log({...LocalStorageService.loadInitialState() })
-      console.log({ ...newState, ...LocalStorageService.loadInitialState() })
       return { ...newState, ...LocalStorageService.loadInitialState() };
     }
     return newState;

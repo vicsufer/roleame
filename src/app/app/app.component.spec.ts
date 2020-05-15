@@ -8,6 +8,7 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
 
 import { AppComponent } from './app.component';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { Md5Pipe } from 'app/core/pipes/md5.pipe';
 
 
 describe('AppComponent', () => {
@@ -30,7 +31,7 @@ describe('AppComponent', () => {
           }
         })
       ],
-      declarations: [AppComponent],
+      declarations: [AppComponent, Md5Pipe],
       
     }).compileComponents();
 
