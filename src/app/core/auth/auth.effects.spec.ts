@@ -62,7 +62,6 @@ describe('AuthEffects', () => {
         const source = cold('a', { a: logoutAction });
         const actions = new Actions(source);
         const effect = new AuthEffects(actions, router, amplifyService, store, localStorageService);
-        console.log(amplifyService.auth())
         effect.logout.subscribe(() => {
           expect(amplifyService.auth().signOut).toHaveBeenCalled();
           expect(router.navigate).toHaveBeenCalledWith(['/']);

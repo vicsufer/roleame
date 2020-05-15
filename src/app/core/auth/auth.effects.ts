@@ -57,7 +57,6 @@ export class AuthEffects {
           this.router.navigate(['/']);
           this.localStorageService.removeItem(AUTH_KEY)
           this.amplifyService.auth().signOut();
-          console.log("BYE!")
         })
       ),
     { dispatch: false }
