@@ -156,7 +156,7 @@ export class GamesPageComponent implements OnInit {
     })
 
     this.apiService.UpdateGame(data.game).then( (updatedGame) => {
-      var gameToUpdate: Game | any = this.games.find( game => game.id = data.game.id )
+      var gameToUpdate: Game | any = this.games.find( game => game.id == data.game.id )
       
       gameToUpdate = updatedGame
       gameToUpdate.players = updatedGame.players
