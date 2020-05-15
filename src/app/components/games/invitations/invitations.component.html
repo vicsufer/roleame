@@ -8,6 +8,7 @@
 
         <mat-list role="list" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="flex-start">
             <mat-list-item fxFlex="100%" fxLayout="column" fxAlignLayout="center center" class="pd-4" role="listitem" *ngFor="let game of invitations; let lastItem = last" [ngClass]="routeAnimationsElements" @routeAnimations>
+                <mat-icon color="primary">user</mat-icon>
                 <span fxFlex="70%">{{game.owner}} {{'roleame-webapp.games.invited_you' | translate}} "{{game.name}}"</span>
                 <div fxFlex="30%" fxLayoutAlign="end center">
                     <button mat-stroked-button (click)="acceptInvitation(game)" class="mr-2">{{'roleame-webapp.label.accept' | translate}}</button>

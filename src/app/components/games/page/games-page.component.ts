@@ -146,8 +146,22 @@ export class GamesPageComponent implements OnInit {
   }
 
 
-  applyChanges(game: Game){
-    this.apiService.UpdateGame(game).then( (res) => {
+  applyChanges(data: {game: Game, playersToRemove: string[], playersToInvite: Player[]}){
+
+    data.playersToRemove.forEach( (player) => {
+      this.apiService.DeletePlayer({id: player}).then( res => {console.log()}).catch((e) => console.log(e))
+    })
+    data.playersToInvite.forEach( player => {
+      this.invitePlayer( player.playerID, data.game.id, data.game.owner)
+    })
+
+    this.apiService.UpdateGame(data.game).then( (updatedGame) => {
+      var gameToUpdate: Game | any = this.games.find( game => game.id = data.game.id )
+      
+      gameToUpdate = updatedGame
+      gameToUpdate.players = updatedGame.players
+      gameToUpdate.members = updatedGame.members
+      this.selectedEditableGame = undefined;
       this.translateService
           .get('roleame-webapp.games.edit.success')
           .subscribe(value => {

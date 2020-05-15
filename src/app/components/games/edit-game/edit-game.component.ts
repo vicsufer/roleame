@@ -5,8 +5,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 import { APIService } from 'app/core/services/API.service';
 import { Game } from 'app/types/game';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'roleame-webapp-edit-game',
@@ -19,11 +20,10 @@ export class EditGameComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
-  players: Player[]
   _game: Game
+  updatedGame: Game
 
-  @Output() applyChanges: EventEmitter<Game> = new EventEmitter<Game>();
-  @Output() changeImage: EventEmitter<{portrait:string, imageFile: File}> = new EventEmitter<{portrait:string, imageFile: File}>();
+  @Output() applyChanges: EventEmitter<{game: Game, playersToRemove: string[], playersToInvite: Player[]}> = new EventEmitter<{game: Game, playersToRemove: string[], playersToInvite: Player[]}>();
 
   @Input()
   set game(game: Game){
@@ -31,7 +31,7 @@ export class EditGameComponent implements OnInit {
     console.log(game)
     if(game){
       this.editGameForm.patchValue(game)
-      this.players = game.players
+      this.updatedGame = game
     }
     
   }
@@ -41,7 +41,8 @@ export class EditGameComponent implements OnInit {
   }
 
   editGameForm: FormGroup
-  inviteGamePlayers: FormArray
+  invitedGamePlayers: FormArray
+  playersToRemove: string[] = []
 
   constructor(private apiService: APIService, private formBuilder: FormBuilder, public changePortraitDialog: MatDialog,) {
 
@@ -52,30 +53,58 @@ export class EditGameComponent implements OnInit {
     this.editGameForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.maxLength(500)],
-      players: this.formBuilder.array([]),
+      invitedGamePlayers: this.formBuilder.array([]),
     })
-    this.inviteGamePlayers = this.editGameForm.get('players') as FormArray;
-    
+    this.invitedGamePlayers = this.editGameForm.get('invitedGamePlayers') as FormArray;
   }
 
-  addPlayer(): void {
-    this.inviteGamePlayers.push(this.createPlayer());
+  removePlayer(id: string, playerID: string): void {
+    this.updatedGame.players = this.updatedGame.players.filter( (player) => player.playerID != playerID )
+    this.updatedGame.members = this.updatedGame.members.filter( (member) => member != playerID )
+    this.playersToRemove.push(id)
   }
 
-  removeMember(i : number): void {
-    this.inviteGamePlayers.removeAt(i)
+  addInvitedGamePlayer(): void {
+    this.invitedGamePlayers.push(this.createInvitedGamePlayer());
   }
 
-  createPlayer(): FormGroup {
+  removeInvitedGamePlayer(i : number): void {
+    this.invitedGamePlayers.removeAt(i)
+  }
+
+  createInvitedGamePlayer(): FormGroup {
     return this.formBuilder.group({
-      username: ['', Validators.required],
-      pendingInvite: ['']
+      playerID: ['', {validators:[Validators.required], asyncValidators: [this.userExistsValidator().bind(this)], updateOn: 'blur'}],
+      gameID:[ this.game.id, Validators.required],
+      gameOwnerID: [ this.game.owner, Validators.required],
+      pendingInvite: [true, Validators.required]
     });
   }
 
   editGame() {
-    Object.assign(this.game , this.editGameForm.value )
-    this.applyChanges.emit(this.game)
+    this.updatedGame.name = this.editGameForm.get('name').value
+    this.updatedGame.description = this.editGameForm.get('description').value
+
+    var playersToInvite =this.invitedGamePlayers.value as Player[]
+    this.updatedGame.members = this.updatedGame.members.concat( playersToInvite.map( (player) => player.playerID )  )
+
+    delete this.updatedGame.players
+
+    this.applyChanges.emit({game: this.updatedGame, playersToRemove: this.playersToRemove, playersToInvite})
+    this.editGameForm.reset()
+    this.playersToRemove = []
+    this.invitedGamePlayers = new FormArray([])
+  }
+
+
+  userExistsValidator(): AsyncValidatorFn {
+    return function (control: AbstractControl): Promise<any> | Observable<any> {
+      return new Promise<any>( (resolve, reject) => {
+        this.apiService.GetUserData(control.value).then( user => {
+          !user? resolve({existsUser: false}): resolve(null);
+        }).catch(e=>console.log(e))
+      })
+    }
   }
 
 }
