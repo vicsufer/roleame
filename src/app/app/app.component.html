@@ -1,5 +1,4 @@
 <div [class]="'theme-wrapper ' + (theme$ | async)">
-
   <mat-sidenav-container>
 
     <mat-sidenav #sidenav mode="push">
@@ -70,11 +69,14 @@
         </mat-toolbar>
       </div>
 
-      <div class="content" [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data && o.activatedRoute.routeConfig.data.title">
-        <router-outlet #o="outlet"></router-outlet>
-      </div>
+    <div class="content" *ngIf="this.router.url.startsWith('/tabletop')" fxFlex [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data && o.activatedRoute.routeConfig.data.title">
+      <router-outlet #o="outlet"></router-outlet>
+    </div>
+    <div class="content" *ngIf="!this.router.url.startsWith('/tabletop')" [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.data && o.activatedRoute.routeConfig.data.title">
+      <router-outlet #o="outlet"></router-outlet>
+    </div>
 
-      <div class="footer">
+      <div class="footer" *ngIf="!this.router.url.startsWith('/tabletop')">
         <div class="row">
           <div class="col-sm-12 links">
             <a href="https://www.github.com/vicsufer" target="_blank">

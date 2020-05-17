@@ -9,6 +9,29 @@ mutation CreateGame(
     uuid
     name
     description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        createdAt
+        actionType
+        player
+        payload
+      }
+    }
     members
     players {
       items {
@@ -24,7 +47,6 @@ mutation CreateGame(
           name
           description
           members
-          messages
         }
         player {
           username
@@ -34,29 +56,6 @@ mutation CreateGame(
       }
       nextToken
     }
-    gameCharacters {
-      items {
-        id
-        gameID
-        uuid
-        name
-        background
-        portrait
-        portraitURL
-        class
-        agility
-        hitPoints
-        fellowship
-        strength
-        wisdom
-        abilities {
-          name
-          description
-        }
-      }
-      nextToken
-    }
-    messages
   }
 }
 mutation UpdateGame(
@@ -69,6 +68,29 @@ mutation UpdateGame(
     uuid
     name
     description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        createdAt
+        actionType
+        player
+        payload
+      }
+    }
     members
     players {
       items {
@@ -84,7 +106,6 @@ mutation UpdateGame(
           name
           description
           members
-          messages
         }
         player {
           username
@@ -94,29 +115,6 @@ mutation UpdateGame(
       }
       nextToken
     }
-    gameCharacters {
-      items {
-        id
-        gameID
-        uuid
-        name
-        background
-        portrait
-        portraitURL
-        class
-        agility
-        hitPoints
-        fellowship
-        strength
-        wisdom
-        abilities {
-          name
-          description
-        }
-      }
-      nextToken
-    }
-    messages
   }
 }
 mutation DeleteGame(
@@ -129,6 +127,29 @@ mutation DeleteGame(
     uuid
     name
     description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        createdAt
+        actionType
+        player
+        payload
+      }
+    }
     members
     players {
       items {
@@ -144,7 +165,6 @@ mutation DeleteGame(
           name
           description
           members
-          messages
         }
         player {
           username
@@ -154,29 +174,255 @@ mutation DeleteGame(
       }
       nextToken
     }
-    gameCharacters {
+  }
+}
+mutation CreateTabletop(
+  $input: CreateTabletopInput!
+  $condition: ModelTabletopConditionInput
+) {
+  createTabletop(input: $input, condition: $condition) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
       items {
         id
-        gameID
-        uuid
-        name
-        background
-        portrait
-        portraitURL
-        class
-        agility
-        hitPoints
-        fellowship
-        strength
-        wisdom
-        abilities {
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
           name
-          description
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
         }
       }
       nextToken
     }
-    messages
+    actions {
+      createdAt
+      actionType
+      player
+      payload
+    }
+  }
+}
+mutation UpdateTabletop(
+  $input: UpdateTabletopInput!
+  $condition: ModelTabletopConditionInput
+) {
+  updateTabletop(input: $input, condition: $condition) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      createdAt
+      actionType
+      player
+      payload
+    }
+  }
+}
+mutation DeleteTabletop(
+  $input: DeleteTabletopInput!
+  $condition: ModelTabletopConditionInput
+) {
+  deleteTabletop(input: $input, condition: $condition) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      createdAt
+      actionType
+      player
+      payload
+    }
+  }
+}
+mutation CreateTabletopCharacter(
+  $input: CreateTabletopCharacterInput!
+  $condition: ModelTabletopCharacterConditionInput
+) {
+  createTabletopCharacter(input: $input, condition: $condition) {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+mutation UpdateTabletopCharacter(
+  $input: UpdateTabletopCharacterInput!
+  $condition: ModelTabletopCharacterConditionInput
+) {
+  updateTabletopCharacter(input: $input, condition: $condition) {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+mutation DeleteTabletopCharacter(
+  $input: DeleteTabletopCharacterInput!
+  $condition: ModelTabletopCharacterConditionInput
+) {
+  deleteTabletopCharacter(input: $input, condition: $condition) {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
   }
 }
 mutation CreatePlayer(
@@ -195,6 +441,21 @@ mutation CreatePlayer(
       uuid
       name
       description
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+        characters {
+          nextToken
+        }
+        actions {
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }
       members
       players {
         items {
@@ -206,25 +467,6 @@ mutation CreatePlayer(
         }
         nextToken
       }
-      gameCharacters {
-        items {
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-        }
-        nextToken
-      }
-      messages
     }
     player {
       username
@@ -259,6 +501,21 @@ mutation UpdatePlayer(
       uuid
       name
       description
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+        characters {
+          nextToken
+        }
+        actions {
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }
       members
       players {
         items {
@@ -270,25 +527,6 @@ mutation UpdatePlayer(
         }
         nextToken
       }
-      gameCharacters {
-        items {
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-        }
-        nextToken
-      }
-      messages
     }
     player {
       username
@@ -323,6 +561,21 @@ mutation DeletePlayer(
       uuid
       name
       description
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+        characters {
+          nextToken
+        }
+        actions {
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }
       members
       players {
         items {
@@ -334,25 +587,6 @@ mutation DeletePlayer(
         }
         nextToken
       }
-      gameCharacters {
-        items {
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-        }
-        nextToken
-      }
-      messages
     }
     player {
       username
@@ -371,84 +605,13 @@ mutation DeletePlayer(
     }
   }
 }
-mutation CreateGameCharacter(
-  $input: CreateGameCharacterInput!
-  $condition: ModelGameCharacterConditionInput
-) {
-  createGameCharacter(input: $input, condition: $condition) {
-    id
-    gameID
-    uuid
-    name
-    background
-    portrait
-    portraitURL
-    class
-    agility
-    hitPoints
-    fellowship
-    strength
-    wisdom
-    abilities {
-      name
-      description
-    }
-  }
-}
-mutation UpdateGameCharacter(
-  $input: UpdateGameCharacterInput!
-  $condition: ModelGameCharacterConditionInput
-) {
-  updateGameCharacter(input: $input, condition: $condition) {
-    id
-    gameID
-    uuid
-    name
-    background
-    portrait
-    portraitURL
-    class
-    agility
-    hitPoints
-    fellowship
-    strength
-    wisdom
-    abilities {
-      name
-      description
-    }
-  }
-}
-mutation DeleteGameCharacter(
-  $input: DeleteGameCharacterInput!
-  $condition: ModelGameCharacterConditionInput
-) {
-  deleteGameCharacter(input: $input, condition: $condition) {
-    id
-    gameID
-    uuid
-    name
-    background
-    portrait
-    portraitURL
-    class
-    agility
-    hitPoints
-    fellowship
-    strength
-    wisdom
-    abilities {
-      name
-      description
-    }
-  }
-}
 mutation CreatePlayerCharacter(
   $input: CreatePlayerCharacterInput!
   $condition: ModelPlayerCharacterConditionInput
 ) {
   createPlayerCharacter(input: $input, condition: $condition) {
     id
+    owner
     uuid
     name
     background
@@ -464,7 +627,6 @@ mutation CreatePlayerCharacter(
       name
       description
     }
-    owner
   }
 }
 mutation UpdatePlayerCharacter(
@@ -473,6 +635,7 @@ mutation UpdatePlayerCharacter(
 ) {
   updatePlayerCharacter(input: $input, condition: $condition) {
     id
+    owner
     uuid
     name
     background
@@ -488,7 +651,6 @@ mutation UpdatePlayerCharacter(
       name
       description
     }
-    owner
   }
 }
 mutation DeletePlayerCharacter(
@@ -497,6 +659,7 @@ mutation DeletePlayerCharacter(
 ) {
   deletePlayerCharacter(input: $input, condition: $condition) {
     id
+    owner
     uuid
     name
     background
@@ -512,7 +675,6 @@ mutation DeletePlayerCharacter(
       name
       description
     }
-    owner
   }
 }
 mutation CreateUser(
@@ -536,7 +698,6 @@ mutation CreateUser(
           name
           description
           members
-          messages
         }
         player {
           username
@@ -570,7 +731,6 @@ mutation UpdateUser(
           name
           description
           members
-          messages
         }
         player {
           username
@@ -604,7 +764,6 @@ mutation DeleteUser(
           name
           description
           members
-          messages
         }
         player {
           username

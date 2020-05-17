@@ -24,6 +24,7 @@ export class NewGameComponent implements OnInit {
 
   @ViewChild('stepperNewGame', {static: true}) stepper: MatStepper;
 
+  currentUsername: string
 
   basicInfoForm: FormGroup;
   invitedMembersForm: FormGroup;
@@ -73,8 +74,7 @@ export class NewGameComponent implements OnInit {
       uuid: uuid.v4(),
       name: this.basicInfoForm.get('name').value,
       description: this.basicInfoForm.get('description').value,
-      members: members,
-      messages: []
+      members: members
     }
     this.stepper.reset()
     this.create.emit({game, members})

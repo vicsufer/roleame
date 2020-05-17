@@ -20,6 +20,7 @@ import {
 import { ActionAuthLogout, ActionAuthLogin } from 'app/core/auth/auth.actions';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
 import { ActionSettingsChangeAnimationsPage } from 'app/core/settings/settings.actions';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'roleame-webapp-root',
@@ -57,7 +58,10 @@ export class AppComponent implements OnInit {
     private store: Store<AppState>,
     private storageService: LocalStorageService,
     private apiService: APIService,
-  ) {}
+    private router: Router
+  ) {
+ 
+  }
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);

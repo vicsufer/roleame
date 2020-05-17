@@ -1,5 +1,6 @@
+import { Tabletop } from './tabletop';
 import { Player } from './player';
-import { GameCharacter } from './gameCharacter';
+
 export class Game {
     id: string;
     uuid: string;
@@ -10,8 +11,6 @@ export class Game {
 
     members: string[];
     players?: Player[];
-    gameCharacters?: GameCharacter[];
 
-    messages: string[];
-    //journal: string[];
+    tabletop?: Tabletop;
 }

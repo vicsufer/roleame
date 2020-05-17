@@ -1,3 +1,7 @@
+import { TabletopCharacter } from 'app/types/tabletopCharacter';
+import { CreateGameInput } from './../../../core/services/API.service';
+import { Tabletop } from 'app/types/tabletop';
+import { Router } from '@angular/router';
 import { Player } from '../../../types/player';
 import { AmplifyService } from 'aws-amplify-angular';
 import { NotificationService } from '../../../core/notifications/notification.service';
@@ -27,7 +31,12 @@ export class GamesPageComponent implements OnInit {
   selectedTabIndex = 0;
   selectedEditableGame: Game
 
-  constructor(private apiService: APIService, private amplifyService: AmplifyService, private translateService: TranslateService, private notificationService: NotificationService) {
+  constructor(
+    private apiService: APIService,
+     private amplifyService: AmplifyService, 
+     private translateService: TranslateService, 
+     private notificationService: NotificationService,
+     private router: Router) {
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
       this.currentUsername = user.username;
     }).catch(err => console.log(err));
@@ -45,9 +54,9 @@ export class GamesPageComponent implements OnInit {
           owner: game.owner,
           name: game.name,
           description: game.description,
-          messages: game.messages,
           members: game.members,
-          players: game.players.items
+          players: game.players.items,
+          tabletop: game.tabletop
         }
         this.games.push(g);
         if( g.owner !== this.currentUsername && !this.invitationAccepted(g)){
@@ -69,9 +78,9 @@ export class GamesPageComponent implements OnInit {
           owner: game.owner,
           name: game.name,
           description: game.description,
-          messages: [],
           members: game.members,
-          players: game.players.items
+          players: game.players.items,
+          tabletop: game.tabletop
         }
         this.games.push(g);
       })
@@ -92,11 +101,20 @@ export class GamesPageComponent implements OnInit {
   }
 
   deleteGame(game: Game){
-    this.apiService.DeleteGameRetrieveID({id: game.id}).then( (res) => {
+    this.apiService.DeleteGame({id: game.id}).then( (deletedGame) => {
       //Delete all players in this game.
-      game.players.forEach( player => {
-        this.apiService.DeletePlayerRetrieveID({id:player.id}).then( (res) => {}).catch(e=>console.log(e))
-      })
+
+      deletedGame.players.items.forEach( player => {
+          this.apiService.DeletePlayerRetrieveID({id:player.id}).then( (res) => {}).catch(e=>console.log(e))
+        })
+
+      //Delete tabletop and its characters
+      this.apiService.DeleteTabletop({id:game.tabletop.id}).then( (deletedTabletop) => {
+          deletedTabletop.characters.items.forEach( tabletopCharacter => {
+            this.apiService.DeleteTabletopCharacter({id:tabletopCharacter.id})
+          })
+      }).catch(e=>console.log(e))
+    }).then( (res) => {
       this.translateService
           .get('roleame-webapp.games.delete.success')
           .subscribe(value => {
@@ -120,29 +138,42 @@ export class GamesPageComponent implements OnInit {
 
 
   createGame( data: {game: Game, members: string[]}){
-    this.apiService.CreateGame(data.game).then( (createdGame) => {
-      data.members.forEach( (member) => {
-        this.invitePlayer(member, createdGame.id, createdGame.owner)
+
+    var tabletop: Tabletop={
+      gameOwnerID: this.currentUsername,
+      width: 25,
+      height: 15
+    }
+
+    this.apiService.CreateTabletop( tabletop ).then( (createdTabletop) => {
+      var input: Game | any = data.game
+      input.gameTabletopId = createdTabletop.id
+
+      this.apiService.CreateGame(input).then( (createdGame) => {
+        data.members.forEach( (member) => {
+          this.invitePlayer(member, createdGame.id, createdGame.owner)
+        })
+        this.translateService
+            .get('roleame-webapp.games.new.success')
+            .subscribe(value => {
+              var g: Game | any
+              g = createdGame
+              g.players = createdGame.players
+              g.members = createdGame.members
+              this.games.push(g)
+              this.notificationService.success(value);
+              this.selectedTabIndex = 0
+            });
+      }).catch( e => {
+        this.translateService
+            .get('roleame-webapp.games.new.error')
+            .subscribe(value => {
+              console.log(e)
+              this.notificationService.error(value);
+            });
       })
-      this.translateService
-          .get('roleame-webapp.games.new.success')
-          .subscribe(value => {
-            var g: Game | any
-            g = createdGame
-            g.players = createdGame.players
-            g.members = createdGame.members
-            this.games.push(g)
-            this.notificationService.success(value);
-            this.selectedTabIndex = 0
-          });
-    }).catch( e => {
-      this.translateService
-          .get('roleame-webapp.games.new.error')
-          .subscribe(value => {
-            console.log(e)
-            this.notificationService.error(value);
-          });
-    })
+
+    }).catch(e=>console.log(e))
   }
 
 
@@ -159,8 +190,9 @@ export class GamesPageComponent implements OnInit {
       var gameToUpdate: Game | any = this.games.find( game => game.id == data.game.id )
       
       gameToUpdate = updatedGame
-      gameToUpdate.players = updatedGame.players
+      gameToUpdate.players = updatedGame.players.items
       gameToUpdate.members = updatedGame.members
+      gameToUpdate.tabletop = updatedGame.tabletop
       this.selectedEditableGame = undefined;
       this.translateService
           .get('roleame-webapp.games.edit.success')
@@ -170,6 +202,7 @@ export class GamesPageComponent implements OnInit {
             this.selectedEditableGame = undefined
           });
     }).catch( e => {
+      console.log(e)
       this.translateService
           .get('roleame-webapp.games.edit.error')
           .subscribe(value => {
@@ -198,5 +231,10 @@ export class GamesPageComponent implements OnInit {
       //this.games = this.games.filter(  game => !game.players.find( (member: Player) => member.id === gameMember.id) )
     }).catch(e =>console.log(e))
   }
-  
+
+
+  startGame(game: Game){
+    console.log(game)
+    this.router.navigate(['tabletop'],{queryParams:{ tabletopID: game.tabletop.id }})
+  }
 }

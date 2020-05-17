@@ -14,7 +14,6 @@ export type ModelGameConditionInput = {
   uuid?: ModelStringInput | null;
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
-  messages?: ModelStringInput | null;
   and?: Array<ModelGameConditionInput | null> | null;
   or?: Array<ModelGameConditionInput | null> | null;
   not?: ModelGameConditionInput | null;
@@ -101,10 +100,47 @@ export type ModelGameFilterInput = {
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   members?: ModelStringInput | null;
-  messages?: ModelStringInput | null;
   and?: Array<ModelGameFilterInput | null> | null;
   or?: Array<ModelGameFilterInput | null> | null;
   not?: ModelGameFilterInput | null;
+};
+
+export enum ActionType {
+  MOVEMENT = "MOVEMENT",
+  INTERACT = "INTERACT",
+  CHAT = "CHAT",
+  DICEROLL = "DICEROLL"
+}
+
+export type ModelPlayerCharacterFilterInput = {
+  id?: ModelIDInput | null;
+  owner?: ModelStringInput | null;
+  uuid?: ModelStringInput | null;
+  name?: ModelStringInput | null;
+  background?: ModelStringInput | null;
+  portrait?: ModelStringInput | null;
+  portraitURL?: ModelStringInput | null;
+  class?: ModelStringInput | null;
+  agility?: ModelIntInput | null;
+  hitPoints?: ModelIntInput | null;
+  fellowship?: ModelIntInput | null;
+  strength?: ModelIntInput | null;
+  wisdom?: ModelIntInput | null;
+  and?: Array<ModelPlayerCharacterFilterInput | null> | null;
+  or?: Array<ModelPlayerCharacterFilterInput | null> | null;
+  not?: ModelPlayerCharacterFilterInput | null;
+};
+
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
 };
 
 export type CreateGameInput = {
@@ -114,7 +150,7 @@ export type CreateGameInput = {
   name: string;
   description?: string | null;
   members?: Array<string | null> | null;
-  messages?: Array<string | null> | null;
+  gameTabletopId?: string | null;
 };
 
 export type UpdateGameInput = {
@@ -124,7 +160,83 @@ export type UpdateGameInput = {
   name?: string | null;
   description?: string | null;
   members?: Array<string | null> | null;
-  messages?: Array<string | null> | null;
+  gameTabletopId?: string | null;
+};
+
+export type CreateTabletopInput = {
+  id?: string | null;
+  gameOwnerID: string;
+  width?: number | null;
+  height?: number | null;
+  actions?: Array<ActionInput | null> | null;
+};
+
+export type ActionInput = {
+  createdAt?: number | null;
+  actionType?: ActionType | null;
+  player?: string | null;
+  payload?: string | null;
+};
+
+export type ModelTabletopConditionInput = {
+  gameOwnerID?: ModelStringInput | null;
+  width?: ModelIntInput | null;
+  height?: ModelIntInput | null;
+  and?: Array<ModelTabletopConditionInput | null> | null;
+  or?: Array<ModelTabletopConditionInput | null> | null;
+  not?: ModelTabletopConditionInput | null;
+};
+
+export type UpdateTabletopInput = {
+  id: string;
+  gameOwnerID?: string | null;
+  width?: number | null;
+  height?: number | null;
+  actions?: Array<ActionInput | null> | null;
+};
+
+export type DeleteTabletopInput = {
+  id?: string | null;
+};
+
+export type CreateTabletopCharacterInput = {
+  id?: string | null;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location?: LocationInput | null;
+  currentHealth: number;
+};
+
+export type LocationInput = {
+  x?: number | null;
+  y?: number | null;
+};
+
+export type ModelTabletopCharacterConditionInput = {
+  tabletopID?: ModelIDInput | null;
+  gameOwnerID?: ModelStringInput | null;
+  playerID?: ModelStringInput | null;
+  characterID?: ModelIDInput | null;
+  currentHealth?: ModelIntInput | null;
+  and?: Array<ModelTabletopCharacterConditionInput | null> | null;
+  or?: Array<ModelTabletopCharacterConditionInput | null> | null;
+  not?: ModelTabletopCharacterConditionInput | null;
+};
+
+export type UpdateTabletopCharacterInput = {
+  id: string;
+  tabletopID?: string | null;
+  gameOwnerID?: string | null;
+  playerID?: string | null;
+  characterID?: string | null;
+  location?: LocationInput | null;
+  currentHealth?: number | null;
+};
+
+export type DeleteTabletopCharacterInput = {
+  id?: string | null;
 };
 
 export type CreatePlayerInput = {
@@ -143,9 +255,9 @@ export type UpdatePlayerInput = {
   pendingInvite?: boolean | null;
 };
 
-export type CreateGameCharacterInput = {
+export type CreatePlayerCharacterInput = {
   id?: string | null;
-  gameID: string;
+  owner?: string | null;
   uuid: string;
   name: string;
   background?: string | null;
@@ -163,73 +275,6 @@ export type CreateGameCharacterInput = {
 export type AbilityInput = {
   name?: string | null;
   description?: string | null;
-};
-
-export type ModelGameCharacterConditionInput = {
-  gameID?: ModelIDInput | null;
-  uuid?: ModelStringInput | null;
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  portraitURL?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
-  and?: Array<ModelGameCharacterConditionInput | null> | null;
-  or?: Array<ModelGameCharacterConditionInput | null> | null;
-  not?: ModelGameCharacterConditionInput | null;
-};
-
-export type ModelIntInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
-export type UpdateGameCharacterInput = {
-  id: string;
-  gameID?: string | null;
-  uuid?: string | null;
-  name?: string | null;
-  background?: string | null;
-  portrait?: string | null;
-  portraitURL?: string | null;
-  class?: string | null;
-  agility?: number | null;
-  hitPoints?: number | null;
-  fellowship?: number | null;
-  strength?: number | null;
-  wisdom?: number | null;
-  abilities?: Array<AbilityInput | null> | null;
-};
-
-export type DeleteGameCharacterInput = {
-  id?: string | null;
-};
-
-export type CreatePlayerCharacterInput = {
-  id?: string | null;
-  uuid: string;
-  name: string;
-  background?: string | null;
-  portrait?: string | null;
-  portraitURL?: string | null;
-  class?: string | null;
-  agility?: number | null;
-  hitPoints?: number | null;
-  fellowship?: number | null;
-  strength?: number | null;
-  wisdom?: number | null;
-  abilities?: Array<AbilityInput | null> | null;
 };
 
 export type ModelPlayerCharacterConditionInput = {
@@ -251,6 +296,7 @@ export type ModelPlayerCharacterConditionInput = {
 
 export type UpdatePlayerCharacterInput = {
   id: string;
+  owner?: string | null;
   uuid?: string | null;
   name?: string | null;
   background?: string | null;
@@ -290,6 +336,28 @@ export type DeleteUserInput = {
   username: string;
 };
 
+export type ModelTabletopFilterInput = {
+  id?: ModelIDInput | null;
+  gameOwnerID?: ModelStringInput | null;
+  width?: ModelIntInput | null;
+  height?: ModelIntInput | null;
+  and?: Array<ModelTabletopFilterInput | null> | null;
+  or?: Array<ModelTabletopFilterInput | null> | null;
+  not?: ModelTabletopFilterInput | null;
+};
+
+export type ModelTabletopCharacterFilterInput = {
+  id?: ModelIDInput | null;
+  tabletopID?: ModelIDInput | null;
+  gameOwnerID?: ModelStringInput | null;
+  playerID?: ModelStringInput | null;
+  characterID?: ModelIDInput | null;
+  currentHealth?: ModelIntInput | null;
+  and?: Array<ModelTabletopCharacterFilterInput | null> | null;
+  or?: Array<ModelTabletopCharacterFilterInput | null> | null;
+  not?: ModelTabletopCharacterFilterInput | null;
+};
+
 export type ModelPlayerFilterInput = {
   id?: ModelIDInput | null;
   gameID?: ModelIDInput | null;
@@ -299,43 +367,6 @@ export type ModelPlayerFilterInput = {
   and?: Array<ModelPlayerFilterInput | null> | null;
   or?: Array<ModelPlayerFilterInput | null> | null;
   not?: ModelPlayerFilterInput | null;
-};
-
-export type ModelGameCharacterFilterInput = {
-  id?: ModelIDInput | null;
-  gameID?: ModelIDInput | null;
-  uuid?: ModelStringInput | null;
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  portraitURL?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
-  and?: Array<ModelGameCharacterFilterInput | null> | null;
-  or?: Array<ModelGameCharacterFilterInput | null> | null;
-  not?: ModelGameCharacterFilterInput | null;
-};
-
-export type ModelPlayerCharacterFilterInput = {
-  id?: ModelIDInput | null;
-  uuid?: ModelStringInput | null;
-  name?: ModelStringInput | null;
-  background?: ModelStringInput | null;
-  portrait?: ModelStringInput | null;
-  portraitURL?: ModelStringInput | null;
-  class?: ModelStringInput | null;
-  agility?: ModelIntInput | null;
-  hitPoints?: ModelIntInput | null;
-  fellowship?: ModelIntInput | null;
-  strength?: ModelIntInput | null;
-  wisdom?: ModelIntInput | null;
-  and?: Array<ModelPlayerCharacterFilterInput | null> | null;
-  or?: Array<ModelPlayerCharacterFilterInput | null> | null;
-  not?: ModelPlayerCharacterFilterInput | null;
 };
 
 export type ModelUserFilterInput = {
@@ -371,6 +402,13 @@ export type ListGamesDataQuery = {
     name: string;
     description: string | null;
     members: Array<string | null> | null;
+    tabletop: {
+      
+      id: string;
+      gameOwnerID: string;
+      width: number | null;
+      height: number | null;
+    } | null;
     players: {
       
       items: Array<{
@@ -408,9 +446,15 @@ export type GetUserGamesDataQuery = {
         uuid: string;
         name: string;
         description: string | null;
-        messages: Array<string | null> | null;
         owner: string | null;
         members: Array<string | null> | null;
+        tabletop: {
+          
+          id: string;
+          gameOwnerID: string;
+          width: number | null;
+          height: number | null;
+        } | null;
         players: {
           
           items: Array<{
@@ -453,6 +497,82 @@ export type GetUserMembershipsQuery = {
   owner: string | null;
 };
 
+export type GetTabletopDataQuery = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+  characters: {
+    
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
+        
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+        owner: string | null;
+      };
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+};
+
+export type ListPlayerCharactersIdentificatorsQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    uuid: string;
+    name: string;
+    hitPoints: number | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type OnUpdateTabletopDataSubscription = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  actions: Array<{
+    
+    player: string | null;
+    createdAt: number | null;
+    actionType: ActionType | null;
+    payload: string | null;
+  } | null> | null;
+};
+
 export type CreateGameMutation = {
   
   id: string;
@@ -460,6 +580,33 @@ export type CreateGameMutation = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -478,7 +625,6 @@ export type CreateGameMutation = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -489,32 +635,6 @@ export type CreateGameMutation = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
-    
-    items: Array<{
-      
-      id: string;
-      gameID: string;
-      uuid: string;
-      name: string;
-      background: string | null;
-      portrait: string | null;
-      portraitURL: string | null;
-      class: string | null;
-      agility: number | null;
-      hitPoints: number | null;
-      fellowship: number | null;
-      strength: number | null;
-      wisdom: number | null;
-      abilities: Array<{
-        
-        name: string | null;
-        description: string | null;
-      } | null> | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  messages: Array<string | null> | null;
 };
 
 export type UpdateGameMutation = {
@@ -524,6 +644,33 @@ export type UpdateGameMutation = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -542,7 +689,6 @@ export type UpdateGameMutation = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -553,32 +699,6 @@ export type UpdateGameMutation = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
-    
-    items: Array<{
-      
-      id: string;
-      gameID: string;
-      uuid: string;
-      name: string;
-      background: string | null;
-      portrait: string | null;
-      portraitURL: string | null;
-      class: string | null;
-      agility: number | null;
-      hitPoints: number | null;
-      fellowship: number | null;
-      strength: number | null;
-      wisdom: number | null;
-      abilities: Array<{
-        
-        name: string | null;
-        description: string | null;
-      } | null> | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  messages: Array<string | null> | null;
 };
 
 export type DeleteGameMutation = {
@@ -588,6 +708,33 @@ export type DeleteGameMutation = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -606,7 +753,6 @@ export type DeleteGameMutation = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -617,32 +763,261 @@ export type DeleteGameMutation = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
+};
+
+export type CreateTabletopMutation = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
     
     items: Array<{
       
       id: string;
-      gameID: string;
-      uuid: string;
-      name: string;
-      background: string | null;
-      portrait: string | null;
-      portraitURL: string | null;
-      class: string | null;
-      agility: number | null;
-      hitPoints: number | null;
-      fellowship: number | null;
-      strength: number | null;
-      wisdom: number | null;
-      abilities: Array<{
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
         
-        name: string | null;
-        description: string | null;
-      } | null> | null;
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
     } | null> | null;
     nextToken: string | null;
   } | null;
-  messages: Array<string | null> | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+};
+
+export type UpdateTabletopMutation = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
+    
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
+        
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+};
+
+export type DeleteTabletopMutation = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
+    
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
+        
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+};
+
+export type CreateTabletopCharacterMutation = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
+};
+
+export type UpdateTabletopCharacterMutation = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
+};
+
+export type DeleteTabletopCharacterMutation = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
 };
 
 export type CreatePlayerMutation = {
@@ -659,6 +1034,24 @@ export type CreatePlayerMutation = {
     uuid: string;
     name: string;
     description: string | null;
+    tabletop: {
+      
+      id: string;
+      gameOwnerID: string;
+      width: number | null;
+      height: number | null;
+      characters: {
+        
+        nextToken: string | null;
+      } | null;
+      actions: Array<{
+        
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+    } | null;
     members: Array<string | null> | null;
     players: {
       
@@ -672,27 +1065,6 @@ export type CreatePlayerMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    gameCharacters: {
-      
-      items: Array<{
-        
-        id: string;
-        gameID: string;
-        uuid: string;
-        name: string;
-        background: string | null;
-        portrait: string | null;
-        portraitURL: string | null;
-        class: string | null;
-        agility: number | null;
-        hitPoints: number | null;
-        fellowship: number | null;
-        strength: number | null;
-        wisdom: number | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    messages: Array<string | null> | null;
   };
   player: {
     
@@ -728,6 +1100,24 @@ export type UpdatePlayerMutation = {
     uuid: string;
     name: string;
     description: string | null;
+    tabletop: {
+      
+      id: string;
+      gameOwnerID: string;
+      width: number | null;
+      height: number | null;
+      characters: {
+        
+        nextToken: string | null;
+      } | null;
+      actions: Array<{
+        
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+    } | null;
     members: Array<string | null> | null;
     players: {
       
@@ -741,27 +1131,6 @@ export type UpdatePlayerMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    gameCharacters: {
-      
-      items: Array<{
-        
-        id: string;
-        gameID: string;
-        uuid: string;
-        name: string;
-        background: string | null;
-        portrait: string | null;
-        portraitURL: string | null;
-        class: string | null;
-        agility: number | null;
-        hitPoints: number | null;
-        fellowship: number | null;
-        strength: number | null;
-        wisdom: number | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    messages: Array<string | null> | null;
   };
   player: {
     
@@ -797,6 +1166,24 @@ export type DeletePlayerMutation = {
     uuid: string;
     name: string;
     description: string | null;
+    tabletop: {
+      
+      id: string;
+      gameOwnerID: string;
+      width: number | null;
+      height: number | null;
+      characters: {
+        
+        nextToken: string | null;
+      } | null;
+      actions: Array<{
+        
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+    } | null;
     members: Array<string | null> | null;
     players: {
       
@@ -810,27 +1197,6 @@ export type DeletePlayerMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    gameCharacters: {
-      
-      items: Array<{
-        
-        id: string;
-        gameID: string;
-        uuid: string;
-        name: string;
-        background: string | null;
-        portrait: string | null;
-        portraitURL: string | null;
-        class: string | null;
-        agility: number | null;
-        hitPoints: number | null;
-        fellowship: number | null;
-        strength: number | null;
-        wisdom: number | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    messages: Array<string | null> | null;
   };
   player: {
     
@@ -852,75 +1218,10 @@ export type DeletePlayerMutation = {
   };
 };
 
-export type CreateGameCharacterMutation = {
-  
-  id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
-    
-    name: string | null;
-    description: string | null;
-  } | null> | null;
-};
-
-export type UpdateGameCharacterMutation = {
-  
-  id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
-    
-    name: string | null;
-    description: string | null;
-  } | null> | null;
-};
-
-export type DeleteGameCharacterMutation = {
-  
-  id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
-    
-    name: string | null;
-    description: string | null;
-  } | null> | null;
-};
-
 export type CreatePlayerCharacterMutation = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -937,12 +1238,12 @@ export type CreatePlayerCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type UpdatePlayerCharacterMutation = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -959,12 +1260,12 @@ export type UpdatePlayerCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type DeletePlayerCharacterMutation = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -981,7 +1282,6 @@ export type DeletePlayerCharacterMutation = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type CreateUserMutation = {
@@ -1005,7 +1305,6 @@ export type CreateUserMutation = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1040,7 +1339,6 @@ export type UpdateUserMutation = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1075,7 +1373,6 @@ export type DeleteUserMutation = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1096,6 +1393,33 @@ export type GetGameQuery = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -1114,7 +1438,6 @@ export type GetGameQuery = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1125,12 +1448,188 @@ export type GetGameQuery = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
+};
+
+export type ListGamesQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    description: string | null;
+    tabletop: {
+      
+      id: string;
+      gameOwnerID: string;
+      width: number | null;
+      height: number | null;
+      characters: {
+        
+        nextToken: string | null;
+      } | null;
+      actions: Array<{
+        
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+    } | null;
+    members: Array<string | null> | null;
+    players: {
+      
+      items: Array<{
+        
+        id: string;
+        gameID: string;
+        gameOwnerID: string;
+        playerID: string;
+        pendingInvite: boolean | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetTabletopQuery = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
     
     items: Array<{
       
       id: string;
-      gameID: string;
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
+        
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+};
+
+export type ListTabletopsQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetTabletopCharacterQuery = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
+};
+
+export type ListTabletopCharactersQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    tabletopID: string;
+    gameOwnerID: string;
+    playerID: string;
+    characterID: string;
+    location: {
+      
+      x: number | null;
+      y: number | null;
+    } | null;
+    currentHealth: number;
+    character: {
+      
+      id: string;
+      owner: string | null;
       uuid: string;
       name: string;
       background: string | null;
@@ -1147,55 +1646,7 @@ export type GetGameQuery = {
         name: string | null;
         description: string | null;
       } | null> | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  messages: Array<string | null> | null;
-};
-
-export type ListGamesQuery = {
-  
-  items: Array<{
-    
-    id: string;
-    owner: string | null;
-    uuid: string;
-    name: string;
-    description: string | null;
-    members: Array<string | null> | null;
-    players: {
-      
-      items: Array<{
-        
-        id: string;
-        gameID: string;
-        gameOwnerID: string;
-        playerID: string;
-        pendingInvite: boolean | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    gameCharacters: {
-      
-      items: Array<{
-        
-        id: string;
-        gameID: string;
-        uuid: string;
-        name: string;
-        background: string | null;
-        portrait: string | null;
-        portraitURL: string | null;
-        class: string | null;
-        agility: number | null;
-        hitPoints: number | null;
-        fellowship: number | null;
-        strength: number | null;
-        wisdom: number | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    messages: Array<string | null> | null;
+    };
   } | null> | null;
   nextToken: string | null;
 };
@@ -1214,6 +1665,24 @@ export type GetPlayerQuery = {
     uuid: string;
     name: string;
     description: string | null;
+    tabletop: {
+      
+      id: string;
+      gameOwnerID: string;
+      width: number | null;
+      height: number | null;
+      characters: {
+        
+        nextToken: string | null;
+      } | null;
+      actions: Array<{
+        
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+    } | null;
     members: Array<string | null> | null;
     players: {
       
@@ -1227,27 +1696,6 @@ export type GetPlayerQuery = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    gameCharacters: {
-      
-      items: Array<{
-        
-        id: string;
-        gameID: string;
-        uuid: string;
-        name: string;
-        background: string | null;
-        portrait: string | null;
-        portraitURL: string | null;
-        class: string | null;
-        agility: number | null;
-        hitPoints: number | null;
-        fellowship: number | null;
-        strength: number | null;
-        wisdom: number | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-    messages: Array<string | null> | null;
   };
   player: {
     
@@ -1285,16 +1733,18 @@ export type ListPlayersQuery = {
       uuid: string;
       name: string;
       description: string | null;
+      tabletop: {
+        
+        id: string;
+        gameOwnerID: string;
+        width: number | null;
+        height: number | null;
+      } | null;
       members: Array<string | null> | null;
       players: {
         
         nextToken: string | null;
       } | null;
-      gameCharacters: {
-        
-        nextToken: string | null;
-      } | null;
-      messages: Array<string | null> | null;
     };
     player: {
       
@@ -1310,57 +1760,10 @@ export type ListPlayersQuery = {
   nextToken: string | null;
 };
 
-export type GetGameCharacterQuery = {
-  
-  id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
-    
-    name: string | null;
-    description: string | null;
-  } | null> | null;
-};
-
-export type ListGameCharactersQuery = {
-  
-  items: Array<{
-    
-    id: string;
-    gameID: string;
-    uuid: string;
-    name: string;
-    background: string | null;
-    portrait: string | null;
-    portraitURL: string | null;
-    class: string | null;
-    agility: number | null;
-    hitPoints: number | null;
-    fellowship: number | null;
-    strength: number | null;
-    wisdom: number | null;
-    abilities: Array<{
-      
-      name: string | null;
-      description: string | null;
-    } | null> | null;
-  } | null> | null;
-  nextToken: string | null;
-};
-
 export type GetPlayerCharacterQuery = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -1377,7 +1780,6 @@ export type GetPlayerCharacterQuery = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type ListPlayerCharactersQuery = {
@@ -1385,6 +1787,7 @@ export type ListPlayerCharactersQuery = {
   items: Array<{
     
     id: string;
+    owner: string | null;
     uuid: string;
     name: string;
     background: string | null;
@@ -1401,7 +1804,6 @@ export type ListPlayerCharactersQuery = {
       name: string | null;
       description: string | null;
     } | null> | null;
-    owner: string | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -1427,7 +1829,6 @@ export type GetUserQuery = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1471,6 +1872,33 @@ export type OnCreateGameSubscription = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -1489,7 +1917,6 @@ export type OnCreateGameSubscription = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1500,32 +1927,6 @@ export type OnCreateGameSubscription = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
-    
-    items: Array<{
-      
-      id: string;
-      gameID: string;
-      uuid: string;
-      name: string;
-      background: string | null;
-      portrait: string | null;
-      portraitURL: string | null;
-      class: string | null;
-      agility: number | null;
-      hitPoints: number | null;
-      fellowship: number | null;
-      strength: number | null;
-      wisdom: number | null;
-      abilities: Array<{
-        
-        name: string | null;
-        description: string | null;
-      } | null> | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  messages: Array<string | null> | null;
 };
 
 export type OnUpdateGameSubscription = {
@@ -1535,6 +1936,33 @@ export type OnUpdateGameSubscription = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -1553,7 +1981,6 @@ export type OnUpdateGameSubscription = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1564,32 +1991,6 @@ export type OnUpdateGameSubscription = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
-    
-    items: Array<{
-      
-      id: string;
-      gameID: string;
-      uuid: string;
-      name: string;
-      background: string | null;
-      portrait: string | null;
-      portraitURL: string | null;
-      class: string | null;
-      agility: number | null;
-      hitPoints: number | null;
-      fellowship: number | null;
-      strength: number | null;
-      wisdom: number | null;
-      abilities: Array<{
-        
-        name: string | null;
-        description: string | null;
-      } | null> | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-  messages: Array<string | null> | null;
 };
 
 export type OnDeleteGameSubscription = {
@@ -1599,6 +2000,33 @@ export type OnDeleteGameSubscription = {
   uuid: string;
   name: string;
   description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: Array<{
+      
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+  } | null;
   members: Array<string | null> | null;
   players: {
     
@@ -1617,7 +2045,6 @@ export type OnDeleteGameSubscription = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1628,103 +2055,267 @@ export type OnDeleteGameSubscription = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  gameCharacters: {
+};
+
+export type OnCreateTabletopSubscription = {
+  
+  id: string;
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
     
     items: Array<{
       
       id: string;
-      gameID: string;
-      uuid: string;
-      name: string;
-      background: string | null;
-      portrait: string | null;
-      portraitURL: string | null;
-      class: string | null;
-      agility: number | null;
-      hitPoints: number | null;
-      fellowship: number | null;
-      strength: number | null;
-      wisdom: number | null;
-      abilities: Array<{
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
         
-        name: string | null;
-        description: string | null;
-      } | null> | null;
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
     } | null> | null;
     nextToken: string | null;
   } | null;
-  messages: Array<string | null> | null;
-};
-
-export type OnCreateGameCharacterSubscription = {
-  
-  id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
+  actions: Array<{
     
-    name: string | null;
-    description: string | null;
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
   } | null> | null;
 };
 
-export type OnUpdateGameCharacterSubscription = {
+export type OnUpdateTabletopSubscription = {
   
   id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
     
-    name: string | null;
-    description: string | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
+        
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
   } | null> | null;
 };
 
-export type OnDeleteGameCharacterSubscription = {
+export type OnDeleteTabletopSubscription = {
   
   id: string;
-  gameID: string;
-  uuid: string;
-  name: string;
-  background: string | null;
-  portrait: string | null;
-  portraitURL: string | null;
-  class: string | null;
-  agility: number | null;
-  hitPoints: number | null;
-  fellowship: number | null;
-  strength: number | null;
-  wisdom: number | null;
-  abilities: Array<{
+  gameOwnerID: string;
+  width: number | null;
+  height: number | null;
+  characters: {
     
-    name: string | null;
-    description: string | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      gameOwnerID: string;
+      playerID: string;
+      characterID: string;
+      location: {
+        
+        x: number | null;
+        y: number | null;
+      } | null;
+      currentHealth: number;
+      character: {
+        
+        id: string;
+        owner: string | null;
+        uuid: string;
+        name: string;
+        background: string | null;
+        portrait: string | null;
+        portraitURL: string | null;
+        class: string | null;
+        agility: number | null;
+        hitPoints: number | null;
+        fellowship: number | null;
+        strength: number | null;
+        wisdom: number | null;
+      };
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  actions: Array<{
+    
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
   } | null> | null;
+};
+
+export type OnCreateTabletopCharacterSubscription = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
+};
+
+export type OnUpdateTabletopCharacterSubscription = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
+};
+
+export type OnDeleteTabletopCharacterSubscription = {
+  
+  id: string;
+  tabletopID: string;
+  gameOwnerID: string;
+  playerID: string;
+  characterID: string;
+  location: {
+    
+    x: number | null;
+    y: number | null;
+  } | null;
+  currentHealth: number;
+  character: {
+    
+    id: string;
+    owner: string | null;
+    uuid: string;
+    name: string;
+    background: string | null;
+    portrait: string | null;
+    portraitURL: string | null;
+    class: string | null;
+    agility: number | null;
+    hitPoints: number | null;
+    fellowship: number | null;
+    strength: number | null;
+    wisdom: number | null;
+    abilities: Array<{
+      
+      name: string | null;
+      description: string | null;
+    } | null> | null;
+  };
 };
 
 export type OnCreatePlayerCharacterSubscription = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -1741,12 +2332,12 @@ export type OnCreatePlayerCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnUpdatePlayerCharacterSubscription = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -1763,12 +2354,12 @@ export type OnUpdatePlayerCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnDeletePlayerCharacterSubscription = {
   
   id: string;
+  owner: string | null;
   uuid: string;
   name: string;
   background: string | null;
@@ -1785,7 +2376,6 @@ export type OnDeletePlayerCharacterSubscription = {
     name: string | null;
     description: string | null;
   } | null> | null;
-  owner: string | null;
 };
 
 export type OnCreateUserSubscription = {
@@ -1809,7 +2399,6 @@ export type OnCreateUserSubscription = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1844,7 +2433,6 @@ export type OnUpdateUserSubscription = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1879,7 +2467,6 @@ export type OnDeleteUserSubscription = {
         name: string;
         description: string | null;
         members: Array<string | null> | null;
-        messages: Array<string | null> | null;
       };
       player: {
         
@@ -1955,6 +2542,13 @@ export class APIService {
             name
             description
             members
+            tabletop {
+              
+              id
+              gameOwnerID
+              width
+              height
+            }
             players {
               
               items {
@@ -2019,9 +2613,15 @@ export class APIService {
                 uuid
                 name
                 description
-                messages
                 owner
                 members
+                tabletop {
+                  
+                  id
+                  gameOwnerID
+                  width
+                  height
+                }
                 players {
                   
                   items {
@@ -2082,6 +2682,123 @@ export class APIService {
     )) as any;
     return <GetUserMembershipsQuery>response.data.getUser;
   }
+  async GetTabletopData(id: string): Promise<GetTabletopDataQuery> {
+    const statement = `query GetTabletopData($id: ID!) {
+        getTabletop(id: $id) {
+          
+          id
+          gameOwnerID
+          width
+          height
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
+          }
+          characters {
+            
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+                owner
+              }
+            }
+            nextToken
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetTabletopDataQuery>response.data.getTabletop;
+  }
+  async ListPlayerCharactersIdentificators(
+    filter?: ModelPlayerCharacterFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListPlayerCharactersIdentificatorsQuery> {
+    const statement = `query ListPlayerCharactersIdentificators($filter: ModelPlayerCharacterFilterInput, $limit: Int, $nextToken: String) {
+        listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          
+          items {
+            
+            id
+            uuid
+            name
+            hitPoints
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPlayerCharactersIdentificatorsQuery>(
+      response.data.listPlayerCharacters
+    );
+  }
+  OnUpdateTabletopDataListener: Observable<
+    OnUpdateTabletopDataSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateTabletopData {
+        onUpdateTabletop {
+          
+          id
+          gameOwnerID
+          width
+          height
+          actions {
+            
+            player
+            createdAt
+            actionType
+            payload
+          }
+        }
+      }`
+    )
+  ) as Observable<OnUpdateTabletopDataSubscription>;
+
   async CreateGame(
     input: CreateGameInput,
     condition?: ModelGameConditionInput
@@ -2094,6 +2811,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -2112,7 +2856,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2123,32 +2866,6 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2174,6 +2891,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -2192,7 +2936,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2203,32 +2946,6 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2254,6 +2971,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -2272,7 +3016,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2283,32 +3026,6 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2321,6 +3038,363 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteGameMutation>response.data.deleteGame;
+  }
+  async CreateTabletop(
+    input: CreateTabletopInput,
+    condition?: ModelTabletopConditionInput
+  ): Promise<CreateTabletopMutation> {
+    const statement = `mutation CreateTabletop($input: CreateTabletopInput!, $condition: ModelTabletopConditionInput) {
+        createTabletop(input: $input, condition: $condition) {
+          
+          id
+          gameOwnerID
+          width
+          height
+          characters {
+            
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateTabletopMutation>response.data.createTabletop;
+  }
+  async UpdateTabletop(
+    input: UpdateTabletopInput,
+    condition?: ModelTabletopConditionInput
+  ): Promise<UpdateTabletopMutation> {
+    const statement = `mutation UpdateTabletop($input: UpdateTabletopInput!, $condition: ModelTabletopConditionInput) {
+        updateTabletop(input: $input, condition: $condition) {
+          
+          id
+          gameOwnerID
+          width
+          height
+          characters {
+            
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateTabletopMutation>response.data.updateTabletop;
+  }
+  async DeleteTabletop(
+    input: DeleteTabletopInput,
+    condition?: ModelTabletopConditionInput
+  ): Promise<DeleteTabletopMutation> {
+    const statement = `mutation DeleteTabletop($input: DeleteTabletopInput!, $condition: ModelTabletopConditionInput) {
+        deleteTabletop(input: $input, condition: $condition) {
+          
+          id
+          gameOwnerID
+          width
+          height
+          characters {
+            
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteTabletopMutation>response.data.deleteTabletop;
+  }
+  async CreateTabletopCharacter(
+    input: CreateTabletopCharacterInput,
+    condition?: ModelTabletopCharacterConditionInput
+  ): Promise<CreateTabletopCharacterMutation> {
+    const statement = `mutation CreateTabletopCharacter($input: CreateTabletopCharacterInput!, $condition: ModelTabletopCharacterConditionInput) {
+        createTabletopCharacter(input: $input, condition: $condition) {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateTabletopCharacterMutation>(
+      response.data.createTabletopCharacter
+    );
+  }
+  async UpdateTabletopCharacter(
+    input: UpdateTabletopCharacterInput,
+    condition?: ModelTabletopCharacterConditionInput
+  ): Promise<UpdateTabletopCharacterMutation> {
+    const statement = `mutation UpdateTabletopCharacter($input: UpdateTabletopCharacterInput!, $condition: ModelTabletopCharacterConditionInput) {
+        updateTabletopCharacter(input: $input, condition: $condition) {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateTabletopCharacterMutation>(
+      response.data.updateTabletopCharacter
+    );
+  }
+  async DeleteTabletopCharacter(
+    input: DeleteTabletopCharacterInput,
+    condition?: ModelTabletopCharacterConditionInput
+  ): Promise<DeleteTabletopCharacterMutation> {
+    const statement = `mutation DeleteTabletopCharacter($input: DeleteTabletopCharacterInput!, $condition: ModelTabletopCharacterConditionInput) {
+        deleteTabletopCharacter(input: $input, condition: $condition) {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteTabletopCharacterMutation>(
+      response.data.deleteTabletopCharacter
+    );
   }
   async CreatePlayer(
     input: CreatePlayerInput,
@@ -2341,6 +3415,24 @@ export class APIService {
             uuid
             name
             description
+            tabletop {
+              
+              id
+              gameOwnerID
+              width
+              height
+              characters {
+                
+                nextToken
+              }
+              actions {
+                
+                createdAt
+                actionType
+                player
+                payload
+              }
+            }
             members
             players {
               
@@ -2354,27 +3446,6 @@ export class APIService {
               }
               nextToken
             }
-            gameCharacters {
-              
-              items {
-                
-                id
-                gameID
-                uuid
-                name
-                background
-                portrait
-                portraitURL
-                class
-                agility
-                hitPoints
-                fellowship
-                strength
-                wisdom
-              }
-              nextToken
-            }
-            messages
           }
           player {
             
@@ -2426,6 +3497,24 @@ export class APIService {
             uuid
             name
             description
+            tabletop {
+              
+              id
+              gameOwnerID
+              width
+              height
+              characters {
+                
+                nextToken
+              }
+              actions {
+                
+                createdAt
+                actionType
+                player
+                payload
+              }
+            }
             members
             players {
               
@@ -2439,27 +3528,6 @@ export class APIService {
               }
               nextToken
             }
-            gameCharacters {
-              
-              items {
-                
-                id
-                gameID
-                uuid
-                name
-                background
-                portrait
-                portraitURL
-                class
-                agility
-                hitPoints
-                fellowship
-                strength
-                wisdom
-              }
-              nextToken
-            }
-            messages
           }
           player {
             
@@ -2511,6 +3579,24 @@ export class APIService {
             uuid
             name
             description
+            tabletop {
+              
+              id
+              gameOwnerID
+              width
+              height
+              characters {
+                
+                nextToken
+              }
+              actions {
+                
+                createdAt
+                actionType
+                player
+                payload
+              }
+            }
             members
             players {
               
@@ -2524,27 +3610,6 @@ export class APIService {
               }
               nextToken
             }
-            gameCharacters {
-              
-              items {
-                
-                id
-                gameID
-                uuid
-                name
-                background
-                portrait
-                portraitURL
-                class
-                agility
-                hitPoints
-                fellowship
-                strength
-                wisdom
-              }
-              nextToken
-            }
-            messages
           }
           player {
             
@@ -2577,120 +3642,6 @@ export class APIService {
     )) as any;
     return <DeletePlayerMutation>response.data.deletePlayer;
   }
-  async CreateGameCharacter(
-    input: CreateGameCharacterInput,
-    condition?: ModelGameCharacterConditionInput
-  ): Promise<CreateGameCharacterMutation> {
-    const statement = `mutation CreateGameCharacter($input: CreateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
-        createGameCharacter(input: $input, condition: $condition) {
-          
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
-            
-            name
-            description
-          }
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <CreateGameCharacterMutation>response.data.createGameCharacter;
-  }
-  async UpdateGameCharacter(
-    input: UpdateGameCharacterInput,
-    condition?: ModelGameCharacterConditionInput
-  ): Promise<UpdateGameCharacterMutation> {
-    const statement = `mutation UpdateGameCharacter($input: UpdateGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
-        updateGameCharacter(input: $input, condition: $condition) {
-          
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
-            
-            name
-            description
-          }
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <UpdateGameCharacterMutation>response.data.updateGameCharacter;
-  }
-  async DeleteGameCharacter(
-    input: DeleteGameCharacterInput,
-    condition?: ModelGameCharacterConditionInput
-  ): Promise<DeleteGameCharacterMutation> {
-    const statement = `mutation DeleteGameCharacter($input: DeleteGameCharacterInput!, $condition: ModelGameCharacterConditionInput) {
-        deleteGameCharacter(input: $input, condition: $condition) {
-          
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
-            
-            name
-            description
-          }
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <DeleteGameCharacterMutation>response.data.deleteGameCharacter;
-  }
   async CreatePlayerCharacter(
     input: CreatePlayerCharacterInput,
     condition?: ModelPlayerCharacterConditionInput
@@ -2699,6 +3650,7 @@ export class APIService {
         createPlayerCharacter(input: $input, condition: $condition) {
           
           id
+          owner
           uuid
           name
           background
@@ -2715,7 +3667,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2737,6 +3688,7 @@ export class APIService {
         updatePlayerCharacter(input: $input, condition: $condition) {
           
           id
+          owner
           uuid
           name
           background
@@ -2753,7 +3705,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2775,6 +3726,7 @@ export class APIService {
         deletePlayerCharacter(input: $input, condition: $condition) {
           
           id
+          owner
           uuid
           name
           background
@@ -2791,7 +3743,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2831,7 +3782,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2882,7 +3832,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2933,7 +3882,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2967,6 +3915,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -2985,7 +3960,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -2996,32 +3970,6 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3047,6 +3995,24 @@ export class APIService {
             uuid
             name
             description
+            tabletop {
+              
+              id
+              gameOwnerID
+              width
+              height
+              characters {
+                
+                nextToken
+              }
+              actions {
+                
+                createdAt
+                actionType
+                player
+                payload
+              }
+            }
             members
             players {
               
@@ -3060,27 +4026,6 @@ export class APIService {
               }
               nextToken
             }
-            gameCharacters {
-              
-              items {
-                
-                id
-                gameID
-                uuid
-                name
-                background
-                portrait
-                portraitURL
-                class
-                agility
-                hitPoints
-                fellowship
-                strength
-                wisdom
-              }
-              nextToken
-            }
-            messages
           }
           nextToken
         }
@@ -3100,6 +4045,225 @@ export class APIService {
     )) as any;
     return <ListGamesQuery>response.data.listGames;
   }
+  async GetTabletop(id: string): Promise<GetTabletopQuery> {
+    const statement = `query GetTabletop($id: ID!) {
+        getTabletop(id: $id) {
+          
+          id
+          gameOwnerID
+          width
+          height
+          characters {
+            
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetTabletopQuery>response.data.getTabletop;
+  }
+  async ListTabletops(
+    filter?: ModelTabletopFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListTabletopsQuery> {
+    const statement = `query ListTabletops($filter: ModelTabletopFilterInput, $limit: Int, $nextToken: String) {
+        listTabletops(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          
+          items {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListTabletopsQuery>response.data.listTabletops;
+  }
+  async GetTabletopCharacter(id: string): Promise<GetTabletopCharacterQuery> {
+    const statement = `query GetTabletopCharacter($id: ID!) {
+        getTabletopCharacter(id: $id) {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetTabletopCharacterQuery>response.data.getTabletopCharacter;
+  }
+  async ListTabletopCharacters(
+    filter?: ModelTabletopCharacterFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListTabletopCharactersQuery> {
+    const statement = `query ListTabletopCharacters($filter: ModelTabletopCharacterFilterInput, $limit: Int, $nextToken: String) {
+        listTabletopCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          
+          items {
+            
+            id
+            tabletopID
+            gameOwnerID
+            playerID
+            characterID
+            location {
+              
+              x
+              y
+            }
+            currentHealth
+            character {
+              
+              id
+              owner
+              uuid
+              name
+              background
+              portrait
+              portraitURL
+              class
+              agility
+              hitPoints
+              fellowship
+              strength
+              wisdom
+              abilities {
+                
+                name
+                description
+              }
+            }
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListTabletopCharactersQuery>response.data.listTabletopCharacters;
+  }
   async GetPlayer(id: string): Promise<GetPlayerQuery> {
     const statement = `query GetPlayer($id: ID!) {
         getPlayer(id: $id) {
@@ -3116,6 +4280,24 @@ export class APIService {
             uuid
             name
             description
+            tabletop {
+              
+              id
+              gameOwnerID
+              width
+              height
+              characters {
+                
+                nextToken
+              }
+              actions {
+                
+                createdAt
+                actionType
+                player
+                payload
+              }
+            }
             members
             players {
               
@@ -3129,27 +4311,6 @@ export class APIService {
               }
               nextToken
             }
-            gameCharacters {
-              
-              items {
-                
-                id
-                gameID
-                uuid
-                name
-                background
-                portrait
-                portraitURL
-                class
-                agility
-                hitPoints
-                fellowship
-                strength
-                wisdom
-              }
-              nextToken
-            }
-            messages
           }
           player {
             
@@ -3201,16 +4362,18 @@ export class APIService {
               uuid
               name
               description
+              tabletop {
+                
+                id
+                gameOwnerID
+                width
+                height
+              }
               members
               players {
                 
                 nextToken
               }
-              gameCharacters {
-                
-                nextToken
-              }
-              messages
             }
             player {
               
@@ -3241,90 +4404,12 @@ export class APIService {
     )) as any;
     return <ListPlayersQuery>response.data.listPlayers;
   }
-  async GetGameCharacter(id: string): Promise<GetGameCharacterQuery> {
-    const statement = `query GetGameCharacter($id: ID!) {
-        getGameCharacter(id: $id) {
-          
-          id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
-            
-            name
-            description
-          }
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      id
-    };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <GetGameCharacterQuery>response.data.getGameCharacter;
-  }
-  async ListGameCharacters(
-    filter?: ModelGameCharacterFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListGameCharactersQuery> {
-    const statement = `query ListGameCharacters($filter: ModelGameCharacterFilterInput, $limit: Int, $nextToken: String) {
-        listGameCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
-          items {
-            
-            id
-            gameID
-            uuid
-            name
-            background
-            portrait
-            portraitURL
-            class
-            agility
-            hitPoints
-            fellowship
-            strength
-            wisdom
-            abilities {
-              
-              name
-              description
-            }
-          }
-          nextToken
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {};
-    if (filter) {
-      gqlAPIServiceArguments.filter = filter;
-    }
-    if (limit) {
-      gqlAPIServiceArguments.limit = limit;
-    }
-    if (nextToken) {
-      gqlAPIServiceArguments.nextToken = nextToken;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <ListGameCharactersQuery>response.data.listGameCharacters;
-  }
   async GetPlayerCharacter(id: string): Promise<GetPlayerCharacterQuery> {
     const statement = `query GetPlayerCharacter($id: ID!) {
         getPlayerCharacter(id: $id) {
           
           id
+          owner
           uuid
           name
           background
@@ -3341,7 +4426,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3363,6 +4447,7 @@ export class APIService {
           items {
             
             id
+            owner
             uuid
             name
             background
@@ -3379,7 +4464,6 @@ export class APIService {
               name
               description
             }
-            owner
           }
           nextToken
         }
@@ -3422,7 +4506,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -3506,6 +4589,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -3524,7 +4634,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -3535,32 +4644,6 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`
     )
@@ -3576,6 +4659,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -3594,7 +4704,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -3605,32 +4714,6 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`
     )
@@ -3646,6 +4729,33 @@ export class APIService {
           uuid
           name
           description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              createdAt
+              actionType
+              player
+              payload
+            }
+          }
           members
           players {
             
@@ -3664,7 +4774,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -3675,135 +4784,323 @@ export class APIService {
             }
             nextToken
           }
-          gameCharacters {
-            
-            items {
-              
-              id
-              gameID
-              uuid
-              name
-              background
-              portrait
-              portraitURL
-              class
-              agility
-              hitPoints
-              fellowship
-              strength
-              wisdom
-              abilities {
-                
-                name
-                description
-              }
-            }
-            nextToken
-          }
-          messages
         }
       }`
     )
   ) as Observable<OnDeleteGameSubscription>;
 
-  OnCreateGameCharacterListener: Observable<
-    OnCreateGameCharacterSubscription
+  OnCreateTabletopListener: Observable<
+    OnCreateTabletopSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreateGameCharacter {
-        onCreateGameCharacter {
+      `subscription OnCreateTabletop {
+        onCreateTabletop {
           
           id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
+          gameOwnerID
+          width
+          height
+          characters {
             
-            name
-            description
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
           }
         }
       }`
     )
-  ) as Observable<OnCreateGameCharacterSubscription>;
+  ) as Observable<OnCreateTabletopSubscription>;
 
-  OnUpdateGameCharacterListener: Observable<
-    OnUpdateGameCharacterSubscription
+  OnUpdateTabletopListener: Observable<
+    OnUpdateTabletopSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateGameCharacter {
-        onUpdateGameCharacter {
+      `subscription OnUpdateTabletop {
+        onUpdateTabletop {
           
           id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
+          gameOwnerID
+          width
+          height
+          characters {
             
-            name
-            description
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
           }
         }
       }`
     )
-  ) as Observable<OnUpdateGameCharacterSubscription>;
+  ) as Observable<OnUpdateTabletopSubscription>;
 
-  OnDeleteGameCharacterListener: Observable<
-    OnDeleteGameCharacterSubscription
+  OnDeleteTabletopListener: Observable<
+    OnDeleteTabletopSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteGameCharacter {
-        onDeleteGameCharacter {
+      `subscription OnDeleteTabletop($gameOwnerId: String!) {
+        onDeleteTabletop(gameOwnerId: $gameOwnerId) {
           
           id
-          gameID
-          uuid
-          name
-          background
-          portrait
-          portraitURL
-          class
-          agility
-          hitPoints
-          fellowship
-          strength
-          wisdom
-          abilities {
+          gameOwnerID
+          width
+          height
+          characters {
             
-            name
-            description
+            items {
+              
+              id
+              tabletopID
+              gameOwnerID
+              playerID
+              characterID
+              location {
+                
+                x
+                y
+              }
+              currentHealth
+              character {
+                
+                id
+                owner
+                uuid
+                name
+                background
+                portrait
+                portraitURL
+                class
+                agility
+                hitPoints
+                fellowship
+                strength
+                wisdom
+              }
+            }
+            nextToken
+          }
+          actions {
+            
+            createdAt
+            actionType
+            player
+            payload
           }
         }
       }`
     )
-  ) as Observable<OnDeleteGameCharacterSubscription>;
+  ) as Observable<OnDeleteTabletopSubscription>;
+
+  OnCreateTabletopCharacterListener: Observable<
+    OnCreateTabletopCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateTabletopCharacter {
+        onCreateTabletopCharacter {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnCreateTabletopCharacterSubscription>;
+
+  OnUpdateTabletopCharacterListener: Observable<
+    OnUpdateTabletopCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateTabletopCharacter {
+        onUpdateTabletopCharacter {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnUpdateTabletopCharacterSubscription>;
+
+  OnDeleteTabletopCharacterListener: Observable<
+    OnDeleteTabletopCharacterSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteTabletopCharacter {
+        onDeleteTabletopCharacter {
+          
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          location {
+            
+            x
+            y
+          }
+          currentHealth
+          character {
+            
+            id
+            owner
+            uuid
+            name
+            background
+            portrait
+            portraitURL
+            class
+            agility
+            hitPoints
+            fellowship
+            strength
+            wisdom
+            abilities {
+              
+              name
+              description
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnDeleteTabletopCharacterSubscription>;
 
   OnCreatePlayerCharacterListener: Observable<
     OnCreatePlayerCharacterSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreatePlayerCharacter($owner: String!) {
-        onCreatePlayerCharacter(owner: $owner) {
+      `subscription OnCreatePlayerCharacter {
+        onCreatePlayerCharacter {
           
           id
+          owner
           uuid
           name
           background
@@ -3820,7 +5117,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -3834,6 +5130,7 @@ export class APIService {
         onUpdatePlayerCharacter(owner: $owner) {
           
           id
+          owner
           uuid
           name
           background
@@ -3850,7 +5147,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -3864,6 +5160,7 @@ export class APIService {
         onDeletePlayerCharacter(owner: $owner) {
           
           id
+          owner
           uuid
           name
           background
@@ -3880,7 +5177,6 @@ export class APIService {
             name
             description
           }
-          owner
         }
       }`
     )
@@ -3910,7 +5206,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -3951,7 +5246,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 
@@ -3992,7 +5286,6 @@ export class APIService {
                 name
                 description
                 members
-                messages
               }
               player {
                 

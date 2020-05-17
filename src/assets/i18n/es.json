@@ -99,6 +99,9 @@
   "roleame-webapp.label.accept":"Aceptar",
   "roleame-webapp.label.reject":"Rechazar",
   "roleame-webapp.label.errors.user_dont_exist": "El usuario no existe",
+  "roleame-webapp.label.rows":"Filas",
+  "roleame-webapp.label.columns":"Columnas",
+  "roleame-webapp.label.character":"Personaje",
 
   "roleame-webapp.games.my_games":"Mis partidas",
   "roleame-webapp.games.new_game":"Nueva partida",
@@ -137,6 +140,8 @@
   "roleame-webapp.characters.edit.success": "Personaje actualizado",
   "roleame-webapp.characters.edit.error": "Error actualizando personaje",
   "roleame-webapp.characters.edit.portrait": "Editar imagen",
+
+  "roleame-webapp.tabletop.place_character":"Place character",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",

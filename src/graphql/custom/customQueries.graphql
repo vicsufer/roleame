@@ -11,6 +11,12 @@ query ListGamesData(
       name
       description
       members
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+      }
       players{
         items{
           id
@@ -47,9 +53,14 @@ query GetUserGamesData($username: String!) {
           uuid
           name
           description
-          messages
           owner
           members
+          tabletop {
+            id
+            gameOwnerID
+            width
+            height
+          }
           players {
             items{
               id
@@ -86,5 +97,66 @@ query GetUserMemberships($username: String!) {
       nextToken
     }
     owner
+  }
+}
+
+query GetTabletopData($id: ID!) {
+  getTabletop(id: $id) {
+    id
+    gameOwnerID
+    width
+    height
+    actions {
+      createdAt
+      actionType
+      player
+      payload
+    }
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+
+query ListPlayerCharactersIdentificators(
+  $filter: ModelPlayerCharacterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      uuid
+      name
+      hitPoints
+    }
+    nextToken
   }
 }

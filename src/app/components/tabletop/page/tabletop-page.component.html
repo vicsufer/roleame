@@ -1,0 +1,64 @@
+<div *ngIf="isLoading" class="app-loading">
+    <div class="logo">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+      </svg>
+    </div>
+</div>
+
+
+<div *ngIf="!isLaoding" class="tabletop-page mr-4 ml-4 mt-4 mb-4" gdAreas="tools side | content side" gdGap="0px 10px" gdColumns="75% 25%" gdRows="15% 80%">
+
+  <div gdArea="tools">
+    <mat-card fxLayout="row" fxlayoutGap="10px">
+      <div fxFlex="70%">
+        <mat-form-field>
+          <mat-label *ngIf="!currentCharacter">{{ 'roleame-webapp.label.character' | translate }}</mat-label>
+          <mat-label *ngIf="currentCharacter">{{ currentCharacter.character.name }}</mat-label>
+          <mat-select (selectionChange)="changeCharacter($event)">
+            <mat-option *ngFor="let character of playerCharacters" [value]="character">
+              {{character.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngIf="isOwner()" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end">
+        <mat-divider vertical></mat-divider>
+        <mat-form-field class="tabletop-number-input">
+          <mat-label>{{ 'roleame-webapp.label.rows' | translate}}</mat-label>
+          <input [ngModel]="tabletop.height" (change)="changeTabletopHeight($event.target.value)" min="0" max="30" matInput type="number" value="{{tabletop.height}}">
+        </mat-form-field>
+        <mat-form-field class="tabletop-number-input">
+            <mat-label>{{ 'roleame-webapp.label.columns' | translate}}</mat-label>
+            <input [ngModel]="tabletop.width" (change)="changeTabletopWidth($event.target.value)" min="0" max="30" matInput type="number" value="{{tabletop.width}}">
+        </mat-form-field>
+      </div>
+    </mat-card>
+  </div>
+
+  <perfect-scrollbar class="content" gdAreas="content">
+    <mat-grid-list [cols]="tabletop?.width" rowHeight="1:1" gutterSize="0px">
+      <mat-grid-tile *ngFor="let tile of tiles; let i = index">
+         <roleame-webapp-tabletop-tile (tileSelect)="selectTile($event)" [token]="tile" [position]="i"></roleame-webapp-tabletop-tile>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </perfect-scrollbar>
+  
+
+  <div gdArea="side">
+    <mat-card class="chat" fxLayout="column" fxLayoutGap="10px">
+      <mat-card-header fxFlex="5%">
+        <mat-card-title>Chat</mat-card-title>
+      </mat-card-header>
+      <mat-card-content fxFlex="95%" fxLayout="column" fxLayoutGap="10px">
+        <div fxFlex="80%">
+          <perfect-scrollbar>
+                Message history
+          </perfect-scrollbar>
+        </div>
+        <div fxFlex="20%">New message</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

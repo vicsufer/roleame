@@ -1,0 +1,20 @@
+subscription OnUpdateTabletopData{
+  onUpdateTabletop{
+    id
+    gameOwnerID
+    width
+    height
+    actions {
+      player
+      createdAt
+      actionType
+      payload
+    }
+  }
+}
+
+
+
+
+
+

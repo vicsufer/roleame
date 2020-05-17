@@ -22,11 +22,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatSliderModule, MatDialogModule, MatStepperModule, MatRadioModule, MatBadgeModule } from '@angular/material/';
+import { MatSliderModule, MatDialogModule, MatStepperModule, MatRadioModule, MatBadgeModule, MatGridListModule } from '@angular/material/';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatExpansionModule} from '@angular/material/expansion';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+};
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -109,6 +115,7 @@ import { APIService } from 'app/core/core.module';
   imports: [
     CommonModule,
     FormsModule,
+    PerfectScrollbarModule,
 
     TranslateModule,
     MaterialFileInputModule,
@@ -134,7 +141,8 @@ import { APIService } from 'app/core/core.module';
     MatExpansionModule,
     FontAwesomeModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatGridListModule
   ],
   declarations: [
     BigInputComponent,
@@ -145,6 +153,8 @@ import { APIService } from 'app/core/core.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    PerfectScrollbarModule,
+    
 
     TranslateModule,
     MatButtonModule,
@@ -175,6 +185,7 @@ import { APIService } from 'app/core/core.module';
     MatRadioModule,
     MatExpansionModule,
     MatBadgeModule,
+    MatGridListModule,
 
     BigInputComponent,
     BigInputActionComponent,
@@ -182,7 +193,8 @@ import { APIService } from 'app/core/core.module';
   ],
   providers: [
     AmplifyService,
-    APIService
+    APIService,
+    {provide: PERFECT_SCROLLBAR_CONFIG,useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG}
   ]
 })
 export class SharedComponentsModule {}

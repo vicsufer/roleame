@@ -3,7 +3,7 @@
     <mat-tab-group mat-stretch-tabs [(selectedIndex)]="selectedTabIndex">
         <mat-tab label="{{'roleame-webapp.games.my_games' | translate }}">
             <roleame-webapp-invitations *ngIf="invitations.length != 0" [invitations]="invitations" (accept)="acceptInvitation($event)" (reject)="rejectInvitation($event)"></roleame-webapp-invitations>  
-            <roleame-webapp-games [games]="games" (delete)="deleteGame($event)" (edit)="setEditableGame($event)" (leave)="leaveGame($event)"></roleame-webapp-games>
+            <roleame-webapp-games [games]="games" (start)="startGame($event)" (delete)="deleteGame($event)" (edit)="setEditableGame($event)" (leave)="leaveGame($event)"></roleame-webapp-games>
         </mat-tab>
 
         <mat-tab label="{{'roleame-webapp.games.new_game' | translate }}"> 

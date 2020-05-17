@@ -6,10 +6,13 @@ import { environment } from './environments/environment';
 
 import Amplify from 'aws-amplify';
 import API from '@aws-amplify/api';
+import PubSub from '@aws-amplify/pubsub';  // this is new
 import awsconfig from './aws-exports';
 
 Amplify.configure(awsconfig);
 API.configure(awsconfig)
+PubSub.configure(awsconfig);
+
 if (environment.production) {
   enableProdMode();
 }

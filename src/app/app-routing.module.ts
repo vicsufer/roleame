@@ -31,6 +31,14 @@ const routes: Routes = [
       )
   },
   {
+    path: 'tabletop',
+    canActivate: [AuthGuardService],
+    loadChildren: () =>
+      import('./components/tabletop/tabletop.module').then(
+        m => m.TabletopModule
+      )
+  },
+  {
     path: '**',
     redirectTo: ''
   }

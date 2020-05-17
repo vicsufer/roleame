@@ -89,9 +89,9 @@ export class EditGameComponent implements OnInit {
     this.updatedGame.members = this.updatedGame.members.concat( playersToInvite.map( (player) => player.playerID )  )
 
     delete this.updatedGame.players
+    delete this.updatedGame.tabletop
 
     this.applyChanges.emit({game: this.updatedGame, playersToRemove: this.playersToRemove, playersToInvite})
-    this.editGameForm.reset()
     this.playersToRemove = []
     this.invitedGamePlayers = new FormArray([])
   }

@@ -10,6 +10,10 @@
   color: black;
 }
 
+router-outlet{
+  height: 100%;
+  width: 100%;
+}
 
 mat-sidenav-container {
   height: 100%;

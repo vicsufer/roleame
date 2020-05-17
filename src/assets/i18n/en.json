@@ -100,6 +100,9 @@
   "roleame-webapp.label.reject":"Reject",
   "roleame-webapp.label.pending_invites": "Pending invites",
   "roleame-webapp.label.errors.user_dont_exist": "User don't exist",
+  "roleame-webapp.label.rows":"Rows",
+  "roleame-webapp.label.columns":"Columns",
+  "roleame-webapp.label.character":"Character",
 
   "roleame-webapp.games.my_games":"My games",
   "roleame-webapp.games.new_game":"New game",
@@ -138,6 +141,8 @@
   "roleame-webapp.characters.edit.apply": "Apply changes",
   "roleame-webapp.characters.edit.success": "Character updated",
   "roleame-webapp.characters.edit.error": "Error updating character",
+
+  "roleame-webapp.tabletop.place_character":"Place character",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",

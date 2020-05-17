@@ -11,16 +11,67 @@ type Game @model
 	name: String!
 	description: String
 
-	#members: [GameMember]  @auth(rules: [ { allow: owner, ownerField: "members", operations: [read] }])
-	members:[String] 
+	tabletop: Tabletop @connection
+
+	members: [String] 
 	players: [Player] @connection(keyName: "byGame", fields: ["id"]) #@auth(rules: [ { allow: owner, ownerField: "members", operations: [read] }])
-	
-	gameCharacters: [GameCharacter] @connection(keyName: "byGame", fields: ["id"])
-	messages: [String] @auth(rules: [ 
-		{ allow: owner, operations: [read, create] }
-		{ allow: owner, ownerField: "members", operations: [read, create] }
-		])
 }
+
+type Tabletop @model
+@auth(rules:[
+	{ allow: private, operations: [read, update] },
+	{ allow: owner, ownerField: "gameOwnerId", operations: [read, update, delete] }
+])
+{
+	id: ID!
+	gameOwnerID: String!
+
+	width: Int
+	height: Int
+	characters: [TabletopCharacter] @connection(keyName: "byTabletop", fields: ["id"])
+
+	actions: [Action]
+}
+
+type Action {
+	createdAt: AWSTimestamp
+	actionType: ActionType
+	player: String
+	payload: String
+
+	
+}
+enum ActionType {
+	MOVEMENT
+	INTERACT
+	CHAT
+	DICEROLL
+}
+
+type Location {
+	x: Int
+	y: Int
+}
+
+type TabletopCharacter @model
+@auth(rules: [
+	{ allow: private, operations: [read] }
+])
+@key(name: "byTabletop", fields: ["tabletopID", "characterID"])
+{
+	id: ID!
+	tabletopID: ID!
+	gameOwnerID: String!
+	playerID: String!
+	characterID: ID!
+
+	location: Location
+
+	currentHealth: Int!
+
+	character: PlayerCharacter! @connection(fields: ["characterID"]) 
+}
+
 
 type Player @model(subscriptions: null)
 @auth(rules: [
@@ -42,37 +93,15 @@ type Player @model(subscriptions: null)
   	player: User! @connection(fields: ["playerID"]) 
 }
 
-type GameCharacter @model
-@auth(rules: [
-	{ allow: private, operations: [read] }
-])
-@key(name: "byGame", fields: ["gameID"])
-{
-	id: ID!
-	gameID: ID!
-	uuid: String!
-	name: String!
-	background: String
-	portrait: String
-	portraitURL: String
-	class: String
-
-	agility: Int
-	hitPoints: Int
-	fellowship: Int
-	strength: Int
-	wisdom: Int
-
-	abilities: [Ability]
-}
-
 type PlayerCharacter @model
 @auth( 
 	rules: [
-		{ allow: owner }
+		{ allow: private, operations: [read] }
+		{ allow: owner, operations: [update, delete] }
 	]
 ){
 	id: ID!
+	owner: String
 	uuid: String!
 	name: String!
 	background: String
@@ -107,3 +136,14 @@ type User @model
 	email: String!
 	gamesAsPlayer: [Player] @connection(keyName: "byPlayer", fields: ["username"])
 }
+
+
+# CUSTOM SUBSCRIPTIONS WITH IDS
+
+# type Subscription {
+# 	onUpdateTabletopCharacter: Tabletop @aws_subscribe(mutations: ["updateTabletopCharacter"])
+
+# 	onCreateTabletopCharacter: Tabletop @aws_subscribe(mutations: ["createTabletopCharacter"])
+
+# 	onDeleteTabletopCharacter: Tabletop @aws_subscribe(mutations: ["deleteTabletopCharacter"])
+# }
