@@ -31,7 +31,7 @@ export class EditGameComponent implements OnInit {
     console.log(game)
     if(game){
       this.editGameForm.patchValue(game)
-      this.updatedGame = game
+      Object.assign(this.updatedGame, game)
     }
     
   }
@@ -49,7 +49,8 @@ export class EditGameComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.updatedGame = new Game();
+
     this.editGameForm = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.maxLength(500)],

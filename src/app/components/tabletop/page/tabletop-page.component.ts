@@ -73,7 +73,6 @@ export class TabletopPageComponent implements OnInit {
               this.tabletop.height = plainTabletop.height
               this.renderBoard()
             }
-            console.log("HIIIIII")
           },
           error: error => console.error(error)
         })

@@ -158,7 +158,7 @@ export class GamesPageComponent implements OnInit {
             .subscribe(value => {
               var g: Game | any
               g = createdGame
-              g.players = createdGame.players
+              g.players = createdGame.players.items
               g.members = createdGame.members
               this.games.push(g)
               this.notificationService.success(value);
@@ -179,6 +179,7 @@ export class GamesPageComponent implements OnInit {
 
   applyChanges(data: {game: Game, playersToRemove: string[], playersToInvite: Player[]}){
 
+
     data.playersToRemove.forEach( (player) => {
       this.apiService.DeletePlayer({id: player}).then( res => {console.log()}).catch((e) => console.log(e))
     })
@@ -193,6 +194,7 @@ export class GamesPageComponent implements OnInit {
       gameToUpdate.players = updatedGame.players.items
       gameToUpdate.members = updatedGame.members
       gameToUpdate.tabletop = updatedGame.tabletop
+      console.log(gameToUpdate == this.games.find( game => game.id == data.game.id ))
       this.selectedEditableGame = undefined;
       this.translateService
           .get('roleame-webapp.games.edit.success')
