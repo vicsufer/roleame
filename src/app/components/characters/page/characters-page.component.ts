@@ -24,28 +24,34 @@ export class CharactersPageComponent implements OnInit {
   selectedTabIndex = 0;
   selectedEditableCharacter: PlayerCharacter
 
+  currentUsername: string;
+
   constructor(private apiService: APIService, private amplifyService: AmplifyService, private translateService: TranslateService, private notificationService: NotificationService) {
 
   }
 
   ngOnInit() {
-    this.apiService.ListPlayerCharacters().then( (characters ) => {
-      this.characters = characters.items.map( (char) => {
-        if( char.portrait.startsWith('portraits/') ){
-          this.amplifyService.storage().get(char.portrait, { level: 'public' })
-            .then ( (url) => { 
-              console.log(url)
-              char.portraitURL = url
-            })
-            .catch( (err) => { 
-              console.log(err);
-            });
-        }
-        char.portraitURL = char.portrait;
-        return char;
+    this.amplifyService.auth().currentAuthenticatedUser().then(user => {
+      this.currentUsername = user.username
+
+      this.apiService.ListPlayerCharacters({owner: {eq: this.currentUsername}}).then( (characters ) => {
+        this.characters = characters.items.map( (char) => {
+          if( char.portrait.startsWith('portraits/') ){
+            this.amplifyService.storage().get(char.portrait, { level: 'public' })
+              .then ( (url) => { 
+                console.log(url)
+                char.portraitURL = url
+              })
+              .catch( (err) => { 
+                console.log(err);
+              });
+          }
+          char.portraitURL = char.portrait;
+          return char;
+        })
+      }).catch( (err) => {
+        console.log(err)
       })
-    }).catch( (err) => {
-      console.log(err)
     })
   }
 
