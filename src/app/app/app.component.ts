@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
     private store: Store<AppState>,
     private storageService: LocalStorageService,
     private apiService: APIService,
-    private router: Router
+    public router: Router
   ) {
  
   }
