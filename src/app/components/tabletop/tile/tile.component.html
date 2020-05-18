@@ -1,10 +1,21 @@
+<div class="tile" #tile>
 
-<div *ngIf="!token" class="tile" (click)="tileSelected()">
-  <button class="nostyle"></button>
-</div>
+  <div *ngIf="!token" class="tile" (click)="tileSelected()">
+    <button class="nostyle"></button>
+  </div>
 
-<div *ngIf="token" class="tile" (click)="tileSelected()">
-  <button class="token" mat-fab color="warn" aria-label="Example icon button with a bookmark icon">
-    {{token.character.name}}
-  </button>
+  <div *ngIf="token" class="tile" (click)="tileSelected()">
+    <button  class="token" mat-fab color="warn">
+      {{token.character.name}}
+    </button>
+  </div>
+
+  <mat-card *ngIf="token" class="character-details" [class.toBottom]="nearTop" [class.toTop]="nearBottom">
+    <mat-card-header>
+      <mat-card-title>{{token.character.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>{{token.character.background}}</mat-card-content>
+  </mat-card>
+
+  
 </div>

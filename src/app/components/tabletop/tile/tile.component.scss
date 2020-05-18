@@ -22,3 +22,38 @@
 .token :hover {
   opacity: 100%
 }
+
+.tile:hover + .character-details{
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  position: absolute;
+  
+  left: 100%;
+
+  min-height: 200px;
+  min-width: 200px;
+}
+
+.tile:hover + .character-details.nearTop{
+  top: 100%;
+}
+
+.tile:hover + .character-details.nearBottom{
+  bottom: 100%;
+}
+
+.tile:hover + .character-details.nearLeft{
+  left: 100%;
+}
+
+.tile:hover + .character-details.nearRight{
+  right: 100%;
+}
+
+.character-details {
+  z-index: 10;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
