@@ -105,13 +105,6 @@ export type ModelGameFilterInput = {
   not?: ModelGameFilterInput | null;
 };
 
-export enum ActionType {
-  MOVEMENT = "MOVEMENT",
-  INTERACT = "INTERACT",
-  CHAT = "CHAT",
-  DICEROLL = "DICEROLL"
-}
-
 export type ModelPlayerCharacterFilterInput = {
   id?: ModelIDInput | null;
   owner?: ModelStringInput | null;
@@ -153,6 +146,12 @@ export type CreateGameInput = {
   gameTabletopId?: string | null;
 };
 
+export enum ActionType {
+  INTERACT = "INTERACT",
+  CHAT = "CHAT",
+  DICEROLL = "DICEROLL"
+}
+
 export type UpdateGameInput = {
   id: string;
   owner?: string | null;
@@ -168,14 +167,6 @@ export type CreateTabletopInput = {
   gameOwnerID: string;
   width?: number | null;
   height?: number | null;
-  actions?: Array<ActionInput | null> | null;
-};
-
-export type ActionInput = {
-  createdAt?: number | null;
-  actionType?: ActionType | null;
-  player?: string | null;
-  payload?: string | null;
 };
 
 export type ModelTabletopConditionInput = {
@@ -192,10 +183,47 @@ export type UpdateTabletopInput = {
   gameOwnerID?: string | null;
   width?: number | null;
   height?: number | null;
-  actions?: Array<ActionInput | null> | null;
 };
 
 export type DeleteTabletopInput = {
+  id?: string | null;
+};
+
+export type CreateActionInput = {
+  id?: string | null;
+  tabletopID: string;
+  createdAt?: number | null;
+  actionType?: ActionType | null;
+  player?: string | null;
+  payload?: string | null;
+};
+
+export type ModelActionConditionInput = {
+  tabletopID?: ModelIDInput | null;
+  createdAt?: ModelIntInput | null;
+  actionType?: ModelActionTypeInput | null;
+  player?: ModelStringInput | null;
+  payload?: ModelStringInput | null;
+  and?: Array<ModelActionConditionInput | null> | null;
+  or?: Array<ModelActionConditionInput | null> | null;
+  not?: ModelActionConditionInput | null;
+};
+
+export type ModelActionTypeInput = {
+  eq?: ActionType | null;
+  ne?: ActionType | null;
+};
+
+export type UpdateActionInput = {
+  id: string;
+  tabletopID?: string | null;
+  createdAt?: number | null;
+  actionType?: ActionType | null;
+  player?: string | null;
+  payload?: string | null;
+};
+
+export type DeleteActionInput = {
   id?: string | null;
 };
 
@@ -344,6 +372,18 @@ export type ModelTabletopFilterInput = {
   and?: Array<ModelTabletopFilterInput | null> | null;
   or?: Array<ModelTabletopFilterInput | null> | null;
   not?: ModelTabletopFilterInput | null;
+};
+
+export type ModelActionFilterInput = {
+  id?: ModelIDInput | null;
+  tabletopID?: ModelIDInput | null;
+  createdAt?: ModelIntInput | null;
+  actionType?: ModelActionTypeInput | null;
+  player?: ModelStringInput | null;
+  payload?: ModelStringInput | null;
+  and?: Array<ModelActionFilterInput | null> | null;
+  or?: Array<ModelActionFilterInput | null> | null;
+  not?: ModelActionFilterInput | null;
 };
 
 export type ModelTabletopCharacterFilterInput = {
@@ -503,13 +543,6 @@ export type GetTabletopDataQuery = {
   gameOwnerID: string;
   width: number | null;
   height: number | null;
-  actions: Array<{
-    
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
   characters: {
     
     items: Array<{
@@ -564,13 +597,6 @@ export type OnUpdateTabletopDataSubscription = {
   gameOwnerID: string;
   width: number | null;
   height: number | null;
-  actions: Array<{
-    
-    player: string | null;
-    createdAt: number | null;
-    actionType: ActionType | null;
-    payload: string | null;
-  } | null> | null;
 };
 
 export type CreateGameMutation = {
@@ -599,13 +625,19 @@ export type CreateGameMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -663,13 +695,19 @@ export type UpdateGameMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -727,13 +765,19 @@ export type DeleteGameMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -805,13 +849,19 @@ export type CreateTabletopMutation = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
 };
 
 export type UpdateTabletopMutation = {
@@ -854,13 +904,19 @@ export type UpdateTabletopMutation = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
 };
 
 export type DeleteTabletopMutation = {
@@ -903,13 +959,49 @@ export type DeleteTabletopMutation = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+};
+
+export type CreateActionMutation = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
+export type UpdateActionMutation = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
+export type DeleteActionMutation = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
 };
 
 export type CreateTabletopCharacterMutation = {
@@ -1044,13 +1136,10 @@ export type CreatePlayerMutation = {
         
         nextToken: string | null;
       } | null;
-      actions: Array<{
+      actions: {
         
-        createdAt: number | null;
-        actionType: ActionType | null;
-        player: string | null;
-        payload: string | null;
-      } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
@@ -1110,13 +1199,10 @@ export type UpdatePlayerMutation = {
         
         nextToken: string | null;
       } | null;
-      actions: Array<{
+      actions: {
         
-        createdAt: number | null;
-        actionType: ActionType | null;
-        player: string | null;
-        payload: string | null;
-      } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
@@ -1176,13 +1262,10 @@ export type DeletePlayerMutation = {
         
         nextToken: string | null;
       } | null;
-      actions: Array<{
+      actions: {
         
-        createdAt: number | null;
-        actionType: ActionType | null;
-        player: string | null;
-        payload: string | null;
-      } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
@@ -1412,13 +1495,19 @@ export type GetGameQuery = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -1469,13 +1558,10 @@ export type ListGamesQuery = {
         
         nextToken: string | null;
       } | null;
-      actions: Array<{
+      actions: {
         
-        createdAt: number | null;
-        actionType: ActionType | null;
-        player: string | null;
-        payload: string | null;
-      } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
@@ -1534,13 +1620,19 @@ export type GetTabletopQuery = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
 };
 
 export type ListTabletopsQuery = {
@@ -1564,13 +1656,43 @@ export type ListTabletopsQuery = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetActionQuery = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
+export type ListActionsQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    tabletopID: string;
+    createdAt: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -1675,13 +1797,10 @@ export type GetPlayerQuery = {
         
         nextToken: string | null;
       } | null;
-      actions: Array<{
+      actions: {
         
-        createdAt: number | null;
-        actionType: ActionType | null;
-        player: string | null;
-        payload: string | null;
-      } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
@@ -1891,13 +2010,19 @@ export type OnCreateGameSubscription = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -1955,13 +2080,19 @@ export type OnUpdateGameSubscription = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -2019,13 +2150,19 @@ export type OnDeleteGameSubscription = {
       } | null> | null;
       nextToken: string | null;
     } | null;
-    actions: Array<{
+    actions: {
       
-      createdAt: number | null;
-      actionType: ActionType | null;
-      player: string | null;
-      payload: string | null;
-    } | null> | null;
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        createdAt: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
   members: Array<string | null> | null;
   players: {
@@ -2097,13 +2234,19 @@ export type OnCreateTabletopSubscription = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
 };
 
 export type OnUpdateTabletopSubscription = {
@@ -2146,13 +2289,19 @@ export type OnUpdateTabletopSubscription = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
 };
 
 export type OnDeleteTabletopSubscription = {
@@ -2195,13 +2344,49 @@ export type OnDeleteTabletopSubscription = {
     } | null> | null;
     nextToken: string | null;
   } | null;
-  actions: Array<{
+  actions: {
     
-    createdAt: number | null;
-    actionType: ActionType | null;
-    player: string | null;
-    payload: string | null;
-  } | null> | null;
+    items: Array<{
+      
+      id: string;
+      tabletopID: string;
+      createdAt: number | null;
+      actionType: ActionType | null;
+      player: string | null;
+      payload: string | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+};
+
+export type OnCreateActionSubscription = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
+export type OnUpdateActionSubscription = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
+export type OnDeleteActionSubscription = {
+  
+  id: string;
+  tabletopID: string;
+  createdAt: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
 };
 
 export type OnCreateTabletopCharacterSubscription = {
@@ -2690,13 +2875,6 @@ export class APIService {
           gameOwnerID
           width
           height
-          actions {
-            
-            createdAt
-            actionType
-            player
-            payload
-          }
           characters {
             
             items {
@@ -2787,13 +2965,6 @@ export class APIService {
           gameOwnerID
           width
           height
-          actions {
-            
-            player
-            createdAt
-            actionType
-            payload
-          }
         }
       }`
     )
@@ -2832,10 +3003,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -2912,10 +3089,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -2992,10 +3175,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -3086,10 +3275,16 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`;
@@ -3151,10 +3346,16 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`;
@@ -3216,10 +3417,16 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`;
@@ -3233,6 +3440,84 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteTabletopMutation>response.data.deleteTabletop;
+  }
+  async CreateAction(
+    input: CreateActionInput,
+    condition?: ModelActionConditionInput
+  ): Promise<CreateActionMutation> {
+    const statement = `mutation CreateAction($input: CreateActionInput!, $condition: ModelActionConditionInput) {
+        createAction(input: $input, condition: $condition) {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateActionMutation>response.data.createAction;
+  }
+  async UpdateAction(
+    input: UpdateActionInput,
+    condition?: ModelActionConditionInput
+  ): Promise<UpdateActionMutation> {
+    const statement = `mutation UpdateAction($input: UpdateActionInput!, $condition: ModelActionConditionInput) {
+        updateAction(input: $input, condition: $condition) {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateActionMutation>response.data.updateAction;
+  }
+  async DeleteAction(
+    input: DeleteActionInput,
+    condition?: ModelActionConditionInput
+  ): Promise<DeleteActionMutation> {
+    const statement = `mutation DeleteAction($input: DeleteActionInput!, $condition: ModelActionConditionInput) {
+        deleteAction(input: $input, condition: $condition) {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteActionMutation>response.data.deleteAction;
   }
   async CreateTabletopCharacter(
     input: CreateTabletopCharacterInput,
@@ -3427,10 +3712,7 @@ export class APIService {
               }
               actions {
                 
-                createdAt
-                actionType
-                player
-                payload
+                nextToken
               }
             }
             members
@@ -3509,10 +3791,7 @@ export class APIService {
               }
               actions {
                 
-                createdAt
-                actionType
-                player
-                payload
+                nextToken
               }
             }
             members
@@ -3591,10 +3870,7 @@ export class APIService {
               }
               actions {
                 
-                createdAt
-                actionType
-                player
-                payload
+                nextToken
               }
             }
             members
@@ -3936,10 +4212,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -4007,10 +4289,7 @@ export class APIService {
               }
               actions {
                 
-                createdAt
-                actionType
-                player
-                payload
+                nextToken
               }
             }
             members
@@ -4089,10 +4368,16 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`;
@@ -4133,10 +4418,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           nextToken
@@ -4156,6 +4447,61 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListTabletopsQuery>response.data.listTabletops;
+  }
+  async GetAction(id: string): Promise<GetActionQuery> {
+    const statement = `query GetAction($id: ID!) {
+        getAction(id: $id) {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetActionQuery>response.data.getAction;
+  }
+  async ListActions(
+    filter?: ModelActionFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListActionsQuery> {
+    const statement = `query ListActions($filter: ModelActionFilterInput, $limit: Int, $nextToken: String) {
+        listActions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          
+          items {
+            
+            id
+            tabletopID
+            createdAt
+            actionType
+            player
+            payload
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListActionsQuery>response.data.listActions;
   }
   async GetTabletopCharacter(id: string): Promise<GetTabletopCharacterQuery> {
     const statement = `query GetTabletopCharacter($id: ID!) {
@@ -4292,10 +4638,7 @@ export class APIService {
               }
               actions {
                 
-                createdAt
-                actionType
-                player
-                payload
+                nextToken
               }
             }
             members
@@ -4610,10 +4953,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -4680,10 +5029,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -4750,10 +5105,16 @@ export class APIService {
             }
             actions {
               
-              createdAt
-              actionType
-              player
-              payload
+              items {
+                
+                id
+                tabletopID
+                createdAt
+                actionType
+                player
+                payload
+              }
+              nextToken
             }
           }
           members
@@ -4836,10 +5197,16 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`
@@ -4893,10 +5260,16 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`
@@ -4950,15 +5323,69 @@ export class APIService {
           }
           actions {
             
-            createdAt
-            actionType
-            player
-            payload
+            items {
+              
+              id
+              tabletopID
+              createdAt
+              actionType
+              player
+              payload
+            }
+            nextToken
           }
         }
       }`
     )
   ) as Observable<OnDeleteTabletopSubscription>;
+
+  OnCreateActionListener: Observable<OnCreateActionSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateAction {
+        onCreateAction {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`
+    )
+  ) as Observable<OnCreateActionSubscription>;
+
+  OnUpdateActionListener: Observable<OnUpdateActionSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateAction {
+        onUpdateAction {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`
+    )
+  ) as Observable<OnUpdateActionSubscription>;
+
+  OnDeleteActionListener: Observable<OnDeleteActionSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteAction {
+        onDeleteAction {
+          
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+      }`
+    )
+  ) as Observable<OnDeleteActionSubscription>;
 
   OnCreateTabletopCharacterListener: Observable<
     OnCreateTabletopCharacterSubscription

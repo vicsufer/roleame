@@ -27,30 +27,22 @@ export class TabletopPageComponent implements OnInit {
 
   tabletop: Tabletop
   currentUsername: string;
-  currentCharacter: TabletopCharacter
+  currentCharacter: TabletopCharacter;
 
+  firstEmptyTile: number;
   firstSelectedTile: {position: number , token: TabletopCharacter} = undefined;
   secondSelectedTile: {position: number , token: TabletopCharacter} | any = undefined;
 
-  tiles = []
+  tiles = [];
 
   playerCharacters: {name: string, id: string, uuid: string, hitPoints: number}[] = []
 
   constructor(private apiService: APIService,
     private amplifyService: AmplifyService,
-    private translateService: TranslateService, 
-    private notificationService: NotificationService,
     private route: ActivatedRoute) {
 
       this.amplifyService.auth().currentAuthenticatedUser().then(user => {
         this.currentUsername = user.username
-
-        //Retrieve current player available characters
-        this.apiService.ListPlayerCharactersIdentificators({owner: {eq: this.currentUsername}}).then( (res)=> {
-          var characters = res.items
-          this.playerCharacters = characters
-        }).catch(err => console.log(err));
-
         }).catch(err => console.log(err));
 
       this.route.queryParamMap.subscribe(params => {
@@ -77,17 +69,29 @@ export class TabletopPageComponent implements OnInit {
           error: error => console.error(error)
         })
 
+        // Subscribe to tabletop new actions
+        this.apiService.OnCreateActionListener.subscribe({
+          next: (newAction) => {
+            newAction = newAction.value.data.onCreateActionListener
+            if( newAction.tabletopID !== this.tabletop.id ) return;
+            console.log(newAction)
+          },
+          error: error => console.error(error)
+        });
+
         // Subscribe to tabletop created characters
         this.apiService.OnCreateTabletopListener.subscribe({
           next: (newCharacter) => {
             newCharacter = newCharacter.value.data.onCreateTabletopCharacter
             if( newCharacter.tabletopID !== this.tabletop.id ) return;
-            
+      
             this.moveCharacter(newCharacter, newCharacter.location.x, newCharacter.location.y)
+            this.updateFirstEmptyTile()
           },
           error: error => console.error(error)
         });
 
+        // Subscribe to tabletop character updates
         this.apiService.OnUpdateTabletopCharacterListener.subscribe({
           next: (updatedCharacter) => {
             updatedCharacter = updatedCharacter.value.data.onUpdateTabletopCharacter
@@ -100,6 +104,7 @@ export class TabletopPageComponent implements OnInit {
             if( characterToUpdate.location !== updatedCharacter.location ){
               characterToUpdate.location = updatedCharacter.location
               this.moveCharacter(characterToUpdate, characterToUpdate.location.x, characterToUpdate.location.y)
+              this.updateFirstEmptyTile()
             }
           },
           error: error => console.error(error)
@@ -111,6 +116,7 @@ export class TabletopPageComponent implements OnInit {
           aux.characters = aux.characters.items
           this.tabletop = aux
           this.renderBoard()
+          this.updateFirstEmptyTile()
           //If this character belong to current user, set selector.
           var characterForCurrentPlayer = this.tabletop.characters.find( character => character.playerID === this.currentUsername )
           if(characterForCurrentPlayer){
@@ -150,7 +156,6 @@ export class TabletopPageComponent implements OnInit {
         }
       }
     }
-    
     // Transform to one-dimension
     var pos = y+this.tabletop.width*x
     // Set new position
@@ -163,64 +168,34 @@ export class TabletopPageComponent implements OnInit {
     var x, y
     y = position % this.tabletop.width
     x = (position-y)/this.tabletop.width;
-    console.log({x,y})
     return {x,y}
   }
 
   selectTile(data: {position: number , token: TabletopCharacter}) {
     if(!this.firstSelectedTile && data.token){
       this.firstSelectedTile = data
-    } else if (this.firstSelectedTile && data.token) {
-      //TODO Interaction
-      this.secondSelectedTile = data
-      console.log('OU MAMA INTERACTION!')
     } else if (this.firstSelectedTile && !data.token){
+      // Movement action
       var token = this.firstSelectedTile.token
       var newCoordinates = this.getCoordinates(data.position)
       this.apiService.UpdateTabletopCharacter({id: token.id, location: newCoordinates}).then(()=>{}).catch((e)=>console.log(e))
-
       this.firstSelectedTile = undefined
     }
+    else if (this.firstSelectedTile && data.token && this.firstSelectedTile.token.id == data.token.id) {
+      //TODO Interaction with itself
+      this.secondSelectedTile = data
+      this.firstSelectedTile = undefined
+      this.secondSelectedTile = undefined
+    } 
+    else if (this.firstSelectedTile && data.token) {
+      //TODO Interaction with other character
+      this.secondSelectedTile = data
+      this.firstSelectedTile = undefined
+      this.secondSelectedTile = undefined
+    } 
   }
 
-  changeTabletopWidth(width){
-    if( isNaN(Number(width))) return;
-    console.log(width)
-    this.apiService.UpdateTabletop({id: this.tabletop.id, width: width})
+  updateFirstEmptyTile(){
+    this.firstEmptyTile = this.tiles.findIndex(Object.is.bind(null, undefined))
   }
-
-  changeTabletopHeight(height){
-    if( isNaN(Number(height))) return;
-    console.log(height)
-    this.apiService.UpdateTabletop({id: this.tabletop.id, height: height})
-  }
-
-  changeCharacter(event){
-    var selectedCharacter: PlayerCharacter = event.value;
-    var currentTabletopCharacter = this.tabletop.characters.find( (character) => character.playerID == this.currentUsername )
-    if( currentTabletopCharacter ){
-      this.apiService.UpdateTabletopCharacter({id:currentTabletopCharacter.id, characterID: selectedCharacter.id}).then( res => {
-      }).catch( (e)=> {console.log(e)} )
-    } else { 
-      var newCharacter: TabletopCharacter
-      newCharacter =  {
-        tabletopID: this.tabletop.id,
-        gameOwnerID: this.tabletop.gameOwnerID,
-        playerID: this.currentUsername,
-        characterID: selectedCharacter.id,
-        currentHealth: selectedCharacter.hitPoints,
-        location: this.getFirstAvailableLocation()
-      }
-      console.log(newCharacter)
-      this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
-      }).catch( (e)=> { console.log(e)} )
-    }
-    
-  }
-
-  getFirstAvailableLocation(): {x: number, y: number} {
-    var emptySpot = this.tiles.findIndex(Object.is.bind(null, undefined))
-    return this.getCoordinates(emptySpot)
-  }
-
 }

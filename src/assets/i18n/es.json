@@ -102,6 +102,8 @@
   "roleame-webapp.label.rows":"Filas",
   "roleame-webapp.label.columns":"Columnas",
   "roleame-webapp.label.character":"Personaje",
+  "roleame-webapp.label.dices":"Dados",
+  "roleame-webapp.label.sides":"Caras",
 
   "roleame-webapp.games.my_games":"Mis partidas",
   "roleame-webapp.games.new_game":"Nueva partida",

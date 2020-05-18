@@ -106,12 +106,6 @@ query GetTabletopData($id: ID!) {
     gameOwnerID
     width
     height
-    actions {
-      createdAt
-      actionType
-      player
-      payload
-    }
     characters {
       items {
         id

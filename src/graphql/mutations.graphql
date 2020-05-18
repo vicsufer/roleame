@@ -26,10 +26,15 @@ mutation CreateGame(
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -85,10 +90,15 @@ mutation UpdateGame(
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -144,10 +154,15 @@ mutation DeleteGame(
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -216,10 +231,15 @@ mutation CreateTabletop(
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
   }
 }
@@ -263,10 +283,15 @@ mutation UpdateTabletop(
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
   }
 }
@@ -310,11 +335,55 @@ mutation DeleteTabletop(
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
+  }
+}
+mutation CreateAction(
+  $input: CreateActionInput!
+  $condition: ModelActionConditionInput
+) {
+  createAction(input: $input, condition: $condition) {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
+  }
+}
+mutation UpdateAction(
+  $input: UpdateActionInput!
+  $condition: ModelActionConditionInput
+) {
+  updateAction(input: $input, condition: $condition) {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
+  }
+}
+mutation DeleteAction(
+  $input: DeleteActionInput!
+  $condition: ModelActionConditionInput
+) {
+  deleteAction(input: $input, condition: $condition) {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
   }
 }
 mutation CreateTabletopCharacter(
@@ -450,10 +519,7 @@ mutation CreatePlayer(
           nextToken
         }
         actions {
-          createdAt
-          actionType
-          player
-          payload
+          nextToken
         }
       }
       members
@@ -510,10 +576,7 @@ mutation UpdatePlayer(
           nextToken
         }
         actions {
-          createdAt
-          actionType
-          player
-          payload
+          nextToken
         }
       }
       members
@@ -570,10 +633,7 @@ mutation DeletePlayer(
           nextToken
         }
         actions {
-          createdAt
-          actionType
-          player
-          payload
+          nextToken
         }
       }
       members

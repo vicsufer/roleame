@@ -21,6 +21,7 @@ type Tabletop @model
 @auth(rules:[
 	{ allow: private, operations: [read, update] },
 	{ allow: owner, ownerField: "gameOwnerId", operations: [read, update, delete] }
+	
 ])
 {
 	id: ID!
@@ -30,19 +31,21 @@ type Tabletop @model
 	height: Int
 	characters: [TabletopCharacter] @connection(keyName: "byTabletop", fields: ["id"])
 
-	actions: [Action]
+	actions: [Action] @connection(keyName: "byTabletop", fields: ["id"])
 }
 
-type Action {
+type Action @model
+@auth(rules: [{ allow: private }])
+@key(name: "byTabletop", fields: ["tabletopID", "id"]){
+	id: ID!
+	tabletopID: ID!
 	createdAt: AWSTimestamp
 	actionType: ActionType
 	player: String
 	payload: String
-
-	
 }
+
 enum ActionType {
-	MOVEMENT
 	INTERACT
 	CHAT
 	DICEROLL

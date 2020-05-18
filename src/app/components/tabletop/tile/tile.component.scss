@@ -13,14 +13,8 @@
 
 .tile button {
   width: 100%;
-  height: 100%
-}
-
-.token {
-  opacity: 80%
-}
-.token :hover {
-  opacity: 100%
+  height: 100%;
+  padding: 0px;
 }
 
 .tile:hover + .character-details{
@@ -56,4 +50,18 @@
   display: none;
   visibility: hidden;
   opacity: 0;
+}
+
+.token.mat-fav {
+  font-size: 20px;
+  color: white;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+::ng-deep .token .mat-button-wrapper{
+  color: white;
+  padding: 0%;
 }

@@ -23,10 +23,15 @@ subscription OnCreateGame($owner: String!) {
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -79,10 +84,15 @@ subscription OnUpdateGame($owner: String!) {
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -135,10 +145,15 @@ subscription OnDeleteGame($owner: String!) {
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -204,10 +219,15 @@ subscription OnCreateTabletop {
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
   }
 }
@@ -248,10 +268,15 @@ subscription OnUpdateTabletop {
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
   }
 }
@@ -292,11 +317,46 @@ subscription OnDeleteTabletop($gameOwnerId: String!) {
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
+  }
+}
+subscription OnCreateAction {
+  onCreateAction {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
+  }
+}
+subscription OnUpdateAction {
+  onUpdateAction {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
+  }
+}
+subscription OnDeleteAction {
+  onDeleteAction {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
   }
 }
 subscription OnCreateTabletopCharacter {

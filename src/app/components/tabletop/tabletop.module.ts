@@ -1,3 +1,4 @@
+import { TabletopToolbarComponent } from './toolbar/tabletop-toolbar.component';
 import { TileComponent } from './tile/tile.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,7 +9,7 @@ import { TabletopRoutingModule} from './tabletop-routing.module';
 import { TabletopPageComponent } from './page/tabletop-page.component';
 
 @NgModule({
-  declarations: [TabletopPageComponent, TileComponent],
+  declarations: [TabletopPageComponent, TileComponent, TabletopToolbarComponent],
   imports: [CommonModule, SharedComponentsModule, TabletopRoutingModule],
   entryComponents: []
 })

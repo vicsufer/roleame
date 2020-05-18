@@ -5,9 +5,7 @@
   </div>
 
   <div *ngIf="token" class="tile" (click)="tileSelected()" matBadge="{{ token.currentHealth }}" matBadgeSize="large">
-    <button  class="token" mat-fab color="warn">
-      {{token.character.name}}
-    </button>
+    <button  class="token" mat-fab color="warn">{{token.character.name | slice:0:1 }}</button>
   </div>
 
   <mat-card *ngIf="token" class="character-details" [class.toBottom]="nearTop" [class.toTop]="nearBottom">

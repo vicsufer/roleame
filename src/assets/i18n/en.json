@@ -103,6 +103,8 @@
   "roleame-webapp.label.rows":"Rows",
   "roleame-webapp.label.columns":"Columns",
   "roleame-webapp.label.character":"Character",
+  "roleame-webapp.label.dices":"Dados",
+  "roleame-webapp.label.sides":"Caras",
 
   "roleame-webapp.games.my_games":"My games",
   "roleame-webapp.games.new_game":"New game",
@@ -143,7 +145,6 @@
   "roleame-webapp.characters.edit.error": "Error updating character",
 
   "roleame-webapp.tabletop.place_character":"Place character",
-
   "roleame-webapp.tabletop.short_wisdom":"Wis",
   "roleame-webapp.tabletop.short_fellowship":"Fel",
   "roleame-webapp.tabletop.short_strength":"Str",

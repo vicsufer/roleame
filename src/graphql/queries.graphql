@@ -23,10 +23,15 @@ query GetGame($id: ID!) {
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
     }
     members
@@ -76,10 +81,7 @@ query ListGames(
           nextToken
         }
         actions {
-          createdAt
-          actionType
-          player
-          payload
+          nextToken
         }
       }
       members
@@ -134,10 +136,15 @@ query GetTabletop($id: ID!) {
       nextToken
     }
     actions {
-      createdAt
-      actionType
-      player
-      payload
+      items {
+        id
+        tabletopID
+        createdAt
+        actionType
+        player
+        payload
+      }
+      nextToken
     }
   }
 }
@@ -164,11 +171,43 @@ query ListTabletops(
         nextToken
       }
       actions {
-        createdAt
-        actionType
-        player
-        payload
+        items {
+          id
+          tabletopID
+          createdAt
+          actionType
+          player
+          payload
+        }
+        nextToken
       }
+    }
+    nextToken
+  }
+}
+query GetAction($id: ID!) {
+  getAction(id: $id) {
+    id
+    tabletopID
+    createdAt
+    actionType
+    player
+    payload
+  }
+}
+query ListActions(
+  $filter: ModelActionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listActions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      tabletopID
+      createdAt
+      actionType
+      player
+      payload
     }
     nextToken
   }
@@ -272,10 +311,7 @@ query GetPlayer($id: ID!) {
           nextToken
         }
         actions {
-          createdAt
-          actionType
-          player
-          payload
+          nextToken
         }
       }
       members
