@@ -69,7 +69,7 @@ export class NewCharacterComponent implements OnInit {
 
     this.imageForm = this.formBuilder.group({
       //Allow upload of 1Mb,to Bytes
-      type: ['', Validators.required],
+      type: ['none', Validators.required],
       imageValueURL:[''],
       imageValue: ['',FileValidator.maxContentSize(1 * 2**20)],
     });
@@ -149,6 +149,5 @@ export class NewCharacterComponent implements OnInit {
     this.stepper.reset()
     this.create.emit({character, imageToUpload})
   }
-
 
 }
