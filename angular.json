@@ -65,8 +65,8 @@
                   "type": "bundle",
                   "name": "main",
                   "baseline": "2048kb",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1024kb"
+                  "maximumWarning": "1024kb",
+                  "maximumError": "2048kb"
                 }
               ]
             }
