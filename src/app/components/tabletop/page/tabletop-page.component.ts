@@ -173,6 +173,7 @@ export class TabletopPageComponent implements OnInit {
     } else if (this.firstSelectedTile && data.token) {
       //TODO Interaction
       this.secondSelectedTile = data
+      console.log('OU MAMA INTERACTION!')
     } else if (this.firstSelectedTile && !data.token){
       var token = this.firstSelectedTile.token
       var newCoordinates = this.getCoordinates(data.position)

@@ -4,7 +4,7 @@
     <button class="nostyle"></button>
   </div>
 
-  <div *ngIf="token" class="tile" (click)="tileSelected()">
+  <div *ngIf="token" class="tile" (click)="tileSelected()" matBadge="{{ token.currentHealth }}" matBadgeSize="large">
     <button  class="token" mat-fab color="warn">
       {{token.character.name}}
     </button>
@@ -13,8 +13,25 @@
   <mat-card *ngIf="token" class="character-details" [class.toBottom]="nearTop" [class.toTop]="nearBottom">
     <mat-card-header>
       <mat-card-title>{{token.character.name}}</mat-card-title>
+      <mat-card-subtitle>{{token.character.owner}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>{{token.character.background}}</mat-card-content>
+    <mat-card-content  gdAreas="health white | agility fellowship | wisdom strength" gdGap="0px 10px" gdColumns="50% 50%" gdRows="33% 33% 33%">
+      <div gdArea="health">
+        {{ 'roleame-webapp.tabletop.short_health'| translate}}: {{ token.currentHealth }}/{{ token.character.hitPoints }}
+      </div>
+      <div gdArea="agility">
+        {{ 'roleame-webapp.tabletop.short_agility'| translate}}: {{ token.character.agility }}
+      </div>
+      <div gdArea="fellowship">
+        {{ 'roleame-webapp.tabletop.short_fellowship'| translate}}: {{ token.character.fellowship }}
+      </div>
+      <div gdArea="wisdom">
+        {{ 'roleame-webapp.tabletop.short_wisdom'| translate}}: {{ token.character.wisdom }}
+      </div>
+      <div gdArea="strength">
+        {{ 'roleame-webapp.tabletop.short_strength'| translate}}: {{ token.character.strength }}
+      </div>
+    </mat-card-content>
   </mat-card>
 
   
