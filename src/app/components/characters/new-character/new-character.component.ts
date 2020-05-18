@@ -44,8 +44,6 @@ export class NewCharacterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
   }
 
-
-
   ngOnInit() {
 
     this.basicInfoForm = this.formBuilder.group({
@@ -132,8 +130,8 @@ export class NewCharacterComponent implements OnInit {
       id: undefined,
       uuid: char_uuid,
       name: this.basicInfoForm.get('name').value,
-      class: this.basicInfoForm.get('class').value,
-      background: this.basicInfoForm.get('background').value,
+      class: this.basicInfoForm.get('class').value || '',
+      background: this.basicInfoForm.get('background').value || '',
 
       portrait: portrait,
 
@@ -145,7 +143,6 @@ export class NewCharacterComponent implements OnInit {
 
       abilities: this.abilitiesForm.get('abilities').value
     }
-    console.log(character)
     this.stepper.reset()
     this.create.emit({character, imageToUpload})
   }

@@ -78,7 +78,8 @@ export class CharactersPageComponent implements OnInit {
   }
 
 
-  createCharacter( data: {character: Character, imageToUpload: File}){
+  createCharacter( data: {character: PlayerCharacter, imageToUpload: File}){
+    data.character.owner = this.currentUsername
     this.apiService.CreatePlayerCharacter(data.character).then( (createdCharacter) => {
       if(data.imageToUpload){
           this.amplifyService.storage().put(createdCharacter.portrait, data.imageToUpload, {
