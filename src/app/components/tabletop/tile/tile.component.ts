@@ -22,7 +22,7 @@ export class TileComponent implements OnInit {
   @ViewChildren('tile') tileElement: any;
 
   @Input()
-  token: TabletopCharacter
+  _token: TabletopCharacter
 
   @Input()
   position: number
@@ -34,18 +34,32 @@ export class TileComponent implements OnInit {
   nearLeft: boolean
   nearBottom: boolean
   nearRight: boolean
+
+
+  @Input()
+  set token(token: TabletopCharacter){
+    this._token = token
+    if(token && this.tileElement){
+      this.calculateBounds()
+    }
+    
+  }
+
+  get token(){
+    return this._token
+  }
   
   ngOnInit() {
     
   }
-  
-  ngAfterContentChecked() {
-    //TODO Call only when set token input
-    //this.calculateBounds()
-  }
 
+  ngAfterViewInit(){
+    // if(this.token && this.tileElement){
+    //   this.calculateBounds()
+    // }
+  }
+  
   tileSelected() {
-    if(this.token)this.calculateBounds()
     this.tileSelect.emit( {position: this.position, token: this.token} )
   }
 
@@ -54,7 +68,7 @@ export class TileComponent implements OnInit {
     var spaceBelow = window.innerHeight - domRect.bottom;
     this.nearTop = spaceBelow > 150
     this.nearBottom = !this.nearTop;
-    console.log(spaceBelow)
+    console.log(this.nearTop)
   }
 
 }

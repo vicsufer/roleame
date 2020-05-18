@@ -142,11 +142,15 @@ export class TabletopPageComponent implements OnInit {
 
   moveCharacter(character: TabletopCharacter, x: number, y: number){
     // Empty old tile
-    this.tiles = this.tiles.map( (tile) => {
-      if(tile){
-        tile.id === character.id? undefined: tile
+    for (var i = 0; i < this.tiles.length; i++) {
+      if(this.tiles[i]){
+        if(this.tiles[i].id == character.id){
+         this.tiles[i] = undefined
+         break;
+        }
       }
-    }) 
+    }
+    
     // Transform to one-dimension
     var pos = y+this.tabletop.width*x
     // Set new position
