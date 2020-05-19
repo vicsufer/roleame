@@ -1,11 +1,5 @@
 import { Token } from './../../../types/token';
-import { TabletopCharacter } from 'app/types/tabletopCharacter';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Player } from '../../../types/player';
-import { AmplifyService } from 'aws-amplify-angular';
-import { NotificationService } from '../../../core/notifications/notification.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, ViewChildren, ChangeDetectorRef } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 
@@ -20,7 +14,7 @@ export class TileComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
-  @ViewChildren('tile') tileElement: any;
+  @ViewChild('tile', {static: false}) tileElement: ElementRef;
 
   @Input()
   _token: Token
@@ -31,33 +25,34 @@ export class TileComponent implements OnInit {
   @Output()
   tileSelect: EventEmitter<{position: number , token: Token}> = new EventEmitter<{position: number , token: Token}>()
 
-  nearTop: boolean
-  nearLeft: boolean
-  nearBottom: boolean
-  nearRight: boolean
-
+  nearTop: boolean = true
+  nearLeft: boolean = true
+  nearBottom: boolean = false
+  nearRight: boolean = false
 
   @Input()
   set token(token: Token){
     this._token = token
-    if(token && this.tileElement){
-      this.calculateBounds()
-    }
-    
+    // if(this.tileElement && this.token.character){
+    //   this.calculateBounds()
+    // }
   }
 
   get token(){
-    return this._token
+    return this._token;
+  }
+
+  constructor(){
+    
   }
   
   ngOnInit() {
-    
+    // setInterval(() => {
+    //   this.calculateBounds()
+    // }, 5000 )
   }
 
   ngAfterViewInit(){
-    // if(this.token && this.tileElement){
-    //   this.calculateBounds()
-    // }
   }
   
   tileSelected() {
@@ -65,11 +60,11 @@ export class TileComponent implements OnInit {
   }
 
   calculateBounds() {
-    var domRect = this.tileElement.first.nativeElement.getBoundingClientRect();
-    var spaceBelow = window.innerHeight - domRect.bottom;
-    this.nearTop = spaceBelow > 150
-    this.nearBottom = !this.nearTop;
-    console.log(this.nearTop)
+    // var domRect = this.tileElement.nativeElement.getBoundingClientRect();
+    // var spaceBelow = window.innerHeight - domRect.bottom;
+    // this.nearTop = spaceBelow > 150
+    // this.nearBottom = !this.nearTop;
+    // console.log(this.nearTop)
   }
 
 }

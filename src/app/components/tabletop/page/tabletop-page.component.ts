@@ -186,12 +186,15 @@ export class TabletopPageComponent implements OnInit {
     else if (this.firstSelectedTile && data.token && this.firstSelectedTile.token.character.id == data.token.character.id) {
       //TODO Interaction with itself
       this.secondSelectedTile = data
+      this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
+      
       this.secondSelectedTile = undefined
     } 
     else if (this.firstSelectedTile && data.token) {
       //TODO Interaction with other character
       this.secondSelectedTile = data
+      this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
       this.secondSelectedTile = undefined
     } 
