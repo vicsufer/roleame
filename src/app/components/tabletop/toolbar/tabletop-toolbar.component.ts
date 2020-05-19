@@ -1,3 +1,5 @@
+import { DiceRoller } from './../../../types/diceroller';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlayerCharacter } from 'app/types/playerCharacter';
 import { AmplifyService } from 'aws-amplify-angular';
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
@@ -29,25 +31,31 @@ export class TabletopToolbarComponent implements OnInit {
   @Input()
   firstEmptyTile: number;
 
+  diceRollForm: FormGroup;
+
   playerCharacters: {name: string, id: string, uuid: string, hitPoints: number}[] = []
 
   constructor(private apiService: APIService,
-    private amplifyService: AmplifyService) {
-
-      this.amplifyService.auth().currentAuthenticatedUser().then(user => {
-        this.currentUsername = user.username
-        //Retrieve current player available characters
-        this.apiService.ListPlayerCharactersIdentificators({owner: {eq: this.currentUsername}}).then( (res)=> {
-          var characters = res.items
-          this.playerCharacters = characters
-        }).catch(err => console.log(err));
-
-      }).catch(err => console.log(err));
-
-
+    private amplifyService: AmplifyService,
+    private formBuilder: FormBuilder) {
+      
   }
 
   ngOnInit() {
+
+    this.diceRollForm = this.formBuilder.group({
+      dices: ['1', [Validators.required, Validators.min(1), Validators.max(20)]],
+      sides: ['20', [Validators.required, Validators.min(2), Validators.max(1000)]],
+    });
+
+    this.amplifyService.auth().currentAuthenticatedUser().then(user => {
+      this.currentUsername = user.username
+      //Retrieve current player available characters
+      this.apiService.ListPlayerCharactersIdentificators({owner: {eq: this.currentUsername}}).then( (res)=> {
+        var characters = res.items
+        this.playerCharacters = characters
+      }).catch(err => console.log(err));
+    }).catch(err => console.log(err));
 
   }
 
@@ -58,13 +66,11 @@ export class TabletopToolbarComponent implements OnInit {
 
   changeTabletopWidth(width){
     if( isNaN(Number(width))) return;
-    console.log(width)
     this.apiService.UpdateTabletop({id: this.tabletop.id, width: width})
   }
 
   changeTabletopHeight(height){
     if( isNaN(Number(height))) return;
-    console.log(height)
     this.apiService.UpdateTabletop({id: this.tabletop.id, height: height})
   }
 
@@ -95,6 +101,14 @@ export class TabletopToolbarComponent implements OnInit {
     y = position % this.tabletop.width
     x = (position-y)/this.tabletop.width;
     return {x,y}
+  }
+
+  rollDice() {
+    var sides = this.diceRollForm.get('sides').value;
+    var dices = this.diceRollForm.get('dices').value;
+
+    var result = DiceRoller.composedRoll(sides, dices)
+    console.log(result)
   }
 
 }

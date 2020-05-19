@@ -7,12 +7,15 @@ export class DiceRoller {
         return Math.floor(Math.random() * sides) + 1;
     }
 
-    static composedRoll( sides: number, repeat: number): number {
-        var total;
+    static composedRoll( sides: number, repeat: number): {total: number, rolls: number[]} {
+        var total = 0;
+        var rolls = [];
         for(var i=0; i<=repeat; i++){
-            total += this.simpleRoll(sides)
+            var roll = this.simpleRoll(sides)
+            total += roll
+            rolls.push(roll)
         }
-        return total;
+        return {total, rolls};
     }
     
 }

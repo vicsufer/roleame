@@ -150,6 +150,7 @@
   "roleame-webapp.tabletop.short_strength":"Str",
   "roleame-webapp.tabletop.short_health":"Hea",
   "roleame-webapp.tabletop.short_agility":"Agi",
+  "roleame-webapp.tabletop.roll_dice":"Roll dice",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",

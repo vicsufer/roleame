@@ -53,7 +53,6 @@ export class TabletopPageComponent implements OnInit {
         this.apiService.OnUpdateTabletopListener.subscribe( {
           next: (plainTabletop) => {
             plainTabletop = plainTabletop.value.data.onUpdateTabletop
-            console.log(plainTabletop)
             if( plainTabletop.id !== this.tabletop.id ) return;
 
             if( this.tabletop.width != plainTabletop.width ){
