@@ -159,7 +159,6 @@ export class TabletopPageComponent implements OnInit {
     // Transform to one-dimension
     var pos = y+this.tabletop.width*x
     // Set new position
-    console.log(character)
     this.tiles[pos] = {character: character, isSelected: false}
   }
 
