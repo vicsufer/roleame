@@ -29,7 +29,7 @@ mutation CreateGame(
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -93,7 +93,7 @@ mutation UpdateGame(
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -157,7 +157,7 @@ mutation DeleteGame(
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -234,7 +234,7 @@ mutation CreateTabletop(
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -286,7 +286,7 @@ mutation UpdateTabletop(
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -338,7 +338,7 @@ mutation DeleteTabletop(
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -354,7 +354,7 @@ mutation CreateAction(
   createAction(input: $input, condition: $condition) {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload
@@ -367,7 +367,7 @@ mutation UpdateAction(
   updateAction(input: $input, condition: $condition) {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload
@@ -380,7 +380,7 @@ mutation DeleteAction(
   deleteAction(input: $input, condition: $condition) {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload

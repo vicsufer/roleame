@@ -105,6 +105,7 @@
   "roleame-webapp.label.character":"Character",
   "roleame-webapp.label.dices":"Dices",
   "roleame-webapp.label.sides":"Sides",
+  "roleame-webapp.label.message":"Message",
 
   "roleame-webapp.games.my_games":"My games",
   "roleame-webapp.games.new_game":"New game",
@@ -151,6 +152,7 @@
   "roleame-webapp.tabletop.short_health":"Hea",
   "roleame-webapp.tabletop.short_agility":"Agi",
   "roleame-webapp.tabletop.roll_dice":"Roll me!",
+  "roleame-webapp.tabletop.send":"Send",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",

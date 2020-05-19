@@ -69,16 +69,6 @@ export class TabletopPageComponent implements OnInit {
           error: error => console.error(error)
         })
 
-        // Subscribe to tabletop new actions
-        this.apiService.OnCreateActionListener.subscribe({
-          next: (newAction) => {
-            newAction = newAction.value.data.onCreateActionListener
-            if( newAction.tabletopID !== this.tabletop.id ) return;
-            console.log(newAction)
-          },
-          error: error => console.error(error)
-        });
-
         // Subscribe to tabletop created characters
         this.apiService.OnCreateTabletopListener.subscribe({
           next: (newCharacter) => {

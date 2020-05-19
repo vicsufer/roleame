@@ -136,6 +136,34 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null;
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC"
+}
+
+export type ModelActionFilterInput = {
+  id?: ModelIDInput | null;
+  tabletopID?: ModelIDInput | null;
+  timestamp?: ModelIntInput | null;
+  actionType?: ModelActionTypeInput | null;
+  player?: ModelStringInput | null;
+  payload?: ModelStringInput | null;
+  and?: Array<ModelActionFilterInput | null> | null;
+  or?: Array<ModelActionFilterInput | null> | null;
+  not?: ModelActionFilterInput | null;
+};
+
+export type ModelActionTypeInput = {
+  eq?: ActionType | null;
+  ne?: ActionType | null;
+};
+
+export enum ActionType {
+  INTERACT = "INTERACT",
+  CHAT = "CHAT",
+  DICEROLL = "DICEROLL"
+}
+
 export type CreateGameInput = {
   id?: string | null;
   owner?: string | null;
@@ -145,12 +173,6 @@ export type CreateGameInput = {
   members?: Array<string | null> | null;
   gameTabletopId?: string | null;
 };
-
-export enum ActionType {
-  INTERACT = "INTERACT",
-  CHAT = "CHAT",
-  DICEROLL = "DICEROLL"
-}
 
 export type UpdateGameInput = {
   id: string;
@@ -192,7 +214,7 @@ export type DeleteTabletopInput = {
 export type CreateActionInput = {
   id?: string | null;
   tabletopID: string;
-  createdAt?: number | null;
+  timestamp?: number | null;
   actionType?: ActionType | null;
   player?: string | null;
   payload?: string | null;
@@ -200,7 +222,7 @@ export type CreateActionInput = {
 
 export type ModelActionConditionInput = {
   tabletopID?: ModelIDInput | null;
-  createdAt?: ModelIntInput | null;
+  timestamp?: ModelIntInput | null;
   actionType?: ModelActionTypeInput | null;
   player?: ModelStringInput | null;
   payload?: ModelStringInput | null;
@@ -209,15 +231,10 @@ export type ModelActionConditionInput = {
   not?: ModelActionConditionInput | null;
 };
 
-export type ModelActionTypeInput = {
-  eq?: ActionType | null;
-  ne?: ActionType | null;
-};
-
 export type UpdateActionInput = {
   id: string;
   tabletopID?: string | null;
-  createdAt?: number | null;
+  timestamp?: number | null;
   actionType?: ActionType | null;
   player?: string | null;
   payload?: string | null;
@@ -374,18 +391,6 @@ export type ModelTabletopFilterInput = {
   not?: ModelTabletopFilterInput | null;
 };
 
-export type ModelActionFilterInput = {
-  id?: ModelIDInput | null;
-  tabletopID?: ModelIDInput | null;
-  createdAt?: ModelIntInput | null;
-  actionType?: ModelActionTypeInput | null;
-  player?: ModelStringInput | null;
-  payload?: ModelStringInput | null;
-  and?: Array<ModelActionFilterInput | null> | null;
-  or?: Array<ModelActionFilterInput | null> | null;
-  not?: ModelActionFilterInput | null;
-};
-
 export type ModelTabletopCharacterFilterInput = {
   id?: ModelIDInput | null;
   tabletopID?: ModelIDInput | null;
@@ -417,10 +422,14 @@ export type ModelUserFilterInput = {
   not?: ModelUserFilterInput | null;
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC"
-}
+export type ModelIntKeyConditionInput = {
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+};
 
 export type DeleteGameRetrieveIDMutation = {
   
@@ -591,6 +600,20 @@ export type ListPlayerCharactersIdentificatorsQuery = {
   nextToken: string | null;
 };
 
+export type ListActionsByTimestampQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    tabletopID: string;
+    timestamp: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
 export type OnUpdateTabletopDataSubscription = {
   
   id: string;
@@ -631,7 +654,7 @@ export type CreateGameMutation = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -701,7 +724,7 @@ export type UpdateGameMutation = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -771,7 +794,7 @@ export type DeleteGameMutation = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -855,7 +878,7 @@ export type CreateTabletopMutation = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -910,7 +933,7 @@ export type UpdateTabletopMutation = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -965,7 +988,7 @@ export type DeleteTabletopMutation = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -978,7 +1001,7 @@ export type CreateActionMutation = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -988,7 +1011,7 @@ export type UpdateActionMutation = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -998,7 +1021,7 @@ export type DeleteActionMutation = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -1501,7 +1524,7 @@ export type GetGameQuery = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -1626,7 +1649,7 @@ export type GetTabletopQuery = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -1662,7 +1685,7 @@ export type ListTabletopsQuery = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -1677,7 +1700,7 @@ export type GetActionQuery = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -1689,7 +1712,7 @@ export type ListActionsQuery = {
     
     id: string;
     tabletopID: string;
-    createdAt: number | null;
+    timestamp: number | null;
     actionType: ActionType | null;
     player: string | null;
     payload: string | null;
@@ -1984,6 +2007,20 @@ export type ListUsersQuery = {
   nextToken: string | null;
 };
 
+export type GetActionsByDateQuery = {
+  
+  items: Array<{
+    
+    id: string;
+    tabletopID: string;
+    timestamp: number | null;
+    actionType: ActionType | null;
+    player: string | null;
+    payload: string | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
 export type OnCreateGameSubscription = {
   
   id: string;
@@ -2016,7 +2053,7 @@ export type OnCreateGameSubscription = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -2086,7 +2123,7 @@ export type OnUpdateGameSubscription = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -2156,7 +2193,7 @@ export type OnDeleteGameSubscription = {
         
         id: string;
         tabletopID: string;
-        createdAt: number | null;
+        timestamp: number | null;
         actionType: ActionType | null;
         player: string | null;
         payload: string | null;
@@ -2240,7 +2277,7 @@ export type OnCreateTabletopSubscription = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -2295,7 +2332,7 @@ export type OnUpdateTabletopSubscription = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -2350,7 +2387,7 @@ export type OnDeleteTabletopSubscription = {
       
       id: string;
       tabletopID: string;
-      createdAt: number | null;
+      timestamp: number | null;
       actionType: ActionType | null;
       player: string | null;
       payload: string | null;
@@ -2363,7 +2400,7 @@ export type OnCreateActionSubscription = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -2373,7 +2410,7 @@ export type OnUpdateActionSubscription = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -2383,7 +2420,7 @@ export type OnDeleteActionSubscription = {
   
   id: string;
   tabletopID: string;
-  createdAt: number | null;
+  timestamp: number | null;
   actionType: ActionType | null;
   player: string | null;
   payload: string | null;
@@ -2954,6 +2991,49 @@ export class APIService {
       response.data.listPlayerCharacters
     );
   }
+  async ListActionsByTimestamp(
+    tabletopID?: string,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelActionFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListActionsByTimestampQuery> {
+    const statement = `query ListActionsByTimestamp($tabletopID: ID, $sortDirection: ModelSortDirection, $filter: ModelActionFilterInput, $limit: Int, $nextToken: String) {
+        getActionsByDate(tabletopID: $tabletopID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          
+          items {
+            
+            id
+            tabletopID
+            timestamp
+            actionType
+            player
+            payload
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (tabletopID) {
+      gqlAPIServiceArguments.tabletopID = tabletopID;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListActionsByTimestampQuery>response.data.getActionsByDate;
+  }
   OnUpdateTabletopDataListener: Observable<
     OnUpdateTabletopDataSubscription
   > = API.graphql(
@@ -3007,7 +3087,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -3093,7 +3173,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -3179,7 +3259,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -3279,7 +3359,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -3350,7 +3430,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -3421,7 +3501,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -3450,7 +3530,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -3476,7 +3556,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -3502,7 +3582,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -4216,7 +4296,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -4372,7 +4452,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -4422,7 +4502,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -4454,7 +4534,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -4480,7 +4560,7 @@ export class APIService {
             
             id
             tabletopID
-            createdAt
+            timestamp
             actionType
             player
             payload
@@ -4922,6 +5002,53 @@ export class APIService {
     )) as any;
     return <ListUsersQuery>response.data.listUsers;
   }
+  async GetActionsByDate(
+    tabletopID?: string,
+    timestamp?: ModelIntKeyConditionInput,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelActionFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<GetActionsByDateQuery> {
+    const statement = `query GetActionsByDate($tabletopID: ID, $timestamp: ModelIntKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelActionFilterInput, $limit: Int, $nextToken: String) {
+        getActionsByDate(tabletopID: $tabletopID, timestamp: $timestamp, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          
+          items {
+            
+            id
+            tabletopID
+            timestamp
+            actionType
+            player
+            payload
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (tabletopID) {
+      gqlAPIServiceArguments.tabletopID = tabletopID;
+    }
+    if (timestamp) {
+      gqlAPIServiceArguments.timestamp = timestamp;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetActionsByDateQuery>response.data.getActionsByDate;
+  }
   OnCreateGameListener: Observable<OnCreateGameSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreateGame($owner: String!) {
@@ -4957,7 +5084,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -5033,7 +5160,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -5109,7 +5236,7 @@ export class APIService {
                 
                 id
                 tabletopID
-                createdAt
+                timestamp
                 actionType
                 player
                 payload
@@ -5201,7 +5328,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -5264,7 +5391,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -5327,7 +5454,7 @@ export class APIService {
               
               id
               tabletopID
-              createdAt
+              timestamp
               actionType
               player
               payload
@@ -5346,7 +5473,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -5362,7 +5489,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -5378,7 +5505,7 @@ export class APIService {
           
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload

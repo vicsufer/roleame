@@ -3,8 +3,9 @@ import { Tabletop } from './tabletop';
 import { Player } from './player';
 
 export class Action {
-    createdAt: number;
+    timestamp: number;
     actionType: ActionType;
     player: string;
     payload: string;
+    tabletopID: string;
 }

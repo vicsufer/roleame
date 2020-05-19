@@ -104,6 +104,7 @@
   "roleame-webapp.label.character":"Personaje",
   "roleame-webapp.label.dices":"Dados",
   "roleame-webapp.label.sides":"Caras",
+  "roleame-webapp.label.message":"Mensaje",
 
   "roleame-webapp.games.my_games":"Mis partidas",
   "roleame-webapp.games.new_game":"Nueva partida",
@@ -150,6 +151,7 @@
   "roleame-webapp.tabletop.short_health":"Vid",
   "roleame-webapp.tabletop.short_agility":"Agi",
   "roleame-webapp.tabletop.roll_dice":"Roléame!",
+  "roleame-webapp.tabletop.send":"Enviar",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",

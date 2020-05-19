@@ -26,7 +26,7 @@ query GetGame($id: ID!) {
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -139,7 +139,7 @@ query GetTabletop($id: ID!) {
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -174,7 +174,7 @@ query ListTabletops(
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -189,7 +189,7 @@ query GetAction($id: ID!) {
   getAction(id: $id) {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload
@@ -204,7 +204,7 @@ query ListActions(
     items {
       id
       tabletopID
-      createdAt
+      timestamp
       actionType
       player
       payload
@@ -491,6 +491,33 @@ query ListUsers(
         nextToken
       }
       owner
+    }
+    nextToken
+  }
+}
+query GetActionsByDate(
+  $tabletopID: ID
+  $timestamp: ModelIntKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelActionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getActionsByDate(
+    tabletopID: $tabletopID
+    timestamp: $timestamp
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      tabletopID
+      timestamp
+      actionType
+      player
+      payload
     }
     nextToken
   }

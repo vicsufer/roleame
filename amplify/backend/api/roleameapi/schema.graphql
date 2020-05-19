@@ -36,10 +36,12 @@ type Tabletop @model
 
 type Action @model
 @auth(rules: [{ allow: private }])
-@key(name: "byTabletop", fields: ["tabletopID", "id"]){
+@key(name: "byTabletop", fields: ["tabletopID", "id"])
+@key(name: "byDate", fields: ["tabletopID","timestamp"], queryField: "getActionsByDate")
+{
 	id: ID!
 	tabletopID: ID!
-	createdAt: AWSTimestamp
+	timestamp: AWSTimestamp
 	actionType: ActionType
 	player: String
 	payload: String

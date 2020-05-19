@@ -4,10 +4,17 @@
   </mat-card-header>
   <mat-card-content fxFlex="95%" fxLayout="column" fxLayoutGap="10px">
     <div fxFlex="80%">
-      <perfect-scrollbar>
-            Message history
+      <perfect-scrollbar suppressScrollX #chatScrollbar>
+        <div *ngFor="let action of actions"><span class="player-tag">{{action.player}}:</span> {{action.payload}} </div>
       </perfect-scrollbar>
     </div>
-    <div fxFlex="20%">New message</div>
+    <form fxFlex="10%" [formGroup]="chatForm" fxLayout="row" fxLayoutGap="5px" >
+      <mat-form-field class="tabletop-number-input" fxFlex="80%">
+          <mat-label>{{ 'roleame-webapp.label.message' | translate}}</mat-label>
+          <textarea #message formControlName="message" matInput></textarea>
+          <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+      </mat-form-field>
+      <button fxFlex="20%" type="submit" mat-stroked-button (click)="sendMessage()" mat-button>{{'roleame-webapp.tabletop.send' | translate}}</button>
+    </form>
   </mat-card-content>
 </mat-card>

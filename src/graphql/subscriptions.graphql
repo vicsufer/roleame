@@ -26,7 +26,7 @@ subscription OnCreateGame($owner: String!) {
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -87,7 +87,7 @@ subscription OnUpdateGame($owner: String!) {
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -148,7 +148,7 @@ subscription OnDeleteGame($owner: String!) {
         items {
           id
           tabletopID
-          createdAt
+          timestamp
           actionType
           player
           payload
@@ -222,7 +222,7 @@ subscription OnCreateTabletop {
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -271,7 +271,7 @@ subscription OnUpdateTabletop {
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -320,7 +320,7 @@ subscription OnDeleteTabletop($gameOwnerId: String!) {
       items {
         id
         tabletopID
-        createdAt
+        timestamp
         actionType
         player
         payload
@@ -333,7 +333,7 @@ subscription OnCreateAction {
   onCreateAction {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload
@@ -343,7 +343,7 @@ subscription OnUpdateAction {
   onUpdateAction {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload
@@ -353,7 +353,7 @@ subscription OnDeleteAction {
   onDeleteAction {
     id
     tabletopID
-    createdAt
+    timestamp
     actionType
     player
     payload

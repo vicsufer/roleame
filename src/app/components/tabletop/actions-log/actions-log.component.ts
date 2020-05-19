@@ -1,11 +1,13 @@
+import { ModelSortDirection } from './../../../core/services/API.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { APIService } from 'app/core/services/API.service';
+import { APIService, ActionType } from 'app/core/services/API.service';
 import { Tabletop } from 'app/types/tabletop';
 import { Action } from 'app/types/action';
+import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'roleame-webapp-tabletop-actions-log',
@@ -18,12 +20,16 @@ export class ActionsLogComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
+  @ViewChild('chatScrollbar', {static: true}) chatScrollbar?: PerfectScrollbarComponent;
+
   actions: Action[];
 
   @Input()
   tabletop: Tabletop;
 
   currentUsername: string;
+
+  chatForm: FormGroup
 
   playerCharacters: {name: string, id: string, uuid: string, hitPoints: number}[] = []
 
@@ -35,17 +41,49 @@ export class ActionsLogComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.diceRollForm = this.formBuilder.group({
-    //   dices: ['1', [Validators.required, Validators.min(1), Validators.max(20)]],
-    //   sides: ['20', [Validators.required, Validators.min(2), Validators.max(1000)]],
-    // });
+    this.chatForm = this.formBuilder.group({
+      message: ['', [Validators.required, Validators.max(200)]],
+    });
 
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
       this.currentUsername = user.username
     }).catch(err => console.log(err));
 
-    //TODO obtaion 100 last actions for this game
 
+    this.apiService.OnCreateActionListener.subscribe({
+      next: (newAction) => {
+        newAction = newAction.value.data.onCreateAction
+        if( newAction.tabletopID !== this.tabletop.id ) return;
+        this.actions.push(newAction)
+        //Little interval before scroll to let ngFor update
+        setInterval( () => {
+          this.chatScrollbar.directiveRef.scrollToBottom();
+        },60)},
+      error: error => console.error(error)
+    });
+
+    // Get last 100 actions for this tabletop
+    this.apiService.ListActionsByTimestamp(this.tabletop.id, ModelSortDirection.ASC, undefined, 100).then( retrievedActions => {
+      this.actions = retrievedActions.items
+      //Little interval before scroll to let ngFor update
+      setInterval( () => {
+        this.chatScrollbar.directiveRef.scrollToBottom();
+      },60)
+    }).catch(err => console.log(err));
+  }
+
+  sendMessage(){
+    var message = this.chatForm.get('message').value
+    var action: Action
+    action =  {
+      timestamp: new Date().getTime(),
+      actionType: ActionType.CHAT,
+      payload: message,
+      player: this.currentUsername,
+      tabletopID: this.tabletop.id
+    }
+    this.apiService.CreateAction(action).then( (res) => {console.log(res)}).catch(err => console.log(err));
+    this.chatForm.reset();
   }
 
 }

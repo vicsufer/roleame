@@ -154,3 +154,29 @@ query ListPlayerCharactersIdentificators(
     nextToken
   }
 }
+
+query ListActionsByTimestamp(
+  $tabletopID: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelActionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getActionsByDate(
+    tabletopID: $tabletopID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      tabletopID
+      timestamp
+      actionType
+      player
+      payload
+    }
+    nextToken
+  }
+}
