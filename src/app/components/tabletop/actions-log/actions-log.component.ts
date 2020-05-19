@@ -56,7 +56,7 @@ export class ActionsLogComponent implements OnInit {
         if( newAction.tabletopID !== this.tabletop.id ) return;
         this.actions.push(newAction)
         //Little interval before scroll to let ngFor update
-        setInterval( () => {
+        setTimeout( () => {
           this.chatScrollbar.directiveRef.scrollToBottom();
         },60)},
       error: error => console.error(error)
@@ -66,7 +66,7 @@ export class ActionsLogComponent implements OnInit {
     this.apiService.ListActionsByTimestamp(this.tabletop.id, ModelSortDirection.ASC, undefined, 100).then( retrievedActions => {
       this.actions = retrievedActions.items
       //Little interval before scroll to let ngFor update
-      setInterval( () => {
+      setTimeout( () => {
         this.chatScrollbar.directiveRef.scrollToBottom();
       },60)
     }).catch(err => console.log(err));
