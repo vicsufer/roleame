@@ -23,19 +23,7 @@
   
 
   <div gdArea="side">
-    <mat-card class="chat" fxLayout="column" fxLayoutGap="10px">
-      <mat-card-header fxFlex="5%">
-        <mat-card-title>Chat</mat-card-title>
-      </mat-card-header>
-      <mat-card-content fxFlex="95%" fxLayout="column" fxLayoutGap="10px">
-        <div fxFlex="80%">
-          <perfect-scrollbar>
-                Message history
-          </perfect-scrollbar>
-        </div>
-        <div fxFlex="20%">New message</div>
-      </mat-card-content>
-    </mat-card>
+    <roleame-webapp-tabletop-actions-log [tabletop]="tabletop"></roleame-webapp-tabletop-actions-log>
   </div>
 </div>
 

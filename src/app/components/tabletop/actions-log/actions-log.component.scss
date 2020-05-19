@@ -1,0 +1,13 @@
+@import '../../../../styles-variables';
+
+mat-card.chat {
+    height: 100%
+  }
+  
+mat-card.chat mat-card-content {
+height: 100%
+}
+
+mat-card.chat mat-card-content div {
+border: solid black 1px
+}

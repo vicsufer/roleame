@@ -7,9 +7,10 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
 
 import { TabletopRoutingModule} from './tabletop-routing.module';
 import { TabletopPageComponent } from './page/tabletop-page.component';
+import { ActionsLogComponent } from './actions-log/actions-log.component';
 
 @NgModule({
-  declarations: [TabletopPageComponent, TileComponent, TabletopToolbarComponent],
+  declarations: [TabletopPageComponent, TileComponent, TabletopToolbarComponent, ActionsLogComponent],
   imports: [CommonModule, SharedComponentsModule, TabletopRoutingModule],
   entryComponents: []
 })
