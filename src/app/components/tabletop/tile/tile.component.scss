@@ -61,7 +61,15 @@
   white-space: nowrap;
 }
 
+.tile .token.selected-token{
+  background-color: rgb(255, 197, 34)
+}
+
+.nostyle:hover {
+  background-color: rgba(255, 197, 34, .5)
+}
+
+
 ::ng-deep .token .mat-button-wrapper{
-  color: white;
   padding: 0%;
 }

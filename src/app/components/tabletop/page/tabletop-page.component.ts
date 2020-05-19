@@ -1,3 +1,4 @@
+import { Token } from './../../../types/token';
 import { PlayerCharacter } from 'app/types/playerCharacter';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Player } from '../../../types/player';
@@ -30,10 +31,10 @@ export class TabletopPageComponent implements OnInit {
   currentCharacter: TabletopCharacter;
 
   firstEmptyTile: number;
-  firstSelectedTile: {position: number , token: TabletopCharacter} = undefined;
-  secondSelectedTile: {position: number , token: TabletopCharacter} | any = undefined;
+  firstSelectedTile: {position: number , token: Token} = undefined;
+  secondSelectedTile: {position: number , token: Token} | any = undefined;
 
-  tiles = [];
+  tiles: {character: TabletopCharacter, isSelected: boolean}[] = [];
 
   playerCharacters: {name: string, id: string, uuid: string, hitPoints: number}[] = []
 
@@ -149,7 +150,7 @@ export class TabletopPageComponent implements OnInit {
     // Empty old tile
     for (var i = 0; i < this.tiles.length; i++) {
       if(this.tiles[i]){
-        if(this.tiles[i].id == character.id){
+        if(this.tiles[i].character.id == character.id){
          this.tiles[i] = undefined
          break;
         }
@@ -158,7 +159,8 @@ export class TabletopPageComponent implements OnInit {
     // Transform to one-dimension
     var pos = y+this.tabletop.width*x
     // Set new position
-    this.tiles[pos] = character
+    console.log(character)
+    this.tiles[pos] = {character: character, isSelected: false}
   }
 
 
@@ -170,17 +172,19 @@ export class TabletopPageComponent implements OnInit {
     return {x,y}
   }
 
-  selectTile(data: {position: number , token: TabletopCharacter}) {
+  selectTile(data: {position: number , token: Token}) {
     if(!this.firstSelectedTile && data.token){
       this.firstSelectedTile = data
+      this.firstSelectedTile.token.isSelected = true
     } else if (this.firstSelectedTile && !data.token){
       // Movement action
       var token = this.firstSelectedTile.token
       var newCoordinates = this.getCoordinates(data.position)
-      this.apiService.UpdateTabletopCharacter({id: token.id, location: newCoordinates}).then(()=>{}).catch((e)=>console.log(e))
+      this.apiService.UpdateTabletopCharacter({id: token.character.id, location: newCoordinates}).then(()=>{}).catch((e)=>console.log(e))
+      this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
     }
-    else if (this.firstSelectedTile && data.token && this.firstSelectedTile.token.id == data.token.id) {
+    else if (this.firstSelectedTile && data.token && this.firstSelectedTile.token.character.id == data.token.character.id) {
       //TODO Interaction with itself
       this.secondSelectedTile = data
       this.firstSelectedTile = undefined

@@ -43,11 +43,11 @@
   "roleame-webapp.menu.profile": "Profile",
 
   "roleame-webapp.home.play-anywhere": "Play anywhere!",
-  "roleame-webapp.home.play-anywhere.text": "Inmerse yourself in incredible adventures from wherever you are",
+  "roleame-webapp.home.play-anywhere.text": "Immerse yourself in incredible adventures from wherever you are",
   "roleame-webapp.home.party-up": "Party up!",
   "roleame-webapp.home.party-up.text": "Join your usual group or get to know new people",
   "roleame-webapp.home.create-character": "Create your characters",
-  "roleame-webapp.home.create-character.text": "Let us guide you within the character creation procces",
+  "roleame-webapp.home.create-character.text": "Let us guide you throught the character creation procces",
 
   "roleame-webapp.auth.signup.header": "Create account",
   "roleame-webapp.auth.password_confirm": "Confirm password",
@@ -103,8 +103,8 @@
   "roleame-webapp.label.rows":"Rows",
   "roleame-webapp.label.columns":"Columns",
   "roleame-webapp.label.character":"Character",
-  "roleame-webapp.label.dices":"Dados",
-  "roleame-webapp.label.sides":"Caras",
+  "roleame-webapp.label.dices":"Dices",
+  "roleame-webapp.label.sides":"Sides",
 
   "roleame-webapp.games.my_games":"My games",
   "roleame-webapp.games.new_game":"New game",
@@ -150,7 +150,7 @@
   "roleame-webapp.tabletop.short_strength":"Str",
   "roleame-webapp.tabletop.short_health":"Hea",
   "roleame-webapp.tabletop.short_agility":"Agi",
-  "roleame-webapp.tabletop.roll_dice":"Roll dice",
+  "roleame-webapp.tabletop.roll_dice":"Roll me!",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",
@@ -173,7 +173,7 @@
   "roleame-webapp.settings.themes.title": "Themes",
   "roleame-webapp.settings.title": "Settings",
   "roleame-webapp.title.long": "Roll me",
-  "roleame-webapp.title.short": "Roll me"
+  "roleame-webapp.title.short": "Roll eme"
 
   
 }

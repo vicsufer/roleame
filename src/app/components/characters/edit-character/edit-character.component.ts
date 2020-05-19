@@ -21,13 +21,19 @@ export class EditCharacterComponent implements OnInit {
   _character: Character
   imageEdited = false;
 
+  maxAttrValue = 20
+  editCharacterForm: FormGroup
+  characterAbilities: FormArray
+
   @Output() applyChanges: EventEmitter<Character> = new EventEmitter<Character>();
   @Output() changeImage: EventEmitter<{portrait:string, imageFile: File}> = new EventEmitter<{portrait:string, imageFile: File}>();
 
   @Input()
   set character(character: Character){
+
     this._character = character
     if(character){
+      this.initForm();
       this.editCharacterForm.patchValue(character)
       this.character.abilities.forEach( (ability) => {
         var abilityForm = this.createAbility()
@@ -42,16 +48,16 @@ export class EditCharacterComponent implements OnInit {
     return this._character
   }
 
-  maxAttrValue = 20
-  editCharacterForm: FormGroup
-  characterAbilities: FormArray
-
   constructor(private apiService: APIService, private formBuilder: FormBuilder, public changePortraitDialog: MatDialog,) {
 
   }
 
   ngOnInit() {
+    this.initForm();
     
+  }
+
+  initForm() {
     this.editCharacterForm = this.formBuilder.group({
       name: ['', Validators.required],
       class: [],
@@ -66,7 +72,6 @@ export class EditCharacterComponent implements OnInit {
       portrait: [''],
     })
     this.characterAbilities = this.editCharacterForm.get('abilities') as FormArray;
-    
   }
 
   addAbility(): void {

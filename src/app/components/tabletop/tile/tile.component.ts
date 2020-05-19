@@ -1,3 +1,4 @@
+import { Token } from './../../../types/token';
 import { TabletopCharacter } from 'app/types/tabletopCharacter';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Player } from '../../../types/player';
@@ -22,13 +23,13 @@ export class TileComponent implements OnInit {
   @ViewChildren('tile') tileElement: any;
 
   @Input()
-  _token: TabletopCharacter
+  _token: Token
 
   @Input()
   position: number
 
   @Output()
-  tileSelect: EventEmitter<{position: number , token: TabletopCharacter}> = new EventEmitter<{position: number , token: TabletopCharacter}>()
+  tileSelect: EventEmitter<{position: number , token: Token}> = new EventEmitter<{position: number , token: Token}>()
 
   nearTop: boolean
   nearLeft: boolean
@@ -37,7 +38,7 @@ export class TileComponent implements OnInit {
 
 
   @Input()
-  set token(token: TabletopCharacter){
+  set token(token: Token){
     this._token = token
     if(token && this.tileElement){
       this.calculateBounds()
