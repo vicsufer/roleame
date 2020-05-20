@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { InvitationsComponent } from './../invitations/invitations.component';
 import { GamesComponent } from './../games/games.component';
 import { NewGameComponent } from './../new-game/new-game.component';
@@ -17,7 +18,7 @@ describe('gamesPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedComponentsModule, NoopAnimationsModule, TranslateModule.forRoot()],
-      declarations: [GamesPageComponent, EditGameComponent, NewGameComponent, GamesComponent, InvitationsComponent]
+      declarations: [GamesPageComponent, EditGameComponent, NewGameComponent, GamesComponent, InvitationsComponent, Router]
     }).compileComponents();
   }));
 
