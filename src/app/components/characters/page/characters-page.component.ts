@@ -68,6 +68,7 @@ export class CharactersPageComponent implements OnInit {
             this.notificationService.success(value);
           });
     }).catch( e => {
+      console.log(e)
       this.translateService
           .get('roleame-webapp.characters.delete.error')
           .subscribe(value => {

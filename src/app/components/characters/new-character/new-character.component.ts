@@ -106,7 +106,7 @@ export class NewCharacterComponent implements OnInit {
   createCharacter() {
     var character: PlayerCharacter
 
-    var portrait = '';
+    var portrait = `assets/img/noprofile.png`;
     var imageType = this.imageForm.get('type').value;
     var imageToUpload = undefined
     var char_uuid = uuid.v4()
@@ -118,10 +118,6 @@ export class NewCharacterComponent implements OnInit {
         imageToUpload = this.imageToUpload
         portrait = `portraits/${char_uuid}`
         break;
-      case 'none':
-        portrait = `assets/img/noprofile.png`
-        break;
-
       default:
         break;
     }
