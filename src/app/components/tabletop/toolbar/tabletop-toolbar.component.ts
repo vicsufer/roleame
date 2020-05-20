@@ -5,8 +5,9 @@ import { AmplifyService } from 'aws-amplify-angular';
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { APIService } from 'app/core/services/API.service';
+import { APIService, ActionType } from 'app/core/services/API.service';
 import { Tabletop } from 'app/types/tabletop';
+import { Action } from 'app/types/action';
 import { TabletopCharacter } from 'app/types/tabletopCharacter';
 
 @Component({
@@ -45,7 +46,7 @@ export class TabletopToolbarComponent implements OnInit {
 
     this.diceRollForm = this.formBuilder.group({
       dices: ['1', [Validators.required, Validators.min(1), Validators.max(20)]],
-      sides: ['20', [Validators.required, Validators.min(2), Validators.max(1000)]],
+      sides: ['20', [Validators.required, Validators.min(2), Validators.max(20)]],
     });
 
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
@@ -108,7 +109,20 @@ export class TabletopToolbarComponent implements OnInit {
     var dices = this.diceRollForm.get('dices').value;
 
     var result = DiceRoller.composedRoll(sides, dices)
-    console.log(result)
+    this.notifyRoll(result.total, result.rolls)
+  }
+
+
+  notifyRoll(total: number, rolls: number[]) {
+    var action : Action;
+    action = {
+      timestamp: new Date().getTime(),
+      actionType: ActionType.DICEROLL,
+      player: this.currentUsername,
+      payload: `{ "total": ${total}, "rolls":[${rolls}]}`,
+      tabletopID: this.tabletop.id,
+    }
+    this.apiService.CreateAction( action )
   }
 
 }

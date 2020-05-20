@@ -23,7 +23,7 @@
         d
         <mat-form-field class="tabletop-number-input">
             <mat-label>{{ 'roleame-webapp.label.sides' | translate}}</mat-label>
-            <input min="2" max="1000" formControlName="sides" matInput type="number">
+            <input min="2" max="20" formControlName="sides" matInput type="number">
         </mat-form-field>
         <button class="ml-4" type="submit" mat-raised-button (click)="rollDice()" mat-button>{{'roleame-webapp.tabletop.roll_dice' | translate}}</button>
       </form>

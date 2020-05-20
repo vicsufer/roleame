@@ -28,7 +28,6 @@ export class EditGameComponent implements OnInit {
   @Input()
   set game(game: Game){
     this._game = game
-    console.log(game)
     if(game){
       this.editGameForm.patchValue(game)
       Object.assign(this.updatedGame, game)

@@ -39,7 +39,6 @@ export class CharactersPageComponent implements OnInit {
           if( char.portrait.startsWith('portraits/') ){
             this.amplifyService.storage().get(char.portrait, { level: 'public' })
               .then ( (url) => { 
-                console.log(url)
                 char.portraitURL = url
               })
               .catch( (err) => { 
@@ -122,7 +121,6 @@ export class CharactersPageComponent implements OnInit {
 
   changeImage(data: {portrait:string, imageFile: File}){
     this.selectedEditableCharacter.portrait = data.portrait
-    console.log(data)
 
     if(data.imageFile){
       this.amplifyService.storage().put(data.portrait, data.imageFile, {

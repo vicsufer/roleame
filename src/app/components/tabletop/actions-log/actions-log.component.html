@@ -5,7 +5,13 @@
   <mat-card-content fxFlex="95%" fxLayout="column" fxLayoutGap="10px">
     <div fxFlex="80%">
       <perfect-scrollbar suppressScrollX #chatScrollbar>
-        <div *ngFor="let action of actions"><span class="player-tag">{{action.player}}:</span> {{action.payload}} </div>
+        <div *ngFor="let action of actions">
+          <div *ngIf="action.actionType=='CHAT'"><span class="player-tag">{{action.player}}:</span>{{action.payload}} </div>
+          <div *ngIf="action.actionType=='DICEROLL'" fxFlexLayout="column" fxLayoutAlign="center start">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center"><mat-icon >casino</mat-icon><span class="player-tag">{{action.player}} {{'roleame-webapp.tabletop.rolled' | translate}}</span></div>
+            <span fxFlex="100%">{{ action.payload }}</span>
+          </div>
+        </div>
       </perfect-scrollbar>
     </div>
     <form fxFlex="10%" [formGroup]="chatForm" fxLayout="row" fxLayoutGap="5px" >

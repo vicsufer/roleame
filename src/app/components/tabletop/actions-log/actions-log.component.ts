@@ -1,10 +1,10 @@
-import { ModelSortDirection } from './../../../core/services/API.service';
+import { DiceRoller } from './../../../types/diceroller';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { APIService, ActionType } from 'app/core/services/API.service';
+import { APIService, ActionType, ModelSortDirection } from 'app/core/services/API.service';
 import { Tabletop } from 'app/types/tabletop';
 import { Action } from 'app/types/action';
 import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
@@ -22,7 +22,7 @@ export class ActionsLogComponent implements OnInit {
 
   @ViewChild('chatScrollbar', {static: true}) chatScrollbar?: PerfectScrollbarComponent;
 
-  actions: Action[];
+  actions: Action[] = [];
 
   @Input()
   tabletop: Tabletop;
@@ -54,6 +54,7 @@ export class ActionsLogComponent implements OnInit {
       next: (newAction) => {
         newAction = newAction.value.data.onCreateAction
         if( newAction.tabletopID !== this.tabletop.id ) return;
+        newAction = this.processReceivedAction(newAction)
         this.actions.push(newAction)
         //Little interval before scroll to let ngFor update
         setTimeout( () => {
@@ -64,8 +65,10 @@ export class ActionsLogComponent implements OnInit {
 
     // Get last 100 actions for this tabletop
     this.apiService.ListActionsByTimestamp(this.tabletop.id, ModelSortDirection.ASC, undefined, 100).then( retrievedActions => {
-      this.actions = retrievedActions.items
-      //Little interval before scroll to let ngFor update
+      this.actions = retrievedActions.items.map( (action) => {
+        var aux = this.processReceivedAction(action)
+        return aux;
+      });
       setTimeout( () => {
         this.chatScrollbar.directiveRef.scrollToBottom();
       },60)
@@ -84,6 +87,14 @@ export class ActionsLogComponent implements OnInit {
     }
     this.apiService.CreateAction(action).then( (res) => {console.log(res)}).catch(err => console.log(err));
     this.chatForm.reset();
+  }
+
+  processReceivedAction(action: Action): Action{
+    if( action.actionType == ActionType.DICEROLL ){
+      var extract = JSON.parse(action.payload);
+      action.payload = extract.rolls.length==1? extract.total : `${extract.rolls.join(' + ')} = ${extract.total}`
+    }
+    return action
   }
 
 }

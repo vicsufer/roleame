@@ -236,7 +236,6 @@ export class GamesPageComponent implements OnInit {
 
 
   startGame(game: Game){
-    console.log(game)
     this.router.navigate(['tabletop'],{queryParams:{ tabletopID: game.tabletop.id }})
   }
 }

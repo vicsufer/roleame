@@ -153,6 +153,7 @@
   "roleame-webapp.tabletop.short_agility":"Agi",
   "roleame-webapp.tabletop.roll_dice":"Roll me!",
   "roleame-webapp.tabletop.send":"Send",
+  "roleame-webapp.tabletop.rolled":"rolled",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",

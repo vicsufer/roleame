@@ -10,7 +10,7 @@ export class DiceRoller {
     static composedRoll( sides: number, repeat: number): {total: number, rolls: number[]} {
         var total = 0;
         var rolls = [];
-        for(var i=0; i<=repeat; i++){
+        for(var i=0; i<repeat; i++){
             var roll = this.simpleRoll(sides)
             total += roll
             rolls.push(roll)

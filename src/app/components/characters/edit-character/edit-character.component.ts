@@ -112,7 +112,6 @@ export class EditCharacterComponent implements OnInit {
       data: {
         imageForm: imageForm
     }});
-    console.log(dialogRef)
 
     dialogRef.afterClosed().subscribe(result => {
       //TODO Result character.portrati != imageForm.controls.value && not button cancelled => imageEdit=true
