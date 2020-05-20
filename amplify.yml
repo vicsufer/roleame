@@ -1,12 +1,35 @@
 version: 0.1
 
+backend:
+  phases:
+    build:
+      commands:
+        - amplifyPush --simple -e $env
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+  build:
+      commands:
+        - npm run build:prod
+  artifacts:
+    baseDirectory: dist/
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+
+
 test:
   phases:
     preTest:
       commands:
         - npm ci
-        - npm install mocha@5.2.0 mochawesome mochawesome-merge mochawesome-report-generator
-        - 'npm run-script mock'
+        - npm nstall wait-on
+        - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
+        - "npm start & npx wait-on http://127.0.0.1:4200"
     test:
       commands:
         - 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
@@ -19,27 +42,3 @@ test:
     files:
       - '**/*.png'
       - '**/*.mp4'
-
-backend:
-  phases:
-    build:
-      commands:
-        - amplifyPush --simple -e $env
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-        - yum install ./google-chrome-stable_current_*.rpm -y
-        - export CHROME_BIN=/usr/bin/google-chrome
-        - npm ci
-  build:
-      commands:
-        - npm run build:prod
-  artifacts:
-    baseDirectory: dist/
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
