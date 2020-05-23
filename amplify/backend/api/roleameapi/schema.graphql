@@ -48,7 +48,10 @@ type Action @model
 }
 
 enum ActionType {
-	INTERACT
+	CHALLENGE
+	HEAL
+	ATTACK
+	ATTRIBUTEROLL
 	CHAT
 	DICEROLL
 }

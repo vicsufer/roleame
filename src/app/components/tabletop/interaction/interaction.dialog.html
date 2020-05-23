@@ -1,57 +1,29 @@
-<!-- <div class="tile" #tile>
 
-  <div *ngIf="!token" class="tile" (click)="tileSelected()">
-    <button class="nostyle"></button>
+<h1 mat-dialog-title>{{'roleame-webapp.tabletop.interact' | translate }}</h1>
+
+<div mat-dialog-content *ngIf="firstCharacter.id != secondCharacter.id" fxLayout="row" fxLayoutAlign="center center">
+  <div *ngIf="!showChallengePanel" fxLayout="column" fxLayoutGap="10px">
+    <button mat-stroked-button (click)="attack()">{{'roleame-webapp.tabletop.attack' | translate}}</button>
+    <button mat-stroked-button (click)="heal()">{{'roleame-webapp.tabletop.heal' | translate}}</button>
+    <button mat-stroked-button (click)="toggleChallengePanel()">{{'roleame-webapp.tabletop.challenge' | translate}}</button>
   </div>
 
-  <div *ngIf="token" class="tile" (click)="tileSelected()" matBadge="{{ token.character.currentHealth }}" matBadgeSize="large">
-    <button [class.selected-token]="token.isSelected" class="token" mat-fab color="warn">{{token.character.character.name | slice:0:1 }}</button>
+  <div *ngIf="showChallengePanel" gdAreas="tools side | content side" gdGap="0px 10px" gdColumns="80% 20%">
+    CHALLENGE!!!
   </div>
 
-  <mat-card class="character-details" [class.nearBottom]="nearBottom" [class.nearTop]="nearTop">
-    <mat-card-header>
-      <mat-card-title>{{token.character.character.name}}</mat-card-title>
-      <mat-card-subtitle>{{token.character.character.owner}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content gdAreas="health white | agility fellowship | wisdom strength" gdGap="0px 10px" gdColumns="50% 50%" gdRows="33% 33% 33%">
-      <div gdArea="health">
-        {{ 'roleame-webapp.tabletop.short_health'| translate}}: {{ token.character.currentHealth }}/{{ token.character.character.hitPoints }}
-      </div>
-      <div gdArea="agility">
-        {{ 'roleame-webapp.tabletop.short_agility'| translate}}: {{ token.character.character.agility }}
-      </div>
-      <div gdArea="fellowship">
-        {{ 'roleame-webapp.tabletop.short_fellowship'| translate}}: {{ token.character.character.fellowship }}
-      </div>
-      <div gdArea="wisdom">
-        {{ 'roleame-webapp.tabletop.short_wisdom'| translate}}: {{ token.character.character.wisdom }}
-      </div>
-      <div gdArea="strength">
-        {{ 'roleame-webapp.tabletop.short_strength'| translate}}: {{ token.character.character.strength }}
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  
-</div> -->
-<h1 mat-dialog-title>{{'roleame-webapp.characters.edit.portrait' | translate }}</h1>
-
-<div mat-dialog-content *ngIf="firstCharacter.id != secondCharacter.id">
-  <mat-selection-list #action>
-    <mat-list-option>Attack</mat-list-option>
-    <mat-list-option>Challenge</mat-list-option>
-  </mat-selection-list>
-  <p>
-    Option selected: {{action.selectedOptions.selected}}
-  </p>
 </div>
 
 <div mat-dialog-content *ngIf="firstCharacter.id == secondCharacter.id">
-  <mat-selection-list #action>
-    <mat-list-option>Heal</mat-list-option>
-    <mat-list-option>Roll attribute</mat-list-option>
-  </mat-selection-list>
-  <p>
-    Option selected: {{action.selectedOptions.selected}}
-  </p>
+  <div *ngIf="!showRollAttributePanel" fxLayout="column" fxLayoutGap="10px">
+    <button mat-stroked-button (click)="heal()">{{'roleame-webapp.tabletop.heal' | translate}}</button>
+    <button mat-stroked-button (click)="toggleRollAttributePanel()">{{'roleame-webapp.tabletop.rollattribute' | translate}}</button>
+  </div>
+
+  <div *ngIf="showRollAttributePanel" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <button mat-stroked-button (click)="rollAttribute('agility', firstCharacter.character.agility)">{{'roleame-webapp.label.agility' | translate}}</button>
+    <button mat-stroked-button (click)="rollAttribute('fellowship', firstCharacter.character.fellowship)">{{'roleame-webapp.label.fellowship' | translate}}</button>
+    <button mat-stroked-button (click)="rollAttribute('wisdom', firstCharacter.character.wisdom)">{{'roleame-webapp.label.wisdom' | translate}}</button>
+    <button mat-stroked-button (click)="rollAttribute('strength', firstCharacter.character.strength)">{{'roleame-webapp.label.strength' | translate}}</button>
+  </div>
 </div>

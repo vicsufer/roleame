@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { DiceRoller } from './../../../types/diceroller';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
@@ -35,7 +36,8 @@ export class ActionsLogComponent implements OnInit {
 
   constructor(private apiService: APIService,
     private amplifyService: AmplifyService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private translateService: TranslateService) {
       
   }
 
@@ -92,7 +94,20 @@ export class ActionsLogComponent implements OnInit {
   processReceivedAction(action: Action): Action{
     if( action.actionType == ActionType.DICEROLL ){
       var extract = JSON.parse(action.payload);
-      action.payload = extract.rolls.length==1? extract.total : `${extract.rolls.join(' + ')} = ${extract.total}`
+      action.processedPayload = {
+        rolls: extract.rolls,
+        total: extract.total
+      }
+    }
+    
+    else if( action.actionType == ActionType.ATTRIBUTEROLL ){
+      var extract = JSON.parse(action.payload);
+      action.processedPayload =  {
+        attribute: extract.attribute, //this.translateService.instant(`roleame-webapp.label.${extract.attribute}`),
+        bonifier: extract.bonifier,
+        rolled: extract.rolled,
+        total: extract.total
+      }
     }
     return action
   }

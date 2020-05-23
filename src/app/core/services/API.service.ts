@@ -159,7 +159,10 @@ export type ModelActionTypeInput = {
 };
 
 export enum ActionType {
-  INTERACT = "INTERACT",
+  CHALLENGE = "CHALLENGE",
+  HEAL = "HEAL",
+  ATTACK = "ATTACK",
+  ATTRIBUTEROLL = "ATTRIBUTEROLL",
   CHAT = "CHAT",
   DICEROLL = "DICEROLL"
 }

@@ -7,10 +7,29 @@
       <perfect-scrollbar suppressScrollX #chatScrollbar>
         <div *ngFor="let action of actions">
           <div *ngIf="action.actionType=='CHAT'"><span class="player-tag">{{action.player}}:</span>{{action.payload}} </div>
-          <div *ngIf="action.actionType=='DICEROLL'" fxFlexLayout="column" fxLayoutAlign="center center">
-            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center"><mat-icon >casino</mat-icon><span class="player-tag">{{action.player}} {{'roleame-webapp.tabletop.rolled' | translate}}</span></div>
-            <span fxFlex="100%">{{ action.payload }}</span>
+
+          <div *ngIf="action.actionType=='DICEROLL'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag">{{action.player}}</span> {{'roleame-webapp.tabletop.rolled' | translate}}</span>
+            </div>
+            <div fxFlex="100%">
+              <span>{{ action.processedPayload.rolls.join(' + ') }}</span>
+              <span *ngIf="action.processedPayload.rolls.length > 1">= <span class="roll-total">{{ action.processedPayload.total }}</span></span>
+            </div>
+            
           </div>
+
+          <div *ngIf="action.actionType=='ATTRIBUTEROLL'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.player}}</span> {{'roleame-webapp.tabletop.rolled' | translate}} <span class="player-tag">{{ ('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}</span></span>
+            </div>
+            <div fxFlex="100%">
+              <span>{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF= <span class="roll-total">{{ action.processedPayload.total }}</span></span>
+            </div>
+            
+          </div>
+
+
         </div>
       </perfect-scrollbar>
     </div>

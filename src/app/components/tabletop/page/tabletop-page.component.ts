@@ -161,6 +161,10 @@ export class TabletopPageComponent implements OnInit {
 
   selectTile(data: {position: number , token: Token}) {
     if(!this.firstSelectedTile && data.token){
+      //Do not allow character owner or game owner to use a character.
+      if( data.token.character.playerID != this.currentUsername && this.tabletop.gameOwnerID != this.currentUsername ) {
+        return;
+      }
       this.firstSelectedTile = data
       this.firstSelectedTile.token.isSelected = true
     } else if (this.firstSelectedTile && !data.token){
@@ -171,16 +175,7 @@ export class TabletopPageComponent implements OnInit {
       this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
     }
-    else if (this.firstSelectedTile && data.token && this.firstSelectedTile.token.character.id == data.token.character.id) {
-      //TODO Interaction with itself
-      this.secondSelectedTile = data
-      this.firstSelectedTile.token.isSelected = false
-      this.firstSelectedTile = undefined
-      
-      this.secondSelectedTile = undefined
-    } 
     else if (this.firstSelectedTile && data.token) {
-      //TODO Interaction with other character
       this.secondSelectedTile = data
       this.firstSelectedTile.token.isSelected = false
       this.showInteractionDialog(this.firstSelectedTile.token.character, data.token.character)
