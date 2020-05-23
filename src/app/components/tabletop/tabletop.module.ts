@@ -1,3 +1,4 @@
+import { InteractionDialog } from './interaction/interaction.dialog';
 import { TabletopToolbarComponent } from './toolbar/tabletop-toolbar.component';
 import { TileComponent } from './tile/tile.component';
 import { NgModule } from '@angular/core';
@@ -10,8 +11,8 @@ import { TabletopPageComponent } from './page/tabletop-page.component';
 import { ActionsLogComponent } from './actions-log/actions-log.component';
 
 @NgModule({
-  declarations: [TabletopPageComponent, TileComponent, TabletopToolbarComponent, ActionsLogComponent],
+  declarations: [TabletopPageComponent, TileComponent, TabletopToolbarComponent, ActionsLogComponent, InteractionDialog],
   imports: [CommonModule, SharedComponentsModule, TabletopRoutingModule],
-  entryComponents: []
+  entryComponents: [InteractionDialog]
 })
 export class TabletopModule {}

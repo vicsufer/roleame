@@ -154,8 +154,7 @@ import { APIService } from 'app/core/core.module';
     FormsModule,
     ReactiveFormsModule,
     PerfectScrollbarModule,
-    
-
+  
     TranslateModule,
     MatButtonModule,
     MatMenuModule,

@@ -1,17 +1,14 @@
-import { Token } from './../../../types/token';
-import { PlayerCharacter } from 'app/types/playerCharacter';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Player } from '../../../types/player';
-import { AmplifyService } from 'aws-amplify-angular';
-import { NotificationService } from '../../../core/notifications/notification.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { APIService, GetTabletopDataQuery } from 'app/core/services/API.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { APIService } from 'app/core/services/API.service';
 import { Tabletop } from 'app/types/tabletop';
-import { Observable, of, range } from 'rxjs';
 import { TabletopCharacter } from 'app/types/tabletopCharacter';
+import { AmplifyService } from 'aws-amplify-angular';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+import { Token } from './../../../types/token';
+import { InteractionDialog } from './../interaction/interaction.dialog';
+
 
 @Component({
   selector: 'roleame-webapp-tabletop-page',
@@ -40,7 +37,8 @@ export class TabletopPageComponent implements OnInit {
 
   constructor(private apiService: APIService,
     private amplifyService: AmplifyService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private interactionDialog: MatDialog) {
 
       this.amplifyService.auth().currentAuthenticatedUser().then(user => {
         this.currentUsername = user.username
@@ -185,6 +183,7 @@ export class TabletopPageComponent implements OnInit {
       //TODO Interaction with other character
       this.secondSelectedTile = data
       this.firstSelectedTile.token.isSelected = false
+      this.showInteractionDialog(this.firstSelectedTile.token.character, data.token.character)
       this.firstSelectedTile = undefined
       this.secondSelectedTile = undefined
     } 
@@ -192,5 +191,16 @@ export class TabletopPageComponent implements OnInit {
 
   updateFirstEmptyTile(){
     this.firstEmptyTile = this.tiles.findIndex(Object.is.bind(null, undefined))
+  }
+
+  showInteractionDialog(firstCharacter: TabletopCharacter, secondCharacter: TabletopCharacter,  ): void {
+    const dialogRef = this.interactionDialog.open(InteractionDialog, {
+      width: '50%',
+      height: '50%',
+      data: {
+        firstCharacter,
+        secondCharacter
+      }
+    });
   }
 }
