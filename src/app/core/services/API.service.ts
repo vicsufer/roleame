@@ -645,6 +645,16 @@ export type RollChallengeActionMutation = {
   payload: string | null;
 };
 
+export type RollHealActionMutation = {
+  __typename: "Action";
+  id: string;
+  tabletopID: string;
+  timestamp: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
 export type CreateGameMutation = {
   __typename: "Game";
   id: string;
@@ -3117,10 +3127,11 @@ export class APIService {
     character: string,
     bonifier2: number,
     character2: string,
+    player: string,
     tabletopID: string
   ): Promise<RollChallengeActionMutation> {
-    const statement = `mutation RollChallengeAction($attribute: String!, $bonifier: Int!, $character: String!, $bonifier2: Int!, $character2: String!, $tabletopID: ID!) {
-        rollChallengeAction(attribute: $attribute, bonifier: $bonifier, character: $character, bonifier2: $bonifier2, character2: $character2, tabletopID: $tabletopID) {
+    const statement = `mutation RollChallengeAction($attribute: String!, $bonifier: Int!, $character: String!, $bonifier2: Int!, $character2: String!, $player: String!, $tabletopID: ID!) {
+        rollChallengeAction(attribute: $attribute, bonifier: $bonifier, character: $character, bonifier2: $bonifier2, character2: $character2, player: $player, tabletopID: $tabletopID) {
           __typename
           id
           tabletopID
@@ -3136,12 +3147,49 @@ export class APIService {
       character,
       bonifier2,
       character2,
+      player,
       tabletopID
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <RollChallengeActionMutation>response.data.rollChallengeAction;
+  }
+  async RollHealAction(
+    healer: string,
+    healerWisdom: number,
+    targetID: string,
+    targetName: string,
+    maxHealth: number,
+    currentHealth: number,
+    player: string,
+    tabletopID: string
+  ): Promise<RollHealActionMutation> {
+    const statement = `mutation RollHealAction($healer: String!, $healerWisdom: Int!, $targetID: String!, $targetName: String!, $maxHealth: Int!, $currentHealth: Int!, $player: String!, $tabletopID: ID!) {
+        rollHealAction(healer: $healer, healerWisdom: $healerWisdom, targetID: $targetID, targetName: $targetName, maxHealth: $maxHealth, currentHealth: $currentHealth, player: $player, tabletopID: $tabletopID) {
+          __typename
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      healer,
+      healerWisdom,
+      targetID,
+      targetName,
+      maxHealth,
+      currentHealth,
+      player,
+      tabletopID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <RollHealActionMutation>response.data.rollHealAction;
   }
   async CreateGame(
     input: CreateGameInput,

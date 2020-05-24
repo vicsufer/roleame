@@ -7,7 +7,7 @@ export class Action {
     actionType: ActionType;
     player: string;
     payload: string;
-    processedPayload?: DiceRollPayload | AttributeRollPaylod | ChallengePayload | AttackPayload | HealPayload;
+    processedPayload?: DiceRollPayload | AttributeRollPaylod | ChallengePayload | AttackPayload | HealActionPayload;
     tabletopID: string;
 }
 
@@ -17,19 +17,22 @@ export class DiceRollPayload {
     total: number;
 }
 
-export class AttributeRollPaylod {
+export class AttributeRollPaylod { 
     attribute: string;
     bonifier: number;
     rolled: number;
     total: number;
 }
 
-export class HealPayload {
-    source: string;
-    target: string
-    bonifier: number;
+export class HealActionPayload {
+    healer: string;
+    target: {
+        characterID: string,
+        characterName: string
+    };
     rolled: number;
-    total: number;
+    bonifier: number;
+    healPoints: number
 }
 
 export class ChallengePayload {

@@ -1,8 +1,9 @@
+import { HealActionPayload } from './../../../types/action';
 import { TranslateService } from '@ngx-translate/core';
 import { DiceRoller } from './../../../types/diceroller';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 import { APIService, ActionType, ModelSortDirection } from 'app/core/services/API.service';
@@ -27,6 +28,11 @@ export class ActionsLogComponent implements OnInit {
 
   @Input()
   tabletop: Tabletop;
+
+  @Output()
+  heal: EventEmitter<{characterID: string, healPoints: number}> = new EventEmitter<{characterID: string, healPoints: number}>()
+  @Output()
+  attack: EventEmitter<{characterID: string, damagePoints: number}> = new EventEmitter<{characterID: string, damagePoints: number}>()
 
   currentUsername: string;
 
@@ -72,7 +78,12 @@ export class ActionsLogComponent implements OnInit {
         if( newAction.tabletopID !== this.tabletop.id ) return;
         newAction = this.processReceivedAction(newAction)
         this.actions.push(newAction)
-        //Little interval before scroll to let ngFor update
+        if( newAction.actionType == ActionType.HEAL ) {
+          this.heal.emit( { characterID: newAction.processedPayload.target.characterID, healPoints: newAction.processedPayload.healPoints} )
+        }
+        if( newAction.actionType == ActionType.ATTACK ) {
+          this.attack.emit( { characterID: newAction.processedPayload.target.characterID, damagePoints: newAction.processedPayload.damagePoints} )
+        }
         setTimeout( () => {
           this.chatScrollbar.directiveRef.scrollToBottom();
         },60)},
@@ -121,6 +132,12 @@ export class ActionsLogComponent implements OnInit {
     }
 
     else if( action.actionType == ActionType.CHALLENGE ){
+      action.processedPayload = JSON.parse(action.payload);
+    }
+    else if( action.actionType == ActionType.HEAL ){
+      action.processedPayload = JSON.parse(action.payload) as HealActionPayload;
+    }
+    else if( action.actionType == ActionType.ATTACK ){
       action.processedPayload = JSON.parse(action.payload);
     }
 

@@ -1,6 +1,6 @@
 import { ChallengePayload, AttributeRollPaylod } from './../../../types/action';
 import { APIService } from 'app/core/core.module';
-import { ActionType, CreateRollAttributeActionMutation } from './../../../core/services/API.service';
+import { ActionType } from './../../../core/services/API.service';
 import { DiceRoller } from './../../../types/diceroller';
 import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSelectionList, MatListOption, MatSelectionListChange } from '@angular/material';
@@ -52,12 +52,23 @@ export class InteractionDialog implements OnInit{
   }
 
   heal(){
-    
+    this.apiService.RollHealAction(
+      this.firstCharacter.character.name,
+      this.firstCharacter.character.wisdom,
+      this.secondCharacter.id,
+      this.secondCharacter.character.name,
+      this.secondCharacter.character.hitPoints,
+      this.secondCharacter.currentHealth,
+      this.firstCharacter.playerID,
+      this.firstCharacter.tabletopID
+      ).then(()=>{}).
+      catch((e)=>{console.log(e)})
+    this.dialogRef.close()
   }
 
   rollChallenge(challengedAttribute: string, attributeValue1: number, attributeValue2: number){
 
-    this.apiService.RollChallengeAction(challengedAttribute, this.getAttributeBonifier(attributeValue1), this.firstCharacter.character.name, this.getAttributeBonifier(attributeValue2), this.secondCharacter.character.name, this.firstCharacter.tabletopID).
+    this.apiService.RollChallengeAction(challengedAttribute, this.getAttributeBonifier(attributeValue1), this.firstCharacter.character.name, this.getAttributeBonifier(attributeValue2), this.secondCharacter.character.name, this.firstCharacter.playerID, this.firstCharacter.tabletopID).
           then(()=>{}).
           catch((e)=>{console.log(e)})
     this.dialogRef.close()

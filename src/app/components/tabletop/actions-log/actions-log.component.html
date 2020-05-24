@@ -38,6 +38,17 @@
             </div> 
           </div>
 
+          <div *ngIf="action.actionType=='HEAL'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.healer}}</span> {{ 'roleame-webapp.tabletop.healed' | translate}} {{action.processedPayload.target.characterName}}</span>
+            </div>
+            <div fxFlex="100%" fxLayout="column">
+              <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF = <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.bonifier }}</span></span>
+              <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.recovered'| translate }} {{action.processedPayload.healPoints }} {{ 'roleame-webapp.tabletop.healPoints'| translate }}</span>
+          
+            </div> 
+          </div>
+
 
         </div>
       </perfect-scrollbar>

@@ -25,6 +25,7 @@ mutation RollChallengeAction(
   $character: String!
   $bonifier2: Int!
   $character2: String!
+  $player: String!
   $tabletopID: ID!
 ) {
   rollChallengeAction(
@@ -33,6 +34,35 @@ mutation RollChallengeAction(
     character: $character
     bonifier2: $bonifier2
     character2: $character2
+    player: $player
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation RollHealAction(
+  $healer: String!
+  $healerWisdom: Int!
+  $targetID: String!
+  $targetName: String!
+  $maxHealth: Int!
+  $currentHealth: Int!
+  $player: String!
+  $tabletopID: ID!
+) {
+  rollHealAction(
+    healer: $healer
+    healerWisdom: $healerWisdom
+    targetID: $targetID
+    targetName: $targetName
+    maxHealth: $maxHealth
+    currentHealth: $currentHealth
+    player: $player
     tabletopID: $tabletopID
   ) {
     id

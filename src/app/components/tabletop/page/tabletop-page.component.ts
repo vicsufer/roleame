@@ -198,4 +198,14 @@ export class TabletopPageComponent implements OnInit {
       }
     });
   }
+
+  healCharacter(data: {characterID: string, healPoints: number}){
+    var characterToUpdate = this.tabletop.characters.find( char => char.id == data.characterID)
+    characterToUpdate.currentHealth += data.healPoints
+  }
+
+  attackCharacter(data: {characterID: string, damagePoints: number}){
+    var characterToUpdate = this.tabletop.characters.find( char => char.id == data.characterID)
+    characterToUpdate.currentHealth -= data.damagePoints
+  }
 }

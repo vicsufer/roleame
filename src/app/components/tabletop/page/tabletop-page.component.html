@@ -23,7 +23,7 @@
   
 
   <div gdArea="side">
-    <roleame-webapp-tabletop-actions-log [tabletop]="tabletop"></roleame-webapp-tabletop-actions-log>
+    <roleame-webapp-tabletop-actions-log (heal)="healCharacter($event)" (sttack)="attackCharacter($event)" [tabletop]="tabletop"></roleame-webapp-tabletop-actions-log>
   </div>
 </div>
 

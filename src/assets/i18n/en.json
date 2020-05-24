@@ -160,6 +160,10 @@
   "roleame-webapp.tabletop.rollattribute":"Roll attribute",
   "roleame-webapp.tabletop.interact":"Interact",
   "roleame-webapp.tabletop.challenged": "challenged",
+  "roleame-webapp.tabletop.healed": "healed",
+  "roleame-webapp.tabletop.attacked": "attacked",
+  "roleame-webapp.tabletop.recovered": "recovered",
+  "roleame-webapp.tabletop.healPoints": "heal points",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",
