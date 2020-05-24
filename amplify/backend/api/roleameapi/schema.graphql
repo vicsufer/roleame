@@ -162,9 +162,10 @@ type Mutation {
 	rollAttributeAction(attribute: String! bonifier: Int! player: String! tabletopID: ID!): Action @function(name: "rollattributeaction-${env}")
 	rollChallengeAction(attribute: String! bonifier: Int! character: String! bonifier2: Int! character2: String! player: String! tabletopID: ID!): Action @function(name: "rollchallengeaction-${env}")
 	rollHealAction(healer: String! healerWisdom: Int! targetID: String! targetName: String! maxHealth: Int! currentHealth: Int! player: String! tabletopID: ID!): Action @function(name: "rollhealaction-${env}")
+	rollAttackAction(attacker: String! attackerStrength: Int! targetID: String! targetName: String! targetStrength: Int! targetCurrentHealth: Int! player: String! tabletopID: ID!): Action @function(name: "rollattackaction-${env}")
 }
 type Subscription {
-  onNewAction: Action @aws_subscribe(mutations: ["rollAttributeAction","rollChallengeAction", "rollHealAction"])
+  onNewAction: Action @aws_subscribe(mutations: ["rollAttributeAction","rollChallengeAction", "rollHealAction","rollAttackAction"])
 }
 
 

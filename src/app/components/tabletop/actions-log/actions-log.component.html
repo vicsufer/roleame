@@ -45,7 +45,16 @@
             <div fxFlex="100%" fxLayout="column">
               <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF = <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.bonifier }}</span></span>
               <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.recovered'| translate }} {{action.processedPayload.healPoints }} {{ 'roleame-webapp.tabletop.healPoints'| translate }}</span>
-          
+            </div> 
+          </div>
+
+          <div *ngIf="action.actionType=='ATTACK'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.attacker}}</span> {{ 'roleame-webapp.tabletop.attacked' | translate}} {{action.processedPayload.target.characterName}}</span>
+            </div>
+            <div fxFlex="100%" fxLayout="column">
+              <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.attackBonifier }} BF - {{action.processedPayload.defenseBonifier }} BF= <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.attackBonifier - action.processedPayload.defenseBonifier}}</span></span>
+              <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.received'| translate }} {{action.processedPayload.damagePoints }} {{ 'roleame-webapp.tabletop.damagePoints'| translate }}</span>
             </div> 
           </div>
 

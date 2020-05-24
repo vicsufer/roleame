@@ -163,6 +163,8 @@
   "roleame-webapp.tabletop.attacked": "ha atacado a",
   "roleame-webapp.tabletop.recovered": "ha recuperado",
   "roleame-webapp.tabletop.healPoints": "puntos de salud",
+  "roleame-webapp.tabletop.received": "ha recibido",
+  "roleame-webapp.tabletop.damagePoints": "puntos de daño",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",

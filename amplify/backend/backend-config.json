@@ -46,6 +46,20 @@
 					]
 				}
 			]
+		},
+		"rollattackaction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "roleameapi",
+					"attributes": [
+						"GraphQLAPIIdOutput"
+					]
+				}
+			]
 		}
 	},
 	"auth": {

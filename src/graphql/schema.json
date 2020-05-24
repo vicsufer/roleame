@@ -3631,6 +3631,121 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
+          "name" : "rollAttackAction",
+          "description" : null,
+          "args" : [ {
+            "name" : "attacker",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "String",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "attackerStrength",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "Int",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "targetID",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "String",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "targetName",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "String",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "targetStrength",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "Int",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "targetCurrentHealth",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "Int",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "player",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "String",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          }, {
+            "name" : "tabletopID",
+            "description" : null,
+            "type" : {
+              "kind" : "NON_NULL",
+              "name" : null,
+              "ofType" : {
+                "kind" : "SCALAR",
+                "name" : "ID",
+                "ofType" : null
+              }
+            },
+            "defaultValue" : null
+          } ],
+          "type" : {
+            "kind" : "OBJECT",
+            "name" : "Action",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
           "name" : "createGame",
           "description" : null,
           "args" : [ {

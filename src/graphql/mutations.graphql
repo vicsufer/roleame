@@ -73,6 +73,34 @@ mutation RollHealAction(
     payload
   }
 }
+mutation RollAttackAction(
+  $attacker: String!
+  $attackerStrength: Int!
+  $targetID: String!
+  $targetName: String!
+  $targetStrength: Int!
+  $targetCurrentHealth: Int!
+  $player: String!
+  $tabletopID: ID!
+) {
+  rollAttackAction(
+    attacker: $attacker
+    attackerStrength: $attackerStrength
+    targetID: $targetID
+    targetName: $targetName
+    targetStrength: $targetStrength
+    targetCurrentHealth: $targetCurrentHealth
+    player: $player
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
 mutation CreateGame(
   $input: CreateGameInput!
   $condition: ModelGameConditionInput

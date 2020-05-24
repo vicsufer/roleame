@@ -48,7 +48,18 @@ export class InteractionDialog implements OnInit{
   }
 
   attack(){
-
+    this.apiService.RollAttackAction(
+      this.firstCharacter.character.name,
+      this.firstCharacter.character.strength,
+      this.secondCharacter.id,
+      this.secondCharacter.character.name,
+      this.secondCharacter.character.strength,
+      this.secondCharacter.currentHealth,
+      this.firstCharacter.playerID,
+      this.firstCharacter.tabletopID
+      ).then(()=>{}).
+      catch((e)=>{console.log(e)})
+    this.dialogRef.close()
   }
 
   heal(){

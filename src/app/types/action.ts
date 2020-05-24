@@ -52,9 +52,13 @@ export class ChallengePayload {
 }
 
 export class AttackPayload {
-    source: string;
-    target: string;
+    attacker: string;
+    target: {
+        characterID: string,
+        characterName: string
+    };
     rolled: number;
-    bonifier: number;
-    total: number;
+    attackBonifier: number;
+    defenseBonifier: number;
+    damagePoints: number;
 }
