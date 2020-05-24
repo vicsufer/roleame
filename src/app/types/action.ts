@@ -34,9 +34,18 @@ export class HealPayload {
 
 export class ChallengePayload {
     attribute: string;
-    bonifier: number;
-    rolled: number;
-    total: number;
+    challenger: {
+        character: string;
+        rolled: number;
+        bonifier: number;
+        total: number;
+    };
+    challenged: {
+        character: string;
+        rolled: number
+        bonifier: number
+        total: number
+    };
 }
 
 export class AttackPayload {

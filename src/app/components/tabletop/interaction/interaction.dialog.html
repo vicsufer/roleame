@@ -8,8 +8,11 @@
     <button mat-stroked-button (click)="toggleChallengePanel()">{{'roleame-webapp.tabletop.challenge' | translate}}</button>
   </div>
 
-  <div *ngIf="showChallengePanel" gdAreas="tools side | content side" gdGap="0px 10px" gdColumns="80% 20%">
-    CHALLENGE!!!
+  <div *ngIf="showChallengePanel" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <button mat-stroked-button (click)="rollChallenge('agility', firstCharacter.character.agility, secondCharacter.character.agility)">{{'roleame-webapp.label.agility' | translate}}</button>
+    <button mat-stroked-button (click)="rollChallenge('fellowship', firstCharacter.character.fellowship, secondCharacter.character.fellowship)">{{'roleame-webapp.label.fellowship' | translate}}</button>
+    <button mat-stroked-button (click)="rollChallenge('wisdom', firstCharacter.character.wisdom, secondCharacter.character.wisdom)">{{'roleame-webapp.label.wisdom' | translate}}</button>
+    <button mat-stroked-button (click)="rollChallenge('strength', firstCharacter.character.strength, secondCharacter.character.strength)">{{'roleame-webapp.label.strength' | translate}}</button>
   </div>
 
 </div>

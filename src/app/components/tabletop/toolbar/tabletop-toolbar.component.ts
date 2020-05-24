@@ -79,6 +79,7 @@ export class TabletopToolbarComponent implements OnInit {
     var selectedCharacter: PlayerCharacter = event.value;
     var currentTabletopCharacter = this.tabletop.characters.find( (character) => character.playerID == this.currentUsername )
     if( currentTabletopCharacter ){
+      currentTabletopCharacter.currentHealth = currentTabletopCharacter.currentHealth > selectedCharacter.hitPoints? selectedCharacter.hitPoints : currentTabletopCharacter.currentHealth
       this.apiService.UpdateTabletopCharacter({id:currentTabletopCharacter.id, characterID: selectedCharacter.id}).then( res => {
       }).catch( (e)=> {console.log(e)} )
     } else { 

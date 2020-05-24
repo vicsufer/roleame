@@ -93,22 +93,23 @@ export class ActionsLogComponent implements OnInit {
 
   processReceivedAction(action: Action): Action{
     if( action.actionType == ActionType.DICEROLL ){
-      var extract = JSON.parse(action.payload);
-      action.processedPayload = {
-        rolls: extract.rolls,
-        total: extract.total
-      }
+      action.processedPayload = JSON.parse(action.payload);
     }
     
     else if( action.actionType == ActionType.ATTRIBUTEROLL ){
-      var extract = JSON.parse(action.payload);
-      action.processedPayload =  {
-        attribute: extract.attribute, //this.translateService.instant(`roleame-webapp.label.${extract.attribute}`),
-        bonifier: extract.bonifier,
-        rolled: extract.rolled,
-        total: extract.total
-      }
+      action.processedPayload = JSON.parse(action.payload);
+      // action.processedPayload =  {
+      //   attribute: extract.attribute, //this.translateService.instant(`roleame-webapp.label.${extract.attribute}`),
+      //   bonifier: extract.bonifier,
+      //   rolled: extract.rolled,
+      //   total: extract.total
+      // }
     }
+
+    else if( action.actionType == ActionType.CHALLENGE ){
+      action.processedPayload = JSON.parse(action.payload);
+    }
+
     return action
   }
 

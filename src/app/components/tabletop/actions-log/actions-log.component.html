@@ -25,8 +25,17 @@
             </div>
             <div fxFlex="100%">
               <span>{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF= <span class="roll-total">{{ action.processedPayload.total }}</span></span>
+            </div> 
+          </div>
+
+          <div *ngIf="action.actionType=='CHALLENGE'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.challenger.character}}</span> {{ 'roleame-webapp.tabletop.challenged' | translate}} {{action.processedPayload.challenged.character}} <span class="player-tag">[{{ ('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}]</span></span>
             </div>
-            
+            <div fxFlex="100%" fxLayout="column">
+              <span fxFlex="100%">{{action.processedPayload.challenger.character}}: {{action.processedPayload.challenger.rolled }} + {{action.processedPayload.challenger.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenger.total }}</span></span>
+              <span fxFlex="100%">{{action.processedPayload.challenged.character}}: {{action.processedPayload.challenged.rolled }} + {{action.processedPayload.challenged.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenged.total }}</span></span>
+            </div> 
           </div>
 
 

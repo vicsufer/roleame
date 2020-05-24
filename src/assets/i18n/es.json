@@ -158,6 +158,7 @@
   "roleame-webapp.tabletop.heal":"Sanar",
   "roleame-webapp.tabletop.rollattribute":"Tirar atributo",
   "roleame-webapp.tabletop.interact":"Interactuar",
+  "roleame-webapp.tabletop.challenged": "ha desafiado a",
 
   "roleame-webapp.settings.animations.elements": "Los elementos de la página de navegación se deslizan",
   "roleame-webapp.settings.animations.page": "Navegación de transición de página completa",
