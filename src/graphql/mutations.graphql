@@ -1,4 +1,48 @@
 # this is an auto generated file. This will be overwritten
+mutation RollAttributeAction(
+  $attribute: String!
+  $bonifier: Int!
+  $player: String!
+  $tabletopID: ID!
+) {
+  rollAttributeAction(
+    attribute: $attribute
+    bonifier: $bonifier
+    player: $player
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation RollChallengeAction(
+  $attribute: String!
+  $bonifier: Int!
+  $character: String!
+  $bonifier2: Int!
+  $character2: String!
+  $tabletopID: ID!
+) {
+  rollChallengeAction(
+    attribute: $attribute
+    bonifier: $bonifier
+    character: $character
+    bonifier2: $bonifier2
+    character2: $character2
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
 mutation CreateGame(
   $input: CreateGameInput!
   $condition: ModelGameConditionInput

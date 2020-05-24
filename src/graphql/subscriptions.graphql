@@ -1,4 +1,14 @@
 # this is an auto generated file. This will be overwritten
+subscription OnNewAction {
+  onNewAction {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
 subscription OnCreateGame($owner: String!) {
   onCreateGame(owner: $owner) {
     id

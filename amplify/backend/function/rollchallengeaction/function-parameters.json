@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "storage": {
+            "Action:@model(appsync)": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

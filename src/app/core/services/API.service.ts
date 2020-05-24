@@ -435,19 +435,19 @@ export type ModelIntKeyConditionInput = {
 };
 
 export type DeleteGameRetrieveIDMutation = {
-  
+  __typename: "Game";
   id: string;
 };
 
 export type DeletePlayerRetrieveIDMutation = {
-  
+  __typename: "Player";
   id: string;
 };
 
 export type ListGamesDataQuery = {
-  
+  __typename: "ModelGameConnection";
   items: Array<{
-    
+    __typename: "Game";
     id: string;
     owner: string | null;
     uuid: string;
@@ -455,16 +455,16 @@ export type ListGamesDataQuery = {
     description: string | null;
     members: Array<string | null> | null;
     tabletop: {
-      
+      __typename: "Tabletop";
       id: string;
       gameOwnerID: string;
       width: number | null;
       height: number | null;
     } | null;
     players: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         playerID: string;
@@ -477,23 +477,23 @@ export type ListGamesDataQuery = {
 };
 
 export type GetUserDataQuery = {
-  
+  __typename: "User";
   username: string;
   email: string;
 };
 
 export type GetUserGamesDataQuery = {
-  
+  __typename: "User";
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         uuid: string;
         name: string;
@@ -501,16 +501,16 @@ export type GetUserGamesDataQuery = {
         owner: string | null;
         members: Array<string | null> | null;
         tabletop: {
-          
+          __typename: "Tabletop";
           id: string;
           gameOwnerID: string;
           width: number | null;
           height: number | null;
         } | null;
         players: {
-          
+          __typename: "ModelPlayerConnection";
           items: Array<{
-            
+            __typename: "Player";
             id: string;
             gameID: string;
             gameOwnerID: string;
@@ -526,17 +526,17 @@ export type GetUserGamesDataQuery = {
 };
 
 export type GetUserMembershipsQuery = {
-  
+  __typename: "User";
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         uuid: string;
         name: string;
@@ -550,28 +550,28 @@ export type GetUserMembershipsQuery = {
 };
 
 export type GetTabletopDataQuery = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         uuid: string;
         name: string;
@@ -592,9 +592,9 @@ export type GetTabletopDataQuery = {
 };
 
 export type ListPlayerCharactersIdentificatorsQuery = {
-  
+  __typename: "ModelPlayerCharacterConnection";
   items: Array<{
-    
+    __typename: "PlayerCharacter";
     id: string;
     uuid: string;
     name: string;
@@ -604,9 +604,9 @@ export type ListPlayerCharactersIdentificatorsQuery = {
 };
 
 export type ListActionsByTimestampQuery = {
-  
+  __typename: "ModelActionConnection";
   items: Array<{
-    
+    __typename: "Action";
     id: string;
     tabletopID: string;
     timestamp: number | null;
@@ -618,30 +618,50 @@ export type ListActionsByTimestampQuery = {
 };
 
 export type OnUpdateTabletopDataSubscription = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
 };
 
+export type RollAttributeActionMutation = {
+  __typename: "Action";
+  id: string;
+  tabletopID: string;
+  timestamp: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
+export type RollChallengeActionMutation = {
+  __typename: "Action";
+  id: string;
+  tabletopID: string;
+  timestamp: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
 export type CreateGameMutation = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -652,9 +672,9 @@ export type CreateGameMutation = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -667,16 +687,16 @@ export type CreateGameMutation = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -685,7 +705,7 @@ export type CreateGameMutation = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -696,22 +716,22 @@ export type CreateGameMutation = {
 };
 
 export type UpdateGameMutation = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -722,9 +742,9 @@ export type UpdateGameMutation = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -737,16 +757,16 @@ export type UpdateGameMutation = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -755,7 +775,7 @@ export type UpdateGameMutation = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -766,22 +786,22 @@ export type UpdateGameMutation = {
 };
 
 export type DeleteGameMutation = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -792,9 +812,9 @@ export type DeleteGameMutation = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -807,16 +827,16 @@ export type DeleteGameMutation = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -825,7 +845,7 @@ export type DeleteGameMutation = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -836,28 +856,28 @@ export type DeleteGameMutation = {
 };
 
 export type CreateTabletopMutation = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -876,9 +896,9 @@ export type CreateTabletopMutation = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -891,28 +911,28 @@ export type CreateTabletopMutation = {
 };
 
 export type UpdateTabletopMutation = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -931,9 +951,9 @@ export type UpdateTabletopMutation = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -946,28 +966,28 @@ export type UpdateTabletopMutation = {
 };
 
 export type DeleteTabletopMutation = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -986,9 +1006,9 @@ export type DeleteTabletopMutation = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -1001,7 +1021,7 @@ export type DeleteTabletopMutation = {
 };
 
 export type CreateActionMutation = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -1011,7 +1031,7 @@ export type CreateActionMutation = {
 };
 
 export type UpdateActionMutation = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -1021,7 +1041,7 @@ export type UpdateActionMutation = {
 };
 
 export type DeleteActionMutation = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -1031,20 +1051,20 @@ export type DeleteActionMutation = {
 };
 
 export type CreateTabletopCharacterMutation = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -1059,7 +1079,7 @@ export type CreateTabletopCharacterMutation = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -1067,20 +1087,20 @@ export type CreateTabletopCharacterMutation = {
 };
 
 export type UpdateTabletopCharacterMutation = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -1095,7 +1115,7 @@ export type UpdateTabletopCharacterMutation = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -1103,20 +1123,20 @@ export type UpdateTabletopCharacterMutation = {
 };
 
 export type DeleteTabletopCharacterMutation = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -1131,7 +1151,7 @@ export type DeleteTabletopCharacterMutation = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -1139,39 +1159,39 @@ export type DeleteTabletopCharacterMutation = {
 };
 
 export type CreatePlayerMutation = {
-  
+  __typename: "Player";
   id: string;
   gameID: string;
   gameOwnerID: string;
   playerID: string;
   pendingInvite: boolean | null;
   game: {
-    
+    __typename: "Game";
     id: string;
     owner: string | null;
     uuid: string;
     name: string;
     description: string | null;
     tabletop: {
-      
+      __typename: "Tabletop";
       id: string;
       gameOwnerID: string;
       width: number | null;
       height: number | null;
       characters: {
-        
+        __typename: "ModelTabletopCharacterConnection";
         nextToken: string | null;
       } | null;
       actions: {
-        
+        __typename: "ModelActionConnection";
         nextToken: string | null;
       } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1182,13 +1202,13 @@ export type CreatePlayerMutation = {
     } | null;
   };
   player: {
-    
+    __typename: "User";
     username: string;
     email: string;
     gamesAsPlayer: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1202,39 +1222,39 @@ export type CreatePlayerMutation = {
 };
 
 export type UpdatePlayerMutation = {
-  
+  __typename: "Player";
   id: string;
   gameID: string;
   gameOwnerID: string;
   playerID: string;
   pendingInvite: boolean | null;
   game: {
-    
+    __typename: "Game";
     id: string;
     owner: string | null;
     uuid: string;
     name: string;
     description: string | null;
     tabletop: {
-      
+      __typename: "Tabletop";
       id: string;
       gameOwnerID: string;
       width: number | null;
       height: number | null;
       characters: {
-        
+        __typename: "ModelTabletopCharacterConnection";
         nextToken: string | null;
       } | null;
       actions: {
-        
+        __typename: "ModelActionConnection";
         nextToken: string | null;
       } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1245,13 +1265,13 @@ export type UpdatePlayerMutation = {
     } | null;
   };
   player: {
-    
+    __typename: "User";
     username: string;
     email: string;
     gamesAsPlayer: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1265,39 +1285,39 @@ export type UpdatePlayerMutation = {
 };
 
 export type DeletePlayerMutation = {
-  
+  __typename: "Player";
   id: string;
   gameID: string;
   gameOwnerID: string;
   playerID: string;
   pendingInvite: boolean | null;
   game: {
-    
+    __typename: "Game";
     id: string;
     owner: string | null;
     uuid: string;
     name: string;
     description: string | null;
     tabletop: {
-      
+      __typename: "Tabletop";
       id: string;
       gameOwnerID: string;
       width: number | null;
       height: number | null;
       characters: {
-        
+        __typename: "ModelTabletopCharacterConnection";
         nextToken: string | null;
       } | null;
       actions: {
-        
+        __typename: "ModelActionConnection";
         nextToken: string | null;
       } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1308,13 +1328,13 @@ export type DeletePlayerMutation = {
     } | null;
   };
   player: {
-    
+    __typename: "User";
     username: string;
     email: string;
     gamesAsPlayer: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1328,7 +1348,7 @@ export type DeletePlayerMutation = {
 };
 
 export type CreatePlayerCharacterMutation = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -1343,14 +1363,14 @@ export type CreatePlayerCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type UpdatePlayerCharacterMutation = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -1365,14 +1385,14 @@ export type UpdatePlayerCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type DeletePlayerCharacterMutation = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -1387,27 +1407,27 @@ export type DeletePlayerCharacterMutation = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type CreateUserMutation = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -1416,7 +1436,7 @@ export type CreateUserMutation = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -1428,20 +1448,20 @@ export type CreateUserMutation = {
 };
 
 export type UpdateUserMutation = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -1450,7 +1470,7 @@ export type UpdateUserMutation = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -1462,20 +1482,20 @@ export type UpdateUserMutation = {
 };
 
 export type DeleteUserMutation = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -1484,7 +1504,7 @@ export type DeleteUserMutation = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -1496,22 +1516,22 @@ export type DeleteUserMutation = {
 };
 
 export type GetGameQuery = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -1522,9 +1542,9 @@ export type GetGameQuery = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -1537,16 +1557,16 @@ export type GetGameQuery = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -1555,7 +1575,7 @@ export type GetGameQuery = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -1566,34 +1586,34 @@ export type GetGameQuery = {
 };
 
 export type ListGamesQuery = {
-  
+  __typename: "ModelGameConnection";
   items: Array<{
-    
+    __typename: "Game";
     id: string;
     owner: string | null;
     uuid: string;
     name: string;
     description: string | null;
     tabletop: {
-      
+      __typename: "Tabletop";
       id: string;
       gameOwnerID: string;
       width: number | null;
       height: number | null;
       characters: {
-        
+        __typename: "ModelTabletopCharacterConnection";
         nextToken: string | null;
       } | null;
       actions: {
-        
+        __typename: "ModelActionConnection";
         nextToken: string | null;
       } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1607,28 +1627,28 @@ export type ListGamesQuery = {
 };
 
 export type GetTabletopQuery = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -1647,9 +1667,9 @@ export type GetTabletopQuery = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -1662,17 +1682,17 @@ export type GetTabletopQuery = {
 };
 
 export type ListTabletopsQuery = {
-  
+  __typename: "ModelTabletopConnection";
   items: Array<{
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -1683,9 +1703,9 @@ export type ListTabletopsQuery = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -1700,7 +1720,7 @@ export type ListTabletopsQuery = {
 };
 
 export type GetActionQuery = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -1710,9 +1730,9 @@ export type GetActionQuery = {
 };
 
 export type ListActionsQuery = {
-  
+  __typename: "ModelActionConnection";
   items: Array<{
-    
+    __typename: "Action";
     id: string;
     tabletopID: string;
     timestamp: number | null;
@@ -1724,20 +1744,20 @@ export type ListActionsQuery = {
 };
 
 export type GetTabletopCharacterQuery = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -1752,7 +1772,7 @@ export type GetTabletopCharacterQuery = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -1760,22 +1780,22 @@ export type GetTabletopCharacterQuery = {
 };
 
 export type ListTabletopCharactersQuery = {
-  
+  __typename: "ModelTabletopCharacterConnection";
   items: Array<{
-    
+    __typename: "TabletopCharacter";
     id: string;
     tabletopID: string;
     gameOwnerID: string;
     playerID: string;
     characterID: string;
     location: {
-      
+      __typename: "Location";
       x: number | null;
       y: number | null;
     } | null;
     currentHealth: number;
     character: {
-      
+      __typename: "PlayerCharacter";
       id: string;
       owner: string | null;
       uuid: string;
@@ -1790,7 +1810,7 @@ export type ListTabletopCharactersQuery = {
       strength: number | null;
       wisdom: number | null;
       abilities: Array<{
-        
+        __typename: "Ability";
         name: string | null;
         description: string | null;
       } | null> | null;
@@ -1800,39 +1820,39 @@ export type ListTabletopCharactersQuery = {
 };
 
 export type GetPlayerQuery = {
-  
+  __typename: "Player";
   id: string;
   gameID: string;
   gameOwnerID: string;
   playerID: string;
   pendingInvite: boolean | null;
   game: {
-    
+    __typename: "Game";
     id: string;
     owner: string | null;
     uuid: string;
     name: string;
     description: string | null;
     tabletop: {
-      
+      __typename: "Tabletop";
       id: string;
       gameOwnerID: string;
       width: number | null;
       height: number | null;
       characters: {
-        
+        __typename: "ModelTabletopCharacterConnection";
         nextToken: string | null;
       } | null;
       actions: {
-        
+        __typename: "ModelActionConnection";
         nextToken: string | null;
       } | null;
     } | null;
     members: Array<string | null> | null;
     players: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1843,13 +1863,13 @@ export type GetPlayerQuery = {
     } | null;
   };
   player: {
-    
+    __typename: "User";
     username: string;
     email: string;
     gamesAsPlayer: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -1863,23 +1883,23 @@ export type GetPlayerQuery = {
 };
 
 export type ListPlayersQuery = {
-  
+  __typename: "ModelPlayerConnection";
   items: Array<{
-    
+    __typename: "Player";
     id: string;
     gameID: string;
     gameOwnerID: string;
     playerID: string;
     pendingInvite: boolean | null;
     game: {
-      
+      __typename: "Game";
       id: string;
       owner: string | null;
       uuid: string;
       name: string;
       description: string | null;
       tabletop: {
-        
+        __typename: "Tabletop";
         id: string;
         gameOwnerID: string;
         width: number | null;
@@ -1887,16 +1907,16 @@ export type ListPlayersQuery = {
       } | null;
       members: Array<string | null> | null;
       players: {
-        
+        __typename: "ModelPlayerConnection";
         nextToken: string | null;
       } | null;
     };
     player: {
-      
+      __typename: "User";
       username: string;
       email: string;
       gamesAsPlayer: {
-        
+        __typename: "ModelPlayerConnection";
         nextToken: string | null;
       } | null;
       owner: string | null;
@@ -1906,7 +1926,7 @@ export type ListPlayersQuery = {
 };
 
 export type GetPlayerCharacterQuery = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -1921,16 +1941,16 @@ export type GetPlayerCharacterQuery = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type ListPlayerCharactersQuery = {
-  
+  __typename: "ModelPlayerCharacterConnection";
   items: Array<{
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -1945,7 +1965,7 @@ export type ListPlayerCharactersQuery = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -1954,20 +1974,20 @@ export type ListPlayerCharactersQuery = {
 };
 
 export type GetUserQuery = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -1976,7 +1996,7 @@ export type GetUserQuery = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -1988,15 +2008,15 @@ export type GetUserQuery = {
 };
 
 export type ListUsersQuery = {
-  
+  __typename: "ModelUserConnection";
   items: Array<{
-    
+    __typename: "User";
     username: string;
     email: string;
     gamesAsPlayer: {
-      
+      __typename: "ModelPlayerConnection";
       items: Array<{
-        
+        __typename: "Player";
         id: string;
         gameID: string;
         gameOwnerID: string;
@@ -2011,9 +2031,9 @@ export type ListUsersQuery = {
 };
 
 export type GetActionsByDateQuery = {
-  
+  __typename: "ModelActionConnection";
   items: Array<{
-    
+    __typename: "Action";
     id: string;
     tabletopID: string;
     timestamp: number | null;
@@ -2024,23 +2044,33 @@ export type GetActionsByDateQuery = {
   nextToken: string | null;
 };
 
+export type OnNewActionSubscription = {
+  __typename: "Action";
+  id: string;
+  tabletopID: string;
+  timestamp: number | null;
+  actionType: ActionType | null;
+  player: string | null;
+  payload: string | null;
+};
+
 export type OnCreateGameSubscription = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -2051,9 +2081,9 @@ export type OnCreateGameSubscription = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -2066,16 +2096,16 @@ export type OnCreateGameSubscription = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2084,7 +2114,7 @@ export type OnCreateGameSubscription = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -2095,22 +2125,22 @@ export type OnCreateGameSubscription = {
 };
 
 export type OnUpdateGameSubscription = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -2121,9 +2151,9 @@ export type OnUpdateGameSubscription = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -2136,16 +2166,16 @@ export type OnUpdateGameSubscription = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2154,7 +2184,7 @@ export type OnUpdateGameSubscription = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -2165,22 +2195,22 @@ export type OnUpdateGameSubscription = {
 };
 
 export type OnDeleteGameSubscription = {
-  
+  __typename: "Game";
   id: string;
   owner: string | null;
   uuid: string;
   name: string;
   description: string | null;
   tabletop: {
-    
+    __typename: "Tabletop";
     id: string;
     gameOwnerID: string;
     width: number | null;
     height: number | null;
     characters: {
-      
+      __typename: "ModelTabletopCharacterConnection";
       items: Array<{
-        
+        __typename: "TabletopCharacter";
         id: string;
         tabletopID: string;
         gameOwnerID: string;
@@ -2191,9 +2221,9 @@ export type OnDeleteGameSubscription = {
       nextToken: string | null;
     } | null;
     actions: {
-      
+      __typename: "ModelActionConnection";
       items: Array<{
-        
+        __typename: "Action";
         id: string;
         tabletopID: string;
         timestamp: number | null;
@@ -2206,16 +2236,16 @@ export type OnDeleteGameSubscription = {
   } | null;
   members: Array<string | null> | null;
   players: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2224,7 +2254,7 @@ export type OnDeleteGameSubscription = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -2235,28 +2265,28 @@ export type OnDeleteGameSubscription = {
 };
 
 export type OnCreateTabletopSubscription = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2275,9 +2305,9 @@ export type OnCreateTabletopSubscription = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -2290,28 +2320,28 @@ export type OnCreateTabletopSubscription = {
 };
 
 export type OnUpdateTabletopSubscription = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2330,9 +2360,9 @@ export type OnUpdateTabletopSubscription = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -2345,28 +2375,28 @@ export type OnUpdateTabletopSubscription = {
 };
 
 export type OnDeleteTabletopSubscription = {
-  
+  __typename: "Tabletop";
   id: string;
   gameOwnerID: string;
   width: number | null;
   height: number | null;
   characters: {
-    
+    __typename: "ModelTabletopCharacterConnection";
     items: Array<{
-      
+      __typename: "TabletopCharacter";
       id: string;
       tabletopID: string;
       gameOwnerID: string;
       playerID: string;
       characterID: string;
       location: {
-        
+        __typename: "Location";
         x: number | null;
         y: number | null;
       } | null;
       currentHealth: number;
       character: {
-        
+        __typename: "PlayerCharacter";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2385,9 +2415,9 @@ export type OnDeleteTabletopSubscription = {
     nextToken: string | null;
   } | null;
   actions: {
-    
+    __typename: "ModelActionConnection";
     items: Array<{
-      
+      __typename: "Action";
       id: string;
       tabletopID: string;
       timestamp: number | null;
@@ -2400,7 +2430,7 @@ export type OnDeleteTabletopSubscription = {
 };
 
 export type OnCreateActionSubscription = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -2410,7 +2440,7 @@ export type OnCreateActionSubscription = {
 };
 
 export type OnUpdateActionSubscription = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -2420,7 +2450,7 @@ export type OnUpdateActionSubscription = {
 };
 
 export type OnDeleteActionSubscription = {
-  
+  __typename: "Action";
   id: string;
   tabletopID: string;
   timestamp: number | null;
@@ -2430,20 +2460,20 @@ export type OnDeleteActionSubscription = {
 };
 
 export type OnCreateTabletopCharacterSubscription = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -2458,7 +2488,7 @@ export type OnCreateTabletopCharacterSubscription = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -2466,20 +2496,20 @@ export type OnCreateTabletopCharacterSubscription = {
 };
 
 export type OnUpdateTabletopCharacterSubscription = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -2494,7 +2524,7 @@ export type OnUpdateTabletopCharacterSubscription = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -2502,20 +2532,20 @@ export type OnUpdateTabletopCharacterSubscription = {
 };
 
 export type OnDeleteTabletopCharacterSubscription = {
-  
+  __typename: "TabletopCharacter";
   id: string;
   tabletopID: string;
   gameOwnerID: string;
   playerID: string;
   characterID: string;
   location: {
-    
+    __typename: "Location";
     x: number | null;
     y: number | null;
   } | null;
   currentHealth: number;
   character: {
-    
+    __typename: "PlayerCharacter";
     id: string;
     owner: string | null;
     uuid: string;
@@ -2530,7 +2560,7 @@ export type OnDeleteTabletopCharacterSubscription = {
     strength: number | null;
     wisdom: number | null;
     abilities: Array<{
-      
+      __typename: "Ability";
       name: string | null;
       description: string | null;
     } | null> | null;
@@ -2538,7 +2568,7 @@ export type OnDeleteTabletopCharacterSubscription = {
 };
 
 export type OnCreatePlayerCharacterSubscription = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -2553,14 +2583,14 @@ export type OnCreatePlayerCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type OnUpdatePlayerCharacterSubscription = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -2575,14 +2605,14 @@ export type OnUpdatePlayerCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type OnDeletePlayerCharacterSubscription = {
-  
+  __typename: "PlayerCharacter";
   id: string;
   owner: string | null;
   uuid: string;
@@ -2597,27 +2627,27 @@ export type OnDeletePlayerCharacterSubscription = {
   strength: number | null;
   wisdom: number | null;
   abilities: Array<{
-    
+    __typename: "Ability";
     name: string | null;
     description: string | null;
   } | null> | null;
 };
 
 export type OnCreateUserSubscription = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2626,7 +2656,7 @@ export type OnCreateUserSubscription = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -2638,20 +2668,20 @@ export type OnCreateUserSubscription = {
 };
 
 export type OnUpdateUserSubscription = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2660,7 +2690,7 @@ export type OnUpdateUserSubscription = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -2672,20 +2702,20 @@ export type OnUpdateUserSubscription = {
 };
 
 export type OnDeleteUserSubscription = {
-  
+  __typename: "User";
   username: string;
   email: string;
   gamesAsPlayer: {
-    
+    __typename: "ModelPlayerConnection";
     items: Array<{
-      
+      __typename: "Player";
       id: string;
       gameID: string;
       gameOwnerID: string;
       playerID: string;
       pendingInvite: boolean | null;
       game: {
-        
+        __typename: "Game";
         id: string;
         owner: string | null;
         uuid: string;
@@ -2694,7 +2724,7 @@ export type OnDeleteUserSubscription = {
         members: Array<string | null> | null;
       };
       player: {
-        
+        __typename: "User";
         username: string;
         email: string;
         owner: string | null;
@@ -2715,7 +2745,7 @@ export class APIService {
   ): Promise<DeleteGameRetrieveIDMutation> {
     const statement = `mutation DeleteGameRetrieveID($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
         deleteGame(input: $input, condition: $condition) {
-          
+          __typename
           id
         }
       }`;
@@ -2736,7 +2766,7 @@ export class APIService {
   ): Promise<DeletePlayerRetrieveIDMutation> {
     const statement = `mutation DeletePlayerRetrieveID($input: DeletePlayerInput!, $condition: ModelPlayerConditionInput) {
         deletePlayer(input: $input, condition: $condition) {
-          
+          __typename
           id
         }
       }`;
@@ -2758,9 +2788,9 @@ export class APIService {
   ): Promise<ListGamesDataQuery> {
     const statement = `query ListGamesData($filter: ModelGameFilterInput, $limit: Int, $nextToken: String) {
         listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             owner
             uuid
@@ -2768,16 +2798,16 @@ export class APIService {
             description
             members
             tabletop {
-              
+              __typename
               id
               gameOwnerID
               width
               height
             }
             players {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 playerID
@@ -2807,7 +2837,7 @@ export class APIService {
   async GetUserData(username: string): Promise<GetUserDataQuery> {
     const statement = `query GetUserData($username: String!) {
         getUser(username: $username) {
-          
+          __typename
           username
           email
         }
@@ -2823,17 +2853,17 @@ export class APIService {
   async GetUserGamesData(username: string): Promise<GetUserGamesDataQuery> {
     const statement = `query GetUserGamesData($username: String!) {
         getUser(username: $username) {
-          
+          __typename
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 uuid
                 name
@@ -2841,16 +2871,16 @@ export class APIService {
                 owner
                 members
                 tabletop {
-                  
+                  __typename
                   id
                   gameOwnerID
                   width
                   height
                 }
                 players {
-                  
+                  __typename
                   items {
-                    
+                    __typename
                     id
                     gameID
                     gameOwnerID
@@ -2876,17 +2906,17 @@ export class APIService {
   async GetUserMemberships(username: string): Promise<GetUserMembershipsQuery> {
     const statement = `query GetUserMemberships($username: String!) {
         getUser(username: $username) {
-          
+          __typename
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 uuid
                 name
@@ -2910,28 +2940,28 @@ export class APIService {
   async GetTabletopData(id: string): Promise<GetTabletopDataQuery> {
     const statement = `query GetTabletopData($id: ID!) {
         getTabletop(id: $id) {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 uuid
                 name
@@ -2966,9 +2996,9 @@ export class APIService {
   ): Promise<ListPlayerCharactersIdentificatorsQuery> {
     const statement = `query ListPlayerCharactersIdentificators($filter: ModelPlayerCharacterFilterInput, $limit: Int, $nextToken: String) {
         listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             uuid
             name
@@ -3003,9 +3033,9 @@ export class APIService {
   ): Promise<ListActionsByTimestampQuery> {
     const statement = `query ListActionsByTimestamp($tabletopID: ID, $sortDirection: ModelSortDirection, $filter: ModelActionFilterInput, $limit: Int, $nextToken: String) {
         getActionsByDate(tabletopID: $tabletopID, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             tabletopID
             timestamp
@@ -3043,7 +3073,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateTabletopData {
         onUpdateTabletop {
-          
+          __typename
           id
           gameOwnerID
           width
@@ -3053,28 +3083,88 @@ export class APIService {
     )
   ) as Observable<OnUpdateTabletopDataSubscription>;
 
+  async RollAttributeAction(
+    attribute: string,
+    bonifier: number,
+    player: string,
+    tabletopID: string
+  ): Promise<RollAttributeActionMutation> {
+    const statement = `mutation RollAttributeAction($attribute: String!, $bonifier: Int!, $player: String!, $tabletopID: ID!) {
+        rollAttributeAction(attribute: $attribute, bonifier: $bonifier, player: $player, tabletopID: $tabletopID) {
+          __typename
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      attribute,
+      bonifier,
+      player,
+      tabletopID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <RollAttributeActionMutation>response.data.rollAttributeAction;
+  }
+  async RollChallengeAction(
+    attribute: string,
+    bonifier: number,
+    character: string,
+    bonifier2: number,
+    character2: string,
+    tabletopID: string
+  ): Promise<RollChallengeActionMutation> {
+    const statement = `mutation RollChallengeAction($attribute: String!, $bonifier: Int!, $character: String!, $bonifier2: Int!, $character2: String!, $tabletopID: ID!) {
+        rollChallengeAction(attribute: $attribute, bonifier: $bonifier, character: $character, bonifier2: $bonifier2, character2: $character2, tabletopID: $tabletopID) {
+          __typename
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      attribute,
+      bonifier,
+      character,
+      bonifier2,
+      character2,
+      tabletopID
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <RollChallengeActionMutation>response.data.rollChallengeAction;
+  }
   async CreateGame(
     input: CreateGameInput,
     condition?: ModelGameConditionInput
   ): Promise<CreateGameMutation> {
     const statement = `mutation CreateGame($input: CreateGameInput!, $condition: ModelGameConditionInput) {
         createGame(input: $input, condition: $condition) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -3085,9 +3175,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -3100,16 +3190,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -3118,7 +3208,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -3145,22 +3235,22 @@ export class APIService {
   ): Promise<UpdateGameMutation> {
     const statement = `mutation UpdateGame($input: UpdateGameInput!, $condition: ModelGameConditionInput) {
         updateGame(input: $input, condition: $condition) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -3171,9 +3261,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -3186,16 +3276,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -3204,7 +3294,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -3231,22 +3321,22 @@ export class APIService {
   ): Promise<DeleteGameMutation> {
     const statement = `mutation DeleteGame($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
         deleteGame(input: $input, condition: $condition) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -3257,9 +3347,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -3272,16 +3362,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -3290,7 +3380,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -3317,28 +3407,28 @@ export class APIService {
   ): Promise<CreateTabletopMutation> {
     const statement = `mutation CreateTabletop($input: CreateTabletopInput!, $condition: ModelTabletopConditionInput) {
         createTabletop(input: $input, condition: $condition) {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -3357,9 +3447,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -3388,28 +3478,28 @@ export class APIService {
   ): Promise<UpdateTabletopMutation> {
     const statement = `mutation UpdateTabletop($input: UpdateTabletopInput!, $condition: ModelTabletopConditionInput) {
         updateTabletop(input: $input, condition: $condition) {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -3428,9 +3518,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -3459,28 +3549,28 @@ export class APIService {
   ): Promise<DeleteTabletopMutation> {
     const statement = `mutation DeleteTabletop($input: DeleteTabletopInput!, $condition: ModelTabletopConditionInput) {
         deleteTabletop(input: $input, condition: $condition) {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -3499,9 +3589,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -3530,7 +3620,7 @@ export class APIService {
   ): Promise<CreateActionMutation> {
     const statement = `mutation CreateAction($input: CreateActionInput!, $condition: ModelActionConditionInput) {
         createAction(input: $input, condition: $condition) {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -3556,7 +3646,7 @@ export class APIService {
   ): Promise<UpdateActionMutation> {
     const statement = `mutation UpdateAction($input: UpdateActionInput!, $condition: ModelActionConditionInput) {
         updateAction(input: $input, condition: $condition) {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -3582,7 +3672,7 @@ export class APIService {
   ): Promise<DeleteActionMutation> {
     const statement = `mutation DeleteAction($input: DeleteActionInput!, $condition: ModelActionConditionInput) {
         deleteAction(input: $input, condition: $condition) {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -3608,20 +3698,20 @@ export class APIService {
   ): Promise<CreateTabletopCharacterMutation> {
     const statement = `mutation CreateTabletopCharacter($input: CreateTabletopCharacterInput!, $condition: ModelTabletopCharacterConditionInput) {
         createTabletopCharacter(input: $input, condition: $condition) {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -3636,7 +3726,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -3662,20 +3752,20 @@ export class APIService {
   ): Promise<UpdateTabletopCharacterMutation> {
     const statement = `mutation UpdateTabletopCharacter($input: UpdateTabletopCharacterInput!, $condition: ModelTabletopCharacterConditionInput) {
         updateTabletopCharacter(input: $input, condition: $condition) {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -3690,7 +3780,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -3716,20 +3806,20 @@ export class APIService {
   ): Promise<DeleteTabletopCharacterMutation> {
     const statement = `mutation DeleteTabletopCharacter($input: DeleteTabletopCharacterInput!, $condition: ModelTabletopCharacterConditionInput) {
         deleteTabletopCharacter(input: $input, condition: $condition) {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -3744,7 +3834,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -3770,39 +3860,39 @@ export class APIService {
   ): Promise<CreatePlayerMutation> {
     const statement = `mutation CreatePlayer($input: CreatePlayerInput!, $condition: ModelPlayerConditionInput) {
         createPlayer(input: $input, condition: $condition) {
-          
+          __typename
           id
           gameID
           gameOwnerID
           playerID
           pendingInvite
           game {
-            
+            __typename
             id
             owner
             uuid
             name
             description
             tabletop {
-              
+              __typename
               id
               gameOwnerID
               width
               height
               characters {
-                
+                __typename
                 nextToken
               }
               actions {
-                
+                __typename
                 nextToken
               }
             }
             members
             players {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -3813,13 +3903,13 @@ export class APIService {
             }
           }
           player {
-            
+            __typename
             username
             email
             gamesAsPlayer {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -3849,39 +3939,39 @@ export class APIService {
   ): Promise<UpdatePlayerMutation> {
     const statement = `mutation UpdatePlayer($input: UpdatePlayerInput!, $condition: ModelPlayerConditionInput) {
         updatePlayer(input: $input, condition: $condition) {
-          
+          __typename
           id
           gameID
           gameOwnerID
           playerID
           pendingInvite
           game {
-            
+            __typename
             id
             owner
             uuid
             name
             description
             tabletop {
-              
+              __typename
               id
               gameOwnerID
               width
               height
               characters {
-                
+                __typename
                 nextToken
               }
               actions {
-                
+                __typename
                 nextToken
               }
             }
             members
             players {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -3892,13 +3982,13 @@ export class APIService {
             }
           }
           player {
-            
+            __typename
             username
             email
             gamesAsPlayer {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -3928,39 +4018,39 @@ export class APIService {
   ): Promise<DeletePlayerMutation> {
     const statement = `mutation DeletePlayer($input: DeletePlayerInput!, $condition: ModelPlayerConditionInput) {
         deletePlayer(input: $input, condition: $condition) {
-          
+          __typename
           id
           gameID
           gameOwnerID
           playerID
           pendingInvite
           game {
-            
+            __typename
             id
             owner
             uuid
             name
             description
             tabletop {
-              
+              __typename
               id
               gameOwnerID
               width
               height
               characters {
-                
+                __typename
                 nextToken
               }
               actions {
-                
+                __typename
                 nextToken
               }
             }
             members
             players {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -3971,13 +4061,13 @@ export class APIService {
             }
           }
           player {
-            
+            __typename
             username
             email
             gamesAsPlayer {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -4007,7 +4097,7 @@ export class APIService {
   ): Promise<CreatePlayerCharacterMutation> {
     const statement = `mutation CreatePlayerCharacter($input: CreatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
         createPlayerCharacter(input: $input, condition: $condition) {
-          
+          __typename
           id
           owner
           uuid
@@ -4022,7 +4112,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -4045,7 +4135,7 @@ export class APIService {
   ): Promise<UpdatePlayerCharacterMutation> {
     const statement = `mutation UpdatePlayerCharacter($input: UpdatePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
         updatePlayerCharacter(input: $input, condition: $condition) {
-          
+          __typename
           id
           owner
           uuid
@@ -4060,7 +4150,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -4083,7 +4173,7 @@ export class APIService {
   ): Promise<DeletePlayerCharacterMutation> {
     const statement = `mutation DeletePlayerCharacter($input: DeletePlayerCharacterInput!, $condition: ModelPlayerCharacterConditionInput) {
         deletePlayerCharacter(input: $input, condition: $condition) {
-          
+          __typename
           id
           owner
           uuid
@@ -4098,7 +4188,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -4121,20 +4211,20 @@ export class APIService {
   ): Promise<CreateUserMutation> {
     const statement = `mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
         createUser(input: $input, condition: $condition) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -4143,7 +4233,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -4171,20 +4261,20 @@ export class APIService {
   ): Promise<UpdateUserMutation> {
     const statement = `mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {
         updateUser(input: $input, condition: $condition) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -4193,7 +4283,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -4221,20 +4311,20 @@ export class APIService {
   ): Promise<DeleteUserMutation> {
     const statement = `mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {
         deleteUser(input: $input, condition: $condition) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -4243,7 +4333,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -4268,22 +4358,22 @@ export class APIService {
   async GetGame(id: string): Promise<GetGameQuery> {
     const statement = `query GetGame($id: ID!) {
         getGame(id: $id) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -4294,9 +4384,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -4309,16 +4399,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -4327,7 +4417,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -4352,34 +4442,34 @@ export class APIService {
   ): Promise<ListGamesQuery> {
     const statement = `query ListGames($filter: ModelGameFilterInput, $limit: Int, $nextToken: String) {
         listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             owner
             uuid
             name
             description
             tabletop {
-              
+              __typename
               id
               gameOwnerID
               width
               height
               characters {
-                
+                __typename
                 nextToken
               }
               actions {
-                
+                __typename
                 nextToken
               }
             }
             members
             players {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -4410,28 +4500,28 @@ export class APIService {
   async GetTabletop(id: string): Promise<GetTabletopQuery> {
     const statement = `query GetTabletop($id: ID!) {
         getTabletop(id: $id) {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -4450,9 +4540,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -4479,17 +4569,17 @@ export class APIService {
   ): Promise<ListTabletopsQuery> {
     const statement = `query ListTabletops($filter: ModelTabletopFilterInput, $limit: Int, $nextToken: String) {
         listTabletops(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -4500,9 +4590,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -4534,7 +4624,7 @@ export class APIService {
   async GetAction(id: string): Promise<GetActionQuery> {
     const statement = `query GetAction($id: ID!) {
         getAction(id: $id) {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -4558,9 +4648,9 @@ export class APIService {
   ): Promise<ListActionsQuery> {
     const statement = `query ListActions($filter: ModelActionFilterInput, $limit: Int, $nextToken: String) {
         listActions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             tabletopID
             timestamp
@@ -4589,20 +4679,20 @@ export class APIService {
   async GetTabletopCharacter(id: string): Promise<GetTabletopCharacterQuery> {
     const statement = `query GetTabletopCharacter($id: ID!) {
         getTabletopCharacter(id: $id) {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -4617,7 +4707,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -4639,22 +4729,22 @@ export class APIService {
   ): Promise<ListTabletopCharactersQuery> {
     const statement = `query ListTabletopCharacters($filter: ModelTabletopCharacterFilterInput, $limit: Int, $nextToken: String) {
         listTabletopCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             tabletopID
             gameOwnerID
             playerID
             characterID
             location {
-              
+              __typename
               x
               y
             }
             currentHealth
             character {
-              
+              __typename
               id
               owner
               uuid
@@ -4669,7 +4759,7 @@ export class APIService {
               strength
               wisdom
               abilities {
-                
+                __typename
                 name
                 description
               }
@@ -4696,39 +4786,39 @@ export class APIService {
   async GetPlayer(id: string): Promise<GetPlayerQuery> {
     const statement = `query GetPlayer($id: ID!) {
         getPlayer(id: $id) {
-          
+          __typename
           id
           gameID
           gameOwnerID
           playerID
           pendingInvite
           game {
-            
+            __typename
             id
             owner
             uuid
             name
             description
             tabletop {
-              
+              __typename
               id
               gameOwnerID
               width
               height
               characters {
-                
+                __typename
                 nextToken
               }
               actions {
-                
+                __typename
                 nextToken
               }
             }
             members
             players {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -4739,13 +4829,13 @@ export class APIService {
             }
           }
           player {
-            
+            __typename
             username
             email
             gamesAsPlayer {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -4773,23 +4863,23 @@ export class APIService {
   ): Promise<ListPlayersQuery> {
     const statement = `query ListPlayers($filter: ModelPlayerFilterInput, $limit: Int, $nextToken: String) {
         listPlayers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             gameID
             gameOwnerID
             playerID
             pendingInvite
             game {
-              
+              __typename
               id
               owner
               uuid
               name
               description
               tabletop {
-                
+                __typename
                 id
                 gameOwnerID
                 width
@@ -4797,16 +4887,16 @@ export class APIService {
               }
               members
               players {
-                
+                __typename
                 nextToken
               }
             }
             player {
-              
+              __typename
               username
               email
               gamesAsPlayer {
-                
+                __typename
                 nextToken
               }
               owner
@@ -4833,7 +4923,7 @@ export class APIService {
   async GetPlayerCharacter(id: string): Promise<GetPlayerCharacterQuery> {
     const statement = `query GetPlayerCharacter($id: ID!) {
         getPlayerCharacter(id: $id) {
-          
+          __typename
           id
           owner
           uuid
@@ -4848,7 +4938,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -4869,9 +4959,9 @@ export class APIService {
   ): Promise<ListPlayerCharactersQuery> {
     const statement = `query ListPlayerCharacters($filter: ModelPlayerCharacterFilterInput, $limit: Int, $nextToken: String) {
         listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             owner
             uuid
@@ -4886,7 +4976,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -4912,20 +5002,20 @@ export class APIService {
   async GetUser(username: string): Promise<GetUserQuery> {
     const statement = `query GetUser($username: String!) {
         getUser(username: $username) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -4934,7 +5024,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -4962,15 +5052,15 @@ export class APIService {
   ): Promise<ListUsersQuery> {
     const statement = `query ListUsers($username: String, $filter: ModelUserFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
         listUsers(username: $username, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
-          
+          __typename
           items {
-            
+            __typename
             username
             email
             gamesAsPlayer {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 gameID
                 gameOwnerID
@@ -5015,9 +5105,9 @@ export class APIService {
   ): Promise<GetActionsByDateQuery> {
     const statement = `query GetActionsByDate($tabletopID: ID, $timestamp: ModelIntKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelActionFilterInput, $limit: Int, $nextToken: String) {
         getActionsByDate(tabletopID: $tabletopID, timestamp: $timestamp, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
-          
+          __typename
           items {
-            
+            __typename
             id
             tabletopID
             timestamp
@@ -5052,26 +5142,42 @@ export class APIService {
     )) as any;
     return <GetActionsByDateQuery>response.data.getActionsByDate;
   }
+  OnNewActionListener: Observable<OnNewActionSubscription> = API.graphql(
+    graphqlOperation(
+      `subscription OnNewAction {
+        onNewAction {
+          __typename
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+      }`
+    )
+  ) as Observable<OnNewActionSubscription>;
+
   OnCreateGameListener: Observable<OnCreateGameSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreateGame($owner: String!) {
         onCreateGame(owner: $owner) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -5082,9 +5188,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -5097,16 +5203,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5115,7 +5221,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -5132,22 +5238,22 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateGame($owner: String!) {
         onUpdateGame(owner: $owner) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -5158,9 +5264,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -5173,16 +5279,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5191,7 +5297,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -5208,22 +5314,22 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteGame($owner: String!) {
         onDeleteGame(owner: $owner) {
-          
+          __typename
           id
           owner
           uuid
           name
           description
           tabletop {
-            
+            __typename
             id
             gameOwnerID
             width
             height
             characters {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 gameOwnerID
@@ -5234,9 +5340,9 @@ export class APIService {
               nextToken
             }
             actions {
-              
+              __typename
               items {
-                
+                __typename
                 id
                 tabletopID
                 timestamp
@@ -5249,16 +5355,16 @@ export class APIService {
           }
           members
           players {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5267,7 +5373,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -5286,28 +5392,28 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreateTabletop {
         onCreateTabletop {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5326,9 +5432,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -5349,28 +5455,28 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateTabletop {
         onUpdateTabletop {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5389,9 +5495,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -5412,28 +5518,28 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteTabletop($gameOwnerId: String!) {
         onDeleteTabletop(gameOwnerId: $gameOwnerId) {
-          
+          __typename
           id
           gameOwnerID
           width
           height
           characters {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               gameOwnerID
               playerID
               characterID
               location {
-                
+                __typename
                 x
                 y
               }
               currentHealth
               character {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5452,9 +5558,9 @@ export class APIService {
             nextToken
           }
           actions {
-            
+            __typename
             items {
-              
+              __typename
               id
               tabletopID
               timestamp
@@ -5473,7 +5579,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreateAction {
         onCreateAction {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -5489,7 +5595,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateAction {
         onUpdateAction {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -5505,7 +5611,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteAction {
         onDeleteAction {
-          
+          __typename
           id
           tabletopID
           timestamp
@@ -5523,20 +5629,20 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreateTabletopCharacter {
         onCreateTabletopCharacter {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -5551,7 +5657,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -5567,20 +5673,20 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateTabletopCharacter {
         onUpdateTabletopCharacter {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -5595,7 +5701,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -5611,20 +5717,20 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteTabletopCharacter {
         onDeleteTabletopCharacter {
-          
+          __typename
           id
           tabletopID
           gameOwnerID
           playerID
           characterID
           location {
-            
+            __typename
             x
             y
           }
           currentHealth
           character {
-            
+            __typename
             id
             owner
             uuid
@@ -5639,7 +5745,7 @@ export class APIService {
             strength
             wisdom
             abilities {
-              
+              __typename
               name
               description
             }
@@ -5655,7 +5761,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreatePlayerCharacter {
         onCreatePlayerCharacter {
-          
+          __typename
           id
           owner
           uuid
@@ -5670,7 +5776,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -5685,7 +5791,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdatePlayerCharacter($owner: String!) {
         onUpdatePlayerCharacter(owner: $owner) {
-          
+          __typename
           id
           owner
           uuid
@@ -5700,7 +5806,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -5715,7 +5821,7 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeletePlayerCharacter($owner: String!) {
         onDeletePlayerCharacter(owner: $owner) {
-          
+          __typename
           id
           owner
           uuid
@@ -5730,7 +5836,7 @@ export class APIService {
           strength
           wisdom
           abilities {
-            
+            __typename
             name
             description
           }
@@ -5743,20 +5849,20 @@ export class APIService {
     graphqlOperation(
       `subscription OnCreateUser($owner: String!) {
         onCreateUser(owner: $owner) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5765,7 +5871,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -5783,20 +5889,20 @@ export class APIService {
     graphqlOperation(
       `subscription OnUpdateUser($owner: String!) {
         onUpdateUser(owner: $owner) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5805,7 +5911,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner
@@ -5823,20 +5929,20 @@ export class APIService {
     graphqlOperation(
       `subscription OnDeleteUser($owner: String!) {
         onDeleteUser(owner: $owner) {
-          
+          __typename
           username
           email
           gamesAsPlayer {
-            
+            __typename
             items {
-              
+              __typename
               id
               gameID
               gameOwnerID
               playerID
               pendingInvite
               game {
-                
+                __typename
                 id
                 owner
                 uuid
@@ -5845,7 +5951,7 @@ export class APIService {
                 members
               }
               player {
-                
+                __typename
                 username
                 email
                 owner

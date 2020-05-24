@@ -4,6 +4,34 @@
 			"build": true,
 			"providerPlugin": "awscloudformation",
 			"service": "Lambda"
+		},
+		"rollattributeaction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "roleameapi",
+					"attributes": [
+						"GraphQLAPIIdOutput"
+					]
+				}
+			]
+		},
+		"rollchallengeaction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "roleameapi",
+					"attributes": [
+						"GraphQLAPIIdOutput"
+					]
+				}
+			]
 		}
 	},
 	"auth": {

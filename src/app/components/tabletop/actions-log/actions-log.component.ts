@@ -65,6 +65,20 @@ export class ActionsLogComponent implements OnInit {
       error: error => console.error(error)
     });
 
+    //Subscription to custom mutations
+    this.apiService.OnNewActionListener.subscribe({
+      next: (newAction) => {
+        newAction = newAction.value.data.onNewAction
+        if( newAction.tabletopID !== this.tabletop.id ) return;
+        newAction = this.processReceivedAction(newAction)
+        this.actions.push(newAction)
+        //Little interval before scroll to let ngFor update
+        setTimeout( () => {
+          this.chatScrollbar.directiveRef.scrollToBottom();
+        },60)},
+      error: error => console.error(error)
+    });
+
     // Get last 100 actions for this tabletop
     this.apiService.ListActionsByTimestamp(this.tabletop.id, ModelSortDirection.ASC, undefined, 100).then( retrievedActions => {
       this.actions = retrievedActions.items.map( (action) => {

@@ -155,3 +155,13 @@ type User @model
 
 # 	onDeleteTabletopCharacter: Tabletop @aws_subscribe(mutations: ["deleteTabletopCharacter"])
 # }
+
+# CUSTOM MUTATION
+
+type Mutation {
+	rollAttributeAction(attribute: String! bonifier: Int! player: String! tabletopID: ID!): Action @function(name: "rollattributeaction-${env}")
+	rollChallengeAction(attribute: String! bonifier: Int! character: String! bonifier2: Int! character2: String! tabletopID: ID!): Action @function(name: "rollchallengeaction-${env}")
+}
+type Subscription {
+  onNewAction: Action @aws_subscribe(mutations: ["rollAttributeAction","rollChallengeAction"])
+}
