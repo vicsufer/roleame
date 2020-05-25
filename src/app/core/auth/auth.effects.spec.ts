@@ -1,14 +1,16 @@
+import { AppState } from './../core.state';
+import { Store } from '@ngrx/store';
+import { State } from 'app/core/auth/auth.models';
 import * as assert from 'assert';
 import { Router } from '@angular/router';
-import { Actions, getEffectsMetadata } from '@ngrx/effects';
+import { getEffectsMetadata, Actions } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { actionAuthLogin, actionAuthLogout } from './auth.actions';
+import { ActionAuthLogin, ActionAuthLogout, ActionAuthSetUser } from './auth.actions';
 import { AuthEffects, AUTH_KEY } from './auth.effects';
 import { AmplifyService } from 'aws-amplify-angular';
-import { AuthStateTypes } from './auth.models';
 
 const scheduler = new TestScheduler((actual, expected) =>
   assert.deepStrictEqual(actual, expected)
@@ -17,57 +19,50 @@ const scheduler = new TestScheduler((actual, expected) =>
 describe('AuthEffects', () => {
   let localStorageService: jasmine.SpyObj<LocalStorageService>;
   let router: jasmine.SpyObj<Router>;
-  let amplifyService: jasmine.SpyObj<AmplifyService>
+  let amplifyService: jasmine.SpyObj<AmplifyService|any>;
+  let store: jasmine.SpyObj<Store<AppState>>;
 
   beforeEach(() => {
     localStorageService = jasmine.createSpyObj('LocalStorageService', [
-      'setItem'
+      'setItem',
+      `removeItem`
     ]);
-    router = jasmine.createSpyObj('Router', ['navigateByUrl']);
+    router = jasmine.createSpyObj('Router', ['navigateByUrl', 'navigate']);
+    store = jasmine.createSpyObj('store', ['pipe']);
+    amplifyService = {
+      'setAuthState': jasmine.createSpy('setAuthState'),
+      'auth':  jasmine.createSpy('auth').and.callFake( () => {signOut: jasmine.createSpy('signOut')})
+    }
   });
 
   describe('login', () => {
 
     it('should not dispatch any action', () => {
-      const actions = new Actions(EMPTY);
-      const effect = new AuthEffects(actions, router, amplifyService);
-      const metadata = getEffectsMetadata(effect);
-      expect(metadata.login.dispatch).toEqual(false);
-    });
+        const actions = new Actions<ActionAuthLogin>();
+        const effect = new AuthEffects(actions, router, amplifyService, store, localStorageService);
+        const metadata = getEffectsMetadata(effect);
 
-    it('should call setAuthState on AmplifyService', () => {
-      scheduler.run(helpers => {
-        const { cold } = helpers;
-        const loginAction = actionAuthLogin({user:'john doe'});
-        const source = cold('a', { a: loginAction });
-        const actions = new Actions(source);
-        const effect = new AuthEffects(actions, router, amplifyService);
-
-        effect.login.subscribe(() => {
-          expect(amplifyService.setAuthState).toHaveBeenCalledWith({user:'john doe'});
-        });
-      });
+        expect(metadata.login.dispatch).toEqual(false);
     });
   });
 
   describe('logout', () => {
     it('should not dispatch any action', () => {
+      
       const actions = new Actions(EMPTY);
-      const effect = new AuthEffects(actions, router, amplifyService);
+      const effect = new AuthEffects(actions, router, amplifyService, store, localStorageService);
       const metadata = getEffectsMetadata(effect);
-
       expect(metadata.logout.dispatch).toEqual(false);
     });
 
     it('should call signOut on AmplifyService.auth() and navigate to /', () => {
       scheduler.run(helpers => {
         const { cold } = helpers;
-        const logoutAction = actionAuthLogout();
+        const logoutAction = new ActionAuthLogout();
         const source = cold('a', { a: logoutAction });
         const actions = new Actions(source);
-        const effect = new AuthEffects(actions, router, amplifyService);
-
-        effect.login.subscribe(() => {
+        const effect = new AuthEffects(actions, router, amplifyService, store, localStorageService);
+        effect.logout.subscribe(() => {
           expect(amplifyService.auth().signOut).toHaveBeenCalled();
           expect(router.navigate).toHaveBeenCalledWith(['/']);
         });

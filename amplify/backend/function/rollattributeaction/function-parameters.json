@@ -1,0 +1,20 @@
+{
+    "permissions": {
+        "storage": {
+            "Action:@model(appsync)": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        },
+        "api": {
+            "roleameapi": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

@@ -29,12 +29,6 @@ export class ActionSettingsChangeAnimationsPage implements Action {
   constructor(readonly payload: { pageAnimations: boolean }) {}
 }
 
-export class ActionSettingsChangeAnimationsPageDisabled implements Action {
-  readonly type = SettingsActionTypes.CHANGE_ANIMATIONS_PAGE_DISABLED;
-
-  constructor(readonly payload: { pageAnimationsDisabled: boolean }) {}
-}
-
 export class ActionSettingsChangeAnimationsElements implements Action {
   readonly type = SettingsActionTypes.CHANGE_ANIMATIONS_ELEMENTS;
 
@@ -51,6 +45,5 @@ export type SettingsActions =
   | ActionSettingsChangeLanguage
   | ActionSettingsChangeTheme
   | ActionSettingsChangeAnimationsPage
-  | ActionSettingsChangeAnimationsPageDisabled
   | ActionSettingsChangeAnimationsElements
   | ActionSettingsChangeHour;

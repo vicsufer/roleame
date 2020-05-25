@@ -1,51 +1,26 @@
 {
-    "master": {
+    "develop": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-roleame-master-25811-authRole",
-            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-master-25811-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-master-25811-authRole",
+            "AuthRoleName": "amplify-roleame-develop-32314-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-develop-32314-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-develop-32314-authRole",
             "Region": "eu-west-1",
-            "DeploymentBucketName": "amplify-roleame-master-25811-deployment",
-            "UnauthRoleName": "amplify-roleame-master-25811-unauthRole",
-            "StackName": "amplify-roleame-master-25811",
-            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-master-25811/bf8003c0-5b5f-11ea-95fd-02fa7ab4594c",
-            "AmplifyAppId": "d3de0f5h7hk76g"
+            "DeploymentBucketName": "amplify-roleame-develop-32314-deployment",
+            "UnauthRoleName": "amplify-roleame-develop-32314-unauthRole",
+            "StackName": "amplify-roleame-develop-32314",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-develop-32314/2810adf0-93ef-11ea-9e42-0adf61345742",
+            "AmplifyAppId": "d97jyggot8b00"
         },
         "categories": {
             "function": {
-                "roleame700467fcCustomMessage": {
-                    "REDIRECTURL": "https://rolea.me",
-                    "EMAILSUBJECT": "Roleame: Account verification",
-                    "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
+                "roleame1d010846CustomMessage": {
+                    "REDIRECTURL": "rolea.me",
+                    "EMAILSUBJECT": "Roleame verification",
+                    "EMAILMESSAGE": "Follow the provided link to confirm your registration at rolea.me"
                 }
             },
             "auth": {
-                "roleame700467fc": {}
-            }
-        }
-    },
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-roleame-dev-30924-authRole",
-            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-30924-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-dev-30924-authRole",
-            "Region": "eu-west-1",
-            "DeploymentBucketName": "amplify-roleame-dev-30924-deployment",
-            "UnauthRoleName": "amplify-roleame-dev-30924-unauthRole",
-            "StackName": "amplify-roleame-dev-30924",
-            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-dev-30924/50455da0-5b61-11ea-b222-0abd335268a4",
-            "AmplifyAppId": "d3de0f5h7hk76g"
-        },
-        "categories": {
-            "auth": {
-                "roleame700467fc": {}
-            },
-            "function": {
-                "roleame700467fcCustomMessage": {
-                    "REDIRECTURL": "https://localhost:4200",
-                    "EMAILSUBJECT": "Roleame-dev: Account verification",
-                    "EMAILMESSAGE": "Thank you for signing in, please click the following link to verify you account."
-                }
+                "roleame1d010846": {}
             }
         }
     }

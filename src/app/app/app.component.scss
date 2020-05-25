@@ -5,6 +5,16 @@
   width: 100%;
 }
 
+::ng-deep .default-theme .mat-step-header .mat-step-icon {
+  background-color: white; 
+  color: black;
+}
+
+router-outlet{
+  height: 100%;
+  width: 100%;
+}
+
 mat-sidenav-container {
   height: 100%;
   width: 100%;
@@ -80,7 +90,7 @@ mat-sidenav-container {
 
     .footer {
       flex: 0 0 auto;
-      padding: 0 15px;
+      padding: 0 5px;
       text-align: center;
 
       .row {
@@ -90,7 +100,7 @@ mat-sidenav-container {
           a {
             transition: padding 0.5s;
             display: inline-block;
-            padding: 20px 5px;
+            padding: 10px 5px;
 
             &:hover {
               text-decoration: none;
@@ -114,13 +124,13 @@ mat-sidenav-container {
 
           @media (min-width: map-get($grid-breakpoints, lg)) {
             a {
-              padding: 20px 10px;
+              padding: 5px 5px;
             }
           }
 
           @media (max-width: map-get($grid-breakpoints, md)) {
             a {
-              padding: 20px;
+              padding: 5px;
 
               span {
                 width: 0;
@@ -131,7 +141,7 @@ mat-sidenav-container {
 
           @media (max-width: map-get($grid-breakpoints, sm)) {
             a {
-              padding: 20px 5px;
+              padding: 5px 5px;
             }
           }
         }

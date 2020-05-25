@@ -3,10 +3,10 @@
     <div class="container">
       <h1>{{ 'roleame-webapp.title.long' | translate }}</h1>
       <div class="actions">
-        <a [ngClass]="routeAnimationsElements" mat-raised-button class="actions-main" color="primary" routerLink="../games-list">
+        <a [ngClass]="routeAnimationsElements" mat-raised-button class="actions-main" routerLink="/games">
           {{ 'roleame-webapp.menu.games' | translate }}
         </a>
-        <a mat-raised-button class="actions-main" color="primary" routerLink="../characters" [ngClass]="routeAnimationsElements">
+        <a mat-raised-button class="actions-main" routerLink="/characters" [ngClass]="routeAnimationsElements">
           {{ 'roleame-webapp.menu.characters' | translate }}
         </a>
         <br>

@@ -1,25 +1,623 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateCharacter($owner: String!) {
-  onCreateCharacter(owner: $owner) {
+subscription OnNewAction {
+  onNewAction {
     id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+subscription OnCreateGame($owner: String!) {
+  onCreateGame(owner: $owner) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+subscription OnUpdateGame($owner: String!) {
+  onUpdateGame(owner: $owner) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+subscription OnDeleteGame($owner: String!) {
+  onDeleteGame(owner: $owner) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+subscription OnCreateTabletop {
+  onCreateTabletop {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      items {
+        id
+        tabletopID
+        timestamp
+        actionType
+        player
+        payload
+      }
+      nextToken
+    }
+  }
+}
+subscription OnUpdateTabletop {
+  onUpdateTabletop {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      items {
+        id
+        tabletopID
+        timestamp
+        actionType
+        player
+        payload
+      }
+      nextToken
+    }
+  }
+}
+subscription OnDeleteTabletop($gameOwnerId: String!) {
+  onDeleteTabletop(gameOwnerId: $gameOwnerId) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      items {
+        id
+        tabletopID
+        timestamp
+        actionType
+        player
+        payload
+      }
+      nextToken
+    }
+  }
+}
+subscription OnCreateAction {
+  onCreateAction {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+subscription OnUpdateAction {
+  onUpdateAction {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+subscription OnDeleteAction {
+  onDeleteAction {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+subscription OnCreateTabletopCharacter {
+  onCreateTabletopCharacter {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+subscription OnUpdateTabletopCharacter {
+  onUpdateTabletopCharacter {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+subscription OnDeleteTabletopCharacter {
+  onDeleteTabletopCharacter {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+subscription OnCreatePlayerCharacter {
+  onCreatePlayerCharacter {
+    id
+    owner
+    uuid
     name
     background
+    portrait
+    portraitURL
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
+    abilities {
+      name
+      description
+    }
+  }
+}
+subscription OnUpdatePlayerCharacter($owner: String!) {
+  onUpdatePlayerCharacter(owner: $owner) {
+    id
+    owner
+    uuid
+    name
+    background
+    portrait
+    portraitURL
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
+    abilities {
+      name
+      description
+    }
+  }
+}
+subscription OnDeletePlayerCharacter($owner: String!) {
+  onDeletePlayerCharacter(owner: $owner) {
+    id
+    owner
+    uuid
+    name
+    background
+    portrait
+    portraitURL
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
+    abilities {
+      name
+      description
+    }
+  }
+}
+subscription OnCreateUser($owner: String!) {
+  onCreateUser(owner: $owner) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
     owner
   }
 }
-subscription OnUpdateCharacter($owner: String!) {
-  onUpdateCharacter(owner: $owner) {
-    id
-    name
-    background
+subscription OnUpdateUser($owner: String!) {
+  onUpdateUser(owner: $owner) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
     owner
   }
 }
-subscription OnDeleteCharacter($owner: String!) {
-  onDeleteCharacter(owner: $owner) {
-    id
-    name
-    background
+subscription OnDeleteUser($owner: String!) {
+  onDeleteUser(owner: $owner) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
     owner
   }
 }

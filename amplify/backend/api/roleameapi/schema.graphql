@@ -1,0 +1,172 @@
+type Game @model
+@auth(
+	rules: [
+		{ allow: owner },
+		{ allow: owner, ownerField: "members", operations: [read] }
+	]
+){
+	id: ID!
+	owner: String
+	uuid: String!
+	name: String!
+	description: String
+
+	tabletop: Tabletop @connection
+
+	members: [String] 
+	players: [Player] @connection(keyName: "byGame", fields: ["id"]) #@auth(rules: [ { allow: owner, ownerField: "members", operations: [read] }])
+}
+
+type Tabletop @model
+@auth(rules:[
+	{ allow: private, operations: [read, update] },
+	{ allow: owner, ownerField: "gameOwnerId", operations: [read, update, delete] }
+	
+])
+{
+	id: ID!
+	gameOwnerID: String!
+
+	width: Int
+	height: Int
+	characters: [TabletopCharacter] @connection(keyName: "byTabletop", fields: ["id"])
+
+	actions: [Action] @connection(keyName: "byTabletop", fields: ["id"])
+}
+
+type Action @model
+@auth(rules: [{ allow: private }])
+@key(name: "byTabletop", fields: ["tabletopID", "id"])
+@key(name: "byDate", fields: ["tabletopID","timestamp"], queryField: "getActionsByDate")
+{
+	id: ID!
+	tabletopID: ID!
+	timestamp: AWSTimestamp
+	actionType: ActionType
+	player: String
+	payload: String
+}
+
+enum ActionType {
+	CHALLENGE
+	HEAL
+	ATTACK
+	ATTRIBUTEROLL
+	CHAT
+	DICEROLL
+}
+
+type Location {
+	x: Int
+	y: Int
+}
+
+type TabletopCharacter @model
+@auth(rules: [
+	{ allow: private, operations: [read] }
+])
+@key(name: "byTabletop", fields: ["tabletopID", "characterID"])
+{
+	id: ID!
+	tabletopID: ID!
+	gameOwnerID: String!
+	playerID: String!
+	characterID: ID!
+
+	location: Location
+
+	currentHealth: Int!
+
+	character: PlayerCharacter! @connection(fields: ["characterID"]) 
+}
+
+
+type Player @model(subscriptions: null)
+@auth(rules: [
+	{ allow: private, operations: [read] }
+	{ allow: owner, ownerField: "playerID", operations: [update, delete] }
+	{ allow: owner, ownerField: "gameOwnerID", operations: [update, delete] }
+])
+@key(name: "byGame", fields: ["gameID", "playerID"])
+@key(name: "byPlayer", fields: ["playerID", "gameID"])
+ {
+	id: ID!
+
+	gameID: ID!
+	gameOwnerID: String!
+  	playerID: String!
+	pendingInvite: Boolean
+
+	game: Game! @connection(fields: ["gameID"])
+  	player: User! @connection(fields: ["playerID"]) 
+}
+
+type PlayerCharacter @model
+@auth( 
+	rules: [
+		{ allow: private, operations: [read] }
+		{ allow: owner, operations: [update, delete] }
+	]
+){
+	id: ID!
+	owner: String
+	uuid: String!
+	name: String!
+	background: String
+	portrait: String
+	portraitURL: String
+	class: String
+
+	agility: Int
+	hitPoints: Int
+	fellowship: Int
+	strength: Int
+	wisdom: Int
+
+	abilities: [Ability]
+}
+
+type Ability{
+	name: String
+	description: String
+}
+
+type User @model
+@auth( 
+	rules: [
+		{ allow: owner }
+		{ allow: private, operations: [read] }
+		]
+) 
+@key(fields: ["username"])
+{
+	username: String!
+	email: String!
+	gamesAsPlayer: [Player] @connection(keyName: "byPlayer", fields: ["username"])
+}
+
+
+# CUSTOM SUBSCRIPTIONS WITH IDS
+
+# type Subscription {
+# 	onUpdateTabletopCharacter: Tabletop @aws_subscribe(mutations: ["updateTabletopCharacter"])
+
+# 	onCreateTabletopCharacter: Tabletop @aws_subscribe(mutations: ["createTabletopCharacter"])
+
+# 	onDeleteTabletopCharacter: Tabletop @aws_subscribe(mutations: ["deleteTabletopCharacter"])
+# }
+
+# CUSTOM MUTATION
+
+type Mutation {
+	rollAttributeAction(attribute: String! bonifier: Int! player: String! tabletopID: ID!): Action @function(name: "rollattributeaction-${env}")
+	rollChallengeAction(attribute: String! bonifier: Int! character: String! bonifier2: Int! character2: String! player: String! tabletopID: ID!): Action @function(name: "rollchallengeaction-${env}")
+	rollHealAction(healer: String! healerWisdom: Int! targetID: String! targetName: String! maxHealth: Int! currentHealth: Int! player: String! tabletopID: ID!): Action @function(name: "rollhealaction-${env}")
+	rollAttackAction(attacker: String! attackerStrength: Int! targetID: String! targetName: String! targetStrength: Int! targetCurrentHealth: Int! player: String! tabletopID: ID!): Action @function(name: "rollattackaction-${env}")
+}
+type Subscription {
+  onNewAction: Action @aws_subscribe(mutations: ["rollAttributeAction","rollChallengeAction", "rollHealAction","rollAttackAction"])
+}
+
+
+

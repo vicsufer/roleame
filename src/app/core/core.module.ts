@@ -1,82 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Optional, SkipSelf, ErrorHandler } from '@angular/core';
-import {
-  HttpClientModule,
-  HttpClient,
-  HTTP_INTERCEPTORS
-} from '@angular/common/http';
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer
-} from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-import { environment } from '../../environments/environment';
-
-import {
-  AppState,
-  reducers,
-  metaReducers,
-  selectRouterState
-} from './core.state';
-import { AuthEffects } from './auth/auth.effects';
-import {
-  selectIsAuthenticated,
-  selectAuth,
-  selectCurrentUser
-} from './auth/auth.selectors';
-import { AuthGuardService } from './auth/auth-guard.service';
-import { TitleService } from './title/title.service';
-import {
-  ROUTE_ANIMATIONS_ELEMENTS,
-  routeAnimations
-} from './animations/route.animations';
-import { AnimationsService } from './animations/animations.service';
-import { AppErrorHandler } from './error-handler/app-error-handler.service';
-import { CustomSerializer } from './router/custom-serializer';
-import { LocalStorageService } from './local-storage/local-storage.service';
-import { HttpErrorInterceptor } from './http-interceptors/http-error.interceptor';
-import { NotificationService } from './notifications/notification.service';
-import { SettingsEffects } from './settings/settings.effects';
-import {
-  selectSettingsLanguage,
-  selectEffectiveTheme
-} from './settings/settings.selectors';
-import {
-  SettingsActions,
-  SettingsActionTypes,
-  ActionSettingsChangeLanguage,
-  ActionSettingsChangeAnimationsPageDisabled
-} from './settings/settings.actions';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { environment } from '../../environments/environment';
+import { AnimationsService } from './animations/animations.service';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from './animations/route.animations';
+import { AuthGuardService } from './auth/auth-guard.service';
+import { AuthEffects } from './auth/auth.effects';
+import { selectAuth, selectCurrentUser, selectIsAuthenticated } from './auth/auth.selectors';
+import { AppState, metaReducers, reducers, selectRouterState } from './core.state';
+import { HttpErrorInterceptor } from './http-interceptors/http-error.interceptor';
+import { LocalStorageService } from './local-storage/local-storage.service';
 import { Md5Pipe } from './pipes/md5.pipe';
+import { CustomSerializer } from './router/custom-serializer';
 import { APIService } from './services/API.service';
+import { ActionSettingsChangeLanguage, SettingsActions, SettingsActionTypes } from './settings/settings.actions';
+import { SettingsEffects } from './settings/settings.effects';
+import { selectEffectiveTheme, selectSettingsLanguage } from './settings/settings.selectors';
+import { TitleService } from './title/title.service';
 
-export {
-  TitleService,
-  selectAuth,
-  routeAnimations,
-  AppState,
-  APIService,
-  LocalStorageService,
-  selectIsAuthenticated,
-  selectCurrentUser,
-  ROUTE_ANIMATIONS_ELEMENTS,
-  AnimationsService,
-  AuthGuardService,
-  selectRouterState,
-  NotificationService,
-  SettingsActions,
-  SettingsActionTypes,
-  ActionSettingsChangeLanguage,
-  ActionSettingsChangeAnimationsPageDisabled,
-  selectEffectiveTheme,
-  selectSettingsLanguage
-};
+
+
+export { TitleService, selectAuth, routeAnimations, AppState, APIService, LocalStorageService, selectIsAuthenticated, selectCurrentUser, ROUTE_ANIMATIONS_ELEMENTS, AnimationsService, AuthGuardService, selectRouterState, SettingsActions, SettingsActionTypes, ActionSettingsChangeLanguage, selectEffectiveTheme, selectSettingsLanguage };
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(
@@ -118,7 +69,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: AmplifyService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: RouterStateSerializer, useClass: CustomSerializer },
     { provide: APIService }
   ],

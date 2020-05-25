@@ -1,0 +1,32 @@
+@import '../../../../styles-variables';
+
+mat-card.chat {
+    height: 100%
+  }
+  
+mat-card.chat mat-card-content {
+    height: 100%
+}
+
+mat-button {
+    width: 100%;
+}
+
+textarea {
+    height: 100%;
+}
+
+button {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+}
+
+span.player-tag {
+    font-weight: bold;
+    color: black;
+}
+
+.roll-total {
+    border: 1px solid rgba(0, 0, 0, 0.418)
+}

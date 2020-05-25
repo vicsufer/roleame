@@ -1,0 +1,22 @@
+@import '../../../../styles-variables';
+
+h1 {
+  text-align: center;
+  font-size: 3em;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+mat-card {
+  margin-top: 20px
+}
+
+mat-card-content {
+  // text-overflow: ellipsis;
+  // overflow: hidden;
+  min-height: 100px;
+}

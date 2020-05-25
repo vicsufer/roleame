@@ -1,22 +1,17 @@
-import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
-import { environment as env } from '../../environments/environment';
-import { Hub } from 'aws-amplify';
-
-import {
-  routeAnimations,
-  AppState,
-  LocalStorageService,
-  selectIsAuthenticated,
-  selectSettingsLanguage,
-  selectEffectiveTheme,
-  ActionSettingsChangeLanguage
-} from '../core/core.module';
-import { ActionAuthLogout, ActionAuthLogin } from 'app/core/auth/auth.actions';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { ActionAuthLogin, ActionAuthLogout } from 'app/core/auth/auth.actions';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
+import { APIService } from 'app/core/services/API.service';
+import { ActionSettingsChangeAnimationsPage } from 'app/core/settings/settings.actions';
+import { Hub } from 'aws-amplify';
+import browser from 'browser-detect';
+import { Observable } from 'rxjs';
+import { environment as env } from '../../environments/environment';
+import { ActionSettingsChangeLanguage, AppState, LocalStorageService, routeAnimations, selectEffectiveTheme, selectIsAuthenticated, selectSettingsLanguage } from '../core/core.module';
+
+
 
 @Component({
   selector: 'roleame-webapp-root',
@@ -25,6 +20,8 @@ import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
   animations: [routeAnimations]
 })
 export class AppComponent implements OnInit {
+
+  
   isProd = env.production;
   envName = env.envName;
   version = env.versions.app;
@@ -32,15 +29,13 @@ export class AppComponent implements OnInit {
   logo = require('../../assets/logo.png');
   languages = ['en', 'es'];
   navigation = [
-    { link: 'about', label: 'roleame-webapp.menu.about' }
   ];
   privateNavigation = [
     { link: 'games', label: 'roleame-webapp.menu.games' },
     { link: 'characters', label: 'roleame-webapp.menu.characters' }
   ]
   navigationSideMenu = [
-    ...this.navigation,
-    { link: 'settings', label: 'roleame-webapp.menu.settings' }
+    ...this.navigation
   ];
 
   isAuthenticated$: Observable<boolean>;
@@ -50,8 +45,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private storageService: LocalStorageService
-  ) {}
+    private storageService: LocalStorageService,
+    private apiService: APIService,
+    public router: Router
+  ) {
+ 
+  }
 
   private static isIEorEdgeOrSafari() {
     return ['ie', 'edge', 'safari'].includes(browser().name);
@@ -60,15 +59,31 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.storageService.testLocalStorage();
 
+    if (AppComponent.isIEorEdgeOrSafari()) {
+      this.store.dispatch(
+        new ActionSettingsChangeAnimationsPage({pageAnimations: false})
+      );
+    }
+
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.currentUserEmail$ = this.store.pipe(select(selectCurrentUserEmail));
     this.language$ = this.store.pipe(select(selectSettingsLanguage));
     this.theme$ = this.store.pipe(select(selectEffectiveTheme));
 
+
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-          this.store.dispatch(new ActionAuthLogin());
+          //Check if it is first login
+          this.apiService.GetUserData(data.username).then( user => {
+            if(!user){
+              this.apiService.CreateUser( {username: data.username, email: data.attributes.email} ).then( () =>
+                this.store.dispatch(new ActionAuthLogin())
+               ).catch( e => console.error(e))
+            } else {
+              this.store.dispatch(new ActionAuthLogin())
+            }
+          }).catch( e => console.error(e))
           break;
         default:
           break;

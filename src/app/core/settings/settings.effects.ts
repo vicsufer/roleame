@@ -1,10 +1,11 @@
+import { AnimationsService } from './../animations/animations.service';
 import { ActivationEnd, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest, interval, merge, of } from 'rxjs';
+import { merge, of } from 'rxjs';
 import {
   tap,
   withLatestFrom,
@@ -16,15 +17,12 @@ import {
 
 import { selectSettingsState } from '../core.state';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { AnimationsService } from '../animations/animations.service';
 import { TitleService } from '../title/title.service';
 
 import { SettingsActionTypes, SettingsActions } from './settings.actions';
 import {
   selectEffectiveTheme,
-  selectSettingsLanguage,
-  selectPageAnimations,
-  selectElementsAnimations
+  selectSettingsLanguage
 } from './settings.selectors';
 import { State } from './settings.model';
 
@@ -41,7 +39,6 @@ export class SettingsEffects {
     private overlayContainer: OverlayContainer,
     private localStorageService: LocalStorageService,
     private titleService: TitleService,
-    private animationsService: AnimationsService,
     private translateService: TranslateService
   ) {}
 
@@ -56,8 +53,9 @@ export class SettingsEffects {
     ),
     withLatestFrom(this.store.pipe(select(selectSettingsState))),
     tap(([action, settings]) =>
+    {
       this.localStorageService.setItem(SETTINGS_KEY, settings)
-    )
+    })
   );
 
   @Effect({ dispatch: false })
@@ -81,8 +79,7 @@ export class SettingsEffects {
   @Effect({ dispatch: false })
   setTranslateServiceLanguage = this.store.pipe(
     select(selectSettingsLanguage),
-    distinctUntilChanged(),
-    tap(language => this.translateService.use(language))
+    tap(language => {this.translateService.use(language)})
   );
 
   @Effect({ dispatch: false })

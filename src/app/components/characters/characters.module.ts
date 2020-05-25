@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 
-import { charactersComponent } from './characters/characters.component';
-import { charactersRoutingModule } from './characters-routing.module';
+import { CharactersComponent } from './characters/characters.component';
+import { CharactersRoutingModule as CharactersRoutingModule } from './characters-routing.module';
+import { NewCharacterComponent } from './new-character/new-character.component';
+import { CharactersPageComponent } from './page/characters-page.component';
+import { EditCharacterComponent, ChangePortraitDialog } from './edit-character/edit-character.component';
 
 @NgModule({
-  declarations: [charactersComponent],
-  imports: [CommonModule, SharedComponentsModule, charactersRoutingModule]
+  declarations: [CharactersComponent, NewCharacterComponent, CharactersPageComponent, EditCharacterComponent, ChangePortraitDialog],
+  imports: [CommonModule, SharedComponentsModule, CharactersRoutingModule],
+  entryComponents: [ChangePortraitDialog]
 })
-export class charactersModule {}
+export class CharactersModule {}

@@ -1,5 +1,5 @@
 import { authReducer, initialState } from './auth.reducer';
-import { ActionAuthLogin, ActionAuthLogout } from './auth.actions';
+import { ActionAuthLogin, ActionAuthLogout, ActionAuthSetUser } from './auth.actions';
 import { AuthStateTypes } from './auth.models';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 
@@ -17,28 +17,30 @@ describe('AuthReducer', () => {
   });
 
   it('should set authentication state to "signedIn" on login', () => {
-    const action = actionAuthLogin({ user: 'john doe' });
-    const state = authReducer(TEST_INITIAL_STATE, action);
-
+    const actionLogin = new ActionAuthLogin()
+    const state = authReducer(TEST_INITIAL_STATE, actionLogin);
     expect(state.state).toBe(AuthStateTypes.SIGNED_IN);
   });
 
-  it('should set user to "john doe" on login', () => {
-    const action = actionAuthLogin({ user: 'john doe' });
+  it('should set user to "john doe" on setUser', () => {
+    const action = new ActionAuthSetUser({ user: 'john doe' });
     const state = authReducer(TEST_INITIAL_STATE, action);
-
-    expect(state.user).toBe('john doe');
+    expect(state.user).toEqual({ user: 'john doe' });
   });
 
   it('should set authentication state to "signedOut" on logout', () => {
-    const action = actionAuthLogout();
+    const action = new ActionAuthLogout();
     const state = authReducer(TEST_INITIAL_STATE, action);
-
     expect(state.state).toBe(AuthStateTypes.SIGNED_OUT);
+  });
+  it('should reset authentication state on logout', () => {
+    const action = new ActionAuthLogout();
+    const state = authReducer(TEST_INITIAL_STATE, action);
+    expect(state).toEqual(TEST_INITIAL_STATE);
   });
 
   it('should set user to null on logout', () => {
-    const action = actionAuthLogout();
+    const action = new ActionAuthLogout();
     const state = authReducer(TEST_INITIAL_STATE, action);
 
     expect(state.user).toBeNull();

@@ -1,0 +1,29 @@
+<div *ngIf="isLoading" class="app-loading">
+    <div class="logo">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+      </svg>
+    </div>
+</div>
+
+
+<div *ngIf="!isLoading" class="tabletop-page mr-4 ml-4 mt-4 mb-4" gdAreas="tools side | content side" gdGap="0px 10px" gdColumns="80% 20%" gdRows="15% 80%">
+
+  <div gdArea="tools">
+    <roleame-webapp-tabletop-toolbar [(currentCharacter)]="currentCharacter" [tabletop]="tabletop" [firstEmptyTile]="firstEmptyTile"></roleame-webapp-tabletop-toolbar>
+  </div>
+
+  <perfect-scrollbar class="content" gdAreas="content">
+    <mat-grid-list [cols]="tabletop?.width" rowHeight="1:1" gutterSize="0px">
+      <mat-grid-tile *ngFor="let tile of tiles; let i = index">
+         <roleame-webapp-tabletop-tile (tileSelect)="selectTile($event)" [token]="tile" [position]="i"></roleame-webapp-tabletop-tile>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </perfect-scrollbar>
+  
+
+  <div gdArea="side">
+    <roleame-webapp-tabletop-actions-log (heal)="healCharacter($event)" (attack)="attackCharacter($event)" [tabletop]="tabletop"></roleame-webapp-tabletop-actions-log>
+  </div>
+</div>
+

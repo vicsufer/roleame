@@ -1,0 +1,182 @@
+query ListGamesData(
+  $filter: ModelGameFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      owner
+      uuid
+      name
+      description
+      members
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+      }
+      players{
+        items{
+          id
+          gameID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+
+
+
+query GetUserData($username: String!) {
+  getUser(username: $username) {
+    username
+    email
+  }
+}
+
+query GetUserGamesData($username: String!) {
+  getUser(username: $username) {
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        playerID
+        pendingInvite
+        game {
+          id
+          uuid
+          name
+          description
+          owner
+          members
+          tabletop {
+            id
+            gameOwnerID
+            width
+            height
+          }
+          players {
+            items{
+              id
+              gameID
+              gameOwnerID
+              playerID
+              pendingInvite
+            }
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+  }
+}
+
+query GetUserMemberships($username: String!) {
+  getUser(username: $username) {
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        playerID
+        pendingInvite
+        game {
+            id
+            uuid
+            name
+            description
+            owner
+        }
+      }
+      nextToken
+    }
+    owner
+  }
+}
+
+query GetTabletopData($id: ID!) {
+  getTabletop(id: $id) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+
+query ListPlayerCharactersIdentificators(
+  $filter: ModelPlayerCharacterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPlayerCharacters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      uuid
+      name
+      hitPoints
+    }
+    nextToken
+  }
+}
+
+query ListActionsByTimestamp(
+  $tabletopID: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelActionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  getActionsByDate(
+    tabletopID: $tabletopID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      tabletopID
+      timestamp
+      actionType
+      player
+      payload
+    }
+    nextToken
+  }
+}

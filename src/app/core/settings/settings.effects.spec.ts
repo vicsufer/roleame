@@ -15,7 +15,7 @@ import {
 
 import { SettingsEffects, SETTINGS_KEY } from './settings.effects';
 import { SettingsState } from './settings.model';
-import { ActionSettingsChangeTheme, SettingsActions } from './settings.actions';
+import { ActionSettingsChangeTheme, SettingsActions, ActionSettingsChangeLanguage } from './settings.actions';
 
 const scheduler = new TestScheduler((actual, expected) =>
   assert.deepStrictEqual(actual, expected)
@@ -26,7 +26,6 @@ describe('SettingsEffects', () => {
   let localStorageService: jasmine.SpyObj<LocalStorageService>;
   let overlayContainer: jasmine.SpyObj<OverlayContainer>;
   let titleService: jasmine.SpyObj<TitleService>;
-  let animationsService: jasmine.SpyObj<AnimationsService>;
   let translateService: jasmine.SpyObj<TranslateService>;
   let store: jasmine.SpyObj<Store<AppState>>;
 
@@ -45,10 +44,6 @@ describe('SettingsEffects', () => {
     overlayContainer = jasmine.createSpyObj('OverlayContainer', [
       'getContainerElement'
     ]);
-    titleService = jasmine.createSpyObj('TitleService', ['setTitle']);
-    animationsService = jasmine.createSpyObj('AnimationsService', [
-      'updateRouteAnimationType'
-    ]);
     translateService = jasmine.createSpyObj('TranslateService', ['use']);
     store = jasmine.createSpyObj('store', ['pipe']);
   });
@@ -63,9 +58,9 @@ describe('SettingsEffects', () => {
         overlayContainer,
         localStorageService,
         titleService,
-        animationsService,
         translateService
       );
+
       const metadata = getEffectsMetadata(effect);
 
       expect(metadata.persistSettings.dispatch).toEqual(false);
@@ -80,12 +75,10 @@ describe('SettingsEffects', () => {
         language: 'en',
         pageAnimations: true,
         elementsAnimations: true,
-        theme: 'default',
-        pageAnimationsDisabled: true,
-        hour: 12
+        theme: 'default'
       };
       store.pipe.and.returnValue(of(settings));
-      const persistAction = new ActionSettingsChangeTheme({ theme: 'DEFAULT' });
+      const persistAction = new ActionSettingsChangeLanguage({ language: 'es' });
       const source = cold('a', { a: persistAction });
       const actions = new Actions(source);
       const effect = new SettingsEffects(
@@ -95,7 +88,6 @@ describe('SettingsEffects', () => {
         overlayContainer,
         localStorageService,
         titleService,
-        animationsService,
         translateService
       );
 

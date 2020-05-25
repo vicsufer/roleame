@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgModule } from '@angular/core';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
-
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth/auth.component';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent, ConfirmCodeDialog } from './signup/signup.component';
-import { MatDialogModule } from '@angular/material';
+import { ConfirmCodeDialog, SignupComponent } from './signup/signup.component';
+
+
 
 @NgModule({
   declarations: [

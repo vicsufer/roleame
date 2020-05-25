@@ -1,34 +1,940 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateCharacter(
-  $input: CreateCharacterInput!
-  $condition: ModelcharacterConditionInput
+mutation RollAttributeAction(
+  $attribute: String!
+  $bonifier: Int!
+  $player: String!
+  $tabletopID: ID!
 ) {
-  createCharacter(input: $input, condition: $condition) {
+  rollAttributeAction(
+    attribute: $attribute
+    bonifier: $bonifier
+    player: $player
+    tabletopID: $tabletopID
+  ) {
     id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation RollChallengeAction(
+  $attribute: String!
+  $bonifier: Int!
+  $character: String!
+  $bonifier2: Int!
+  $character2: String!
+  $player: String!
+  $tabletopID: ID!
+) {
+  rollChallengeAction(
+    attribute: $attribute
+    bonifier: $bonifier
+    character: $character
+    bonifier2: $bonifier2
+    character2: $character2
+    player: $player
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation RollHealAction(
+  $healer: String!
+  $healerWisdom: Int!
+  $targetID: String!
+  $targetName: String!
+  $maxHealth: Int!
+  $currentHealth: Int!
+  $player: String!
+  $tabletopID: ID!
+) {
+  rollHealAction(
+    healer: $healer
+    healerWisdom: $healerWisdom
+    targetID: $targetID
+    targetName: $targetName
+    maxHealth: $maxHealth
+    currentHealth: $currentHealth
+    player: $player
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation RollAttackAction(
+  $attacker: String!
+  $attackerStrength: Int!
+  $targetID: String!
+  $targetName: String!
+  $targetStrength: Int!
+  $targetCurrentHealth: Int!
+  $player: String!
+  $tabletopID: ID!
+) {
+  rollAttackAction(
+    attacker: $attacker
+    attackerStrength: $attackerStrength
+    targetID: $targetID
+    targetName: $targetName
+    targetStrength: $targetStrength
+    targetCurrentHealth: $targetCurrentHealth
+    player: $player
+    tabletopID: $tabletopID
+  ) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation CreateGame(
+  $input: CreateGameInput!
+  $condition: ModelGameConditionInput
+) {
+  createGame(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+mutation UpdateGame(
+  $input: UpdateGameInput!
+  $condition: ModelGameConditionInput
+) {
+  updateGame(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+mutation DeleteGame(
+  $input: DeleteGameInput!
+  $condition: ModelGameConditionInput
+) {
+  deleteGame(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+}
+mutation CreateTabletop(
+  $input: CreateTabletopInput!
+  $condition: ModelTabletopConditionInput
+) {
+  createTabletop(input: $input, condition: $condition) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      items {
+        id
+        tabletopID
+        timestamp
+        actionType
+        player
+        payload
+      }
+      nextToken
+    }
+  }
+}
+mutation UpdateTabletop(
+  $input: UpdateTabletopInput!
+  $condition: ModelTabletopConditionInput
+) {
+  updateTabletop(input: $input, condition: $condition) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      items {
+        id
+        tabletopID
+        timestamp
+        actionType
+        player
+        payload
+      }
+      nextToken
+    }
+  }
+}
+mutation DeleteTabletop(
+  $input: DeleteTabletopInput!
+  $condition: ModelTabletopConditionInput
+) {
+  deleteTabletop(input: $input, condition: $condition) {
+    id
+    gameOwnerID
+    width
+    height
+    characters {
+      items {
+        id
+        tabletopID
+        gameOwnerID
+        playerID
+        characterID
+        location {
+          x
+          y
+        }
+        currentHealth
+        character {
+          id
+          owner
+          uuid
+          name
+          background
+          portrait
+          portraitURL
+          class
+          agility
+          hitPoints
+          fellowship
+          strength
+          wisdom
+        }
+      }
+      nextToken
+    }
+    actions {
+      items {
+        id
+        tabletopID
+        timestamp
+        actionType
+        player
+        payload
+      }
+      nextToken
+    }
+  }
+}
+mutation CreateAction(
+  $input: CreateActionInput!
+  $condition: ModelActionConditionInput
+) {
+  createAction(input: $input, condition: $condition) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation UpdateAction(
+  $input: UpdateActionInput!
+  $condition: ModelActionConditionInput
+) {
+  updateAction(input: $input, condition: $condition) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation DeleteAction(
+  $input: DeleteActionInput!
+  $condition: ModelActionConditionInput
+) {
+  deleteAction(input: $input, condition: $condition) {
+    id
+    tabletopID
+    timestamp
+    actionType
+    player
+    payload
+  }
+}
+mutation CreateTabletopCharacter(
+  $input: CreateTabletopCharacterInput!
+  $condition: ModelTabletopCharacterConditionInput
+) {
+  createTabletopCharacter(input: $input, condition: $condition) {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+mutation UpdateTabletopCharacter(
+  $input: UpdateTabletopCharacterInput!
+  $condition: ModelTabletopCharacterConditionInput
+) {
+  updateTabletopCharacter(input: $input, condition: $condition) {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+mutation DeleteTabletopCharacter(
+  $input: DeleteTabletopCharacterInput!
+  $condition: ModelTabletopCharacterConditionInput
+) {
+  deleteTabletopCharacter(input: $input, condition: $condition) {
+    id
+    tabletopID
+    gameOwnerID
+    playerID
+    characterID
+    location {
+      x
+      y
+    }
+    currentHealth
+    character {
+      id
+      owner
+      uuid
+      name
+      background
+      portrait
+      portraitURL
+      class
+      agility
+      hitPoints
+      fellowship
+      strength
+      wisdom
+      abilities {
+        name
+        description
+      }
+    }
+  }
+}
+mutation CreatePlayer(
+  $input: CreatePlayerInput!
+  $condition: ModelPlayerConditionInput
+) {
+  createPlayer(input: $input, condition: $condition) {
+    id
+    gameID
+    gameOwnerID
+    playerID
+    pendingInvite
+    game {
+      id
+      owner
+      uuid
+      name
+      description
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+        characters {
+          nextToken
+        }
+        actions {
+          nextToken
+        }
+      }
+      members
+      players {
+        items {
+          id
+          gameID
+          gameOwnerID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+    }
+    player {
+      username
+      email
+      gamesAsPlayer {
+        items {
+          id
+          gameID
+          gameOwnerID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+      owner
+    }
+  }
+}
+mutation UpdatePlayer(
+  $input: UpdatePlayerInput!
+  $condition: ModelPlayerConditionInput
+) {
+  updatePlayer(input: $input, condition: $condition) {
+    id
+    gameID
+    gameOwnerID
+    playerID
+    pendingInvite
+    game {
+      id
+      owner
+      uuid
+      name
+      description
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+        characters {
+          nextToken
+        }
+        actions {
+          nextToken
+        }
+      }
+      members
+      players {
+        items {
+          id
+          gameID
+          gameOwnerID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+    }
+    player {
+      username
+      email
+      gamesAsPlayer {
+        items {
+          id
+          gameID
+          gameOwnerID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+      owner
+    }
+  }
+}
+mutation DeletePlayer(
+  $input: DeletePlayerInput!
+  $condition: ModelPlayerConditionInput
+) {
+  deletePlayer(input: $input, condition: $condition) {
+    id
+    gameID
+    gameOwnerID
+    playerID
+    pendingInvite
+    game {
+      id
+      owner
+      uuid
+      name
+      description
+      tabletop {
+        id
+        gameOwnerID
+        width
+        height
+        characters {
+          nextToken
+        }
+        actions {
+          nextToken
+        }
+      }
+      members
+      players {
+        items {
+          id
+          gameID
+          gameOwnerID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+    }
+    player {
+      username
+      email
+      gamesAsPlayer {
+        items {
+          id
+          gameID
+          gameOwnerID
+          playerID
+          pendingInvite
+        }
+        nextToken
+      }
+      owner
+    }
+  }
+}
+mutation CreatePlayerCharacter(
+  $input: CreatePlayerCharacterInput!
+  $condition: ModelPlayerCharacterConditionInput
+) {
+  createPlayerCharacter(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
     name
     background
+    portrait
+    portraitURL
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
+    abilities {
+      name
+      description
+    }
+  }
+}
+mutation UpdatePlayerCharacter(
+  $input: UpdatePlayerCharacterInput!
+  $condition: ModelPlayerCharacterConditionInput
+) {
+  updatePlayerCharacter(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
+    name
+    background
+    portrait
+    portraitURL
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
+    abilities {
+      name
+      description
+    }
+  }
+}
+mutation DeletePlayerCharacter(
+  $input: DeletePlayerCharacterInput!
+  $condition: ModelPlayerCharacterConditionInput
+) {
+  deletePlayerCharacter(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
+    name
+    background
+    portrait
+    portraitURL
+    class
+    agility
+    hitPoints
+    fellowship
+    strength
+    wisdom
+    abilities {
+      name
+      description
+    }
+  }
+}
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
     owner
   }
 }
-mutation UpdateCharacter(
-  $input: UpdateCharacterInput!
-  $condition: ModelcharacterConditionInput
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
 ) {
-  updateCharacter(input: $input, condition: $condition) {
-    id
-    name
-    background
+  updateUser(input: $input, condition: $condition) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
     owner
   }
 }
-mutation DeleteCharacter(
-  $input: DeleteCharacterInput!
-  $condition: ModelcharacterConditionInput
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
 ) {
-  deleteCharacter(input: $input, condition: $condition) {
-    id
-    name
-    background
+  deleteUser(input: $input, condition: $condition) {
+    username
+    email
+    gamesAsPlayer {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+        game {
+          id
+          owner
+          uuid
+          name
+          description
+          members
+        }
+        player {
+          username
+          email
+          owner
+        }
+      }
+      nextToken
+    }
     owner
   }
 }

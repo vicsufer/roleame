@@ -1,0 +1,58 @@
+<mat-card fxLayout="row" fxlayoutGap="10px">
+  <div fxFlex="70%" fxLayout="row" fxlayoutGap="10px">
+    <div *ngIf="!isOwner()">
+      <mat-form-field>
+        <mat-label *ngIf="!currentCharacter">{{ 'roleame-webapp.label.character' | translate }}</mat-label>
+        <mat-label *ngIf="currentCharacter">{{ currentCharacter.character.name }}</mat-label>
+        <mat-select #selectcurrentcharacter (selectionChange)="changeCharacter($event)">
+          <mat-option *ngFor="let character of playerCharacters" [value]="character">
+            {{character.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="isOwner()">
+      <form [formGroup]="newTabletopCharacterForm" #newtabletopcharacterform>
+        <mat-form-field>
+          <mat-label>{{ 'roleame-webapp.label.character' | translate }}</mat-label>
+          <mat-select formControlName="character">
+            <mat-option *ngFor="let character of playerCharacters" [value]="character">
+              {{character.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="ml-4" type="submit" mat-raised-button (click)="addCharacter()" mat-button>{{'roleame-webapp.tabletop.addCharacter' | translate}}</button>
+      </form>
+    </div>
+
+    <mat-divider vertical class="ml-4 mr-4"></mat-divider>
+
+    <div>
+      <form [formGroup]="diceRollForm">
+        <mat-form-field class="tabletop-number-input">
+          <mat-label>{{ 'roleame-webapp.label.dices' | translate}}</mat-label>
+          <input min="1" formControlName="dices" max="20" matInput type="number">
+        </mat-form-field>
+        d
+        <mat-form-field class="tabletop-number-input">
+            <mat-label>{{ 'roleame-webapp.label.sides' | translate}}</mat-label>
+            <input min="2" max="20" formControlName="sides" matInput type="number">
+        </mat-form-field>
+        <button class="ml-4" type="submit" mat-raised-button (click)="rollDice()" mat-button>{{'roleame-webapp.tabletop.roll_dice' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="isOwner()" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end">
+    <mat-divider vertical></mat-divider>
+    <mat-form-field class="tabletop-number-input">
+      <mat-label>{{ 'roleame-webapp.label.rows' | translate}}</mat-label>
+      <input [ngModel]="tabletop.height" (change)="changeTabletopHeight($event.target.value)" min="0" max="50" matInput type="number" value="{{tabletop.height}}">
+    </mat-form-field>
+    <mat-form-field class="tabletop-number-input">
+        <mat-label>{{ 'roleame-webapp.label.columns' | translate}}</mat-label>
+        <input [ngModel]="tabletop.width" (change)="changeTabletopWidth($event.target.value)" min="0" max="50" matInput type="number" value="{{tabletop.width}}">
+    </mat-form-field>
+  </div>
+</mat-card>

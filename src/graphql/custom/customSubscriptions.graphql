@@ -1,0 +1,14 @@
+subscription OnUpdateTabletopData{
+  onUpdateTabletop{
+    id
+    gameOwnerID
+    width
+    height
+  }
+}
+
+
+
+
+
+

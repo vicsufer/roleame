@@ -1,16 +1,7 @@
-import { AmplifyService } from 'aws-amplify-angular';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { State } from './../../../core/auth/auth.models';
-import {
-  ROUTE_ANIMATIONS_ELEMENTS,
-  NotificationService,
-  AuthGuardService,
-  AppState
-} from 'app/core/core.module';
-import { TranslateService } from '@ngx-translate/core';
-import { ActionAuthLogin } from 'app/core/auth/auth.actions';
+import { ROUTE_ANIMATIONS_ELEMENTS } from 'app/core/core.module';
+import { AmplifyService } from 'aws-amplify-angular';
 
 @Component({
   selector: 'rolewebapp-login',
@@ -26,13 +17,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private amplifyService: AmplifyService,
-    private notificationService: NotificationService,
-    private translateService: TranslateService,
-    private store: Store<AppState>
+    private amplifyService: AmplifyService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
@@ -51,13 +39,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      var email = this.loginForm.value.email;
+      var username = this.loginForm.value.username;
       var password = this.loginForm.value.password;
 
       this.amplifyService
         .auth()
-        .signIn(email, password)
-        .then(user => {})
+        .signIn(username, password)
+        .then( user => {
+
+        })
         .catch(err => {
           this.loginError(err);
         });
@@ -65,28 +55,14 @@ export class LoginComponent implements OnInit {
   }
 
   loginError(err) {
+    console.error(err)
     switch (err.code) {
       case 'UserNotConfirmedException':
-        this.translateService
-          .get('roleame-webapp.auth.login.errors.no-verified')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
+        //TODO user not confirmed
         break;
-       case'NotAuthorizedException':
-          this.translateService
-          .get('roleame-webapp.auth.login.errors.wrong_auth')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
-          break;
       case 'UserNotFoundException':
-        this.translateService
-          .get('roleame-webapp.auth.login.errors.wrong_auth')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
-          break;
+        //TODO user not found
+        break;
     }
   }
 }

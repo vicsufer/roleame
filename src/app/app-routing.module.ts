@@ -19,7 +19,23 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./components/characters/characters.module').then(
-        m => m.charactersModule
+        m => m.CharactersModule
+      )
+  },
+  {
+    path: 'games',
+    canActivate: [AuthGuardService],
+    loadChildren: () =>
+      import('./components/games/games.module').then(
+        m => m.GamesModule
+      )
+  },
+  {
+    path: 'tabletop',
+    canActivate: [AuthGuardService],
+    loadChildren: () =>
+      import('./components/tabletop/tabletop.module').then(
+        m => m.TabletopModule
       )
   },
   {

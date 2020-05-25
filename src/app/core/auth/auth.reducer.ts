@@ -19,7 +19,7 @@ export function authReducer(
     case AuthActionTypes.AUTH_LOGIN:
       return { ...state, state: AuthStateTypes.SIGNED_IN };
     case AuthActionTypes.AUTH_LOGOUT:
-      return { ...initialState, state: AuthStateTypes.SIGNED_OUT };
+      return { ...initialState};
     case AuthActionTypes.AUTH_SETUSER:
       return { ...state, user: action.payload };
     default:

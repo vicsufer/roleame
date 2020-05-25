@@ -1,0 +1,74 @@
+<mat-card class="chat" fxLayout="column" fxLayoutGap="10px">
+  <mat-card-header fxFlex="5%">
+    <mat-card-title>Chat</mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxFlex="95%" fxLayout="column" fxLayoutGap="10px">
+    <div fxFlex="80%">
+      <perfect-scrollbar suppressScrollX #chatScrollbar>
+        <div *ngFor="let action of actions">
+          <div *ngIf="action.actionType=='CHAT'"><span class="player-tag">{{action.player}}:</span>{{action.payload}} </div>
+
+          <div *ngIf="action.actionType=='DICEROLL'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag">{{action.player}}</span> {{'roleame-webapp.tabletop.rolled' | translate}}</span>
+            </div>
+            <div fxFlex="100%">
+              <span>{{ action.processedPayload.rolls.join(' + ') }}</span>
+              <span *ngIf="action.processedPayload.rolls.length > 1">= <span class="roll-total">{{ action.processedPayload.total }}</span></span>
+            </div>
+            
+          </div>
+
+          <div *ngIf="action.actionType=='ATTRIBUTEROLL'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.player}}</span> {{'roleame-webapp.tabletop.rolled' | translate}} <span class="player-tag">{{ ('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}</span></span>
+            </div>
+            <div fxFlex="100%">
+              <span>{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF= <span class="roll-total">{{ action.processedPayload.total }}</span></span>
+            </div> 
+          </div>
+
+          <div *ngIf="action.actionType=='CHALLENGE'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.challenger.character}}</span> {{ 'roleame-webapp.tabletop.challenged' | translate}} {{action.processedPayload.challenged.character}} <span class="player-tag">[{{ ('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}]</span></span>
+            </div>
+            <div fxFlex="100%" fxLayout="column">
+              <span fxFlex="100%">{{action.processedPayload.challenger.character}}: {{action.processedPayload.challenger.rolled }} + {{action.processedPayload.challenger.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenger.total }}</span></span>
+              <span fxFlex="100%">{{action.processedPayload.challenged.character}}: {{action.processedPayload.challenged.rolled }} + {{action.processedPayload.challenged.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenged.total }}</span></span>
+            </div> 
+          </div>
+
+          <div *ngIf="action.actionType=='HEAL'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.healer}}</span> {{ 'roleame-webapp.tabletop.healed' | translate}} {{action.processedPayload.target.characterName}}</span>
+            </div>
+            <div fxFlex="100%" fxLayout="column">
+              <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF = <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.bonifier }}</span></span>
+              <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.recovered'| translate }} {{action.processedPayload.healPoints }} {{ 'roleame-webapp.tabletop.healPoints'| translate }}</span>
+            </div> 
+          </div>
+
+          <div *ngIf="action.actionType=='ATTACK'" fxLayout="column">
+            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
+              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.attacker}}</span> {{ 'roleame-webapp.tabletop.attacked' | translate}} {{action.processedPayload.target.characterName}}</span>
+            </div>
+            <div fxFlex="100%" fxLayout="column">
+              <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.attackBonifier }} BF - {{action.processedPayload.defenseBonifier }} BF= <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.attackBonifier - action.processedPayload.defenseBonifier}}</span></span>
+              <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.received'| translate }} {{action.processedPayload.damagePoints }} {{ 'roleame-webapp.tabletop.damagePoints'| translate }}</span>
+            </div> 
+          </div>
+
+
+        </div>
+      </perfect-scrollbar>
+    </div>
+    <form fxFlex="10%" [formGroup]="chatForm" fxLayout="row" fxLayoutGap="5px" >
+      <mat-form-field class="tabletop-number-input" fxFlex="80%">
+          <mat-label>{{ 'roleame-webapp.label.message' | translate}}</mat-label>
+          <textarea #message formControlName="message" matInput></textarea>
+          <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
+      </mat-form-field>
+      <button fxFlex="20%" type="submit" mat-stroked-button (click)="sendMessage()" mat-button>{{'roleame-webapp.tabletop.send' | translate}}</button>
+    </form>
+  </mat-card-content>
+</mat-card>

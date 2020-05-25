@@ -1,20 +1,20 @@
+import { selectAuthState } from './../core.state';
+import { LocalStorageService } from './../local-storage/local-storage.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ofType,
   createEffect,
   Actions,
-  Effect,
-  ROOT_EFFECTS_INIT
 } from '@ngrx/effects';
-import { tap, switchMap, map, catchError } from 'rxjs/operators';
+import { tap, switchMap, withLatestFrom, map } from 'rxjs/operators';
 
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthActionTypes, ActionAuthSetUser } from './auth.actions';
-import { defer, Observable, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { State, AuthStateTypes } from './auth.models';
-import { AUTO_STYLE } from '@angular/animations';
+import { Store, select } from '@ngrx/store';
+import { State } from './auth.models';
+import { of } from 'rxjs';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 export const AUTH_KEY = 'AUTH';
 
@@ -24,24 +24,28 @@ export class AuthEffects {
     private actions$: Actions,
     private router: Router,
     private amplifyService: AmplifyService,
-    private store: Store<State>
+    private store: Store<State>,
+    private localStorageService: LocalStorageService
   ) {}
 
   login = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_LOGIN),
-        switchMap(() =>
+        withLatestFrom(this.store.pipe(select(selectAuthState))),
+        tap(([action, settings])=>{
           this.amplifyService
             .auth()
             .currentUserInfo()
-            .then(userInfo =>
+            .then(userInfo =>{
+              this.localStorageService.setItem(AUTH_KEY, settings)
               this.store.dispatch(new ActionAuthSetUser(userInfo))
-            )
-            .catch(error => console.log(error))
+            })
+            .catch(error => console.error(error))
             .finally(() => this.router.navigate(['/']))
-        )
-      ),
+        })
+      )
+    },
     { dispatch: false }
   );
 
@@ -49,9 +53,22 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActionTypes.AUTH_LOGOUT),
-        tap(async () => {
+        tap( () => {
           this.router.navigate(['/']);
-          await this.amplifyService.auth().signOut();
+          this.localStorageService.removeItem(AUTH_KEY)
+          this.amplifyService.auth().signOut();
+        })
+      ),
+    { dispatch: false }
+  );
+
+  setUser = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.AUTH_SETUSER),
+        withLatestFrom(this.store.pipe(select(selectAuthState))),
+        map(([action,settings])=>{
+          this.localStorageService.setItem(AUTH_KEY, settings)
         })
       ),
     { dispatch: false }
