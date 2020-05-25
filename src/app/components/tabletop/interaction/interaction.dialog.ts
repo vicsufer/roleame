@@ -93,6 +93,11 @@ export class InteractionDialog implements OnInit{
     this.dialogRef.close()
   }
 
+  delete(){
+    this.apiService.DeleteTabletopCharacter({id: this.firstCharacter.id}).then(()=>{}).catch((e)=>{console.log(e)})
+    this.dialogRef.close()
+  }
+
   getAttributeBonifier(attributeValue: number): number{
     return Math.floor( (attributeValue - 10) /2)
   }

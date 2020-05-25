@@ -21,6 +21,7 @@
   <div *ngIf="!showRollAttributePanel" fxLayout="column" fxLayoutGap="10px">
     <button mat-stroked-button (click)="heal()">{{'roleame-webapp.tabletop.heal' | translate}}</button>
     <button mat-stroked-button (click)="toggleRollAttributePanel()">{{'roleame-webapp.tabletop.rollattribute' | translate}}</button>
+    <button mat-stroked-button color="warn" (click)="delete()">{{'roleame-webapp.tabletop.deleteCharacter' | translate}}</button>
   </div>
 
   <div *ngIf="showRollAttributePanel" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">

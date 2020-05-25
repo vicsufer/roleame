@@ -166,6 +166,7 @@
   "roleame-webapp.tabletop.healPoints": "heal points",
   "roleame-webapp.tabletop.received": "received",
   "roleame-webapp.tabletop.damagePoints": "damage points",
+  "roleame-webapp.tabletop.deleteCharacter": "Delete character",
 
   "roleame-webapp.settings.animations.elements": "Navigation page elements slide up",
   "roleame-webapp.settings.animations.page": "Navigation whole page transition",

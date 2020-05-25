@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label *ngIf="!currentCharacter">{{ 'roleame-webapp.label.character' | translate }}</mat-label>
         <mat-label *ngIf="currentCharacter">{{ currentCharacter.character.name }}</mat-label>
-        <mat-select (selectionChange)="changeCharacter($event)">
+        <mat-select #selectcurrentcharacter (selectionChange)="changeCharacter($event)">
           <mat-option *ngFor="let character of playerCharacters" [value]="character">
             {{character.name}}
           </mat-option>

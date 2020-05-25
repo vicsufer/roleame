@@ -68,12 +68,16 @@ export class TabletopPageComponent implements OnInit {
         })
 
         // Subscribe to tabletop created characters
-        this.apiService.OnCreateTabletopListener.subscribe({
+        this.apiService.OnCreateTabletopCharacterListener.subscribe({
           next: (newCharacter) => {
             newCharacter = newCharacter.value.data.onCreateTabletopCharacter
             if( newCharacter.tabletopID !== this.tabletop.id ) return;
       
-            this.moveCharacter(newCharacter, newCharacter.location.x, newCharacter.location.y)
+            if(!this.currentCharacter && this.currentUsername == newCharacter.playerID){
+              this.currentCharacter = newCharacter;
+            }
+            var pos = this.getPosition(newCharacter.location.x, newCharacter.location.y)
+            this.tiles[pos] = {character: newCharacter, isSelected: false}
             this.updateFirstEmptyTile()
           },
           error: error => console.error(error)
@@ -94,6 +98,23 @@ export class TabletopPageComponent implements OnInit {
               this.moveCharacter(characterToUpdate, characterToUpdate.location.x, characterToUpdate.location.y)
               this.updateFirstEmptyTile()
             }
+          },
+          error: error => console.error(error)
+        });
+
+        // Subscribe to tabletop character deletions
+        this.apiService.OnDeleteTabletopCharacterListener.subscribe({
+          next: (deletedCharacter) => {
+            deletedCharacter = deletedCharacter.value.data.onDeleteTabletopCharacter
+            if( deletedCharacter.tabletopID !== this.tabletop.id ) return;
+            
+            if( deletedCharacter.playerID == this.currentUsername ){
+              this.currentCharacter = undefined;
+            }
+            var oldPosition = this.getPosition(deletedCharacter.location.x, deletedCharacter.location.y)
+            this.tiles[oldPosition] = undefined
+            this.tabletop.characters = this.tabletop.characters.filter( char => char.id != deletedCharacter.id )
+            this.updateFirstEmptyTile();
           },
           error: error => console.error(error)
         });
@@ -145,9 +166,13 @@ export class TabletopPageComponent implements OnInit {
       }
     }
     // Transform to one-dimension
-    var pos = y+this.tabletop.width*x
+    var pos = this.getPosition(x, y)
     // Set new position
     this.tiles[pos] = {character: character, isSelected: false}
+  }
+
+  getPosition(x: number, y: number): number{
+    return y+this.tabletop.width*x
   }
 
 

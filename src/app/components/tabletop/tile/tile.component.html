@@ -1,14 +1,14 @@
 <div class="tile" #tile>
 
-  <div *ngIf="!token" class="tile" (click)="tileSelected()">
+  <div *ngIf="!token?.character" class="tile" (click)="tileSelected()">
     <button class="nostyle"></button>
   </div>
 
-  <div *ngIf="token" class="tile" (click)="tileSelected()" matBadge="{{ token.character.currentHealth }}" matBadgeSize="large">
+  <div *ngIf="token?.character" class="tile" (click)="tileSelected()" matBadge="{{ token.character.currentHealth }}" matBadgeSize="large">
     <button [class.selected-token]="token.isSelected" class="token" mat-fab color="warn">{{token.character.character.name | slice:0:1 }}</button>
   </div>
 
-  <mat-card *ngIf="token" class="character-details" [class.nearBottom]="nearBottom" [class.nearTop]="nearTop">
+  <mat-card *ngIf="token?.character" class="character-details" [class.nearBottom]="nearBottom" [class.nearTop]="nearTop">
     <mat-card-header>
       <mat-card-title>{{token.character.character.name}}</mat-card-title>
       <mat-card-subtitle>{{token.character.character.owner}}</mat-card-subtitle>

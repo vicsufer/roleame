@@ -2,13 +2,14 @@ import { DiceRoller } from './../../../types/diceroller';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlayerCharacter } from 'app/types/playerCharacter';
 import { AmplifyService } from 'aws-amplify-angular';
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild } from '@angular/core';
 
 import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 import { APIService, ActionType } from 'app/core/services/API.service';
 import { Tabletop } from 'app/types/tabletop';
 import { Action } from 'app/types/action';
 import { TabletopCharacter } from 'app/types/tabletopCharacter';
+import { MatSelect } from '@angular/material';
 
 @Component({
   selector: 'roleame-webapp-tabletop-toolbar',
@@ -21,11 +22,24 @@ export class TabletopToolbarComponent implements OnInit {
 
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
+  @ViewChild('selectcurrentcharacter', {static: false}) characterSelector: MatSelect;
+
   @Input()
   tabletop: Tabletop;
 
+  _currentCharacter: TabletopCharacter;
+
   @Input()
-  currentCharacter: TabletopCharacter;
+  set currentCharacter(character: TabletopCharacter){
+    this._currentCharacter = character;
+    if(character && this.characterSelector){
+      this.characterSelector.writeValue(character)
+    }
+  }
+
+  get currentCharacter() {
+    return this._currentCharacter;
+  }
 
   currentUsername: string;
 
