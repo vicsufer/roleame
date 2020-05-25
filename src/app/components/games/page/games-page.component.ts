@@ -1,16 +1,12 @@
-import { TabletopCharacter } from 'app/types/tabletopCharacter';
-import { CreateGameInput } from './../../../core/services/API.service';
-import { Tabletop } from 'app/types/tabletop';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Player } from '../../../types/player';
-import { AmplifyService } from 'aws-amplify-angular';
-import { NotificationService } from '../../../core/notifications/notification.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { APIService, ListGamesQuery } from 'app/core/services/API.service';
+import { APIService } from 'app/core/services/API.service';
 import { Game } from 'app/types/game';
+import { Tabletop } from 'app/types/tabletop';
+import { AmplifyService } from 'aws-amplify-angular';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+import { Player } from '../../../types/player';
+
 
 @Component({
   selector: 'roleame-webapp-games-page',
@@ -34,12 +30,10 @@ export class GamesPageComponent implements OnInit {
   constructor(
     private apiService: APIService,
      private amplifyService: AmplifyService, 
-     private translateService: TranslateService, 
-     private notificationService: NotificationService,
      private router: Router) {
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
       this.currentUsername = user.username;
-    }).catch(err => console.log(err));
+    }).catch(err => console.error(err));
   }
 
   ngOnInit() {
@@ -64,7 +58,7 @@ export class GamesPageComponent implements OnInit {
         }
       })
     }).catch( (err) => {
-      console.log(err)
+      console.error(err)
     })
 
 
@@ -85,7 +79,7 @@ export class GamesPageComponent implements OnInit {
         this.games.push(g);
       })
     }).catch( (err) => {
-      console.log(err)
+      console.error(err)
     })
   }
 
@@ -105,7 +99,7 @@ export class GamesPageComponent implements OnInit {
       //Delete all players in this game.
 
       deletedGame.players.items.forEach( player => {
-          this.apiService.DeletePlayerRetrieveID({id:player.id}).then( (res) => {}).catch(e=>console.log(e))
+          this.apiService.DeletePlayerRetrieveID({id:player.id}).then( (res) => {}).catch(e=>console.error(e))
         })
 
       //Delete tabletop and its characters
@@ -113,21 +107,10 @@ export class GamesPageComponent implements OnInit {
           deletedTabletop.characters.items.forEach( tabletopCharacter => {
             this.apiService.DeleteTabletopCharacter({id:tabletopCharacter.id})
           })
-      }).catch(e=>console.log(e))
+      }).catch(e=>console.error(e))
     }).then( (res) => {
-      this.translateService
-          .get('roleame-webapp.games.delete.success')
-          .subscribe(value => {
-            this.games = this.games.filter(  c => c.id != game.id  )
-            this.notificationService.success(value);
-          });
     }).catch( e => {
-      console.log(e)
-      this.translateService
-          .get('roleame-webapp.games.delete.error')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
+      console.error(e)
     })
     
   }
@@ -135,7 +118,6 @@ export class GamesPageComponent implements OnInit {
   invitePlayer(username: string, game: string, gameOwner: string){
     this.apiService.CreatePlayer({gameOwnerID: gameOwner, playerID: username, gameID: game, pendingInvite: true})
   }
-
 
   createGame( data: {game: Game, members: string[]}){
 
@@ -153,27 +135,11 @@ export class GamesPageComponent implements OnInit {
         data.members.forEach( (member) => {
           this.invitePlayer(member, createdGame.id, createdGame.owner)
         })
-        this.translateService
-            .get('roleame-webapp.games.new.success')
-            .subscribe(value => {
-              var g: Game | any
-              g = createdGame
-              g.players = createdGame.players.items
-              g.members = createdGame.members
-              this.games.push(g)
-              this.notificationService.success(value);
-              this.selectedTabIndex = 0
-            });
       }).catch( e => {
-        this.translateService
-            .get('roleame-webapp.games.new.error')
-            .subscribe(value => {
-              console.log(e)
-              this.notificationService.error(value);
-            });
+        console.error(e)
       })
 
-    }).catch(e=>console.log(e))
+    }).catch(e=>console.error(e))
   }
 
 
@@ -181,7 +147,7 @@ export class GamesPageComponent implements OnInit {
 
 
     data.playersToRemove.forEach( (player) => {
-      this.apiService.DeletePlayer({id: player}).then( res => {}).catch((e) => console.log(e))
+      this.apiService.DeletePlayer({id: player}).then( res => {}).catch((e) => console.error(e))
     })
     data.playersToInvite.forEach( player => {
       this.invitePlayer( player.playerID, data.game.id, data.game.owner)
@@ -195,44 +161,32 @@ export class GamesPageComponent implements OnInit {
       gameToUpdate.members = updatedGame.members
       gameToUpdate.tabletop = updatedGame.tabletop
       this.selectedEditableGame = undefined;
-      this.translateService
-          .get('roleame-webapp.games.edit.success')
-          .subscribe(value => {
-            this.notificationService.success(value);
-            this.selectedTabIndex = 0
-            this.selectedEditableGame = undefined
-          });
     }).catch( e => {
-      console.log(e)
-      this.translateService
-          .get('roleame-webapp.games.edit.error')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
+      console.error(e)
     })
   }
 
   acceptInvitation(gameMember: Player){
     this.apiService.UpdatePlayer(gameMember).then( (res) => {
       this.invitations = this.invitations.filter(  game => !game.players.find( (member: Player) => member.id === gameMember.id) )
-    }).catch( (e) => console.log(e))
+    }).catch( (e) => console.error(e))
   }
 
   leaveGame(gameMember: Player){
     this.apiService.DeletePlayer( {id: gameMember.id} ).then( res => {
       this.games = this.games.filter(  game => !game.players.find( (member: Player) => member.id === gameMember.id) )
-    }).catch(e =>console.log(e))
+    }).catch(e =>console.error(e))
   }
 
   rejectInvitation(gameMember: Player){
     this.apiService.DeletePlayer( {id: gameMember.id} ).then( res => {
       this.invitations = this.invitations.filter(  game => !game.players.find( (member: Player) => member.id === gameMember.id) )
       //this.games = this.games.filter(  game => !game.players.find( (member: Player) => member.id === gameMember.id) )
-    }).catch(e =>console.log(e))
+    }).catch(e =>console.error(e))
   }
-
 
   startGame(game: Game){
     this.router.navigate(['/tabletop'], {queryParams:{ tabletopID: game.tabletop.id }})
   }
+
 }

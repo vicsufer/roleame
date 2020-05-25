@@ -85,7 +85,7 @@ export class NewGameComponent implements OnInit {
       return new Promise<any>( (resolve, reject) => {
         this.apiService.GetUserData(control.value).then( user => {
           !user? resolve({existsUser: false}): resolve(null);
-        }).catch(e=>console.log(e))
+        }).catch(e=>console.error(e))
       })
     }
   }

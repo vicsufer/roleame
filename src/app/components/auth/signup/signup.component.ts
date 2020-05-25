@@ -1,38 +1,13 @@
-import { APIService } from 'app/core/services/API.service';
-import { selectAuth } from './../../../core/auth/auth.selectors';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-  FormGroupDirective,
-  NgForm
-} from '@angular/forms';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject
-} from '@angular/core';
-import {
-  ROUTE_ANIMATIONS_ELEMENTS,
-  NotificationService
-} from 'app/core/core.module';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher, MatDialog, MatDialogRef } from '@angular/material';
+import { select, Store } from '@ngrx/store';
 import { State } from 'app/core/auth/auth.models';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import {
-  ErrorStateMatcher,
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef
-} from '@angular/material';
-import {
-  AuthState,
-  AmplifyService
-} from 'aws-amplify-angular/dist/src/providers';
-import { TranslateService } from '@ngx-translate/core';
+import { ROUTE_ANIMATIONS_ELEMENTS } from 'app/core/core.module';
 import { User } from 'app/types/user';
+import { AmplifyService, AuthState } from 'aws-amplify-angular/dist/src/providers';
+import { Observable } from 'rxjs';
+import { selectAuth } from './../../../core/auth/auth.selectors';
 
 @Component({
   selector: 'rolewebapp-signup',
@@ -55,10 +30,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<State>,
     private amplifyService: AmplifyService,
-    public confirmDialog: MatDialog,
-    private notificationService: NotificationService,
-    private translationService: TranslateService,
-    private apiService: APIService
+    public confirmDialog: MatDialog
   ) {
     this.authState$ = this.store.pipe(select(selectAuth));
 
@@ -106,15 +78,9 @@ export class SignupComponent implements OnInit {
           this.showModalVerifyEmail(user.email);
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
           switch (err.code) {
-            case 'UsernameExistsException':
-              this.translationService
-                .get('roleame-webapp.auth.signup.errors.email_used')
-                .subscribe(translation =>
-                  this.notificationService.error(translation)
-                );
-              break;
+            //TODO Show username already in use
           }
         });
     }

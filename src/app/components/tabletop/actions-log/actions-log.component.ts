@@ -55,7 +55,7 @@ export class ActionsLogComponent implements OnInit {
 
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
       this.currentUsername = user.username
-    }).catch(err => console.log(err));
+    }).catch(err => console.error(err));
 
 
     this.apiService.OnCreateActionListener.subscribe({
@@ -99,7 +99,7 @@ export class ActionsLogComponent implements OnInit {
       setTimeout( () => {
         this.chatScrollbar.directiveRef.scrollToBottom();
       },60)
-    }).catch(err => console.log(err));
+    }).catch(err => console.error(err));
   }
 
   sendMessage(){
@@ -112,7 +112,7 @@ export class ActionsLogComponent implements OnInit {
       player: this.currentUsername,
       tabletopID: this.tabletop.id
     }
-    this.apiService.CreateAction(action).then( (res) => {console.log(res)}).catch(err => console.log(err));
+    this.apiService.CreateAction(action).then( (res) => {}).catch(err => console.error(err));
     this.chatForm.reset();
   }
 

@@ -58,7 +58,7 @@ export class InteractionDialog implements OnInit{
       this.firstCharacter.playerID,
       this.firstCharacter.tabletopID
       ).then(()=>{}).
-      catch((e)=>{console.log(e)})
+      catch((e)=>{console.error(e)})
     this.dialogRef.close()
   }
 
@@ -73,7 +73,7 @@ export class InteractionDialog implements OnInit{
       this.firstCharacter.playerID,
       this.firstCharacter.tabletopID
       ).then(()=>{}).
-      catch((e)=>{console.log(e)})
+      catch((e)=>{console.error(e)})
     this.dialogRef.close()
   }
 
@@ -81,7 +81,7 @@ export class InteractionDialog implements OnInit{
 
     this.apiService.RollChallengeAction(challengedAttribute, this.getAttributeBonifier(attributeValue1), this.firstCharacter.character.name, this.getAttributeBonifier(attributeValue2), this.secondCharacter.character.name, this.firstCharacter.playerID, this.firstCharacter.tabletopID).
           then(()=>{}).
-          catch((e)=>{console.log(e)})
+          catch((e)=>{console.error(e)})
     this.dialogRef.close()
   }
   
@@ -89,12 +89,12 @@ export class InteractionDialog implements OnInit{
 
     this.apiService.RollAttributeAction(rolledAttribute, this.getAttributeBonifier(attributeValue), this.firstCharacter.playerID, this.firstCharacter.tabletopID).
           then(()=>{}).
-          catch((e)=>{console.log(e)})
+          catch((e)=>{console.error(e)})
     this.dialogRef.close()
   }
 
   delete(){
-    this.apiService.DeleteTabletopCharacter({id: this.firstCharacter.id}).then(()=>{}).catch((e)=>{console.log(e)})
+    this.apiService.DeleteTabletopCharacter({id: this.firstCharacter.id}).then(()=>{}).catch((e)=>{console.error(e)})
     this.dialogRef.close()
   }
 

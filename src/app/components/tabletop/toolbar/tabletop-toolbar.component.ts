@@ -73,8 +73,8 @@ export class TabletopToolbarComponent implements OnInit {
       this.apiService.ListPlayerCharactersIdentificators({owner: {eq: this.currentUsername}}).then( (res)=> {
         var characters = res.items
         this.playerCharacters = characters
-      }).catch(err => console.log(err));
-    }).catch(err => console.log(err));
+      }).catch(err => console.error(err));
+    }).catch(err => console.error(err));
 
   }
 
@@ -99,7 +99,7 @@ export class TabletopToolbarComponent implements OnInit {
     if( currentTabletopCharacter ){
       currentTabletopCharacter.currentHealth = currentTabletopCharacter.currentHealth > selectedCharacter.hitPoints? selectedCharacter.hitPoints : currentTabletopCharacter.currentHealth
       this.apiService.UpdateTabletopCharacter({id:currentTabletopCharacter.id, characterID: selectedCharacter.id}).then( res => {
-      }).catch( (e)=> {console.log(e)} )
+      }).catch( (e)=> {console.error(e)} )
     } else { 
       var newCharacter: TabletopCharacter
       newCharacter =  {
@@ -111,7 +111,7 @@ export class TabletopToolbarComponent implements OnInit {
         location: this.getCoordinates(this.firstEmptyTile)
       }
       this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
-      }).catch( (e)=> { console.log(e)} )
+      }).catch( (e)=> { console.error(e)} )
     }
   }
 
@@ -127,7 +127,7 @@ export class TabletopToolbarComponent implements OnInit {
       location: this.getCoordinates(this.firstEmptyTile)
     }
     this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
-    }).catch( (e)=> { console.log(e)} )
+    }).catch( (e)=> { console.error(e)} )
   }
 
   getCoordinates(position: number): {x: number, y: number} {

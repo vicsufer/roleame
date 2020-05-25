@@ -88,11 +88,11 @@ export class AppComponent implements OnInit {
             if(!user){
               this.apiService.CreateUser( {username: data.username, email: data.attributes.email} ).then( () =>
                 this.store.dispatch(new ActionAuthLogin())
-               ).catch( e => console.log(e))
+               ).catch( e => console.error(e))
             } else {
               this.store.dispatch(new ActionAuthLogin())
             }
-          }).catch( e => console.log(e))
+          }).catch( e => console.error(e))
           break;
         default:
           break;

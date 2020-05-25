@@ -19,14 +19,12 @@
 
 @import 'styles-reset.scss-theme';
 @import './app/app/app.component.scss-theme';
-@import './app/shared-components/big-input/big-input/big-input.component.scss-theme';
 @import './app/components/home/home/home.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
   @include roleame-webapp-styles-reset-theme($theme);
   @include roleame-webapp-app-component-theme($theme);
   @include roleame-webapp-home-component-theme($theme);
-  @include roleame-webapp-big-input-component-theme($theme);
 }
 
 .default-theme {

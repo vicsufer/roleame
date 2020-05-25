@@ -41,7 +41,7 @@ export class AuthEffects {
               this.localStorageService.setItem(AUTH_KEY, settings)
               this.store.dispatch(new ActionAuthSetUser(userInfo))
             })
-            .catch(error => console.log(error))
+            .catch(error => console.error(error))
             .finally(() => this.router.navigate(['/']))
         })
       )

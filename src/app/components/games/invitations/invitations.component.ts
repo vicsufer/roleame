@@ -32,7 +32,7 @@ export class InvitationsComponent implements OnInit {
   constructor(private amplifyService: AmplifyService) {
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
       this.currentUser = user.username;
-    }).catch(err => console.log(err));
+    }).catch(err => console.error(err));
   }
 
   acceptInvitation(game: Game){

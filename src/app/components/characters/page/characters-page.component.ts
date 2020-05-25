@@ -1,12 +1,11 @@
-import { AmplifyService } from 'aws-amplify-angular';
-import { NotificationService } from './../../../core/notifications/notification.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
 import { APIService } from 'app/core/services/API.service';
 import { Character } from 'app/types/character';
 import { PlayerCharacter } from 'app/types/playerCharacter';
+import { AmplifyService } from 'aws-amplify-angular';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+
 
 @Component({
   selector: 'roleame-webapp-characters-page',
@@ -26,7 +25,7 @@ export class CharactersPageComponent implements OnInit {
 
   currentUsername: string;
 
-  constructor(private apiService: APIService, private amplifyService: AmplifyService, private translateService: TranslateService, private notificationService: NotificationService) {
+  constructor(private apiService: APIService, private amplifyService: AmplifyService) {
 
   }
 
@@ -42,14 +41,14 @@ export class CharactersPageComponent implements OnInit {
                 char.portraitURL = url
               })
               .catch( (err) => { 
-                console.log(err);
+                console.error(err);
               });
           }
           char.portraitURL = char.portrait;
           return char;
         })
       }).catch( (err) => {
-        console.log(err)
+        console.error(err)
       })
     })
   }
@@ -61,19 +60,8 @@ export class CharactersPageComponent implements OnInit {
 
   deleteCharacter(character: PlayerCharacter){
     this.apiService.DeletePlayerCharacter({id: character.id}).then( (res) => {
-      this.translateService
-          .get('roleame-webapp.characters.delete.success')
-          .subscribe(value => {
-            this.characters = this.characters.filter(  c => c.id != character.id  )
-            this.notificationService.success(value);
-          });
     }).catch( e => {
-      console.log(e)
-      this.translateService
-          .get('roleame-webapp.characters.delete.error')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
+      console.error(e)
     })
   }
 
@@ -93,30 +81,18 @@ export class CharactersPageComponent implements OnInit {
                   createdCharacter.portraitURL = url
                 })
                 .catch( (err) => { 
-                  console.log(err);
+                  console.error(err);
                 });
             }
           })
           .catch( (err) => { 
-            console.log(err);
+            console.error(err);
           });
       } else {
         createdCharacter.portraitURL = createdCharacter.portrait
       }
-      this.translateService
-          .get('roleame-webapp.characters.new.success')
-          .subscribe(value => {
-            this.characters.push(createdCharacter)
-            this.notificationService.success(value);
-            this.selectedTabIndex = 0
-          });
     }).catch( e => {
-      this.translateService
-          .get('roleame-webapp.characters.new.error')
-          .subscribe(value => {
-            console.log(e)
-            this.notificationService.error(value);
-          });
+      console.error(e)
     })
   }
 
@@ -133,11 +109,11 @@ export class CharactersPageComponent implements OnInit {
               this.selectedEditableCharacter.portraitURL = url
             })
             .catch( (err) => { 
-              console.log(err);
+              console.error(err);
             });
         }
       ).catch( (err) => { 
-        console.log(err);
+        console.error(err);
       });
     } else {
       this.selectedEditableCharacter.portraitURL = data.portrait
@@ -145,28 +121,15 @@ export class CharactersPageComponent implements OnInit {
 
     delete this.selectedEditableCharacter.owner
     this.apiService.UpdatePlayerCharacter(this.selectedEditableCharacter).then( (res) => {
-    }).catch( e => {
-    })
+    }).catch( e => {})
 
   }
-
 
   applyChanges(character: PlayerCharacter){
     delete character.owner
     this.apiService.UpdatePlayerCharacter(character).then( (res) => {
-      this.translateService
-          .get('roleame-webapp.characters.edit.success')
-          .subscribe(value => {
-            this.notificationService.success(value);
-            this.selectedTabIndex = 0
-            this.selectedEditableCharacter = undefined
-          });
     }).catch( e => {
-      this.translateService
-          .get('roleame-webapp.characters.edit.error')
-          .subscribe(value => {
-            this.notificationService.error(value);
-          });
+      console.error(e)
     })
   }
   

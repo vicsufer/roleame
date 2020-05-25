@@ -42,7 +42,7 @@ export class TabletopPageComponent implements OnInit {
 
       this.amplifyService.auth().currentAuthenticatedUser().then(user => {
         this.currentUsername = user.username
-        }).catch(err => console.log(err));
+        }).catch(err => console.error(err));
 
       this.route.queryParamMap.subscribe(params => {
         this.isLoading = true;
@@ -132,7 +132,7 @@ export class TabletopPageComponent implements OnInit {
             this.currentCharacter = characterForCurrentPlayer
           }
           this.isLoading = false;
-        }).catch(e=>console.log(e))
+        }).catch(e=>console.error(e))
 
       })
   }
@@ -200,7 +200,7 @@ export class TabletopPageComponent implements OnInit {
       // Movement action
       var token = this.firstSelectedTile.token
       var newCoordinates = this.getCoordinates(data.position)
-      this.apiService.UpdateTabletopCharacter({id: token.character.id, location: newCoordinates}).then(()=>{}).catch((e)=>console.log(e))
+      this.apiService.UpdateTabletopCharacter({id: token.character.id, location: newCoordinates}).then(()=>{}).catch((e)=>console.error(e))
       this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
     }
