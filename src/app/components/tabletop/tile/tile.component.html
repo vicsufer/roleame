@@ -4,8 +4,8 @@
     <button class="nostyle"></button>
   </div>
 
-  <div *ngIf="token?.character" class="tile" (click)="tileSelected()" matBadge="{{ token.character.currentHealth }}" matBadgeSize="large">
-    <button [class.selected-token]="token.isSelected" class="token" mat-fab color="warn">{{token.character.character.name | slice:0:1 }}</button>
+  <div *ngIf="token?.character" class="tile"  (click)="tileSelected()" matBadge="{{ token.character.currentHealth }}" matBadgeSize="large">
+    <button [class.selected-token]="token.isSelected" [class.player-character]="!token.isMaster" [class.master-character]="token.isMaster" class="token" mat-fab color="warn">{{token.character.character.name | slice:0:1 }}</button>
   </div>
 
   <mat-card *ngIf="token?.character" class="character-details" [class.nearBottom]="nearBottom" [class.nearTop]="nearTop">

@@ -31,7 +31,7 @@ export class TabletopPageComponent implements OnInit {
   firstSelectedTile: {position: number , token: Token} = undefined;
   secondSelectedTile: {position: number , token: Token} | any = undefined;
 
-  tiles: {character: TabletopCharacter, isSelected: boolean}[] = [];
+  tiles: Token[] = [];
 
   playerCharacters: {name: string, id: string, uuid: string, hitPoints: number}[] = []
 
@@ -77,7 +77,7 @@ export class TabletopPageComponent implements OnInit {
               this.currentCharacter = newCharacter;
             }
             var pos = this.getPosition(newCharacter.location.x, newCharacter.location.y)
-            this.tiles[pos] = {character: newCharacter, isSelected: false}
+            this.tiles[pos] = {character: newCharacter, isSelected: false,  isMaster: this.isCharacterFromMaster(newCharacter)}
             this.updateFirstEmptyTile()
           },
           error: error => console.error(error)
@@ -168,11 +168,15 @@ export class TabletopPageComponent implements OnInit {
     // Transform to one-dimension
     var pos = this.getPosition(x, y)
     // Set new position
-    this.tiles[pos] = {character: character, isSelected: false}
+    this.tiles[pos] = {character: character, isSelected: false, isMaster: this.isCharacterFromMaster(character)}
   }
 
   getPosition(x: number, y: number): number{
     return y+this.tabletop.width*x
+  }
+
+  isCharacterFromMaster(character: TabletopCharacter){
+    return character.playerID == this.currentUsername? true: false
   }
 
 

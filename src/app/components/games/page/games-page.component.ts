@@ -181,7 +181,7 @@ export class GamesPageComponent implements OnInit {
 
 
     data.playersToRemove.forEach( (player) => {
-      this.apiService.DeletePlayer({id: player}).then( res => {console.log()}).catch((e) => console.log(e))
+      this.apiService.DeletePlayer({id: player}).then( res => {}).catch((e) => console.log(e))
     })
     data.playersToInvite.forEach( player => {
       this.invitePlayer( player.playerID, data.game.id, data.game.owner)
@@ -194,7 +194,6 @@ export class GamesPageComponent implements OnInit {
       gameToUpdate.players = updatedGame.players.items
       gameToUpdate.members = updatedGame.members
       gameToUpdate.tabletop = updatedGame.tabletop
-      console.log(gameToUpdate == this.games.find( game => game.id == data.game.id ))
       this.selectedEditableGame = undefined;
       this.translateService
           .get('roleame-webapp.games.edit.success')
@@ -215,9 +214,7 @@ export class GamesPageComponent implements OnInit {
 
   acceptInvitation(gameMember: Player){
     this.apiService.UpdatePlayer(gameMember).then( (res) => {
-      console.log(this.invitations)
       this.invitations = this.invitations.filter(  game => !game.players.find( (member: Player) => member.id === gameMember.id) )
-      console.log(this.invitations)
     }).catch( (e) => console.log(e))
   }
 

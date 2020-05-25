@@ -65,6 +65,14 @@
   background-color: rgb(255, 197, 34)
 }
 
+.tile .token.player-character{
+  
+  background-color: rgb(4, 8, 231)
+}
+.tile .token.master-character{
+  background-color: rgb(255, 87, 34)
+}
+
 .nostyle:hover {
   background-color: rgba(255, 197, 34, .5)
 }
