@@ -1,5 +1,5 @@
 import { DiceRoller } from './../../../types/diceroller';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { PlayerCharacter } from 'app/types/playerCharacter';
 import { AmplifyService } from 'aws-amplify-angular';
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild } from '@angular/core';
@@ -23,7 +23,7 @@ export class TabletopToolbarComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
   @ViewChild('selectcurrentcharacter', {static: false}) characterSelector: MatSelect;
-
+  @ViewChild('newtabletopcharacterform', {static: false}) characterForm: FormGroupDirective;
   @Input()
   tabletop: Tabletop;
 
@@ -47,13 +47,13 @@ export class TabletopToolbarComponent implements OnInit {
   firstEmptyTile: number;
 
   diceRollForm: FormGroup;
+  newTabletopCharacterForm: FormGroup;
 
   playerCharacters: {name: string, id: string, uuid: string, hitPoints: number}[] = []
 
   constructor(private apiService: APIService,
     private amplifyService: AmplifyService,
     private formBuilder: FormBuilder) {
-      
   }
 
   ngOnInit() {
@@ -61,6 +61,10 @@ export class TabletopToolbarComponent implements OnInit {
     this.diceRollForm = this.formBuilder.group({
       dices: ['1', [Validators.required, Validators.min(1), Validators.max(20)]],
       sides: ['20', [Validators.required, Validators.min(2), Validators.max(20)]],
+    });
+
+    this.newTabletopCharacterForm = this.formBuilder.group({
+      character: ['', [Validators.required]]
     });
 
     this.amplifyService.auth().currentAuthenticatedUser().then(user => {
@@ -109,6 +113,21 @@ export class TabletopToolbarComponent implements OnInit {
       this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
       }).catch( (e)=> { console.log(e)} )
     }
+  }
+
+  addCharacter(){
+    var character = this.newTabletopCharacterForm.get('character').value
+    var newCharacter: TabletopCharacter
+    newCharacter =  {
+      tabletopID: this.tabletop.id,
+      gameOwnerID: this.tabletop.gameOwnerID,
+      playerID: this.currentUsername,
+      characterID: character.id,
+      currentHealth: character.hitPoints,
+      location: this.getCoordinates(this.firstEmptyTile)
+    }
+    this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
+    }).catch( (e)=> { console.log(e)} )
   }
 
   getCoordinates(position: number): {x: number, y: number} {

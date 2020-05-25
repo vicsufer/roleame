@@ -1,6 +1,6 @@
 <mat-card fxLayout="row" fxlayoutGap="10px">
   <div fxFlex="70%" fxLayout="row" fxlayoutGap="10px">
-    <div>
+    <div *ngIf="!isOwner()">
       <mat-form-field>
         <mat-label *ngIf="!currentCharacter">{{ 'roleame-webapp.label.character' | translate }}</mat-label>
         <mat-label *ngIf="currentCharacter">{{ currentCharacter.character.name }}</mat-label>
@@ -10,6 +10,20 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+
+    <div *ngIf="isOwner()">
+      <form [formGroup]="newTabletopCharacterForm" #newtabletopcharacterform>
+        <mat-form-field>
+          <mat-label>{{ 'roleame-webapp.label.character' | translate }}</mat-label>
+          <mat-select formControlName="character">
+            <mat-option *ngFor="let character of playerCharacters" [value]="character">
+              {{character.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="ml-4" type="submit" mat-raised-button (click)="addCharacter()" mat-button>{{'roleame-webapp.tabletop.addCharacter' | translate}}</button>
+      </form>
     </div>
 
     <mat-divider vertical class="ml-4 mr-4"></mat-divider>
