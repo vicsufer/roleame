@@ -14,13 +14,47 @@
         "categories": {
             "function": {
                 "roleame1d010846CustomMessage": {
-                    "REDIRECTURL": "rolea.me",
+                    "REDIRECTURL": "dev.rolea.me",
                     "EMAILSUBJECT": "Roleame verification",
                     "EMAILMESSAGE": "Follow the provided link to confirm your registration at rolea.me"
-                }
+                },
+                "rollattackaction": {},
+                "rollattributeaction": {},
+                "rollchallengeaction": {},
+                "rollhealaction": {}
             },
             "auth": {
                 "roleame1d010846": {}
+            }
+        }
+    },
+    "production": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-roleame-production-145641-authRole",
+            "UnauthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-145641-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::457495924339:role/amplify-roleame-production-145641-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-roleame-production-145641-deployment",
+            "UnauthRoleName": "amplify-roleame-production-145641-unauthRole",
+            "StackName": "amplify-roleame-production-145641",
+            "StackId": "arn:aws:cloudformation:eu-west-1:457495924339:stack/amplify-roleame-production-145641/2f7dab40-9e87-11ea-8be7-060f8efab01c",
+            "AmplifyAppId": "d97jyggot8b00"
+        },
+        "categories": {
+            "auth": {
+                "roleame1d010846": {}
+            },
+            "function": {
+                "roleame1d010846CustomMessage": {
+                    "REDIRECTURL": "www.rolea.me",
+                    "EMAILSUBJECT": "Roleame account verification",
+                    "EMAILMESSAGE": "Thanks for signing up, follow the link to very yout account."
+                },
+                "rollattributeaction": {},
+                "rollchallengeaction": {},
+                "rollhealaction": {},
+                "rollattackaction": {},
+                "roleameapi": {}
             }
         }
     }
