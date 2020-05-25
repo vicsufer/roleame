@@ -101,8 +101,8 @@ context('Characters component', () => {
     it('it should allow to delete a character', () => {
         cy.login(Cypress.config().username, Cypress.config().password)
         cy.visit('/characters');
-        cy.get('mat-card:nth-child(1) :nth-child(3) > .mat-button-wrapper > .mat-icon').click()
         cy.get('mat-card:nth-child(2) :nth-child(3) > .mat-button-wrapper > .mat-icon').click()
+        cy.get('mat-card:nth-child(1) :nth-child(3) > .mat-button-wrapper > .mat-icon').click()
         cy.get('mat-card-title').should('not.have.text', 'Personaje editado');
         cy.get('mat-card-title').should('not.have.text', 'Personaje de prueba con imagen');
     });
