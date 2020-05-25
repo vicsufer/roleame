@@ -101,7 +101,7 @@ export class GamesPageComponent implements OnInit {
   }
 
   deleteGame(game: Game){
-    this.apiService.DeleteGame({id: game.id}).then( (deletedGame) => {
+    this.apiService.DeleteGameData({id: game.id}).then( (deletedGame) => {
       //Delete all players in this game.
 
       deletedGame.players.items.forEach( player => {

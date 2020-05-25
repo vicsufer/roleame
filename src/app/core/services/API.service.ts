@@ -1,5 +1,4 @@
 /* tslint:disable */
-/* eslint-disable */
 //  This file was automatically generated and should not be edited.
 import { Injectable } from "@angular/core";
 import API, { graphqlOperation } from "@aws-amplify/api";
@@ -93,6 +92,15 @@ export type ModelBooleanInput = {
   attributeType?: ModelAttributeTypes | null;
 };
 
+export enum ActionType {
+  CHALLENGE = "CHALLENGE",
+  HEAL = "HEAL",
+  ATTACK = "ATTACK",
+  ATTRIBUTEROLL = "ATTRIBUTEROLL",
+  CHAT = "CHAT",
+  DICEROLL = "DICEROLL"
+}
+
 export type ModelGameFilterInput = {
   id?: ModelIDInput | null;
   owner?: ModelStringInput | null;
@@ -157,15 +165,6 @@ export type ModelActionTypeInput = {
   eq?: ActionType | null;
   ne?: ActionType | null;
 };
-
-export enum ActionType {
-  CHALLENGE = "CHALLENGE",
-  HEAL = "HEAL",
-  ATTACK = "ATTACK",
-  ATTRIBUTEROLL = "ATTRIBUTEROLL",
-  CHAT = "CHAT",
-  DICEROLL = "DICEROLL"
-}
 
 export type CreateGameInput = {
   id?: string | null;
@@ -442,6 +441,61 @@ export type DeleteGameRetrieveIDMutation = {
 export type DeletePlayerRetrieveIDMutation = {
   
   id: string;
+};
+
+export type DeleteGameDataMutation = {
+  
+  id: string;
+  owner: string | null;
+  uuid: string;
+  name: string;
+  description: string | null;
+  tabletop: {
+    
+    id: string;
+    gameOwnerID: string;
+    width: number | null;
+    height: number | null;
+    characters: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        gameOwnerID: string;
+        playerID: string;
+        characterID: string;
+        currentHealth: number;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    actions: {
+      
+      items: Array<{
+        
+        id: string;
+        tabletopID: string;
+        timestamp: number | null;
+        actionType: ActionType | null;
+        player: string | null;
+        payload: string | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  members: Array<string | null> | null;
+  players: {
+    
+    items: Array<{
+      
+      id: string;
+      gameID: string;
+      gameOwnerID: string;
+      playerID: string;
+      pendingInvite: boolean | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
 };
 
 export type ListGamesDataQuery = {
@@ -2800,6 +2854,77 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeletePlayerRetrieveIDMutation>response.data.deletePlayer;
+  }
+  async DeleteGameData(
+    input: DeleteGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<DeleteGameDataMutation> {
+    const statement = `mutation DeleteGameData($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
+        deleteGame(input: $input, condition: $condition) {
+          
+          id
+          owner
+          uuid
+          name
+          description
+          tabletop {
+            
+            id
+            gameOwnerID
+            width
+            height
+            characters {
+              
+              items {
+                
+                id
+                tabletopID
+                gameOwnerID
+                playerID
+                characterID
+                currentHealth
+              }
+              nextToken
+            }
+            actions {
+              
+              items {
+                
+                id
+                tabletopID
+                timestamp
+                actionType
+                player
+                payload
+              }
+              nextToken
+            }
+          }
+          members
+          players {
+            
+            items {
+              
+              id
+              gameID
+              gameOwnerID
+              playerID
+              pendingInvite
+            }
+            nextToken
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteGameDataMutation>response.data.deleteGame;
   }
   async ListGamesData(
     filter?: ModelGameFilterInput,

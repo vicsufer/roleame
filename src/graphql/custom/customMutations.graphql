@@ -15,3 +15,56 @@ mutation DeletePlayerRetrieveID(
     id
   }
 }
+
+
+mutation DeleteGameData(
+  $input: DeleteGameInput!
+  $condition: ModelGameConditionInput
+) {
+  deleteGame(input: $input, condition: $condition) {
+    id
+    owner
+    uuid
+    name
+    description
+    tabletop {
+      id
+      gameOwnerID
+      width
+      height
+      characters {
+        items {
+          id
+          tabletopID
+          gameOwnerID
+          playerID
+          characterID
+          currentHealth
+        }
+        nextToken
+      }
+      actions {
+        items {
+          id
+          tabletopID
+          timestamp
+          actionType
+          player
+          payload
+        }
+        nextToken
+      }
+    }
+    members
+    players {
+      items {
+        id
+        gameID
+        gameOwnerID
+        playerID
+        pendingInvite
+      }
+      nextToken
+    }
+  }
+}
