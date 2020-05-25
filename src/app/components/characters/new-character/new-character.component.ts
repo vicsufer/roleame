@@ -1,13 +1,12 @@
-import { APIService } from 'app/core/services/API.service';
-import { FileValidator } from 'ngx-material-file-input';
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material';
 import { Character } from 'app/types/character';
 import { PlayerCharacter } from 'app/types/playerCharacter';
-import { MatStepper } from '@angular/material';
+import { FileValidator } from 'ngx-material-file-input';
 import * as uuid from 'uuid';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+
 
 @Component({
   selector: 'roleame-webapp-new-character',

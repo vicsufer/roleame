@@ -1,10 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { APIService } from 'app/core/services/API.service';
-import { PlayerCharacter } from 'app/types/playerCharacter';
-import { faCopy, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Character } from 'app/types/character';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+
 
 @Component({
   selector: 'roleame-webapp-characters',

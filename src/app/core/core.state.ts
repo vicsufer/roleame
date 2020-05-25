@@ -1,19 +1,15 @@
-import {
-  ActionReducerMap,
-  MetaReducer,
-  createFeatureSelector
-} from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
-
-import { environment } from '../../environments/environment';
-
-import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
-import { debug } from './meta-reducers/debug.reducer';
-import { authReducer } from './auth/auth.reducer';
-import { RouterStateUrl } from './router/router.state';
-import { settingsReducer } from './settings/settings.reducer';
-import { SettingsState } from './settings/settings.model';
+import { ActionReducerMap, createFeatureSelector, MetaReducer } from '@ngrx/store';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
+import { environment } from '../../environments/environment';
+import { authReducer } from './auth/auth.reducer';
+import { debug } from './meta-reducers/debug.reducer';
+import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
+import { RouterStateUrl } from './router/router.state';
+import { SettingsState } from './settings/settings.model';
+import { settingsReducer } from './settings/settings.reducer';
+
+
 
 export const reducers: ActionReducerMap<AppState> = {
   auth: authReducer,

@@ -1,26 +1,17 @@
-import { APIService } from 'app/core/services/API.service';
-import { take } from 'rxjs/operators';
-import browser from 'browser-detect';
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
-import { environment as env } from '../../environments/environment';
-import { Hub } from 'aws-amplify';
-
-import {
-  routeAnimations,
-  AppState,
-  LocalStorageService,
-  selectIsAuthenticated,
-  selectSettingsLanguage,
-  selectEffectiveTheme,
-  ActionSettingsChangeLanguage
-} from '../core/core.module';
-import { ActionAuthLogout, ActionAuthLogin } from 'app/core/auth/auth.actions';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { ActionAuthLogin, ActionAuthLogout } from 'app/core/auth/auth.actions';
 import { selectCurrentUserEmail } from 'app/core/auth/auth.selectors';
+import { APIService } from 'app/core/services/API.service';
 import { ActionSettingsChangeAnimationsPage } from 'app/core/settings/settings.actions';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Hub } from 'aws-amplify';
+import browser from 'browser-detect';
+import { Observable } from 'rxjs';
+import { environment as env } from '../../environments/environment';
+import { ActionSettingsChangeLanguage, AppState, LocalStorageService, routeAnimations, selectEffectiveTheme, selectIsAuthenticated, selectSettingsLanguage } from '../core/core.module';
+
+
 
 @Component({
   selector: 'roleame-webapp-root',

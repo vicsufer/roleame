@@ -1,14 +1,13 @@
-import { Md5Pipe } from 'app/core/pipes/md5.pipe';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-
-import { SharedComponentsModule } from './shared-components/shared-components.module';
-import { CoreModule, APIService } from './core/core.module';
-
+import { AmplifyAngularModule } from 'aws-amplify-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { CoreModule } from './core/core.module';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
+
+
 @NgModule({
   imports: [
     // angular

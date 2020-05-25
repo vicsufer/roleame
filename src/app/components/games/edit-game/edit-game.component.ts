@@ -1,13 +1,12 @@
-import { Player } from './../../../types/player';
-import { FileValidator } from 'ngx-material-file-input';
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, Inject } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { APIService } from 'app/core/services/API.service';
 import { Game } from 'app/types/game';
-import { FormGroup, FormBuilder, Validators, FormArray, AsyncValidatorFn, AbstractControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+import { Player } from './../../../types/player';
+
 
 @Component({
   selector: 'roleame-webapp-edit-game',

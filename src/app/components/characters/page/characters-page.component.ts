@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { APIService } from 'app/core/services/API.service';
 import { Character } from 'app/types/character';
 import { PlayerCharacter } from 'app/types/playerCharacter';

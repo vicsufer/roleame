@@ -1,11 +1,9 @@
-import { Player } from '../../../types/player';
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { APIService } from 'app/core/services/API.service';
-import { faCopy, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from 'app/types/game';
 import { AmplifyService } from 'aws-amplify-angular';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+import { Player } from '../../../types/player';
+
 
 @Component({
   selector: 'roleame-webapp-games',

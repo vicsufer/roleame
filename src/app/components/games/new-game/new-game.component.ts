@@ -1,15 +1,12 @@
-import { GetUserQuery, GetUserDataQuery } from './../../../core/services/API.service';
-import { APIService } from 'app/core/services/API.service';
-import { FileValidator } from 'ngx-material-file-input';
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ViewChild, Pipe } from '@angular/core';
-
-import { ROUTE_ANIMATIONS_ELEMENTS, routeAnimations } from '../../../core/core.module';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl, AsyncValidatorFn } from '@angular/forms';
-import { Game } from 'app/types/game';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material';
+import { APIService } from 'app/core/services/API.service';
+import { Game } from 'app/types/game';
+import { Observable } from 'rxjs';
 import * as uuid from 'uuid';
-import { from, Observable, of } from 'rxjs';
-import { debounceTime, map, take } from 'rxjs/operators';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
+
 
 @Component({
   selector: 'roleame-webapp-new-game',
