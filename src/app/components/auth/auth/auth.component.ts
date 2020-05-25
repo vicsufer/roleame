@@ -20,10 +20,20 @@ export class AuthComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   authState$: Observable<AuthState>;
 
+  showSignup: boolean;
+
   constructor(private store: Store<State>) {
     var a = this.store.pipe(select(selectAuth));
     //this.authState$ = this.store.pipe(  selectIsAuthenticated );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+
+  toggleSignup() {
+    this.showSignup = !this.showSignup;
+  }
+
+
 }

@@ -49,22 +49,8 @@
                     </mat-form-field>
                 </div>
 
-                <div class='row d-flex mt-4'>
-                    <div class="form-input-wrap">
-                        <mat-checkbox class='col-12' formControlName="confirmTerms" [ngClass]="routeAnimationsElements">
-                            {{ 'roleame-webapp.auth.accept_terms.prefix' | translate }} <a>{{ 'roleame-webapp.auth.accept_terms.terms' | translate }}</a>
-                            {{ 'roleame-webapp.auth.accept_terms.and' | translate }}<a>{{ 'roleame-webapp.auth.accept_terms.policy' | translate }}</a>
-                        </mat-checkbox>
-
-                        <mat-error class='col-12 checkbox-error'>
-                                {{ 'roleame-webapp.auth.signup.errors.confirm_terms' | translate }}
-                        </mat-error>
-                    </div>
-                </div>
-
                 <div class="row buttons d-flex justify-content-between pad">
-                    
-                    <button type='submit' mat-raised-button [ngClass]="routeAnimationsElements">
+                    <button type='submit' class="col" mat-raised-button [ngClass]="routeAnimationsElements">
                         {{ 'roleame-webapp.auth.signup.header' | translate }}
                     </button>
                 </div>

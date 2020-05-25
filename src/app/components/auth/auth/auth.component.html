@@ -1,10 +1,10 @@
-
-<div>
-    <form action=""></form>
-</div>
-
 <div class='row justify-content-center'>
-    <rolewebapp-login class='col'></rolewebapp-login>
-
-    <rolewebapp-signup class='col'></rolewebapp-signup>
+    <rolewebapp-login fxFlex="50%" *ngIf="!showSignup" (signup)="toggleSignup()" class='col'></rolewebapp-login>
+    <rolewebapp-signup fxFlex="50%" *ngIf="showSignup" (hide)="toggleSignup()" class='col'></rolewebapp-signup>
+</div>
+<div class='row justify-content-center'>
+    <button fxFlex="40%" class="col" mat-raised-button (click)="toggleSignup()">
+        <span *ngIf="!showSignup">{{'roleame-webapp.auth.signup.header' | translate }}</span>
+        <span *ngIf="showSignup">{{'roleame-webapp.auth.login.header' | translate }}</span>
+    </button>
 </div>

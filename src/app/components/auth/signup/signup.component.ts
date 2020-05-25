@@ -77,8 +77,7 @@ export class SignupComponent implements OnInit {
             )
           ]
         ],
-        passwordConfirm: ['', [Validators.required]],
-        confirmTerms: ['', [Validators.requiredTrue]]
+        passwordConfirm: ['', [Validators.required]]
       },
       { validator: this.checkPasswords }
     );
