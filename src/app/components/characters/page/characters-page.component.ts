@@ -59,6 +59,7 @@ export class CharactersPageComponent implements OnInit {
 
   deleteCharacter(character: PlayerCharacter){
     this.apiService.DeletePlayerCharacter({id: character.id}).then( (res) => {
+      this.characters = this.characters.filter(  c => c.id != character.id  )
     }).catch( e => {
       console.error(e)
     })
@@ -83,6 +84,8 @@ export class CharactersPageComponent implements OnInit {
                   console.error(err);
                 });
             }
+            this.characters.push(createdCharacter)
+            this.selectedTabIndex = 0
           })
           .catch( (err) => { 
             console.error(err);
@@ -90,6 +93,8 @@ export class CharactersPageComponent implements OnInit {
       } else {
         createdCharacter.portraitURL = createdCharacter.portrait
       }
+      this.characters.push(createdCharacter)
+      this.selectedTabIndex = 0
     }).catch( e => {
       console.error(e)
     })
@@ -127,6 +132,8 @@ export class CharactersPageComponent implements OnInit {
   applyChanges(character: PlayerCharacter){
     delete character.owner
     this.apiService.UpdatePlayerCharacter(character).then( (res) => {
+      this.selectedTabIndex = 0
+      this.selectedEditableCharacter = undefined
     }).catch( e => {
       console.error(e)
     })

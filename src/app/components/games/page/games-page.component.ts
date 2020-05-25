@@ -104,9 +104,10 @@ export class GamesPageComponent implements OnInit {
 
       //Delete tabletop and its characters
       this.apiService.DeleteTabletop({id:game.tabletop.id}).then( (deletedTabletop) => {
-          deletedTabletop.characters.items.forEach( tabletopCharacter => {
-            this.apiService.DeleteTabletopCharacter({id:tabletopCharacter.id})
-          })
+        this.games = this.games.filter(  c => c.id != game.id  )
+        deletedTabletop.characters.items.forEach( tabletopCharacter => {
+          this.apiService.DeleteTabletopCharacter({id:tabletopCharacter.id})
+        })
       }).catch(e=>console.error(e))
     }).then( (res) => {
     }).catch( e => {
@@ -132,6 +133,13 @@ export class GamesPageComponent implements OnInit {
       input.gameTabletopId = createdTabletop.id
 
       this.apiService.CreateGame(input).then( (createdGame) => {
+        var g: Game | any
+        g = createdGame
+        g.players = createdGame.players.items
+        g.members = createdGame.members
+        this.games.push(g)
+        this.selectedTabIndex = 0
+
         data.members.forEach( (member) => {
           this.invitePlayer(member, createdGame.id, createdGame.owner)
         })
@@ -161,6 +169,7 @@ export class GamesPageComponent implements OnInit {
       gameToUpdate.members = updatedGame.members
       gameToUpdate.tabletop = updatedGame.tabletop
       this.selectedEditableGame = undefined;
+      this.selectedTabIndex = 0
     }).catch( e => {
       console.error(e)
     })
