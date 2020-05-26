@@ -31,16 +31,17 @@ export class GamesPageComponent implements OnInit {
     private apiService: APIService,
      private amplifyService: AmplifyService, 
      private router: Router) {
-    this.amplifyService.auth().currentAuthenticatedUser().then(user => {
-      this.currentUsername = user.username;
-    }).catch(err => console.error(err));
   }
 
   ngOnInit() {
-    //Retrieve games as player
-    this.apiService.GetUserGamesData(this.currentUsername).then( (user) => {
-      console.log(user)
 
+
+    
+    this.amplifyService.auth().currentAuthenticatedUser().then(user => {
+      this.currentUsername = user.username;
+
+      //Retrieve games as player
+    this.apiService.GetUserGamesData(this.currentUsername).then( (user) => {
       var games = user.gamesAsPlayer.items.map( (gameMember) => gameMember.game )
       games.forEach( (game) => {
         var g: Game;
@@ -63,7 +64,6 @@ export class GamesPageComponent implements OnInit {
       console.error(err)
     })
 
-
     // Retrieve owned games
     this.apiService.ListGamesData({owner: {eq:this.currentUsername}}).then( (games) => {
       games.items.forEach( (game) => {
@@ -83,9 +83,9 @@ export class GamesPageComponent implements OnInit {
     }).catch( (err) => {
       console.error(err)
     })
+      
+    }).catch(err => console.error(err));
   }
-
-
 
   invitationAccepted(game: Game){
     return !game.players.find( gameMember => gameMember.playerID === this.currentUsername ).pendingInvite

@@ -1,3 +1,4 @@
+import { Character } from 'app/types/character';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -75,10 +76,8 @@ export class TabletopPageComponent implements OnInit {
             if(!this.currentCharacter && this.currentUsername == newCharacter.playerID){
               this.currentCharacter = newCharacter;
             }
-            var pos = this.getPosition(newCharacter.location.x, newCharacter.location.y)
-            this.tabletop.characters.push(newCharacter)
-            this.tiles[pos] = {character: newCharacter, isSelected: false,  isMaster: this.isCharacterFromMaster(newCharacter)}
-            this.updateFirstEmptyTile()
+            this.placeCharacter(newCharacter, newCharacter.location.x, newCharacter.location.y)
+            this.tabletop.characters= [...this.tabletop.characters, newCharacter]
           },
           error: error => console.error(error)
         });
@@ -92,9 +91,8 @@ export class TabletopPageComponent implements OnInit {
             var characterToUpdate = this.tabletop.characters.find( char => char.id == updatedCharacter.id)
             
             if( characterToUpdate.location !== updatedCharacter.location ){
-              this.moveCharacter(characterToUpdate, updatedCharacter.location.x, updatedCharacter.location.y)
+              this.moveCharacter(updatedCharacter, updatedCharacter.location.x, updatedCharacter.location.y)
               characterToUpdate.location = updatedCharacter.location
-              this.updateFirstEmptyTile()
             }
             if( characterToUpdate.character !== updatedCharacter.character ){
               characterToUpdate.character = updatedCharacter.character
@@ -108,13 +106,14 @@ export class TabletopPageComponent implements OnInit {
           next: (deletedCharacter) => {
             deletedCharacter = deletedCharacter.value.data.onDeleteTabletopCharacter
             if( deletedCharacter.tabletopID !== this.tabletop.id ) return;
-            
             if( deletedCharacter.playerID == this.currentUsername ){
               this.currentCharacter = undefined;
             }
             var oldPosition = this.getPosition(deletedCharacter.location.x, deletedCharacter.location.y)
-            this.tiles[oldPosition] = undefined
+            this.tiles[oldPosition] = {character: undefined, isSelected: false, isMaster: false}
+
             this.tabletop.characters = this.tabletop.characters.filter( char => char.id != deletedCharacter.id )
+
             this.updateFirstEmptyTile();
           },
           error: error => console.error(error)
@@ -131,7 +130,6 @@ export class TabletopPageComponent implements OnInit {
             this.currentCharacter = characterForCurrentPlayer
           }
           this.renderBoard()
-          this.updateFirstEmptyTile()
           this.isLoading = false;
         }).catch(e=>console.error(e))
 
@@ -148,10 +146,9 @@ export class TabletopPageComponent implements OnInit {
   }
 
   renderBoard(){
-    this.tiles = Array( (this.tabletop.height * this.tabletop.width) )
+    this.tiles = Array( (this.tabletop.height * this.tabletop.width) ).fill({character: undefined, isSelected: false, isMaster: false})
     this.tabletop.characters.forEach( character => {
-      this.moveCharacter(character, character.location.x, character.location.y)
-      character.character.name
+      this.placeCharacter(character, character.location.x, character.location.y)
     })
   }
 
@@ -161,12 +158,17 @@ export class TabletopPageComponent implements OnInit {
     var oldCharPosition = this.tabletop.characters.find( c=> c.id == character.id)
     if(oldCharPosition){
       var oldPos = this.getPosition(oldCharPosition.location.x, oldCharPosition.location.y)
-      this.tiles[oldPos] = undefined
+      this.tiles[oldPos] = {character: undefined, isSelected: false, isMaster: false}
     }
+    this.placeCharacter(character, x, y)
+  }
+
+  placeCharacter(character: TabletopCharacter, x: number, y: number){
     // Transform to one-dimension
     var pos = this.getPosition(x, y)
     // Set new position
     this.tiles[pos] = {character: character, isSelected: false, isMaster: this.isCharacterFromMaster(character)}
+    this.updateFirstEmptyTile()
   }
 
   getPosition(x: number, y: number): number{
@@ -187,14 +189,14 @@ export class TabletopPageComponent implements OnInit {
   }
 
   selectTile(data: {position: number , token: Token}) {
-    if(!this.firstSelectedTile && data.token){
+    if(!this.firstSelectedTile && data.token.character){
       //Do not allow character owner or game owner to use a character.
       if( data.token.character.playerID != this.currentUsername && this.tabletop.gameOwnerID != this.currentUsername ) {
         return;
       }
       this.firstSelectedTile = data
       this.firstSelectedTile.token.isSelected = true
-    } else if (this.firstSelectedTile && !data.token){
+    } else if (this.firstSelectedTile && !data.token.character){
       // Movement action
       var token = this.firstSelectedTile.token
       var newCoordinates = this.getCoordinates(data.position)
@@ -202,7 +204,7 @@ export class TabletopPageComponent implements OnInit {
       this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
     }
-    else if (this.firstSelectedTile && data.token) {
+    else if (this.firstSelectedTile && data.token.character) {
       this.secondSelectedTile = data
       this.firstSelectedTile.token.isSelected = false
       this.showInteractionDialog(this.firstSelectedTile.token.character, data.token.character)
@@ -211,8 +213,12 @@ export class TabletopPageComponent implements OnInit {
     } 
   }
 
-  updateFirstEmptyTile(){
-    this.firstEmptyTile = this.tiles.findIndex(Object.is.bind(null, undefined))
+  updateFirstEmptyTile(): number{
+    for(var i; i<this.tiles.length; i++){
+      this.tiles[i] == undefined;
+      return i
+    }
+    return 0;
   }
 
   showInteractionDialog(firstCharacter: TabletopCharacter, secondCharacter: TabletopCharacter,  ): void {
