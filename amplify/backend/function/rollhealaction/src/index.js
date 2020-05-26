@@ -25,7 +25,7 @@ exports.handler = async (event, _, callback) => {
     var payload = {
 		healer: args.healer,
 		rolled: roll.healRoll,
-		bonifier: Math.floor((args.healerWisdom-10)/2),
+		bonifier: Math.max(Math.floor(0,(args.healerWisdom-10)/2)),
 		target: {
 			characterID: args.targetID,
 			characterName: args.targetName
@@ -71,7 +71,7 @@ exports.handler = async (event, _, callback) => {
 function computeHeal(currentHealth, maxHealth, wisdomAttribute) {
 	healCap =  maxHealth - currentHealth;
 	healRoll = simpleRoll()
-	healPoints =  healRoll + Math.floor((wisdomAttribute-10)/2)
+	healPoints =  healRoll + Math.max(0,Math.floor((wisdomAttribute-10)/2))
 	return { healRoll, healPoints: Math.min(healPoints, healCap) } 
 }
 

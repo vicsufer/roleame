@@ -39,6 +39,8 @@ export class GamesPageComponent implements OnInit {
   ngOnInit() {
     //Retrieve games as player
     this.apiService.GetUserGamesData(this.currentUsername).then( (user) => {
+      console.log(user)
+
       var games = user.gamesAsPlayer.items.map( (gameMember) => gameMember.game )
       games.forEach( (game) => {
         var g: Game;
