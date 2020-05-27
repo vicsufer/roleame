@@ -33,9 +33,12 @@ export class TileComponent implements OnInit {
   @Input()
   set token(token: Token){
     this._token = token
-    // if(this.tileElement && this.token.character){
-    //   this.calculateBounds()
-    // }
+    //console.log("UPDATED TOKEN!!")
+    if(this.token.character){
+      console.log("Ahora tengo personaje!!!")
+    } else {
+      console.log("NO TENGO TOKEN")
+    }
   }
 
   get token(){
