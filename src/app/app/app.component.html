@@ -21,30 +21,30 @@
 
           </button>
 
-          <span routerLink="" class="branding spacer center d-inline d-sm-none">
-            <img [src]="logo" /></span>
-          <span routerLink="" class="branding spacer center d-none d-sm-inline d-md-none"><img [src]="logo" /> {{
-            'roleame-webapp.title.short' | translate }}</span>
-          <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> {{ 'roleame-webapp.title.long' | translate
-            }}</span>
+          <span routerLink="" class="branding spacer center d-inline d-sm-none"><img [src]="logo"/></span>
+          <span routerLink="" class="branding spacer center d-none d-sm-inline d-md-none"><img [src]="logo"/> {{'roleame-webapp.title.short' | translate }}</span>
+          <span routerLink="" class="branding spacer d-none d-md-inline"><img [src]="logo" /> {{ 'roleame-webapp.title.long' | translate}}</span>
 
           <span class="d-none d-md-inline" *ngIf="(isAuthenticated$ | async)">
-            <button mat-button class="nav-button" *ngFor="let item of privateNavigation" [routerLink]="[item.link]"
-              routerLinkActive="active">
-              {{item.label | translate}}
-            </button>
-          </span>
 
-          <span class="d-none d-md-inline">
-            <button mat-button class="nav-button" *ngFor="let item of navigation" [routerLink]="[item.link]"
-              routerLinkActive="active">
-              {{item.label | translate}}
+            <button mat-button class="nav-button" routerLink="/games"routerLinkActive="active">
+              <mat-icon>casino</mat-icon>
+              {{"roleame-webapp.menu.games" | translate}}
             </button>
+            <button mat-button class="nav-button" routerLink="/characters" routerLinkActive="active">
+              <mat-icon>assignment_ind</mat-icon>
+              {{"roleame-webapp.menu.characters" | translate}}
+
+            </button>
+           
           </span>
 
           <button mat-button mat-stroked-button color="accent" *ngIf="!(isAuthenticated$ | async )" routerLink='/auth'>
             {{ 'roleame-webapp.menu.login' | translate }}
           </button>
+
+
+          <mat-divider vertical *ngIf="(isAuthenticated$ | async)"></mat-divider>
 
           <button *ngIf="(isAuthenticated$ | async)"
                   mat-icon-button

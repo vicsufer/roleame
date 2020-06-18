@@ -41,6 +41,7 @@
   "roleame-webapp.menu.logout": "Logout",
   "roleame-webapp.menu.settings": "Settings",
   "roleame-webapp.menu.profile": "Profile",
+  "roleame-webapp.menu.access":"Start",
 
   "roleame-webapp.home.play-anywhere": "Play anywhere!",
   "roleame-webapp.home.play-anywhere.text": "Immerse yourself in incredible adventures from wherever you are",
@@ -106,6 +107,9 @@
   "roleame-webapp.label.dices":"Dices",
   "roleame-webapp.label.sides":"Sides",
   "roleame-webapp.label.message":"Message",
+  "roleame-webapp.label.exit": "Quit",
+  "roleame-webapp.label.delete": "Remove",
+  "roleame-webapp.label.play": "Play",
 
   "roleame-webapp.games.my_games":"My games",
   "roleame-webapp.games.new_game":"New game",
@@ -119,6 +123,7 @@
   "roleame-webapp.games.invited_you":"has invited you to",
   "roleame-webapp.games.addInviedMember": "Invite user",
   "roleame-webapp.games.pending_invite": "Pending invite",
+
 
   "roleame-webapp.characters.my_characters":"My characters",
   "roleame-webapp.characters.new_character":"New character",
