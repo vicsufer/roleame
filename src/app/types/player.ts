@@ -4,5 +4,6 @@ export class Player {
     gameOwnerID?: string;
     playerID: string;
     pendingInvite: boolean;
+    owner?: string;
 }
 
