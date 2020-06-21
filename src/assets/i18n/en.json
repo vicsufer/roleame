@@ -110,6 +110,10 @@
   "roleame-webapp.label.exit": "Quit",
   "roleame-webapp.label.delete": "Remove",
   "roleame-webapp.label.play": "Play",
+  "roleame-webapp.label.challenge":"Challenge",
+  "roleame-webapp.label.attack":"Attack",
+  "roleame-webapp.label.heal":"Heal",
+  "roleame-webapp.label.attributeRoll":"Attribute",
 
   "roleame-webapp.games.my_games":"My games",
   "roleame-webapp.games.new_game":"New game",

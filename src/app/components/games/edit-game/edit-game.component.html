@@ -31,7 +31,7 @@
                     <div *ngFor="let player of updatedGame.players" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px" fxLayoutAlign="start"  @routeAnimations [ngClass]="routeAnimationsElements">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="40px" xFlex.gt-xs="calc(100% - 40px)" fxFlex.gt-sm="calc(20% - 40px)"> 
                             <span>{{player.playerID}}</span>
-                            <mat-chip-list color="accent" *ngIf="player.pendingInvite"><mat-chip>{{ 'roleame-webapp.games.pending_invite' | translate }}</mat-chip></mat-chip-list>
+                            <mat-chip-list *ngIf="player.pendingInvite"><mat-chip color="accent">{{ 'roleame-webapp.games.pending_invite' | translate }}</mat-chip></mat-chip-list>
                             <button mat-icon-button (click)="removePlayer(player.id, player.playerID)" fxLayout="column" fxLayoutAlign="center center"> <mat-icon color="warn">cancel</mat-icon></button>
                         </div> 
                     </div>

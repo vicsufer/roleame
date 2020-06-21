@@ -114,7 +114,8 @@ export class ActionsLogComponent implements OnInit {
       tabletopID: this.tabletop.id
     }
     this.apiService.CreateAction(action).then( (res) => {}).catch(err => console.error(err));
-    this.chatForm.reset();
+    this.chatForm.setValue({message:''})
+    this.chatForm.markAsPristine
   }
 
   processReceivedAction(action: Action): Action{

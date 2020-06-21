@@ -19,46 +19,52 @@
             
           </div>
 
-          <div *ngIf="action.actionType=='ATTRIBUTEROLL'" fxLayout="column">
-            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
-              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.player}}</span> {{'roleame-webapp.tabletop.rolled' | translate}} <span class="player-tag">{{ ('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}</span></span>
-            </div>
-            <div fxFlex="100%">
-              <span>{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF= <span class="roll-total">{{ action.processedPayload.total }}</span></span>
-            </div> 
-          </div>
 
-          <div *ngIf="action.actionType=='CHALLENGE'" fxLayout="column">
-            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
-              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.challenger.character}}</span> {{ 'roleame-webapp.tabletop.challenged' | translate}} {{action.processedPayload.challenged.character}} <span class="player-tag">[{{ ('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}]</span></span>
-            </div>
-            <div fxFlex="100%" fxLayout="column">
-              <span fxFlex="100%">{{action.processedPayload.challenger.character}}: {{action.processedPayload.challenger.rolled }} + {{action.processedPayload.challenger.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenger.total }}</span></span>
-              <span fxFlex="100%">{{action.processedPayload.challenged.character}}: {{action.processedPayload.challenged.rolled }} + {{action.processedPayload.challenged.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenged.total }}</span></span>
-            </div> 
-          </div>
+          <mat-card *ngIf="action.actionType=='ATTRIBUTEROLL'" fxLayout="column" class="action">
+            <mat-card-header>
+              <mat-card-title>{{ 'roleame-webapp.label.attributeRoll' | translate}} [{{('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}]</mat-card-title>
+              <mat-card-subtitle>{{action.player}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              {{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF= <span class="roll-total">{{ action.processedPayload.total }}</span>
+            </mat-card-content>
+          </mat-card>
 
-          <div *ngIf="action.actionType=='HEAL'" fxLayout="column">
-            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
-              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.healer}}</span> {{ 'roleame-webapp.tabletop.healed' | translate}} {{action.processedPayload.target.characterName}}</span>
-            </div>
-            <div fxFlex="100%" fxLayout="column">
-              <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF = <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.bonifier }}</span></span>
-              <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.recovered'| translate }} {{action.processedPayload.healPoints }} {{ 'roleame-webapp.tabletop.healPoints'| translate }}</span>
-            </div> 
-          </div>
+          <mat-card *ngIf="action.actionType=='CHALLENGE'" fxLayout="column" class="action">
+            <mat-card-header>
+              <mat-card-title>{{ 'roleame-webapp.label.challenge' | translate}} [{{('roleame-webapp.label.' + action.processedPayload.attribute) | translate}}]</mat-card-title>
+              <mat-card-subtitle>{{action.processedPayload.challenger.character}} VS {{action.processedPayload.challenged.character}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <span fxFlex="100%">{{action.processedPayload.challenger.rolled }} + {{action.processedPayload.challenger.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenger.total }}</span></span>
+              <span fxFlex="100%"> {{action.processedPayload.challenged.rolled }} + {{action.processedPayload.challenged.bonifier }} BF = <span class="roll-total">{{ action.processedPayload.challenged.total }}</span></span>
+            </mat-card-content>
+          </mat-card>
 
-          <div *ngIf="action.actionType=='ATTACK'" fxLayout="column">
-            <div fxFlex="100%" fxFlexLayout="row" fxLayoutAlign="start center">
-              <mat-icon >casino</mat-icon><span><span class="player-tag"> {{action.processedPayload.attacker}}</span> {{ 'roleame-webapp.tabletop.attacked' | translate}} {{action.processedPayload.target.characterName}}</span>
-            </div>
-            <div fxFlex="100%" fxLayout="column">
-              <span fxFlex="100%">{{action.processedPayload.rolled }} + {{action.processedPayload.attackBonifier }} BF - {{action.processedPayload.defenseBonifier }} BF= <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.attackBonifier - action.processedPayload.defenseBonifier}}</span></span>
-              <span fxFlex="100%">{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.received'| translate }} {{action.processedPayload.damagePoints }} {{ 'roleame-webapp.tabletop.damagePoints'| translate }}</span>
-            </div> 
-          </div>
+          <mat-card *ngIf="action.actionType=='HEAL'" fxLayout="column" class="action">
+            <mat-card-header>
+              <mat-card-title>{{ 'roleame-webapp.label.heal' | translate}}</mat-card-title>
+              <mat-card-subtitle>{{action.processedPayload.healer}} {{ 'roleame-webapp.tabletop.healed' | translate}} {{action.processedPayload.target.characterName}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <span>{{action.processedPayload.rolled }} + {{action.processedPayload.bonifier }} BF = <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.bonifier }}</span></span>
+              <br>
+              <span>{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.recovered'| translate }} {{action.processedPayload.healPoints }} {{ 'roleame-webapp.tabletop.healPoints'| translate }}</span>
+            </mat-card-content>
+          </mat-card>
 
-
+          <mat-card *ngIf="action.actionType=='ATTACK'" fxLayout="column" class="action">
+            <mat-card-header>
+              <mat-card-title>{{ 'roleame-webapp.label.attack' | translate}}</mat-card-title>
+              <mat-card-subtitle>{{action.processedPayload.attacker}} {{ 'roleame-webapp.tabletop.attacked' | translate}} {{action.processedPayload.target.characterName}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <span>{{action.processedPayload.rolled }} + {{action.processedPayload.attackBonifier }} BF - {{action.processedPayload.defenseBonifier }} BF= <span class="roll-total">{{action.processedPayload.rolled + action.processedPayload.attackBonifier - action.processedPayload.defenseBonifier}}</span></span>
+              <br>
+              <span>{{action.processedPayload.target.characterName }} {{ 'roleame-webapp.tabletop.received'| translate }} {{action.processedPayload.damagePoints }} {{ 'roleame-webapp.tabletop.damagePoints'| translate }}</span>
+            </mat-card-content>
+          </mat-card>
+          
         </div>
       </perfect-scrollbar>
     </div>
