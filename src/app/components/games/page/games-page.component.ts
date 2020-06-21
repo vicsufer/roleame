@@ -120,6 +120,8 @@ export class GamesPageComponent implements OnInit {
 
   invitePlayer(username: string, game: string, gameOwner: string){
     this.apiService.CreatePlayer({gameOwnerID: gameOwner, playerID: username, gameID: game, pendingInvite: true})
+    .then( (res) => {})
+    .catch( (e=>{console.error(e)}));
   }
 
   createGame( data: {game: Game, members: string[]}){
@@ -167,10 +169,12 @@ export class GamesPageComponent implements OnInit {
 
     this.apiService.UpdateGame(data.game).then( (updatedGame) => {
       var gameToUpdate: Game | any = this.games.find( game => game.id == data.game.id )
-      gameToUpdate = updatedGame
-      gameToUpdate.players = updatedGame.players.items
-      gameToUpdate.members = updatedGame.members
-      gameToUpdate.tabletop = updatedGame.tabletop
+      gameToUpdate = updatedGame;
+      gameToUpdate.name = updatedGame.name;
+      gameToUpdate.description = gameToUpdate.description;
+      gameToUpdate.players = updatedGame.players.items;
+      gameToUpdate.members = updatedGame.members;
+      gameToUpdate.tabletop = updatedGame.tabletop;
       this.selectedEditableGame = undefined;
       this.selectedTabIndex = 0
     }).catch( e => {
