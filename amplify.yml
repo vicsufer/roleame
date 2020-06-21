@@ -1,10 +1,10 @@
 version: 0.1
 
-# backend:
-#   phases:
-#     build:
-#       commands:
-#         - amplifyPush --simple -e $env
+backend:
+  phases:
+    build:
+      commands:
+        - amplifyPush --simple -e $env
 frontend:
   phases:
     preBuild:
