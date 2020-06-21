@@ -25,8 +25,8 @@ exports.handler = async (event, _, callback) => {
     var payload = {
 		attacker: args.attacker,
 		rolled: roll.damageRoll,
-		attackBonifier: Math.floor((args.attackerStrength-10)/2),
-		defenseBonifier: Math.max(0,Math.floor((args.targetStrength-10)/2)),
+		attackBonifier: Math.max(0, Math.floor((args.attackerStrength-10)/2)),
+		defenseBonifier: Math.max(0, Math.floor((args.targetStrength-10)/2)),
 		target: {
 			characterID: args.targetID,
 			characterName: args.targetName
@@ -71,7 +71,7 @@ exports.handler = async (event, _, callback) => {
 
 function computeDamage(attackerStrength, targetStrength) {
 	damageRoll = simpleRoll()
-	damagePoints =  damageRoll + Math.floor((attackerStrength-10)/2) - Math.max(0, Math.floor((targetStrength-10)/2))
+	damagePoints =  damageRoll + Math.max(0, Math.floor((attackerStrength-10)/2)) - Math.max(0, Math.floor((targetStrength-10)/2))
 	return { damageRoll, damagePoints } 
 }
 
