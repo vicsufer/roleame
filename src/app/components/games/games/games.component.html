@@ -14,9 +14,9 @@
             <mat-card-actions class="mt-4">
                 <mat-divider></mat-divider>
                 <button mat-button (click)="startGame(game)"><mat-icon color="primary">play_arrow</mat-icon>{{ 'roleame-webapp.label.play' | translate }}</button>
-                <button *ngIf="game.owner !== currentUser" mat-button (click)="leaveGame(game)"><mat-icon color="primary">exit_to_app</mat-icon>{{ 'roleame-webapp.label.exit' | translate }}</button>
+                <button *ngIf="game.owner !== currentUser" mat-button (click)="leaveGame(game)"><mat-icon color="warn">exit_to_app</mat-icon>{{ 'roleame-webapp.label.exit' | translate }}</button>
                 <button *ngIf="game.owner === currentUser" mat-button (click)="editGame(game)"><mat-icon color="primary">edit</mat-icon>{{ 'roleame-webapp.label.edit' | translate }}</button>
-                <button *ngIf="game.owner === currentUser" mat-button (click)="deleteGame(game)"><mat-icon color="primary">delete</mat-icon>{{ 'roleame-webapp.label.delete' | translate }}</button>
+                <button *ngIf="game.owner === currentUser" mat-button (click)="deleteGame(game)"><mat-icon color="warn">delete</mat-icon>{{ 'roleame-webapp.label.delete' | translate }}</button>
             </mat-card-actions>
         </mat-card>
     </ng-container>

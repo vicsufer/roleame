@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-::ng-deep .default-theme .mat-step-header .mat-step-icon {
+::ng-deep .default-theme .mat-step-header .mat-step-icon:not(.mat-step-icon-selected){
   background-color: white; 
   color: black;
 }

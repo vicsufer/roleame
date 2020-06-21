@@ -68,7 +68,7 @@
           <textarea #message formControlName="message" matInput></textarea>
           <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
       </mat-form-field>
-      <button fxFlex="20%" type="submit" mat-stroked-button (click)="sendMessage()" mat-button>{{'roleame-webapp.tabletop.send' | translate}}</button>
+      <button fxFlex="20%" type="submit" mat-raised-button color="primary" (click)="sendMessage()" mat-button>{{'roleame-webapp.tabletop.send' | translate}}</button>
     </form>
   </mat-card-content>
 </mat-card>

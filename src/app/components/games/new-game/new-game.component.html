@@ -31,15 +31,15 @@
                                 {{ 'roleame-webapp.label.errors.user_dont_exist' | translate }}
                             </mat-error>
                         </mat-form-field>
-                        <button mat-icon-button (click)="removeinvitedMember(i)" fxLayout="column" fxLayoutAlign="center center"> <mat-icon color="warn">cancel</mat-icon></button>
+                        <button mat-icon-button color="primary" (click)="removeinvitedMember(i)" fxLayout="column" fxLayoutAlign="center center"> <mat-icon color="warn">cancel</mat-icon></button>
                     </div>
                 </div>
             </form>
-            <button mat-raised-button (click)="addinvitedMember()" text-align="left"  mat-button>{{'roleame-webapp.games.addInviedMember' | translate }}</button>
+            <button mat-raised-button (click)="addinvitedMember()" color="primary" text-align="left"  mat-button>{{'roleame-webapp.games.addInviedMember' | translate }}</button>
         </mat-step>
 
         <mat-step label="{{'roleame-webapp.games.new.finish' | translate}}">
-            <button type="submit" mat-raised-button (click)="createGame()" mat-button>{{'roleame-webapp.games.new.create' | translate}}</button>
+            <button type="submit" mat-raised-button color="primary" (click)="createGame()" mat-button>{{'roleame-webapp.games.new.create' | translate}}</button>
         </mat-step>
 
     </mat-vertical-stepper>

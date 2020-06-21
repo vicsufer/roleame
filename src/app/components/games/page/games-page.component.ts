@@ -68,13 +68,6 @@ export class GamesPageComponent implements OnInit {
     this.apiService.ListGamesData({owner: {eq:this.currentUsername}}).then( (games) => {
       games.items.forEach( (game) => {
         var g: Game;
-        var players = game.players.items.map( player => {
-          var p: Player
-          Object.assign(p, player)
-          delete p.owner
-          return p;
-        });
-
         g = {
           id: game.id,
           uuid: game.uuid,
@@ -82,7 +75,7 @@ export class GamesPageComponent implements OnInit {
           name: game.name,
           description: game.description,
           members: game.members,
-          players: players,
+          players: game.players.items,
           tabletop: game.tabletop
         }
         this.games.push(g);
