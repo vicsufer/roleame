@@ -1,3 +1,4 @@
+import { Token } from './../../../types/token';
 import { DiceRoller } from './../../../types/diceroller';
 import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { PlayerCharacter } from 'app/types/playerCharacter';
@@ -44,7 +45,7 @@ export class TabletopToolbarComponent implements OnInit {
   currentUsername: string;
 
   @Input()
-  firstEmptyTile: number;
+  tiles: Token[] = [];
 
   diceRollForm: FormGroup;
   newTabletopCharacterForm: FormGroup;
@@ -78,6 +79,14 @@ export class TabletopToolbarComponent implements OnInit {
 
   }
 
+  findFirstEmptyTile(): number{
+    for(var i; i<this.tiles.length; i++){
+      this.tiles[i].character == undefined;
+      return i
+    }
+    return 0;
+  }
+
   isOwner() {
     if(!this.tabletop) return false;
     return this.currentUsername == this.tabletop.gameOwnerID;
@@ -108,7 +117,7 @@ export class TabletopToolbarComponent implements OnInit {
         playerID: this.currentUsername,
         characterID: selectedCharacter.id,
         currentHealth: selectedCharacter.hitPoints,
-        location: this.getCoordinates(this.firstEmptyTile)
+        location: this.getCoordinates(this.findFirstEmptyTile())
       }
       this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
       }).catch( (e)=> { console.error(e)} )
@@ -124,7 +133,7 @@ export class TabletopToolbarComponent implements OnInit {
       playerID: this.currentUsername,
       characterID: character.id,
       currentHealth: character.hitPoints,
-      location: this.getCoordinates(this.firstEmptyTile)
+      location: this.getCoordinates(this.findFirstEmptyTile())
     }
     this.apiService.CreateTabletopCharacter(newCharacter).then( res => {
     }).catch( (e)=> { console.error(e)} )
@@ -145,7 +154,6 @@ export class TabletopToolbarComponent implements OnInit {
     var result = DiceRoller.composedRoll(sides, dices)
     this.notifyRoll(result.total, result.rolls)
   }
-
 
   notifyRoll(total: number, rolls: number[]) {
     var action : Action;

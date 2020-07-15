@@ -22,6 +22,9 @@ import { ConfirmCodeDialog, SignupComponent } from './signup/signup.component';
     AuthRoutingModule,
     AmplifyAngularModule
   ],
+  exports: [
+    AuthComponent
+  ],
   providers: [AmplifyService],
   entryComponents: [ConfirmCodeDialog]
 })

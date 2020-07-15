@@ -61,7 +61,7 @@
   white-space: nowrap;
 }
 
-.tile .token.selected-token{
+.tile .token.player-character.selected-token, .tile .token.master-character.selected-token{
   background-color: rgb(255, 197, 34)
 }
 

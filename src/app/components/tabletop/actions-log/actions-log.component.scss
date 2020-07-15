@@ -28,5 +28,12 @@ span.player-tag {
 }
 
 .roll-total {
-    border: 1px solid rgba(0, 0, 0, 0.418)
+    border: 1px solid rgba(0, 0, 0, 0.418);
+    font-weight: bold;
+    color: black;
+}
+
+.action {
+    margin: 10px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.418);
 }

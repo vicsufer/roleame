@@ -18,8 +18,6 @@ describe('AuthGuardService', () => {
     user: 'John Doe'
   };
 
-  
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [

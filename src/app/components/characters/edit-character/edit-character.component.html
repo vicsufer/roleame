@@ -119,13 +119,13 @@
                             <button mat-icon-button (click)="removeAbility(i)"  fxLayout="column" xFlex.gt-xs="calc(5% - 40px)" fxFlex.gt-sm="calc(10% - 40px)"> <mat-icon>delete</mat-icon></button>
                         </div>
                     </div> 
-                    <button mat-raised-button (click)="addAbility()" text-align="left"  mat-button>{{'roleame-webapp.characters.new.addAbility' | translate }}</button>
+                    <button mat-raised-button (click)="addAbility()" color="primary" text-align="left"  mat-button>{{'roleame-webapp.characters.new.addAbility' | translate }}</button>
                 </mat-card-content>
             </mat-card>
         </div>
 
         <div class="mt-4" fxLayout="row" fxLayout.xs="column" fxLayoutGap="40px">
-            <button type="submit" xFlex="100%" mat-raised-button (click)="editCharacter()" mat-button>{{'roleame-webapp.characters.edit.apply' | translate }}</button>
+            <button type="submit" xFlex="100%" color="primary" mat-raised-button (click)="editCharacter()" mat-button>{{'roleame-webapp.characters.edit.apply' | translate }}</button>
         </div>
     </form>
 </div>

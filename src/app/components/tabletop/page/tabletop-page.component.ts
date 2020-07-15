@@ -1,3 +1,5 @@
+import { LocationInput } from './../../../core/services/API.service';
+import { Character } from 'app/types/character';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +29,6 @@ export class TabletopPageComponent implements OnInit {
   currentUsername: string;
   currentCharacter: TabletopCharacter;
 
-  firstEmptyTile: number;
   firstSelectedTile: {position: number , token: Token} = undefined;
   secondSelectedTile: {position: number , token: Token} | any = undefined;
 
@@ -39,7 +40,9 @@ export class TabletopPageComponent implements OnInit {
     private amplifyService: AmplifyService,
     private route: ActivatedRoute,
     private interactionDialog: MatDialog) {
+    }
 
+  ngOnInit(){
       this.amplifyService.auth().currentAuthenticatedUser().then(user => {
         this.currentUsername = user.username
         }).catch(err => console.error(err));
@@ -72,13 +75,14 @@ export class TabletopPageComponent implements OnInit {
           next: (newCharacter) => {
             newCharacter = newCharacter.value.data.onCreateTabletopCharacter
             if( newCharacter.tabletopID !== this.tabletop.id ) return;
-      
+            // Avoid refirings
+            if (this.tabletop.characters.find( char => char.id == newCharacter.id)) return;
+
             if(!this.currentCharacter && this.currentUsername == newCharacter.playerID){
               this.currentCharacter = newCharacter;
             }
-            var pos = this.getPosition(newCharacter.location.x, newCharacter.location.y)
-            this.tiles[pos] = {character: newCharacter, isSelected: false,  isMaster: this.isCharacterFromMaster(newCharacter)}
-            this.updateFirstEmptyTile()
+            this.tabletop.characters.push(newCharacter)
+            this.placeCharacter(newCharacter);     
           },
           error: error => console.error(error)
         });
@@ -90,13 +94,13 @@ export class TabletopPageComponent implements OnInit {
             if( updatedCharacter.tabletopID !== this.tabletop.id ) return
             
             var characterToUpdate = this.tabletop.characters.find( char => char.id == updatedCharacter.id)
+            if( characterToUpdate.location != updatedCharacter.location ){
+              var oldPosition = characterToUpdate.location;
+              characterToUpdate.location = updatedCharacter.location
+              this.moveCharacter(characterToUpdate, oldPosition.x, oldPosition.y)
+            }
             if( characterToUpdate.character !== updatedCharacter.character ){
               characterToUpdate.character = updatedCharacter.character
-            }
-            if( characterToUpdate.location !== updatedCharacter.location ){
-              characterToUpdate.location = updatedCharacter.location
-              this.moveCharacter(characterToUpdate, characterToUpdate.location.x, characterToUpdate.location.y)
-              this.updateFirstEmptyTile()
             }
           },
           error: error => console.error(error)
@@ -107,14 +111,13 @@ export class TabletopPageComponent implements OnInit {
           next: (deletedCharacter) => {
             deletedCharacter = deletedCharacter.value.data.onDeleteTabletopCharacter
             if( deletedCharacter.tabletopID !== this.tabletop.id ) return;
-            
             if( deletedCharacter.playerID == this.currentUsername ){
               this.currentCharacter = undefined;
             }
             var oldPosition = this.getPosition(deletedCharacter.location.x, deletedCharacter.location.y)
-            this.tiles[oldPosition] = undefined
+            this.tiles[oldPosition] = {character: undefined, isSelected: false, isMaster: false}
+
             this.tabletop.characters = this.tabletop.characters.filter( char => char.id != deletedCharacter.id )
-            this.updateFirstEmptyTile();
           },
           error: error => console.error(error)
         });
@@ -124,21 +127,16 @@ export class TabletopPageComponent implements OnInit {
           var aux: Tabletop | any = tabletopRetrieved;
           aux.characters = aux.characters.items
           this.tabletop = aux
-          this.renderBoard()
-          this.updateFirstEmptyTile()
           //If this character belong to current user, set selector.
           var characterForCurrentPlayer = this.tabletop.characters.find( character => character.playerID === this.currentUsername )
           if(characterForCurrentPlayer){
             this.currentCharacter = characterForCurrentPlayer
           }
+          this.renderBoard()
           this.isLoading = false;
         }).catch(e=>console.error(e))
 
       })
-  }
-
-  ngOnInit() {
-
   }
 
   isOwner() {
@@ -147,28 +145,27 @@ export class TabletopPageComponent implements OnInit {
   }
 
   renderBoard(){
-    this.tiles = Array( (this.tabletop.height * this.tabletop.width) )
+    this.tiles = Array( (this.tabletop.height * this.tabletop.width) ).fill({character: undefined, isSelected: false, isMaster: false})
     this.tabletop.characters.forEach( character => {
-      this.moveCharacter(character, character.location.x, character.location.y)
-      character.character.name
+      this.placeCharacter(character)
     })
   }
 
 
   moveCharacter(character: TabletopCharacter, x: number, y: number){
     // Empty old tile
-    for (var i = 0; i < this.tiles.length; i++) {
-      if(this.tiles[i]){
-        if(this.tiles[i].character.id == character.id){
-         this.tiles[i] = undefined
-         break;
-        }
-      }
-    }
+    var oldPos = this.getPosition(x, y);
+    this.tiles[oldPos] = {character: undefined, isSelected: false, isMaster: false}
+
+    this.placeCharacter(character)
+  }
+
+  placeCharacter(character: TabletopCharacter){
     // Transform to one-dimension
-    var pos = this.getPosition(x, y)
+    var pos = this.getPosition(character.location.x, character.location.y)
     // Set new position
     this.tiles[pos] = {character: character, isSelected: false, isMaster: this.isCharacterFromMaster(character)}
+
   }
 
   getPosition(x: number, y: number): number{
@@ -176,7 +173,7 @@ export class TabletopPageComponent implements OnInit {
   }
 
   isCharacterFromMaster(character: TabletopCharacter){
-    return character.playerID == this.currentUsername? true: false
+    return character.playerID == this.tabletop.gameOwnerID? true: false
   }
 
 
@@ -189,14 +186,14 @@ export class TabletopPageComponent implements OnInit {
   }
 
   selectTile(data: {position: number , token: Token}) {
-    if(!this.firstSelectedTile && data.token){
+    if(!this.firstSelectedTile && data.token.character){
       //Do not allow character owner or game owner to use a character.
       if( data.token.character.playerID != this.currentUsername && this.tabletop.gameOwnerID != this.currentUsername ) {
         return;
       }
       this.firstSelectedTile = data
       this.firstSelectedTile.token.isSelected = true
-    } else if (this.firstSelectedTile && !data.token){
+    } else if (this.firstSelectedTile && !data.token.character){
       // Movement action
       var token = this.firstSelectedTile.token
       var newCoordinates = this.getCoordinates(data.position)
@@ -204,17 +201,13 @@ export class TabletopPageComponent implements OnInit {
       this.firstSelectedTile.token.isSelected = false
       this.firstSelectedTile = undefined
     }
-    else if (this.firstSelectedTile && data.token) {
+    else if (this.firstSelectedTile && data.token.character) {
       this.secondSelectedTile = data
       this.firstSelectedTile.token.isSelected = false
       this.showInteractionDialog(this.firstSelectedTile.token.character, data.token.character)
       this.firstSelectedTile = undefined
       this.secondSelectedTile = undefined
     } 
-  }
-
-  updateFirstEmptyTile(){
-    this.firstEmptyTile = this.tiles.findIndex(Object.is.bind(null, undefined))
   }
 
   showInteractionDialog(firstCharacter: TabletopCharacter, secondCharacter: TabletopCharacter,  ): void {

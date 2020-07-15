@@ -146,6 +146,7 @@ type User @model
 }
 
 
+
 # CUSTOM SUBSCRIPTIONS WITH IDS
 
 # type Subscription {

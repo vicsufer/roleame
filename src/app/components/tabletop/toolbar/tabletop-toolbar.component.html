@@ -22,7 +22,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button class="ml-4" type="submit" mat-raised-button (click)="addCharacter()" mat-button>{{'roleame-webapp.tabletop.addCharacter' | translate}}</button>
+        <button class="ml-4" type="submit" mat-raised-button color="primary" (click)="addCharacter()" mat-button>{{'roleame-webapp.tabletop.addCharacter' | translate}}</button>
       </form>
     </div>
 
@@ -39,7 +39,7 @@
             <mat-label>{{ 'roleame-webapp.label.sides' | translate}}</mat-label>
             <input min="2" max="20" formControlName="sides" matInput type="number">
         </mat-form-field>
-        <button class="ml-4" type="submit" mat-raised-button (click)="rollDice()" mat-button>{{'roleame-webapp.tabletop.roll_dice' | translate}}</button>
+        <button class="ml-4" type="submit" mat-raised-button color="primary" (click)="rollDice()" mat-button>{{'roleame-webapp.tabletop.roll_dice' | translate}}</button>
       </form>
     </div>
   </div>

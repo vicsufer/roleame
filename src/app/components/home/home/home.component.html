@@ -1,36 +1,41 @@
 <div class="background">
+
+
   <div class="gradient">
     <div class="container">
       <h1>{{ 'roleame-webapp.title.long' | translate }}</h1>
+
       <div class="actions">
-        <a [ngClass]="routeAnimationsElements" mat-raised-button class="actions-main" routerLink="/games">
-          {{ 'roleame-webapp.menu.games' | translate }}
-        </a>
-        <a mat-raised-button class="actions-main" routerLink="/characters" [ngClass]="routeAnimationsElements">
-          {{ 'roleame-webapp.menu.characters' | translate }}
+        <a *ngIf="!currentUser"  mat-raised-button class="actions-main" routerLink="/auth" [ngClass]="routeAnimationsElements">
+          {{ 'roleame-webapp.menu.access' | translate }}
         </a>
         <br>
-        <img [src]="logo">
+        <img [src]="logo" alt="logo">
       </div>
-      <div class="get-started" [ngClass]="routeAnimationsElements">
+
+      <!-- <div class="get-started" [ngClass]="routeAnimationsElements">
         <h2>{{ 'roleame-webapp.home.play-anywhere' | translate }}</h2>
         <p>{{ 'roleame-webapp.home.play-anywhere.text' | translate }}</p>
         <code>//TODO add image of different devices with screenshots featuring the play area</code>
+      </div> -->
+    </div>
+
+
+    <div class="container">
+      <div class="features" [ngClass]="routeAnimationsElements">
+        <h2 rtl>{{ 'roleame-webapp.home.party-up' | translate }}</h2>
+        <p rtl>{{ 'roleame-webapp.home.party-up.text' | translate }}</p>
       </div>
     </div>
+    
+    <div class="container">
+      <div class="features" [ngClass]="routeAnimationsElements">
+        <h2 rtl>{{ 'roleame-webapp.home.create-character' | translate }}</h2>
+        <p rtl>{{ 'roleame-webapp.home.create-character.text' | translate }}</p>
+      </div>
+    </div>
+
   </div>
+
 </div>
 
-<div class="container">
-  <div class="features" [ngClass]="routeAnimationsElements">
-    <h2 rtl>{{ 'roleame-webapp.home.party-up' | translate }}</h2>
-    <p rtl>{{ 'roleame-webapp.home.party-up.text' | translate }}</p>
-  </div>
-</div>
-
-<div class="container">
-  <div class="features" [ngClass]="routeAnimationsElements">
-    <h2 rtl>{{ 'roleame-webapp.home.create-character' | translate }}</h2>
-    <p rtl>{{ 'roleame-webapp.home.create-character.text' | translate }}</p>
-  </div>
-</div>

@@ -31,13 +31,16 @@ export class GamesPageComponent implements OnInit {
     private apiService: APIService,
      private amplifyService: AmplifyService, 
      private router: Router) {
-    this.amplifyService.auth().currentAuthenticatedUser().then(user => {
-      this.currentUsername = user.username;
-    }).catch(err => console.error(err));
   }
 
   ngOnInit() {
-    //Retrieve games as player
+
+
+    
+    this.amplifyService.auth().currentAuthenticatedUser().then(user => {
+      this.currentUsername = user.username;
+
+      //Retrieve games as player
     this.apiService.GetUserGamesData(this.currentUsername).then( (user) => {
       var games = user.gamesAsPlayer.items.map( (gameMember) => gameMember.game )
       games.forEach( (game) => {
@@ -61,7 +64,6 @@ export class GamesPageComponent implements OnInit {
       console.error(err)
     })
 
-
     // Retrieve owned games
     this.apiService.ListGamesData({owner: {eq:this.currentUsername}}).then( (games) => {
       games.items.forEach( (game) => {
@@ -81,9 +83,9 @@ export class GamesPageComponent implements OnInit {
     }).catch( (err) => {
       console.error(err)
     })
+      
+    }).catch(err => console.error(err));
   }
-
-
 
   invitationAccepted(game: Game){
     return !game.players.find( gameMember => gameMember.playerID === this.currentUsername ).pendingInvite
@@ -118,6 +120,8 @@ export class GamesPageComponent implements OnInit {
 
   invitePlayer(username: string, game: string, gameOwner: string){
     this.apiService.CreatePlayer({gameOwnerID: gameOwner, playerID: username, gameID: game, pendingInvite: true})
+    .then( (res) => {})
+    .catch( (e=>{console.error(e)}));
   }
 
   createGame( data: {game: Game, members: string[]}){
@@ -161,13 +165,16 @@ export class GamesPageComponent implements OnInit {
       this.invitePlayer( player.playerID, data.game.id, data.game.owner)
     })
 
+    console.log(data.game)
+
     this.apiService.UpdateGame(data.game).then( (updatedGame) => {
       var gameToUpdate: Game | any = this.games.find( game => game.id == data.game.id )
-      
-      gameToUpdate = updatedGame
-      gameToUpdate.players = updatedGame.players.items
-      gameToUpdate.members = updatedGame.members
-      gameToUpdate.tabletop = updatedGame.tabletop
+      gameToUpdate = updatedGame;
+      gameToUpdate.name = updatedGame.name;
+      gameToUpdate.description = gameToUpdate.description;
+      gameToUpdate.players = updatedGame.players.items;
+      gameToUpdate.members = updatedGame.members;
+      gameToUpdate.tabletop = updatedGame.tabletop;
       this.selectedEditableGame = undefined;
       this.selectedTabIndex = 0
     }).catch( e => {

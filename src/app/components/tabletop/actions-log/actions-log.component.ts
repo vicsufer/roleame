@@ -91,6 +91,7 @@ export class ActionsLogComponent implements OnInit {
     });
 
     // Get last 100 actions for this tabletop
+    console.log(this.tabletop.id)
     this.apiService.ListActionsByTimestamp(this.tabletop.id, ModelSortDirection.ASC, undefined, 100).then( retrievedActions => {
       this.actions = retrievedActions.items.map( (action) => {
         var aux = this.processReceivedAction(action)
@@ -113,7 +114,8 @@ export class ActionsLogComponent implements OnInit {
       tabletopID: this.tabletop.id
     }
     this.apiService.CreateAction(action).then( (res) => {}).catch(err => console.error(err));
-    this.chatForm.reset();
+    this.chatForm.setValue({message:''})
+    this.chatForm.markAsPristine
   }
 
   processReceivedAction(action: Action): Action{
